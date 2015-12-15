@@ -33,7 +33,7 @@ class SqliteController extends ApiController {
             
             
         $this->response->type('class');
-        $this->response->file(SQLITE_DB_DIR.'RestaueantDb.sqlite',['download' => true]);
+        $this->response->file(SQLITE_DB_DIR.'RorderDb.sqlite',['download' => true]);
         $this->response->send();
       
         unlink(SQLITE_DB_DIR.'RestaueantDb.sqlite');

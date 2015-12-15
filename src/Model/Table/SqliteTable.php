@@ -24,7 +24,7 @@ class SqliteTable extends Table {
         $returnValue = false;
         $dbDir = new Folder(SQLITE_DB_DIR, true);
         \Cake\Log\Log::debug('folder created');
-        $this->sqliteFile = $dbDir->path. 'RestaueantDb.sqlite';
+        $this->sqliteFile = $dbDir->path. 'RorderDb.sqlite';
         $db = new \SQLite3($this->sqliteFile);
         if ($db != NULL) {
             $fileContents = file_get_contents(__DIR__ .DS.'CreateTableScripts.sql');
