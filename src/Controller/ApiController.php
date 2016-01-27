@@ -5,7 +5,7 @@ namespace App\Controller;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+use App\Model\Table;
 /**
  * Description of ApiController
  *

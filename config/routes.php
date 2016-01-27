@@ -52,6 +52,8 @@ Router::scope('/', function ($routes) {
 Router::scope('/api/v1', function ($routes) {
     
     $routes->connect('/downloadDb', ['controller' => 'DownloadDb', 'action' => 'index']); 
+     $routes->connect('/getRestaurant', ['controller' => 'Restaurant', 'action' => 'index']);
+     $routes->connect('/getUsers', ['controller' => 'User', 'action' => 'getusers']);
 });
 /**
  * Load all plugin routes.  See the Plugin documentation on

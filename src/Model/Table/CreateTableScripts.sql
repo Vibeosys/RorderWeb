@@ -28,9 +28,12 @@ CREATE TABLE [menu_category](
   'UpdatedDate' DATETIME);
   
   CREATE TABLE [r_tables] (
-  'TableNo' INTEGER NOT NULL PRIMARY KEY,
+
+  'TableId' INTEGER NOT NULL PRIMARY KEY,
+  'TableNo' INTEGER,
   'TableCategoryId' INTEGER,
   'Capacity' INTEGER,
+  'IsOccupied' BOOLEAN,
   'CreatedDate' DATETIME,
   'UpdatedDate' DATETIME);
   
@@ -43,7 +46,7 @@ CREATE TABLE [menu_category](
   'CreatedDate' DATETIME,
   'UpdatedDate' DATETIME,
   'TableNo' INTEGER,
-  'UserId' INTEGER,
+  'UserId' TEXT,
   'OrderAmount' DOUBLE);
   
   CREATE TABLE [order_details] (
@@ -69,7 +72,7 @@ CREATE TABLE [menu_category](
   'TotalPayAmount' DOUBLE,
   'CreatedDate' DATETIME,
   'UpdatedDate' DATETIME,
-  'UserId' INTEGER);
+  'UserId' TEXT);
   
   CREATE TABLE [bill_details] (
   'AutoId' INTEGER NOT NULL PRIMARY KEY,
@@ -79,14 +82,22 @@ CREATE TABLE [menu_category](
   'UpdatedDate' DATETIME);
   
   CREATE TABLE [users] (
-  'UserId' INTEGER NOT NULL PRIMARY KEY,
+  'UserId' TEXT NOT NULL PRIMARY KEY,
   'UserName' TEXT,
   'Password' TEXT,
   'Active' BOOLEAN,
   'CreatedDate' DATETIME,
-  'UpadtedDate' DATETIME,
+  'UpdatedDate' DATETIME,
   'RoleId' INTEGER,
   'RestaurantId' INTEGER);
+
+ CREATE TABLE [my_users] (
+  'MyUserId' TEXT NOT NULL PRIMARY KEY,
+  'MyUserName' TEXT,
+  'Password' TEXT,
+  'Active' BOOLEAN,
+  'MyRoleId' INTEGER,
+  'MyRestaurantId' INTEGER);
 
 
 

@@ -20,7 +20,7 @@ class SqliteTable extends Table {
 
     private $sqliteFile;
 
-    public function Create() {
+    public function create() {
         $returnValue = false;
         $dbDir = new Folder(SQLITE_DB_DIR, true);
         \Cake\Log\Log::debug('folder created');
@@ -34,15 +34,15 @@ class SqliteTable extends Table {
         }
         return $returnValue;
     }
-/*
+
     public function excutePreparedStatement($Text) {
         $db = new \SQLite3($this->sqliteFile);
         if ($Text) {
             $success = $db->exec($Text);
             $db->close();
-            return SUCCESS;
+            return $success;
         }
         return NOT_FOUND;
     }
-*/
+
 }
