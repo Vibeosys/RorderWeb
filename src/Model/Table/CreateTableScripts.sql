@@ -24,7 +24,7 @@ CREATE TABLE [menu_category](
   'TableCategoryId' INTEGER NOT NULL PRIMARY KEY,
   'CategoryTitle' TEXT,
   'Image' TEXT,
-  'CrearedDate' DATETIME,
+  'CreatedDate' DATETIME,
   'UpdatedDate' DATETIME);
   
   CREATE TABLE [r_tables] (

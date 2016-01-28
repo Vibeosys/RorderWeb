@@ -14,7 +14,7 @@ use App\DTO;
  * @author niteen
  */
 define('USER_INS_QRY', "INSERT INTO users (UserId,UserName,Password,Active,CreatedDate,"
-        . "UpdatedDate,RoleId,RestaurantId) VALUES (\"@UserId\",\"@UserName\",\"@Password\","
+        . "UpdatedDate,RoleId,RestaurantId) VALUES (@UserId,\"@UserName\",\"@Password\","
         . "@Active,\"@CreatedDate\",\"@UpdatedDate\",@RoleId,@RestaurantId);");
 class UserController extends ApiController{
     
@@ -30,7 +30,7 @@ class UserController extends ApiController{
      public function prepareInsertStatement($restaurantId) {
         $allUsers = $this->getUsers($restaurantId);
         if (!$allUsers) {
-            return NOT_FOUND;
+            return false;
         }
         $preparedStatements = '';
 

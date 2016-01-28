@@ -24,10 +24,10 @@ class RTablesController extends ApiController {
         return false;
     }
     
-     public function prepareInsertStatements($restaurantId) {
+     public function prepareInsertStatements() {
         $allRtables = $this->getRtables();
         if (!$allRtables) {
-            return NOT_FOUND;
+            return false;
         }
         $preparedStatements = '';
 

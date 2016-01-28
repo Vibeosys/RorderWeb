@@ -30,8 +30,8 @@ class RTablesTable extends Table{
         $i = 0;
         foreach ($rTables as $rTable){
             
-            $rTablesDto = new DownloadDTO\RTableDownloadDto($rTable->tableId, $rTable->tableNo, 
-                    $rTable->tableCategoryId, $rTable->capacity, $rTable->isOccupied, $rTable->createdDate, $rTable->updatedDate);
+            $rTablesDto = new DownloadDTO\RTableDownloadDto($rTable->TableId, $rTable->TableNo, 
+                    $rTable->TableCategoryId, $rTable->Capacity, $rTable->IsOccupied, $rTable->CreatedDate, $rTable->UpdatedDate);
             
             $allRTables[$i] = $rTablesDto;
             $i++;

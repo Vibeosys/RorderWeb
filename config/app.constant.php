@@ -6,4 +6,4 @@
  * and open the template in the editor.
  */
 
-define('NOT_FOUND', false);
+define('false', false);

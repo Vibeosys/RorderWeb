@@ -46,24 +46,55 @@ class SqliteController extends ApiController {
             $rTablesPreparedStatement = $rTablesController->prepareInsertStatements();
             //Log::info($userPreparedStatement);
             if($tableObject->excutePreparedStatement($rTablesPreparedStatement)){
-                Log::debug('Record is inserted into User SQLite table for restaurantId ' . $restaurantId);
+                Log::debug('Record is inserted into Rtable SQLite table for restaurantId ' . $restaurantId);
             } else {
-                Log::error('Record is not inserted into User SQLite table');
+                Log::error('Record is not inserted into Rtable SQLite table');
             }
             
             
             //menu category table enrty in sqlite database
             
-              $menuCategoryController = new MenuCategoryController();
+            $menuCategoryController = new MenuCategoryController();
             $menuCategoryPreparedStatement = $menuCategoryController->prepareInsertStatements();
             //Log::info($userPreparedStatement);
             if($tableObject->excutePreparedStatement($menuCategoryPreparedStatement)){
-                Log::debug('Record is inserted into User SQLite table for restaurantId ' . $restaurantId);
+                Log::debug('Record is inserted into Menu category SQLite table for restaurantId ' . $restaurantId);
             } else {
-                Log::error('Record is not inserted into User SQLite table');
+                Log::error('Record is not inserted into Menu category SQLite table');
             }
-       
             
+             //table category table enrty in sqlite database
+       
+            $tableCategoryController = new TableCategoryController();
+            $tableCategoryPreparedStatement = $tableCategoryController->prepareInsertStatements();
+            //Log::info($userPreparedStatement);
+            if($tableObject->excutePreparedStatement($tableCategoryPreparedStatement)){
+                Log::debug('Record is inserted into Table category SQLite table for restaurantId ' . $restaurantId);
+            } else {
+                Log::error('Record is not inserted into Table category SQLite table');
+            }
+            
+             //menuTags table enrty in sqlite database
+       
+            $menuTagController = new MenuTagController();
+            $menuTagPreparedStatement = $menuTagController->prepareInsertStatements();
+            //Log::info($userPreparedStatement);
+            if($tableObject->excutePreparedStatement($menuTagPreparedStatement)){
+                Log::debug('Record is inserted into Menu Tags SQLite table for restaurantId ' . $restaurantId);
+            } else {
+                Log::error('Record is not inserted into Menu Tags SQLite table');
+            }
+            
+            //Menu table enrty in sqlite database
+       
+            $menuController = new MenuController();
+            $menuPreparedStatement = $menuController->prepareInsertStatements($restaurantId);
+            //Log::info($userPreparedStatement);
+            if($tableObject->excutePreparedStatement($menuPreparedStatement)){
+                Log::debug('Record is inserted into Menu SQLite table for restaurantId ' . $restaurantId);
+            } else {
+                Log::error('Record is not inserted into Menu SQLite table');
+            }
             
             
         $this->response->type('class');

@@ -42,7 +42,7 @@ class SqliteTable extends Table {
             $db->close();
             return $success;
         }
-        return NOT_FOUND;
+        return false;
     }
 
 }

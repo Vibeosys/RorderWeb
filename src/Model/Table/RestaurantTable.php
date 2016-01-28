@@ -24,7 +24,7 @@ class RestaurantTable extends Table{
     
     public function getData() {
         if (!$this->connect()->find()->count()) {
-            return NOT_FOUND;
+            return false;
         }
         $rows = $this->connect()->find();
          $restaurants[] = null;
@@ -40,7 +40,12 @@ class RestaurantTable extends Table{
         
     }
     public function check($id) {
-        return $this->connect()->find()->where(['RestaurantId =' => $id]);
+        $result = $this->connect()->find()->where(['RestaurantId =' => $id]);
+        if($result->count()){
+            \Cake\Log\Log::debug('restaurant checking result = '.$result);
+            return true;
+        }
+        return false;
     }
     
     

@@ -37,7 +37,7 @@ class UserTable extends Table{
                    $user->RoleId, $user->RestaurantId);
         
            $result[$i] = $userDto;
-           Log::info('updated date of user'.$userDto->updatedDate);
+           Log::info('updated date of user'.$userDto->active);
            $i++;
         }
         return $result;

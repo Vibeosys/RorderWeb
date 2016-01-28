@@ -13,7 +13,7 @@ use Cake\Log\Log;
  *
  * @author niteen
  */
-define('MC_INS_QRY', "INSERT INTO menu_categories (CategoryId,CategoryTitle,CategoryImage,Active,CreatedDate,"
+define('MC_INS_QRY', "INSERT INTO menu_category (CategoryId,CategoryTitle,CategoryImage,Active,CreatedDate,"
         . "UpdatedDate) VALUES (@CategoryId,\"@CategoryTitle\",\"@CategoryImage\",@Active,\"@CreatedDate\",\"@UpdatedDate\");");
 class MenuCategoryController extends ApiController{
     
@@ -33,12 +33,12 @@ class MenuCategoryController extends ApiController{
     public function prepareInsertStatements() {
         $allMenuCategories = $this->getMenuCategories();
         if (!$allMenuCategories) {
-            return NOT_FOUND;
+            return false;
         }
         $preparedStatements = '';
 
         foreach ($allMenuCategories as $menuCategory) {
-            $preparedStatements .= RT_INS_QRY;
+            $preparedStatements .= MC_INS_QRY;
             $preparedStatements = str_replace('@CategoryId', $menuCategory->categoryId, $preparedStatements);
             $preparedStatements = str_replace('@CategoryTitle', $menuCategory->categoryTitle, $preparedStatements);
             $preparedStatements = str_replace('@CategoryImage', $menuCategory->categoryImage, $preparedStatements);

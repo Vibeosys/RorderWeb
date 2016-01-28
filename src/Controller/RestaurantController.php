@@ -33,10 +33,13 @@ class RestaurantController extends ApiController{
         if($id){
             $result =  $this->getTableObj()->check($id);
             if($result){
+                Log::debug('Requested Restaurant is valid');
                 return true;
             }
-        }
+            
+        Log::debug('Requested Restaurant is invalid');
         return false;           
+        }
 
     }
 }
