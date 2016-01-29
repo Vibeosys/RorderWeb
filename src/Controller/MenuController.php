@@ -15,9 +15,9 @@ use Cake\Log\Log;
  */
 
 define('MENU_INS_QRY', "INSERT INTO menu (MenuId,MenuTitle,Image,Price,Ingredients,"
-        . "Tags,AvailabilityStatus,Active,FoodType,CreatedDate,UpdatedDate,CategoryId) "
+        . "Tags,AvailabilityStatus,Active,FoodType,IsSpicy,CreatedDate,UpdatedDate,CategoryId) "
         . "VALUES (@MenuId,\"@MenuTitle\",\"@Image\",@Price,\"@Ingredients\",\"@Tags\","
-        . "@AvailabilityStatus,@Active,@FoodType,\"@CreatedDate\",\"@UpdatedDate\",@CategoryId);");
+        . "@AvailabilityStatus,@Active,@FoodType,@IsSpicy,\"@CreatedDate\",\"@UpdatedDate\",@CategoryId);");
 class MenuController extends ApiController{
     
     private function getTableObj() {
@@ -51,6 +51,7 @@ class MenuController extends ApiController{
             $preparedStatements = str_replace('@AvailabilityStatus', $menu->availabilityStatus, $preparedStatements);
             $preparedStatements = str_replace('@Active', $menu->active, $preparedStatements);
             $preparedStatements = str_replace('@FoodType', $menu->foodType, $preparedStatements);
+            $preparedStatements = str_replace('@IsSpicy', $menu->isSpicy, $preparedStatements);
             $preparedStatements = str_replace('@CreatedDate', $menu->createdDate, $preparedStatements);
             $preparedStatements = str_replace('@UpdatedDate', $menu->updatedDate, $preparedStatements);
             $preparedStatements = str_replace('@CategoryId', $menu->categortId, $preparedStatements);

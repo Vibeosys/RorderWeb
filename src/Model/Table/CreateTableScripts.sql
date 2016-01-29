@@ -16,6 +16,7 @@ CREATE TABLE [menu_category](
   'AvailabilityStatus' BOOLEAN,
   'Active' BOOLEAN,
   'FoodType' BOOLEAN,
+  'IsSpicy' BOOLEAN,
   'CreatedDate' DATETIME,
   'UpdatedDate' DATETIME,
   'CategoryId' INTEGER);
@@ -99,6 +100,11 @@ CREATE TABLE [menu_category](
   'MyRoleId' INTEGER,
   'MyRestaurantId' INTEGER);
 
+  CREATE TABLE [Sync](
+ 'SyncAutoNo' INTEGER PRIMARY KEY AUTOINCREMENT,
+ 'UserId'     TEXT NOT NULL,
+ 'JsonSync'   TEXT NOT NULL,
+ 'TableName'  TEXT NOT NULL); 
 
 
 

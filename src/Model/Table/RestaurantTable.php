@@ -42,7 +42,7 @@ class RestaurantTable extends Table{
     public function check($id) {
         $result = $this->connect()->find()->where(['RestaurantId =' => $id]);
         if($result->count()){
-            \Cake\Log\Log::debug('restaurant checking result = '.$result);
+            \Cake\Log\Log::debug('restaurant checking result = '.$result->count());
             return true;
         }
         return false;

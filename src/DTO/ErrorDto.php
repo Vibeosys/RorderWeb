@@ -39,8 +39,9 @@ class ErrorDto {
     
     protected $errorDictionary = [
         100 => 'RestaurantId not found in a database',
-        101 => 'UserId is blank or device information is empty',
-        102 => 'Unknown error occured',
+        404 => 'Requested api endpoint not valid',
+        101 => 'Please Check UserId and RestaurantId',
+        102 => 'UserId not found in database or RestaurantId not valid',
         103 => 'Update not found',
         104 => 'Invalid request',
         105 => 'Invalid image extension',

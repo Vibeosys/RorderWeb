@@ -23,11 +23,12 @@ class MenuDownloadDto {
     public $availabilityStatus;
     public $active;
     public $foodType;
+    public $isSpicy;
     public $createdDate;
     public $updatedDate;
     public $categortId;
     
-    public function __construct($menuId, $menuTitle, $image, $price, $ingredients, $tags, $availabilityStatus, $active, $foodType, $createdDate, $updatedDate, $categoryId) {
+    public function __construct($menuId, $menuTitle, $image, $price, $ingredients, $tags, $availabilityStatus, $active, $foodType,$isSpicy, $createdDate, $updatedDate, $categoryId) {
      
         $this->menuId = $menuId;
         $this->menuTitle = $menuTitle;
@@ -38,6 +39,7 @@ class MenuDownloadDto {
         $this->availabilityStatus = $availabilityStatus;
         $this->active = $active;
         $this->foodType = $foodType;
+        $this->isSpicy = $isSpicy;
         $this->createdDate = $createdDate;
         $this->updatedDate = $updatedDate;
         $this->categortId = $categoryId;

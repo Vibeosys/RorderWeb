@@ -29,6 +29,7 @@
     </header>
     <div id="content">
         <h4>This is Default Home Page for Website.</h4>
+<p>Website under construction......</p>
     </div>
 
     <footer>

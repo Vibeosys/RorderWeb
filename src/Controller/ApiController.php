@@ -6,6 +6,7 @@ namespace App\Controller;
  * and open the template in the editor.
  */
 use App\Model\Table;
+use App\DTO;
 /**
  * Description of ApiController
  *
@@ -17,5 +18,11 @@ class ApiController extends AppController{
         parent::initialize();
         $this->response->type('json');
        
+    }
+    public function error() {
+        $this->autoRender = false;
+        $url = $this->request->url;
+        \Cake\Log\Log::error('User hit with unknown api Endpoint : '.$url);
+        $this->response->body(DTO\ErrorDto::prepareError(404));
     }
 }

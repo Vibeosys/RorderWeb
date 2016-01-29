@@ -30,13 +30,13 @@ class MenuTable  extends Table{
         $allMenus[] = null;
         $i = 0;
         foreach ($menus as $menu){
-            if($restaurantId == $menu->RestaurantId)
+            if($restaurantId == $menu->RestaurantId){
                 Log::debug ('menu for restaurantId = '.$restaurantId.' is found');
             $menuDto = new DownloadDTO\MenuDownloadDto($menu->MenuId, $menu->MenuTitle, 
                     $menu->Image, $menu->Price, $menu->Ingredients, $menu->Tags, 
-                    $menu->AvailabilityStatus, $menu->Active, $menu->FoodType, 
+                    $menu->AvailabilityStatus, $menu->Active, $menu->FoodType,$menu->IsSpicy, 
                     $menu->CreatedDate, $menu->UpdatedDate, $menu->CategoryId);
-        
+            }
             $allMenus[$i] = $menuDto;
             $i++;
         }

@@ -27,6 +27,10 @@ class UserController extends ApiController{
         $result  = $this->getTbaleObj()->getUser($restaurantId);
         return $result;
     }
+    
+    public function isUserValid($userId ,$restaurantId) {
+        return $this->getTbaleObj()->isValid($userId ,$restaurantId);
+    }
      public function prepareInsertStatement($restaurantId) {
         $allUsers = $this->getUsers($restaurantId);
         if (!$allUsers) {

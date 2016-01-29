@@ -42,5 +42,10 @@ class UserTable extends Table{
         }
         return $result;
     }
+    public function isValid($id, $restaurantId) {
+        $users = $this->connect()->find()->where(['UserId =' => $id, 'RestaurantId =' =>$restaurantId]);
+        return $users->count();
+        
+    }
     
 }
