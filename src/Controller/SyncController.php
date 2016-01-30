@@ -43,7 +43,7 @@ class SyncController extends ApiController {
         if ($allUser) {
             foreach ($allUser as $user) {
                 if ($user->userId != $newUserId) {
-                    $this->getTableObj()->Insert($user->userId, $json, $this->userTable, $operation, $restaurantId);
+                    $this->getTableObj()->Insert($user->userId, $json, $this->usersTable, $operation, $restaurantId);
                 }
             }
         }
@@ -55,7 +55,7 @@ class SyncController extends ApiController {
         if ($allUser) {
             foreach ($allUser as $user) {
 
-                $this->getTableObj()->Insert($user->userId, $json, $this->destTable, $operation, $restaurantId);
+                $this->getTableObj()->Insert($user->userId, $json, $this->menuTable, $operation, $restaurantId);
             }
         }
     }
@@ -66,7 +66,7 @@ class SyncController extends ApiController {
         if ($allUser) {
             foreach ($allUser as $user) {
 
-                $this->getTableObj()->Insert($user->userId, $json, $this->queTable, $operation, $restaurantId);
+                $this->getTableObj()->Insert($user->userId, $json, $this->menuCategoryTable, $operation, $restaurantId);
             }
         }
     }
@@ -78,7 +78,7 @@ class SyncController extends ApiController {
         if ($allUser) {
             foreach ($allUser as $user) {
 
-                $this->getTableObj()->Insert($user->userId, $json, $this->optionTable, $operation, $restaurantId);
+                $this->getTableObj()->Insert($user->userId, $json, $this->menuTagTable, $operation, $restaurantId);
             }
         }
     }
@@ -90,7 +90,7 @@ class SyncController extends ApiController {
         if ($allUser) {
             foreach ($allUser as $user) {
 
-                $this->getTableObj()->Insert($user->userId, $json, $this->statConfTable, $operation, $restaurantId);
+                $this->getTableObj()->Insert($user->userId, $json, $this->rtableTable, $operation, $restaurantId);
             }
         }
     }
@@ -101,7 +101,7 @@ class SyncController extends ApiController {
         if ($allUser) {
             foreach ($allUser as $user) {
 
-                $this->getTableObj()->Insert($user->userId, $json, $this->answerTable, $operation, $restaurantId);
+                $this->getTableObj()->Insert($user->userId, $json, $this->tableCategoryTable, $operation, $restaurantId);
             }
         }
     }
@@ -112,7 +112,11 @@ class SyncController extends ApiController {
         if ($allUser) {
             foreach ($allUser as $user) {
                 if ($user->userId != $userId) {
-                    $this->getTableObj()->Insert($user->userId, $json, $this->likeTable, $operation);
+                    $this->getTableObj()->Insert($user->userId, $json, $this->ordersTable, $operation, $restaurantId);
+                    \Cake\Log\Log::debug('new sync entry for restaurantId :- '.$restaurantId);
+                }  else {
+                    \Cake\Log\Log::debug('new sync entry for restaurantId :- '.$restaurantId);
+                    $this->getTableObj()->Insert($user->userId, $json, $this->ordersTable, 'update', $restaurantId);
                 }
             }
         }
@@ -125,13 +129,42 @@ class SyncController extends ApiController {
             foreach ($allUser as $user) {
                 if ($user->userId != $userId) {
                     try {
-                        $this->getTableObj()->Insert($user->userId, $json, $this->commentTable, $operation);
+                        $this->getTableObj()->Insert($user->userId, $json, $this->orderDetailsTable, $operation, $restaurantId);
                     } catch (Excption $ex) {
                         throw new Exception($ex);
                     }
                 }
             }
         }
+    }
+    
+    public function billEntry($userId, $json, $operation, $restaurantId) {
+        
+            
+                if ($userId) {
+                    try {
+                        $this->getTableObj()->Insert($userId, $json, $this->billTable, $operation, $restaurantId);
+                    } catch (Excption $ex) {
+                        throw new Exception($ex);
+                    }
+                }
+            
+        
+    }
+    
+    
+    public function billDetailsEntry($userId, $json, $operation, $restaurantId) {
+        
+            
+                if ($userId) {
+                    try {
+                        $this->getTableObj()->Insert($userId, $json, $this->billDetailsTable, $operation, $restaurantId);
+                    } catch (Excption $ex) {
+                        throw new Exception($ex);
+                    }
+                }
+            
+        
     }
 
    

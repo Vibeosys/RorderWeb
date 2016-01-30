@@ -31,7 +31,7 @@ class SyncTable extends Table {
         $query->TableName = $table;
         $query->Operation = $operation;
         $query->UpdatedDate = date("Y-m-d H:i:s");
-        $query->RestaurentId = $restaurantId;
+        $query->RestaurantId = $restaurantId;
         $save = $this->connect()->save($query);
         if($save){
             return true;

@@ -100,11 +100,22 @@ CREATE TABLE [menu_category](
   'MyRoleId' INTEGER,
   'MyRestaurantId' INTEGER);
 
-  CREATE TABLE [Sync](
+  CREATE TABLE [sync](
  'SyncAutoNo' INTEGER PRIMARY KEY AUTOINCREMENT,
  'UserId'     TEXT NOT NULL,
  'JsonSync'   TEXT NOT NULL,
  'TableName'  TEXT NOT NULL); 
+
+CREATE TABLE [temp_order](
+ 'TempOrderId' INTEGER PRIMARY KEY AUTOINCREMENT,
+ 'TableId'     INTEGER NOT NULL,
+ 'TableNo'   INTEGER NOT NULL,
+ 'MenuId'  INTEGER NOT NULL,
+ 'Quantity'   INTEGER NOT NULL,
+ 'OrderDate'   INTEGER NOT NULL,
+ 'OrderTime'   INTEGER NOT NULL,
+ 'OrderStatus'   INTEGER NOT NULL);
+
 
 
 

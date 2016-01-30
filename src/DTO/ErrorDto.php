@@ -30,7 +30,7 @@ class ErrorDto {
     
      public static function prepareSuccessMessage($message) {
         
-        $errorDto = new ClsErrorDto();
+        $errorDto = new ErrorDto();
         $errorDto->errorCode = 0;
         $errorDto->message = $message;
         return json_encode($errorDto);
@@ -44,7 +44,7 @@ class ErrorDto {
         102 => 'UserId not found in database or RestaurantId not valid',
         103 => 'Update not found',
         104 => 'Invalid request',
-        105 => 'Invalid image extension',
+        105 => 'Error to Place order',
         106 => 'Please select image',
         107 => 'UserId and Email fields empty',
         108 => 'User information not updated successfully into database',

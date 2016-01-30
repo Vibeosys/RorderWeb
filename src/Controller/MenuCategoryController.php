@@ -45,11 +45,13 @@ class MenuCategoryController extends ApiController{
             $preparedStatements = str_replace('@Active', $menuCategory->active, $preparedStatements);
             $preparedStatements = str_replace('@CreatedDate', $menuCategory->createdDate, $preparedStatements);
             $preparedStatements = str_replace('@UpdatedDate', $menuCategory->updatedDate, $preparedStatements);
+        
+            
         }
         return $preparedStatements;
     }
         
-        
+    
         
     
     

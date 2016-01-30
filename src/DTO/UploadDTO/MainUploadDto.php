@@ -16,7 +16,7 @@ class MainUploadDto extends DTO\JsonDeserializer{
     public $user;
     public $data;
     
-    public function __construct($user = null,$dada = null) {
+    public function __construct($user = null,$data = null) {
         
         $this->user = $user;
         $this->data = $data;

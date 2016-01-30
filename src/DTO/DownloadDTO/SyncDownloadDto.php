@@ -15,13 +15,13 @@ namespace App\DTO\DownloadDTO;
 class SyncDownloadDto {
     
     public $tableName;
-    public $jsonSync;
+    public $tableData;
     public $operation;
     
     public function __construct($tabelName, $jsonSync, $operation) {
         
         $this->tableName = $tabelName;
-        $this->jsonSync = $jsonSync;
+        $this->tableData = $jsonSync;
         $this->operation = $operation;
     }
     
