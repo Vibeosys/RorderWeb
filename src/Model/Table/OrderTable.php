@@ -22,11 +22,12 @@ class OrderTable extends Table{
         return TableRegistry::get('orders');
     }
     
-    public function insert($orderId, $orderNo, $orderStatus, $orderDate, $orderTime, $orderAmount, $userId, $tableId) {
+    public function insert($orderId, $orderNo, $custId, $orderStatus, $orderDate, $orderTime, $orderAmount, $userId, $tableId) {
         $tableObj = $this->connect();
         $newOrder = $tableObj->newEntity();
         $newOrder->OrderId = $orderId;
         $newOrder->OrderNo = $orderNo;
+        $newOrder->CustId = $custId;
         $newOrder->OrderStatus = $orderStatus;
         $newOrder->OrderDate = $orderDate;
         $newOrder->OrderTime = $orderTime;
@@ -73,11 +74,12 @@ class OrderTable extends Table{
         $orders = $this->connect()->find()->where(['OrderId =' => $orderId]);
         if($orders->count()){
             foreach ($orders as $order)
-            $orderDto = new DownloadDTO\OrderDownloadDto($order->OrderId, $order->OrderNo, 
-                    $order->OrderStatus, $order->OrderDate, $order->OrderTime, 
+            {
+                $orderDto = new DownloadDTO\OrderDownloadDto($order->OrderId, $order->OrderNo, 
+                    $order -> CustId, $order->OrderStatus, $order->OrderDate, $order->OrderTime, 
                     $order->CreatedDate, $order->UpdatedDate, $order->OrderAmount, 
                     $order->UserId, $order->TableId);
-            
+            }
             return $orderDto;
         }
     }

@@ -14,7 +14,7 @@ namespace App\DTO\DownloadDTO;
  */
 class OrderDownloadDto {
     
-     public $orderId;
+    public $orderId;
     public $orderNo;
     public $orderStatus;
     public $orderDate;
@@ -24,12 +24,15 @@ class OrderDownloadDto {
     public $orderAmount;
     public $userId;
     public $tableId;
-    
-     public function __construct($orderId = null, $orderNo = null, $orderStatus = null, $orderDate = null ,$orderTime = null, 
+    public $custId;
+
+
+    public function __construct($orderId = null, $orderNo = null, $custId = null, $orderStatus = null, $orderDate = null ,$orderTime = null, 
             $createdDate = null, $updatedDate = null, $orderAmount = null, $userId = null, $tableId = null) {
         
         $this->orderId = $orderId;
         $this->orderNo = $orderNo;
+        $this->custId = $custId;
         $this->orderStatus = $orderStatus;
         $this->orderDate = $orderDate;
         $this->orderTime = $orderTime;

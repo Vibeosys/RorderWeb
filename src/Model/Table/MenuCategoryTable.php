@@ -33,7 +33,8 @@ class MenuCategoryTable extends Table{
             
             $menuCategoryDto = new DownloadDTO\MenuCategoryDownloadDto($menuCategory->CategoryId,
                     $menuCategory->CategoryTitle, $menuCategory->CategoryImage, $menuCategory->Active, 
-                    $menuCategory->CreatedDate, $menuCategory->UpdatedDate);
+                    $menuCategory->CreatedDate, $menuCategory->UpdatedDate, $menuCategory->Colour, 
+                    $menuCategory->IconUrl);
             
             $allMenuCategories[$i] = $menuCategoryDto;
             $i++;

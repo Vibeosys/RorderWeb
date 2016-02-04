@@ -217,7 +217,7 @@ return [
             //'port' => 'nonstandard_port_number',
             'username' => 'dev',
             'password' => 'dev',
-            'database' => 'restaurantDB',
+            'database' => 'RestaurantDB',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'cacheMetadata' => true,

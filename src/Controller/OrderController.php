@@ -28,6 +28,7 @@ class OrderController extends ApiController{
       }else{
           Log::debug('New order Arrived for place');
           $result = $this->getTableObj()->insert($orderDto->orderId, $this->getTableObj()->getOrderNo(), 
+                  $orderDto->custId,
                   $orderDto->orderStatus, $orderDto->orderDate, $orderDto->orderTime, 
                   $orderDto->orderAmount, $orderDto->userId, $orderDto->tableId);
           if($result){

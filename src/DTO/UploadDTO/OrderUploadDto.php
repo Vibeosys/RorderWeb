@@ -21,12 +21,14 @@ class OrderUploadDto {
     public $userId;
     public $tableId;
     public $orderNo;
+    public $custId;
     
-    public function __construct($orderId = null, $orderStatus = null, $orderDate = null ,$orderTime = null, 
+    public function __construct($orderId = null, $custId = null, $orderStatus = null, $orderDate = null ,$orderTime = null, 
            $orderAmount = null, $userId = null, $tableId = null, $orderNo = null) {
         
         $this->orderId = $orderId;
         $this->orderNo = $orderNo;
+        $this->custId = $custId;
         $this->orderStatus = $orderStatus;
         $this->orderDate = $orderDate;
         $this->orderTime = $orderTime;
