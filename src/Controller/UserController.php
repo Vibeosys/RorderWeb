@@ -1,13 +1,17 @@
 <?php
+
 namespace App\Controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 use App\Model\Table;
 use Cake\Log\Log;
 use App\DTO;
+
 /**
  * Description of UserController
  *
@@ -16,22 +20,28 @@ use App\DTO;
 define('USER_INS_QRY', "INSERT INTO users (UserId,UserName,Password,Active,CreatedDate,"
         . "UpdatedDate,RoleId,RestaurantId) VALUES (@UserId,\"@UserName\",\"@Password\","
         . "@Active,\"@CreatedDate\",\"@UpdatedDate\",@RoleId,@RestaurantId);");
-class UserController extends ApiController{
-    
-    
+
+class UserController extends ApiController {
+
     public function getTbaleObj() {
         return new Table\UserTable();
     }
+
     public function getUsers($restaurantId) {
         $this->autoRender = false;
-        $result  = $this->getTbaleObj()->getUser($restaurantId);
+        $result = $this->getTbaleObj()->getUser($restaurantId);
         return $result;
     }
-    
-    public function isUserValid($userId ,$restaurantId) {
-        return $this->getTbaleObj()->isValid($userId ,$restaurantId);
+
+    public function isUserValid($userId, $restaurantId) {
+        return $this->getTbaleObj()->isValid($userId, $restaurantId);
     }
-     public function prepareInsertStatement($restaurantId) {
+    
+    public function validateUserForUpload($userId, $password, $restaurantId) {
+        return $this->getTbaleObj()->validateUserCredentials($userId, $password, $restaurantId);
+    }
+
+    public function prepareInsertStatement($restaurantId) {
         $allUsers = $this->getUsers($restaurantId);
         if (!$allUsers) {
             return false;
@@ -51,4 +61,5 @@ class UserController extends ApiController{
         }
         return $preparedStatements;
     }
+
 }

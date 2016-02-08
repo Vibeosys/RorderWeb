@@ -11,29 +11,19 @@ use App\DTO;
  *
  * @author niteen
  */
-class OrderUploadDto {
+class OrderUploadDto extends DTO\JsonDeserializer{
     
     public $orderId;
-    public $orderStatus;
-    public $orderDate;
-    public $orderTime;
-    public $orderAmount;
-    public $userId;
     public $tableId;
-    public $orderNo;
     public $custId;
-    
-    public function __construct($orderId = null, $custId = null, $orderStatus = null, $orderDate = null ,$orderTime = null, 
-           $orderAmount = null, $userId = null, $tableId = null, $orderNo = null) {
+    public $orderDetails;
+
+    public function __construct($orderId = null, $custId = null, 
+           $tableId = null, $orderDetails = null) {
         
         $this->orderId = $orderId;
-        $this->orderNo = $orderNo;
         $this->custId = $custId;
-        $this->orderStatus = $orderStatus;
-        $this->orderDate = $orderDate;
-        $this->orderTime = $orderTime;
-        $this->orderAmount  =$orderAmount;
-        $this->userId = $userId;
+        $this->orderDetails = $orderDetails;
         $this->tableId = $tableId;
     }
 }

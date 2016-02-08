@@ -1,4 +1,5 @@
 <?php
+
 namespace App\DTO\DownloadDTO;
 
 /*
@@ -16,7 +17,7 @@ class MenuDownloadDto {
 
     public $menuId;
     public $menuTitle;
-    public $image;
+    public $iconUrl;
     public $price;
     public $ingredients;
     public $tags;
@@ -27,12 +28,12 @@ class MenuDownloadDto {
     public $createdDate;
     public $updatedDate;
     public $categortId;
-    
-    public function __construct($menuId, $menuTitle, $image, $price, $ingredients, $tags, $availabilityStatus, $active, $foodType,$isSpicy, $createdDate, $updatedDate, $categoryId) {
-     
+
+    public function __construct($menuId, $menuTitle, $iconUrl, $price, $ingredients, $tags, 
+            $availabilityStatus, $active, $foodType, $isSpicy, $createdDate, $updatedDate, $categoryId) {
         $this->menuId = $menuId;
         $this->menuTitle = $menuTitle;
-        $this->image = $image;
+        $this->iconUrl = $iconUrl;
         $this->price = $price;
         $this->ingredients = $ingredients;
         $this->tags = $tags;
@@ -43,6 +44,6 @@ class MenuDownloadDto {
         $this->createdDate = $createdDate;
         $this->updatedDate = $updatedDate;
         $this->categortId = $categoryId;
-        
     }
+
 }

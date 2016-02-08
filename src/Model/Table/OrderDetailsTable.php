@@ -20,23 +20,23 @@ class OrderDetailsTable extends Table{
     private function connect() {
         return TableRegistry::get('order_details');
     }
-    public function insert($orderDetailsId, $orderPrice, $orderQuantity, $orderId, $menuId, $menuTitle) {
+    public function insert(UploadDTO\OrderDetailEntryDto $orderDetailsEntryDto) {
         $tableObj = $this->connect();
         $newOrder = $tableObj->newEntity();
-        $newOrder->OrderDetailsId = $orderDetailsId;
-        $newOrder->OrderPrice = $orderPrice;
-        $newOrder->OrderQuantity = $orderQuantity;
+        //$newOrder->OrderDetailsId = $orderDetailsEntryDto;
+        $newOrder->OrderPrice = $orderDetailsEntryDto->orderPrice;
+        $newOrder->OrderQuantity = $orderDetailsEntryDto->orderQty;
         $newOrder->CreatedDate = date('Y-m-d H:i:s');
         $newOrder->UpdatedDate = date('Y-m-d H:i:s');
-        $newOrder->OrderId = $orderId;
-        $newOrder->MenuId = $menuId;
-        $newOrder->MenuTitle = $menuTitle;
+        $newOrder->OrderId = $orderDetailsEntryDto->orderId;
+        $newOrder->MenuId = $orderDetailsEntryDto->menuId;
+        $newOrder->MenuTitle = $orderDetailsEntryDto->menuTitle;
         if($tableObj->save($newOrder)){
-            Log::debug('order Details has been saved for OrderDetailsId :-'.$orderDetailsId);
+            Log::debug('order Details has been saved for OrderDetailsId :-'.$newOrder->OrderDetailsId);
             return $newOrder->OrderDetailsId;
         }
-        Log::error('error ocurred in order Details for OrderDetailsId :-'.$orderDetailsIdId);
-        return false;
+        Log::error('error ocurred in order Details for OrderId :-'.$orderDetailsEntryDto->orderId);
+        return 0;
     }
     
     public function update($orderDetailsId, $orderPrice, $orderQuantity, $orderId) {

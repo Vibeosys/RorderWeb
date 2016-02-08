@@ -1,10 +1,13 @@
 <?php
+
 namespace App\Controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 use App\Model\Table;
 use Cake\Log\Log;
 
@@ -13,27 +16,36 @@ use Cake\Log\Log;
  *
  * @author niteen
  */
-
-define('MENU_INS_QRY', "INSERT INTO menu (MenuId,MenuTitle,Image,Price,Ingredients,"
+define('MENU_INS_QRY', "INSERT INTO menu (MenuId,MenuTitle,IconUrl,Price,Ingredients,"
         . "Tags,AvailabilityStatus,Active,FoodType,IsSpicy,CreatedDate,UpdatedDate,CategoryId) "
-        . "VALUES (@MenuId,\"@MenuTitle\",\"@Image\",@Price,\"@Ingredients\",\"@Tags\","
+        . "VALUES (@MenuId,\"@MenuTitle\",\"@IconUrl\",@Price,\"@Ingredients\",\"@Tags\","
         . "@AvailabilityStatus,@Active,@FoodType,@IsSpicy,\"@CreatedDate\",\"@UpdatedDate\",@CategoryId);");
-class MenuController extends ApiController{
-    
+
+class MenuController extends ApiController {
+
     private function getTableObj() {
         return new Table\MenuTable();
     }
-    
+
     public function getMenus($restaurantId) {
-        
+
         $result = $this->getTableObj()->getMenu($restaurantId);
-        if($result){
+        if ($result) {
             return $result;
         }
         return false;
     }
-    public function prepareInsertStatements($restaurantId) {
     
+    public function getMenuItemList($restaurantId, $menuItemIdList) {
+        $result = $this->getTableObj()->getMenuItemInfoList($restaurantId, $menuItemIdList);
+        if (isset($result)) {
+            return $result;
+        }
+        return NULL;
+    }
+
+    public function prepareInsertStatements($restaurantId) {
+
         $allMenus = $this->getMenus($restaurantId);
         if (!$allMenus) {
             return false;
@@ -44,7 +56,7 @@ class MenuController extends ApiController{
             $preparedStatements .= MENU_INS_QRY;
             $preparedStatements = str_replace('@MenuId', $menu->menuId, $preparedStatements);
             $preparedStatements = str_replace('@MenuTitle', $menu->menuTitle, $preparedStatements);
-            $preparedStatements = str_replace('@Image', $menu->image, $preparedStatements);
+            $preparedStatements = str_replace('@IconUrl', $menu->iconUrl, $preparedStatements);
             $preparedStatements = str_replace('@Price', $menu->price, $preparedStatements);
             $preparedStatements = str_replace('@Ingredients', $menu->ingredients, $preparedStatements);
             $preparedStatements = str_replace('@Tags', $menu->tags, $preparedStatements);
@@ -58,4 +70,5 @@ class MenuController extends ApiController{
         }
         return $preparedStatements;
     }
+
 }
