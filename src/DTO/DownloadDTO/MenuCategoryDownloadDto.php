@@ -22,7 +22,7 @@ class MenuCategoryDownloadDto {
     public $createdDate;
     public $updatedDate;
     public $colour;
-    public $iconUrl;
+    public $imgUrl;
 
     public function __construct(
             $categoryId = null, 
@@ -32,7 +32,7 @@ class MenuCategoryDownloadDto {
             $createdDate = null, 
             $updatedDate = null,
             $colour = null,
-            $iconUrl = null) {
+            $imgUrl = null) {
 
         $this->categoryId = $categoryId;
         $this->categoryTitle = $categoryTitle;
@@ -41,7 +41,7 @@ class MenuCategoryDownloadDto {
         $this->createdDate = $createdDate;
         $this->updatedDate = $updatedDate;
         $this->colour = $colour;
-        $this->iconUrl = $iconUrl;
+        $this->imgUrl = $imgUrl;
     }
 
 }

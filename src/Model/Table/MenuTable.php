@@ -40,7 +40,7 @@ class MenuTable extends Table {
             $menuDto = new DownloadDTO\MenuDownloadDto(
                     $menu->MenuId, 
                     $menu->MenuTitle, 
-                    $menu->IconUrl, 
+                    $menu->Image, 
                     $menu->Price, 
                     $menu->Ingredients, 
                     $menu->Tags, 

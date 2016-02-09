@@ -14,8 +14,8 @@ use Cake\Log\Log;
  * @author niteen
  */
 define('MC_INS_QRY', 
-        "INSERT INTO menu_category (CategoryId,CategoryTitle,CategoryImage,Active,CreatedDate,UpdatedDate,Colour,IconUrl)"
-        . " VALUES (@CategoryId,\"@CategoryTitle\",\"@CategoryImage\",@Active,\"@CreatedDate\",\"@UpdatedDate\",\"@Colour\",\"@IconUrl\");");
+        "INSERT INTO menu_category (CategoryId,CategoryTitle,CategoryImage,Active,CreatedDate,UpdatedDate,Colour,ImgUrl)"
+        . " VALUES (@CategoryId,\"@CategoryTitle\",\"@CategoryImage\",@Active,\"@CreatedDate\",\"@UpdatedDate\",\"@Colour\",\"@ImgUrl\");");
 class MenuCategoryController extends ApiController{
     
     private function getTableObj() {
@@ -47,7 +47,7 @@ class MenuCategoryController extends ApiController{
             $preparedStatements = str_replace('@CreatedDate', $menuCategory->createdDate, $preparedStatements);
             $preparedStatements = str_replace('@UpdatedDate', $menuCategory->updatedDate, $preparedStatements);
             $preparedStatements = str_replace('@Colour', $menuCategory->colour, $preparedStatements);
-            $preparedStatements = str_replace('@IconUrl', $menuCategory->iconUrl, $preparedStatements);
+            $preparedStatements = str_replace('@ImgUrl', $menuCategory->imgUrl, $preparedStatements);
             
         }
         return $preparedStatements;

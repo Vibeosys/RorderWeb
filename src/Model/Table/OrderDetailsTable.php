@@ -62,13 +62,15 @@ class OrderDetailsTable extends Table{
     
     public function getOrderDetails($orderDetailsId) {
         $orderDetails = $this->connect()->find()->where(['OrderDetailsId =' => $orderDetailsId]);
+        //Log::debug('Get request for new orderDetails Come : Id -> '.$orderDetailsId);
         if($orderDetails->count()){
-            foreach ($orderDetails as $orderDetail)
+            foreach ($orderDetails as $orderDetail){
                 $orderDetailDto = new DownloadDTO\OrderDetailsDownloadDto ($orderDetail->OrderDetailsId, 
                         $orderDetail->OrderPrice, $orderDetail->OrderQuantity, 
                         $orderDetail->CreatedDate, $orderDetail->UpdatedDate, 
                         $orderDetail->OrderId, $orderDetail->MenuId, $orderDetail->MenuTitle);
-            
+                 Log::debug('OrderDetails goes in sync Table : Id -> '.$orderDetailDto->orderDetailsId);
+            }
             return $orderDetailDto;
         }
     }

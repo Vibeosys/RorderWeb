@@ -12,6 +12,15 @@ use App\DTO;
  * @author niteen
  */
 class RTableUploadDto extends DTO\JsonDeserializer{
+    public $tableId;
+    public $isOccupied;
     
+    
+    public function __construct($tableId = null , $isOccupied = null) {
+        
+        $this->tableId = $tableId;
+        $this->isOccupied = $isOccupied;
+        
+    }
     
 }

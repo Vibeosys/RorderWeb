@@ -30,8 +30,13 @@ class RTablesTable extends Table{
         $i = 0;
         foreach ($rTables as $rTable){
             
-            $rTablesDto = new DownloadDTO\RTableDownloadDto($rTable->TableId, $rTable->TableNo, 
-                    $rTable->TableCategoryId, $rTable->Capacity, $rTable->IsOccupied, $rTable->CreatedDate, $rTable->UpdatedDate);
+            $rTablesDto = new DownloadDTO\RTableDownloadDto($rTable->TableId, 
+                    $rTable->TableNo, 
+                    $rTable->TableCategoryId, 
+                    $rTable->Capacity, 
+                    $rTable->IsOccupied, 
+                    $rTable->CreatedDate, 
+                    $rTable->UpdatedDate);
             
             $allRTables[$i] = $rTablesDto;
             $i++;
@@ -39,5 +44,20 @@ class RTablesTable extends Table{
         Log::debug('All RTable data successfully return');
         return $allRTables;
         
-    }   
+    }
+    public function occupy($tableId,$isOccupied) {
+        if($tableId){
+            $conditions = ['TableId =' => $tableId];
+            $updateTable = $this->connect()->query()->update();
+            $updateTable->set(['IsOccupied' => $isOccupied]);
+            $updateTable->where($conditions);
+            if($updateTable->execute()){
+                Log::debug('Table Occupied status changes for giveen request');
+                return true;
+            }
+            Log::error('Table Occupied status changes for giveen request');
+            return false;
+        }
+        
+    }
 }

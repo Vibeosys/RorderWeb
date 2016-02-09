@@ -23,6 +23,9 @@ class RTablesController extends ApiController {
         }
         return false;
     }
+    public function occupyTable($tableOccupyRequest) {
+        return $this->getTableObj()->occupy($tableOccupyRequest->tableId, $tableOccupyRequest->isOccupied);
+    }
     
      public function prepareInsertStatements() {
         $allRtables = $this->getRtables();

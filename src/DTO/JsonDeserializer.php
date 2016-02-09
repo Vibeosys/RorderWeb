@@ -14,11 +14,7 @@ namespace App\DTO;
  */
 abstract class JsonDeserializer
 {
-    
-    /**
-     * @param string|array $json
-     * @return $this
-     */
+ 
     public static function Deserialize($json)
     {
       
@@ -26,25 +22,17 @@ abstract class JsonDeserializer
         $classInstance = new $className();
         if (is_string($json)) {
             $json = json_decode($json);
+           
         }
-        
-       // \Cake\Log\Log::debug("upload json : ".$json);
-        
         foreach ($json as $key => $value) {
             if (!property_exists($classInstance, $key)) {
                 continue;
             }
 
             $classInstance->{$key} = $value;
-           
         }
-
         return $classInstance;
     }
-    /**
-     * @param string $json
-     * @return $this[]
-     */
     public static function DeserializeArray($json)
     {
         $json = json_decode($json);

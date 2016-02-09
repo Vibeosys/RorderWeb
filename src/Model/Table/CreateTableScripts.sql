@@ -2,7 +2,8 @@ CREATE TABLE [customer](
 'CustId'                TEXT NOT NULL PRIMARY KEY, 
 'CustName'          TEXT,
 'CustPhone'         TEXT,
-'CustEmail'          TEXT);
+'CustEmail'          TEXT
+);
 
 CREATE TABLE [menu_category](
   'CategoryId'          INTEGER NOT NULL PRIMARY KEY,
@@ -17,7 +18,7 @@ CREATE TABLE [menu_category](
   CREATE TABLE [menu] (
   'MenuId'                  INTEGER NOT NULL PRIMARY KEY,
   'MenuTitle'               TEXT,
-  'IconUrl'                       TEXT,
+  'Image'                       TEXT,
   'Price'                       DOUBLE,
   'Ingredients'             TEXT,
   'Tags'                        TEXT,
@@ -59,11 +60,12 @@ CREATE TABLE [menu_category](
   'OrderAmount'         DOUBLE);
   
   CREATE TABLE [order_details] (
-  'OrderDetailsId'            TEXT NOT NULL,  
+  'OrderDetailsId'          INTEGER NOT NULL PRIMARY KEY,
   'OrderPrice'                  DOUBLE,
   'OrderQuantity'               INTEGER,
   'CreatedDate'                 DATETIME,
   'UpdatedDate'                 DATETIME,
+  'OrderId'                         TEXT,
   'MenuId'                          INTEGER,
   'MenuTitle'                       TEXT);
   
@@ -72,14 +74,14 @@ CREATE TABLE [menu_category](
   'TagTitle'                    TEXT);
   
   CREATE TABLE [bill] (
-  'BillNo'                          INTEGER NOT NULL PRIMARY KEY,
-  'BillDate'                        DATE,
-  'BillTime'                        TIME,
-  'NetAmount'                   DOUBLE,
-  'TotalTaxAmount'          DOUBLE,
-  'TotalPayAmount'          DOUBLE,
-  'CreatedDate'                 DATETIME,
-  'UpdatedDate'                 DATETIME,
+  'BillNo'                  INTEGER NOT NULL PRIMARY KEY,
+  'BillDate'                DATE,
+  'BillTime'                TIME,
+  'NetAmount'            DOUBLE,
+  'TotalTaxAmount'      DOUBLE,
+  'TotalPayAmount'      DOUBLE,
+  'CreatedDate'             DATETIME,
+  'UpdatedDate'             DATETIME,
   'UserId'                          TEXT);
   
   CREATE TABLE [bill_details] (
@@ -106,16 +108,28 @@ CREATE TABLE [menu_category](
  'TableName'            TEXT NOT NULL); 
 
 CREATE TABLE [temp_order](
- 'TempOrderId'              TEXT,
- 'CustId'                         TEXT,
- 'TableId'                       INTEGER NOT NULL,
- 'TableNo'                      INTEGER NOT NULL,
- 'MenuId'                       INTEGER NOT NULL,
- 'Quantity'                     INTEGER NOT NULL );
+ 'TempOrderId'          INTEGER PRIMARY KEY AUTOINCREMENT,
+ 'CustId'                       TEXT,
+ 'TableId'                      INTEGER NOT NULL,
+ 'TableNo'                  INTEGER NOT NULL,
+ 'MenuId'                   INTEGER NOT NULL,
+ 'Quantity'                 INTEGER NOT NULL,
+ 'OrderDate'                INTEGER NOT NULL,
+ 'OrderTime'                INTEGER NOT NULL,
+ 'OrderStatus'              INTEGER NOT NULL);
 
 CREATE TABLE [table_transaction](
- 'TableId'              INTEGER,
- 'UserId'               TEXT,
- 'CustId'               TEXT UNIQUE,
- 'IsWaiting'        BOOLEAN,
- 'ArrivalTime'       DATETIME);
+ 'TableId'          INTEGER,
+ 'UserId'           TEXT,
+ 'CustId'           TEXT UNIQUE,
+ 'IsWaiting'      BOOLEAN,
+ 'ArrivalTime'       DATETIME,
+ 'Occupancy'        INTEGER
+);
+
+
+
+
+
+   
+   

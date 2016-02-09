@@ -38,11 +38,14 @@ class OrderTable extends Table {
         $newOrder->OrderAmount = $orderEntry->orderAmt;
         $newOrder->UserId = $orderEntry->userId;
         $newOrder->TableId = $orderEntry->tableId;
+        $newOrder->RestaurantId = $orderEntry->restaurantId;
         if ($tableObj->save($newOrder)) {
-            Log::debug('order has been placed for OrderId :-' . $orderEntry->orderId);
+            Log::debug('order has been placed for OrderId :-' .
+                    $orderEntry->orderId);
             return $newOrder->OrderNo;
         }
-        Log::error('error ocurred in order placing for OrderId :-' . $orderEntry->orderId);
+        Log::error('error ocurred in order placing for OrderId :-' . 
+                $orderEntry->orderId);
         return 0;
     }
 
@@ -68,16 +71,14 @@ class OrderTable extends Table {
 
     public function getOrderNo($restaurantId) {
         $conditions = array(
-            'conditions'=> array('orders.RestaurantId =' => $restaurantId),
-            'fields' => array('MaxOrderNo '=> 'Max(orders.OrderNo)'));
-        $orderTableEntry = $this->connect()->find('all', $conditions);
-        //Log::debug('Order Number generated for new order orderNo is :- ' );
-        print_r($orderTableEntry);
+            'conditions' => array('orders.RestaurantId =' => $restaurantId),
+             'fields' => array( 'maxOrderNo' => 'MAX(orders.OrderNo)') );
+        $orderTableEntry = $this->connect()->find('all',$conditions)->toArray();
         $maxOrderNo = 0;
-        foreach ($orderTableEntry as $orderEntry)
-        {
-            $maxOrderNo = $orderEntry->MaxOrderNo;
+        if($orderTableEntry){
+        $maxOrderNo = $orderTableEntry[0]['maxOrderNo'];
         }
+        Log::debug('Order Number generated for new order orderNo is :- ' . $maxOrderNo);
         return $maxOrderNo;
     }
 
@@ -85,7 +86,18 @@ class OrderTable extends Table {
         $orders = $this->connect()->find()->where(['OrderId =' => $orderId]);
         if ($orders->count()) {
             foreach ($orders as $order) {
-                $orderDto = new DownloadDTO\OrderDownloadDto($order->OrderId, $order->OrderNo, $order->CustId, $order->OrderStatus, $order->OrderDate, $order->OrderTime, $order->CreatedDate, $order->UpdatedDate, $order->OrderAmount, $order->UserId, $order->TableId);
+                $orderDto = new DownloadDTO\OrderDownloadDto(
+                        $order->OrderId, 
+                        $order->OrderNo, 
+                        $order->CustId, 
+                        $order->OrderStatus, 
+                        $order->OrderDate, 
+                        $order->OrderTime, 
+                        $order->CreatedDate, 
+                        $order->UpdatedDate, 
+                        $order->OrderAmount, 
+                        $order->UserId, 
+                        $order->TableId);
             }
             return $orderDto;
         }

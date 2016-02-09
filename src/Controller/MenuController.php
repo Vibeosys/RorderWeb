@@ -16,9 +16,9 @@ use Cake\Log\Log;
  *
  * @author niteen
  */
-define('MENU_INS_QRY', "INSERT INTO menu (MenuId,MenuTitle,IconUrl,Price,Ingredients,"
+define('MENU_INS_QRY', "INSERT INTO menu (MenuId,MenuTitle,Image,Price,Ingredients,"
         . "Tags,AvailabilityStatus,Active,FoodType,IsSpicy,CreatedDate,UpdatedDate,CategoryId) "
-        . "VALUES (@MenuId,\"@MenuTitle\",\"@IconUrl\",@Price,\"@Ingredients\",\"@Tags\","
+        . "VALUES (@MenuId,\"@MenuTitle\",\"@Image\",@Price,\"@Ingredients\",\"@Tags\","
         . "@AvailabilityStatus,@Active,@FoodType,@IsSpicy,\"@CreatedDate\",\"@UpdatedDate\",@CategoryId);");
 
 class MenuController extends ApiController {
@@ -56,7 +56,7 @@ class MenuController extends ApiController {
             $preparedStatements .= MENU_INS_QRY;
             $preparedStatements = str_replace('@MenuId', $menu->menuId, $preparedStatements);
             $preparedStatements = str_replace('@MenuTitle', $menu->menuTitle, $preparedStatements);
-            $preparedStatements = str_replace('@IconUrl', $menu->iconUrl, $preparedStatements);
+            $preparedStatements = str_replace('@Image', $menu->image, $preparedStatements);
             $preparedStatements = str_replace('@Price', $menu->price, $preparedStatements);
             $preparedStatements = str_replace('@Ingredients', $menu->ingredients, $preparedStatements);
             $preparedStatements = str_replace('@Tags', $menu->tags, $preparedStatements);

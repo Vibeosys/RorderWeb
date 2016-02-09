@@ -32,7 +32,11 @@ class OrderController extends ApiController{
     }
     
     public function addOrderEntry($orderEntry)    {
-        return $this->getTableObj()->insert($orderEntry);
+        $orderNo = $this->getTableObj()->insert($orderEntry);
+        if($orderNo){
+            $this->makeSyncEntry($orderEntry);
+        }
+        return $orderNo;
     }
        
     public function updateOrder($userId, $restaurantId, $orderDto) {
@@ -45,11 +49,11 @@ class OrderController extends ApiController{
           }
     }
     
-    private function makeSyncEntry($userId, $restaurantId,$operation, $orderId) {
-        $newOrder = $this->getTableObj()->getOrder($orderId);
+    private function makeSyncEntry($orderEntry) {
+        $newOrder = $this->getTableObj()->getOrder($orderEntry->orderId);
               if($newOrder){
               $syncController = new SyncController();
-              $syncController->orderEntry($userId, json_encode($newOrder), $operation, $restaurantId);
+              $syncController->orderEntry($orderEntry->userId, json_encode($newOrder), $this->insert, $orderEntry->restaurantId);
               }
         
     }

@@ -20,7 +20,7 @@ use App\DTO\UploadDTO;
  */
 class UploadController extends ApiController {
 
-    private $operations = ['PO' => 'placeOrder'];
+    private $operations = ['PO' => 'placeOrder','TO' => 'tableOccupy'];
 
     public function index() {
         $this->autoRender = false;
@@ -51,7 +51,8 @@ class UploadController extends ApiController {
 
                 case $this->operations['PO']:
                     $operationData = $record->operationData;
-                    $this->placeOrder($operationData, $userData);
+                    $orderNo = $this->placeOrder($operationData, $userData);
+                    $this->response->body(DTO\ErrorDto::prepareSuccessMessage($orderNo));
                     /* if ($record->operationData) {
 
                       $orderUploadDto = new UploadDTO\OrderUploadDto(
@@ -70,24 +71,11 @@ class UploadController extends ApiController {
                       }
                       } */
                     break;
-                /* case $this->operations['OD']:
-                  if ($record->tableData) {
-                  $orderDetailsUploadDto = new UploadDTO\OrderDetailsUploadDto(
-                  $record->tableData->orderDetailsId, $record->tableData->orderPrice, $record->tableData->orderQuantity, $record->tableData->orderId, $record->tableData->menuId, $record->tableData->menuTitle);
-                  $orderDetailsController = new OrderDetailsController();
-                  $uploadResult = $orderDetailsController->placeOrderDetails($userData->userId, $userData->restaurantId, $orderDetailsUploadDto);
-
-                  if ($uploadResult) {
-                  if (is_integer($uploadResult)) {
-                  $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Order Details has been placed for Order Number :- ' . $uploadResult));
-                  } else {
-                  $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Order Details has been updated for Order Number'));
-                  }
-                  } else {
-                  $this->response->body(DTO\ErrorDto::prepareError(105));
-                  }
-                  }
-                  break; */
+                 case $this->operations['TO']:
+                     $operationData = $record->operationData;
+                     $orderNo = $this->tableOccupy($operationData, $userData);
+                    $this->response->body(DTO\ErrorDto::prepareSuccessMessage($orderNo));
+                  break; 
                 default :
                     echo 'Operation name didnt match';
                     break;
@@ -147,7 +135,7 @@ class UploadController extends ApiController {
             return;        
         }
         $orderDetailController = new OrderDetailsController();
-        $orderDetailEntrySucceeded = $orderDetailController->addOrderEntries($orderDetailList);
+        $orderDetailEntrySucceeded = $orderDetailController->addOrderEntries($orderDetailList,$userInfo);
         if($orderDetailEntrySucceeded == 0)
          {
             Log::error('No order entry was inserted for order details into db');
@@ -168,6 +156,14 @@ class UploadController extends ApiController {
         }
 
         return $resultObject;
+    }
+    
+    private function tableOccupy($operationData , $userInfo) {
+        
+        $tableOccupyUploadRequest = UploadDTO\RTableUploadDto::Deserialize($operationData);
+        $rtableController = new RTablesController();
+       
+        return $rtableController->occupyTable($tableOccupyRequest);
     }
 
 }

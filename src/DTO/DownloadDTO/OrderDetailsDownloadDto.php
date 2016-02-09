@@ -13,14 +13,14 @@ namespace App\DTO\DownloadDTO;
  */
 class OrderDetailsDownloadDto {
     
-    private $orderDetailsId;
-    private $orderPrice;
-    private $orderQuantity;
-    private $createdDate;
-    private $updatedDate;
-    private $orderId;
-    private $menuId;
-    private $menuTitle;
+    public $orderDetailsId;
+    public $orderPrice;
+    public $orderQuantity;
+    public $createdDate;
+    public $updatedDate;
+    public $orderId;
+    public $menuId;
+    public $menuTitle;
     
     public function __construct($orderDetailsId = null, $orderPrice = null, $orderQuantity = null,
             $createdDate = null, $updatedDate = null,  $orderId = null, $menuId = null, $menuTitle = null) {
