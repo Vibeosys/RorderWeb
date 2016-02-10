@@ -27,8 +27,10 @@ class OrderDownloadDto {
     public $custId;
 
 
-    public function __construct($orderId = null, $orderNo = null, $custId = null, $orderStatus = null, $orderDate = null ,$orderTime = null, 
-            $createdDate = null, $updatedDate = null, $orderAmount = null, $userId = null, $tableId = null) {
+    public function __construct($orderId = null, $orderNo = null, 
+            $orderStatus = null, $orderDate = null ,$orderTime = null, 
+            $createdDate = null, $updatedDate = null, $orderAmount = null, 
+            $userId = null, $tableId = null, $custId = null) {
         
         $this->orderId = $orderId;
         $this->orderNo = $orderNo;

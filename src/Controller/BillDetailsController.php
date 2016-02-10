@@ -14,5 +14,20 @@ use Cake\Log\Log;
  */
 class BillDetailsController {
     
+    private function getTableObj() {
+        
+        return new Table\BillDetailsTable();
+    }
+    
+    
+    public function addBillDetails($billDetailsEntryList) {
+        $billDetailsEntryResult = 0;
+        if(is_array($billDetailsEntryList)){
+            foreach ($billDetailsEntryList as $billDetailsEntry){
+                $billDetailsEntryResult = $this->getTableObj()->insert($billDetailsEntry);   
+            }
+        }
+        return $billDetailsEntryResult;
+    }
     
 }

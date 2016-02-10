@@ -20,4 +20,24 @@ class BillDetailsTable extends Table{
     public function connect() {
         return TableRegistry::get('bill_details');
     }
+    
+    public function insert(UploadDTO\BillDetailsUploadDto $billDetails) {
+        
+        $tableObj = $this->connect();
+        $newBillDetails = $tableObj->newEntity();
+        $newBillDetails->OrderId = $billDetails->orderId;
+        $newBillDetails->BillNo = $billDetails->billNo;
+        $newBillDetails->CreatedDate = date(VB_DATE_TIME_FORMAT);
+        $newBillDetails->UpdatedDate = date(VB_DATE_TIME_FORMAT);
+        $newBillDetails->OrderNo = $billDetails->orderNo;
+        $newBillDetails->OrderAmount = $billDetails->orderAmt;
+         if ($tableObj->save($newBillDetails)) {
+            Log::debug('bill details has been created for BillNo :-' .
+                    $billDetails->billNo);
+            return $billDetails->billNo;
+        }
+        Log::error('error ocurred in Bill details creating for BillNo :-' .
+                $billDetails->billNo);
+        return 0;
+    }
 }

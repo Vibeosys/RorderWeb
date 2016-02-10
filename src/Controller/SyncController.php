@@ -127,7 +127,7 @@ class SyncController extends ApiController {
         $allUser = $UserObj->getUsers($restaurantId);
         if ($allUser) {
             foreach ($allUser as $user) {
-                if ($user->userId != $userId) {
+                if (1) {
                     try {
                         $this->getTableObj()->Insert($user->userId, $json, $this->orderDetailsTable, $operation, $restaurantId);
                     } catch (Excption $ex) {

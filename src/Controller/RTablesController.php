@@ -16,8 +16,8 @@ class RTablesController extends ApiController {
     private function getTableObj() {
         return new Table\RTablesTable();
     }
-    public function getRtables() {
-        $result = $this->getTableObj()->getRtable();
+    public function getRtables($restaurantId) {
+        $result = $this->getTableObj()->getRtable($restaurantId);
         if($result){
             return $result;
         }
@@ -27,8 +27,8 @@ class RTablesController extends ApiController {
         return $this->getTableObj()->occupy($tableOccupyRequest->tableId, $tableOccupyRequest->isOccupied);
     }
     
-     public function prepareInsertStatements() {
-        $allRtables = $this->getRtables();
+     public function prepareInsertStatements($restaurantId) {
+        $allRtables = $this->getRtables($restaurantId);
         if (!$allRtables) {
             return false;
         }

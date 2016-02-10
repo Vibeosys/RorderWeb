@@ -12,6 +12,7 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use App\DTO\DownloadDTO;
+use App\DTO\UploadDTO;
 
 /**
  * Description of OrderTable
@@ -44,7 +45,7 @@ class OrderTable extends Table {
                     $orderEntry->orderId);
             return $newOrder->OrderNo;
         }
-        Log::error('error ocurred in order placing for OrderId :-' . 
+        Log::error('error ocurred in order placing for OrderId :-' .
                 $orderEntry->orderId);
         return 0;
     }
@@ -72,17 +73,18 @@ class OrderTable extends Table {
     public function getOrderNo($restaurantId) {
         $conditions = array(
             'conditions' => array('orders.RestaurantId =' => $restaurantId),
-             'fields' => array( 'maxOrderNo' => 'MAX(orders.OrderNo)') );
-        $orderTableEntry = $this->connect()->find('all',$conditions)->toArray();
+            'fields' => array('maxOrderNo' => 'MAX(orders.OrderNo)'));
+        $orderTableEntry = $this->connect()->find('all', $conditions)->toArray();
         $maxOrderNo = 0;
-        if($orderTableEntry){
-        $maxOrderNo = $orderTableEntry[0]['maxOrderNo'];
+        if ($orderTableEntry) {
+            $maxOrderNo = $orderTableEntry[0]['maxOrderNo'];
         }
         Log::debug('Order Number generated for new order orderNo is :- ' . $maxOrderNo);
         return $maxOrderNo;
     }
 
     public function getOrder($orderId) {
+        $orderDto = NULL;
         $orders = $this->connect()->find()->where(['OrderId =' => $orderId]);
         if ($orders->count()) {
             foreach ($orders as $order) {
@@ -99,8 +101,31 @@ class OrderTable extends Table {
                         $order->UserId, 
                         $order->TableId);
             }
-            return $orderDto;
         }
+        return $orderDto;
+    }
+
+    public function getCustomerOrderList($custId, $restaurantId) {
+        $allOrders = NULL;
+        $condition = ['CustId =' => $custId, 'RestaurantId =' => $restaurantId, 'OrderStatus =' => 2];
+        $orders = $this->connect()->find()
+                ->where($condition);
+        if ($orders->count()) {
+            $allOrders = array();
+            $counter = 0;
+            foreach ($orders as $order) {
+                $orderDto = new UploadDTO\CustomerOrderListDto(
+                        $order->OrderId, 
+                        $order->OrderNo, 
+                        $order->OrderAmount, 
+                        $order->UserId, 
+                        $order->TableId);
+
+                $allOrders[$counter++] = $orderDto;
+            }
+            Log::debug('Orders are retrived for customer ID : ' . $custId);
+        }
+        return $allOrders;
     }
 
 }

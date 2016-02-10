@@ -20,7 +20,7 @@ use App\DTO\UploadDTO;
  */
 class UploadController extends ApiController {
 
-    private $operations = ['PO' => 'placeOrder','TO' => 'tableOccupy'];
+    private $operations = ['PO' => 'placeOrder','TO' => 'tableOccupy','GB' => 'generateBill'];
 
     public function index() {
         $this->autoRender = false;
@@ -73,9 +73,14 @@ class UploadController extends ApiController {
                     break;
                  case $this->operations['TO']:
                      $operationData = $record->operationData;
-                     $orderNo = $this->tableOccupy($operationData, $userData);
-                    $this->response->body(DTO\ErrorDto::prepareSuccessMessage($orderNo));
+                     $result = $this->tableOccupy($operationData, $userData);
+                    $this->response->body(DTO\ErrorDto::prepareSuccessMessage($result));
                   break; 
+                case $this->operations['GB']:
+                    $operationData = $record->operationData;
+                    $result = $this->generateBill($operationData, $userData);
+                    
+                  break;
                 default :
                     echo 'Operation name didnt match';
                     break;
@@ -163,7 +168,90 @@ class UploadController extends ApiController {
         $tableOccupyUploadRequest = UploadDTO\RTableUploadDto::Deserialize($operationData);
         $rtableController = new RTablesController();
        
-        return $rtableController->occupyTable($tableOccupyRequest);
+        return $rtableController->occupyTable($tableOccupyUploadRequest);
+    }
+    
+    private function generateBill($operationData, $userInfo) {
+        $generateBillUploadrequest = UploadDTO\BillUploadDto::Deserialize($operationData);
+        
+        if(!$generateBillUploadrequest){
+            Log::error('Generate Bill details not serialized correctly');
+            return false;
+        }
+        
+        $orderController = new OrderController();
+        $customerOrders = $orderController->getCustomerOrders(
+                $generateBillUploadrequest->custId,$userInfo->restaurantId);
+        if(is_null($customerOrders)){
+            $this->response->body(DTO\ErrorDto::prepareError(106));
+            return;
+        }
+        $billNetAmount = 0;
+        $billDetailsList[] = NULL;
+        $billDetailsCounter = 0;
+        foreach ($customerOrders as $order){
+            $billDetailsUploadDto = new UploadDTO\BillDetailsUploadDto(NULL,
+                    $order->orderId, 
+                    $order->orderNo, 
+                    $order->orderAmt);
+            $billNetAmount += $order->orderAmt;
+            Log::debug('Bill Net Amount calculated for orderAmt :'.$order->orderAmt);
+            $billDetailsList[$billDetailsCounter++] = $billDetailsUploadDto;
+        }
+        $totalBillTaxAmt = 0;
+        $taxController = new TaxController();
+        $billTaxList = $taxController->getTax($billNetAmount);
+        foreach ($billTaxList as $billTax){
+            $totalBillTaxAmt += $billTax->taxAmt;
+        }
+        $totalPayBillAmt = $billNetAmount + $totalBillTaxAmt;
+        $billController = new BillController();
+         $maxBillNo = $billController->getMaxBillNo($userInfo->restaurantId);
+        if($totalPayBillAmt){
+            $billEntryDto = new UploadDTO\BillEntryDto(
+                    $maxBillNo,
+                    $billNetAmount, 
+                    $totalBillTaxAmt, 
+                    $totalPayBillAmt, 
+                    $userInfo->userId, 
+                    $userInfo->restaurantId, 
+                    $generateBillUploadrequest->custId, 
+                    $generateBillUploadrequest->tableId);
+            $generateBillResult = $billController->addBillEntry($billEntryDto); 
+            Log::debug('your Bill generated for Bill No : '.$generateBillResult);
+            if(!$generateBillResult){
+                Log::error('Bill generation failed');
+                return 0;
+            }
+        }  else {
+        
+            Log::error('Bill amount not valid so Bill is not generated for given request');
+            return;
+        }
+        
+        foreach ($billDetailsList as $billDetails){
+            $billDetails->billNo = $generateBillResult;
+        }
+        $billDetailsController = new BillDetailsController();
+        $addBillDetailsResult = $billDetailsController->addBillDetails($billDetailsList);
+        if(!$addBillDetailsResult){
+                Log::error('Bill details generation failed');
+                return 0;
+        }
+        foreach ($billTaxList as $billTax){
+            $billTax->billNo = $generateBillResult;
+        }
+        $billTaxTransactionsConreoller = new BillTaxTransactionsController();
+        $addBillTaxTransactionsResult = $billTaxTransactionsConreoller->addBillTaxTransactions($billTaxList);
+        if(!$addBillTaxTransactionsResult){
+                Log::error('Bill Tax Tansactions generation failed');
+                return 0;
+        }
+        
+        
+
+        
+        
     }
 
 }

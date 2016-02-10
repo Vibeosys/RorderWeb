@@ -45,7 +45,7 @@ class ErrorDto {
         103 => 'Update not found',
         104 => 'Invalid request',
         105 => 'Error to Place order',
-        106 => 'Please select image',
+        106 => 'Orders Not FulFilled for requested customer',
         107 => 'UserId and Email fields empty',
         108 => 'User information not updated successfully into database',
         109 => 'Not Saved Try again',

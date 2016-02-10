@@ -61,7 +61,7 @@ class SqliteController extends ApiController {
     private function addRTables($tableObject) {
         //Rtables Data entry in sqlite database file
         $rTablesController = new RTablesController();
-        $rTablesPreparedStatement = $rTablesController->prepareInsertStatements();
+        $rTablesPreparedStatement = $rTablesController->prepareInsertStatements($this->iRestaurantId);
         //Log::info($userPreparedStatement);
         if ($tableObject->excutePreparedStatement($rTablesPreparedStatement)) {
             Log::debug('Record is inserted into Rtable SQLite table for restaurantId ' . $this->iRestaurantId);

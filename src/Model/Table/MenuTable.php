@@ -27,7 +27,7 @@ class MenuTable extends Table {
 
     public function getMenu($restaurantId) {
 
-        $menus = $this->connect()->find()->where(['restaurantId =' => $restaurantId]);
+        $menus = $this->connect()->find()->where(['RestaurantId =' => $restaurantId]);
         $count = $menus->count();
         if (!$count) {
             return false;

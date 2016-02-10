@@ -10,19 +10,21 @@ use App\DTO;
  */
 class BillDetailsUploadDto extends DTO\JsonDeserializer{
     
-    public $autoId;
     public $orderId;
     public $billNo;
+    public $orderNo;
+    public $orderAmt;
     public $createdDate;
     public $updatedDate;
     
-    public function __construct($autoId = null, $orderId = null, $billNo = null, $createdDate = null, $updatedDate = null) {
+    public function __construct($billNo = null,$orderId = null, 
+            $orderNo = null,$orderAmt = null) {
         
-        $this->autoId = $autoId;
         $this->orderId = $orderId;
         $this->billNo = $billNo;
-        $this->createdDate = $createdDate;
-        $this->updatedDate = $updatedDate;
+        $this->orderNo = $orderNo;
+        $this->orderAmt = $orderAmt;
+      
         
     }
     

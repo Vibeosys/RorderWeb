@@ -20,8 +20,8 @@ class RTablesTable extends Table{
         return TableRegistry::get('r_tables');
     }
     
-    public function getRtable() {
-        $rTables = $this->connect()->find();
+    public function getRtable($restaurantId) {
+        $rTables = $this->connect()->find()->where(['RestaurantId' => $restaurantId]);
         $count = $rTables->count();
         if(!$count){
            return false;

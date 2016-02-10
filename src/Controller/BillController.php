@@ -14,5 +14,27 @@ use Cake\Log\Log;
  */
 class BillController  extends ApiController{
     
+    private function getTableObj() {
+        
+        return new Table\BillTable();
+    }
+    
+    public function getMaxBillNo($restaurantId) {
+        $billNo = $this->getTableObj()->getBillNo($restaurantId);
+        if ($billNo) {
+            return $billNo + 1;
+        } else {
+            return 1;
+        }
+    }
+    public function addBillEntry($billEntryDto) {
+        $billEntryResult = $this->getTableObj()->insert($billEntryDto);
+        if($billEntryResult){
+            Log::debug('you bill is generated');
+            return $billEntryResult;
+        }
+        return false;
+    }
+    
     
 }
