@@ -91,7 +91,6 @@ class OrderTable extends Table {
                 $orderDto = new DownloadDTO\OrderDownloadDto(
                         $order->OrderId, 
                         $order->OrderNo, 
-                        $order->CustId, 
                         $order->OrderStatus, 
                         $order->OrderDate, 
                         $order->OrderTime, 
@@ -99,7 +98,8 @@ class OrderTable extends Table {
                         $order->UpdatedDate, 
                         $order->OrderAmount, 
                         $order->UserId, 
-                        $order->TableId);
+                        $order->TableId,
+                        $order->CustId);
             }
         }
         return $orderDto;
@@ -126,6 +126,22 @@ class OrderTable extends Table {
             Log::debug('Orders are retrived for customer ID : ' . $custId);
         }
         return $allOrders;
+    }
+    
+    public function changeStatus($orderId, $status) {
+        try{
+            $oldOrder = $this->connect()->query()->update();
+            $oldOrder->set(['OrderStatus' => $status]);
+            $oldOrder->where(['OrderId =' =>$orderId ]);
+            if($oldOrder->execute()){
+                Log::debug('Order Status has been changed to : '.$status);
+                return true;
+            }
+            Log::error('Error occured in changing order Status for custId : '.$custId);
+            return false;
+        } catch (Exception $ex) {
+            echo 'Database error in updation of order status'.$ex;
+        }
     }
 
 }

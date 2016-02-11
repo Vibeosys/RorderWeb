@@ -22,10 +22,11 @@ class TaxController extends ApiController{
     public function getTax($billNetAmount) {
         
         Log::debug('Taxes are calculated on Bill Net Amount : '.$billNetAmount);
-        $billTaxTransactionList[] = null;
+        $billTaxTransactionList = null;
         $billTaxListCounter = 0;
         $taxList = $this->getTableObj()->getTaxes();
         if($taxList){
+            $billTaxTransactionList = array();
         foreach ($taxList as $tax){
             $taxValue = $tax->percentage/100;
             $taxAmt = $billNetAmount * $taxValue;

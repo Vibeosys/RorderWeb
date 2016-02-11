@@ -20,7 +20,11 @@ use App\DTO\UploadDTO;
  */
 class UploadController extends ApiController {
 
-    private $operations = ['PO' => 'placeOrder','TO' => 'tableOccupy','GB' => 'generateBill'];
+    private $operations = [
+        'PO' => 'placeOrder',
+        'TO' => 'tableOccupy',
+        'GB' => 'generateBill', 
+        'OFF' => 'orderFulfilled'];
 
     public function index() {
         $this->autoRender = false;
@@ -28,7 +32,7 @@ class UploadController extends ApiController {
         $jsonData = $this->request->input();
         if (empty($jsonData)) {
             $this->response->body(DTO\ErrorDto::prepareError(104));
-            Log::error('Uploaded data is empty');
+            Log::error('Upload request data is empty');
             return;
         }
         $result = UploadDTO\MainUploadDto::Deserialize($jsonData);
@@ -74,15 +78,23 @@ class UploadController extends ApiController {
                  case $this->operations['TO']:
                      $operationData = $record->operationData;
                      $result = $this->tableOccupy($operationData, $userData);
-                    $this->response->body(DTO\ErrorDto::prepareSuccessMessage($result));
+                     if($result){
+                         $this->response->body(DTO\ErrorDto::prepareSuccessMessage($result));
+                         return;
+                     }
+                     $this->response->body(DTO\ErrorDto::prepareError(110));
                   break; 
                 case $this->operations['GB']:
                     $operationData = $record->operationData;
                     $result = $this->generateBill($operationData, $userData);
                    
                   break;
+                case $this->operations['OFF']:
+                       $operationData = $record->operationData; 
+                       $this->orderFullfiled($operationData, $userData);
+                  break;      
                 default :
-                    echo 'Operation name didnt match';
+                    $this->response->body(DTO\ErrorDto::prepareError(108));
                     break;
             }
         }
@@ -168,7 +180,9 @@ class UploadController extends ApiController {
         $tableOccupyUploadRequest = UploadDTO\RTableUploadDto::Deserialize($operationData);
         $rtableController = new RTablesController();
        
-        return $rtableController->occupyTable($tableOccupyUploadRequest);
+        return $rtableController->occupyTable(
+                $tableOccupyUploadRequest ,
+                $userInfo->restaurantId);
     }
     
     private function generateBill($operationData, $userInfo) {
@@ -201,10 +215,13 @@ class UploadController extends ApiController {
         $totalBillTaxAmt = 0;
         $taxController = new TaxController();
         $billTaxList = $taxController->getTax($billNetAmount);
-        foreach ($billTaxList as $billTax){
-            $totalBillTaxAmt += $billTax->taxAmt;
+        if(!is_null($billTaxList)){
+            foreach ($billTaxList as $billTax){
+                $totalBillTaxAmt += $billTax->taxAmt;
+            }
         }
         $totalPayBillAmt = $billNetAmount + $totalBillTaxAmt;
+        $totalPayBillAmt = round($totalPayBillAmt, 2);
         $billController = new BillController();
          $maxBillNo = $billController->getMaxBillNo($userInfo->restaurantId);
         if($totalPayBillAmt){
@@ -226,6 +243,7 @@ class UploadController extends ApiController {
         }  else {
         
             Log::error('Bill amount not valid so Bill is not generated for given request');
+            $this->response->body(DTO\ErrorDto::prepareError(107));
             return;
         }
         
@@ -236,23 +254,49 @@ class UploadController extends ApiController {
         $addBillDetailsResult = $billDetailsController->addBillDetails($billDetailsList, $userInfo->userId, $userInfo->restaurantId);
         if(!$addBillDetailsResult){
                 Log::error('Bill details generation failed');
+                $this->response->body(DTO\ErrorDto::prepareError(107));
                 return 0;
         }
-        foreach ($billTaxList as $billTax){
-            $billTax->billNo = $generateBillResult;
+        if(!is_null($billTaxList)){
+            foreach ($billTaxList as $billTax){
+                $billTax->billNo = $generateBillResult;
+            }
         }
-        $billTaxTransactionsConreoller = new BillTaxTransactionsController();
-        $addBillTaxTransactionsResult = $billTaxTransactionsConreoller->addBillTaxTransactions($billTaxList);
+        $billTaxTransactionsController = new BillTaxTransactionsController();
+        $addBillTaxTransactionsResult = $billTaxTransactionsController->
+                addBillTaxTransactions($billTaxList);
         if(!$addBillTaxTransactionsResult){
                 Log::error('Bill Tax Tansactions generation failed');
-                return 0;
+                
         }
          $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Bill has been generated'));
-        
-        
-
-        
-        
+         foreach ($customerOrders as $billedOrder){
+             $changeOrderStatusResult = $orderController->changeOrderStatus(
+                     $billedOrder->orderId, 
+                     BILLED_ORDER_STATUS,
+                     $userInfo->restaurantId);
+         }
+         if(!$changeOrderStatusResult){
+             Log::error('Changing Billed Order status failed');
+         }
+    }
+    
+    private function orderFullfiled($operationData, $userInfo) {
+        $orderFulfilledRequest = UploadDTO\OrderStatusUploadDto::Deserialize($operationData);
+        if(!is_object($orderFulfilledRequest)){
+            Log::error('OrderFulfilled Request data not deserialized correctly');
+            $this->response->body(DTO\ErrorDto::prepareError(109));
+            return ;
+        }
+        $orderController = new OrderController();
+        $changeOrderStatusResult = $orderController->changeOrderStatus(
+                     $orderFulfilledRequest->orderId, 
+                     FULFILLED_ORDER_STATUS,
+                     $userInfo->restaurantId);
+        if(!$changeOrderStatusResult){
+             Log::error('Changing Billed Order status failed');
+        }
+        $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Order Status has been changed'));
     }
 
 }

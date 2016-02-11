@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use App\Model\Table;
 use Cake\Log\Log;
+use App\DTO\DownloadDTO;
 
 /**
  * Description of OrderController
@@ -58,6 +59,21 @@ class OrderController extends ApiController {
     public function getCustomerOrders($custId, $restaurantId) {
         return $this->getTableObj()->getCustomerOrderList($custId, $restaurantId);
         
+    }
+    
+    public function changeOrderStatus($orderId, $status, $restaurantId) {
+        
+        $statusResult = $this->getTableObj()->changeStatus($orderId, $status);
+        if($statusResult){
+            $orderStatusDto = new DownloadDTO\OrderStatusDto($orderId, $status);
+             $syncController = new SyncController();
+            $result = $syncController->orderEntry(
+                    NULL, 
+                    json_encode($orderStatusDto), 
+                    UPDATE, 
+                    $restaurantId);
+        }
+        return $statusResult;
     }
 
 }

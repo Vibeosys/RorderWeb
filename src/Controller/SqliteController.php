@@ -18,11 +18,11 @@ use Cake\Log\Log;
  */
 class SqliteController extends ApiController {
 
-    private $iRestaurantId;
+    private $RestaurantId;
 
     public function getDB($restaurantId) {
 
-        $this->iRestaurantId = $restaurantId;
+        $this->RestaurantId = $restaurantId;
         $tableObject = new Table\SqliteTable();
         if ($tableObject->create()) {
 
@@ -49,10 +49,10 @@ class SqliteController extends ApiController {
     private function addUsers($tableObject) {
         //user table entry in sqlite file
         $userController = new UserController();
-        $userPreparedStatement = $userController->prepareInsertStatement($this->iRestaurantId);
+        $userPreparedStatement = $userController->prepareInsertStatement($this->RestaurantId);
         //Log::info($userPreparedStatement);
         if ($tableObject->excutePreparedStatement($userPreparedStatement)) {
-            Log::debug('Record is inserted into User SQLite table for restaurantId ' . $this->iRestaurantId);
+            Log::debug('Record is inserted into User SQLite table for restaurantId ' . $this->RestaurantId);
         } else {
             Log::error('Record is not inserted into User SQLite table');
         }
@@ -61,10 +61,10 @@ class SqliteController extends ApiController {
     private function addRTables($tableObject) {
         //Rtables Data entry in sqlite database file
         $rTablesController = new RTablesController();
-        $rTablesPreparedStatement = $rTablesController->prepareInsertStatements($this->iRestaurantId);
+        $rTablesPreparedStatement = $rTablesController->prepareInsertStatements($this->RestaurantId);
         //Log::info($userPreparedStatement);
         if ($tableObject->excutePreparedStatement($rTablesPreparedStatement)) {
-            Log::debug('Record is inserted into Rtable SQLite table for restaurantId ' . $this->iRestaurantId);
+            Log::debug('Record is inserted into Rtable SQLite table for restaurantId ' . $this->RestaurantId);
         } else {
             Log::error('Record is not inserted into Rtable SQLite table');
         }
@@ -76,7 +76,7 @@ class SqliteController extends ApiController {
         $menuCategoryPreparedStatement = $menuCategoryController->prepareInsertStatements();
         //Log::info($userPreparedStatement);
         if ($tableObject->excutePreparedStatement($menuCategoryPreparedStatement)) {
-            Log::debug('Record is inserted into Menu category SQLite table for restaurantId ' . $this->iRestaurantId);
+            Log::debug('Record is inserted into Menu category SQLite table for restaurantId ' . $this->RestaurantId);
         } else {
             Log::error('Record is not inserted into Menu category SQLite table');
         }
@@ -88,7 +88,7 @@ class SqliteController extends ApiController {
         $tableCategoryPreparedStatement = $tableCategoryController->prepareInsertStatements();
         //Log::info($userPreparedStatement);
         if ($tableObject->excutePreparedStatement($tableCategoryPreparedStatement)) {
-            Log::debug('Record is inserted into Table category SQLite table for restaurantId ' . $this->iRestaurantId);
+            Log::debug('Record is inserted into Table category SQLite table for restaurantId ' . $this->RestaurantId);
         } else {
             Log::error('Record is not inserted into Table category SQLite table');
         }
@@ -100,7 +100,7 @@ class SqliteController extends ApiController {
         $menuTagPreparedStatement = $menuTagController->prepareInsertStatements();
         //Log::info($userPreparedStatement);
         if ($tableObject->excutePreparedStatement($menuTagPreparedStatement)) {
-            Log::debug('Record is inserted into Menu Tags SQLite table for restaurantId ' . $this->iRestaurantId);
+            Log::debug('Record is inserted into Menu Tags SQLite table for restaurantId ' . $this->RestaurantId);
         } else {
             Log::error('Record is not inserted into Menu Tags SQLite table');
         }
@@ -109,10 +109,10 @@ class SqliteController extends ApiController {
     private function addMenuItems($tableObject) {
         //Menu table enrty in sqlite database
         $menuController = new MenuController();
-        $menuPreparedStatement = $menuController->prepareInsertStatements($this->iRestaurantId);
+        $menuPreparedStatement = $menuController->prepareInsertStatements($this->RestaurantId);
         //Log::info($userPreparedStatement);
         if ($tableObject->excutePreparedStatement($menuPreparedStatement)) {
-            Log::debug('Record is inserted into Menu SQLite table for restaurantId ' . $this->iRestaurantId);
+            Log::debug('Record is inserted into Menu SQLite table for restaurantId ' . $this->RestaurantId);
         } else {
             Log::error('Record is not inserted into Menu SQLite table');
         }
@@ -120,10 +120,10 @@ class SqliteController extends ApiController {
 
     private function addCustomers($tableObject) {
         $customerController = new CustomerController();
-        $customerPreparedStatement = $customerController->prepareInsertStatements($this->iRestaurantId);
+        $customerPreparedStatement = $customerController->prepareInsertStatements($this->RestaurantId);
         //Log::info($userPreparedStatement);
         if ($tableObject->excutePreparedStatement($customerPreparedStatement)) {
-            Log::debug('Record is inserted into Customer SQLite table for restaurantId ' . $this->iRestaurantId);
+            Log::debug('Record is inserted into Customer SQLite table for restaurantId ' . $this->RestaurantId);
         } else {
             Log::error('Record is not inserted into Customer SQLite table');
         }
@@ -131,10 +131,10 @@ class SqliteController extends ApiController {
 
     private function addTableTransactions($tableObject) {
         $tableController = new TableTransactionController();
-        $tableTransactionPreparedStatement = $tableController->prepareInsertStatements($this->iRestaurantId);
+        $tableTransactionPreparedStatement = $tableController->prepareInsertStatements($this->RestaurantId);
         //Log::info($userPreparedStatement);
         if ($tableObject->excutePreparedStatement($tableTransactionPreparedStatement)) {
-            Log::debug('Record is inserted into Table_Transaction SQLite table for restaurantId ' . $this->iRestaurantId);
+            Log::debug('Record is inserted into Table_Transaction SQLite table for restaurantId ' . $this->RestaurantId);
         } else {
             Log::error('Record is not inserted into Table_Transactions SQLite table');
         }

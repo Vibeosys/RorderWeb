@@ -23,8 +23,14 @@ class RTablesController extends ApiController {
         }
         return false;
     }
-    public function occupyTable($tableOccupyRequest) {
-        return $this->getTableObj()->occupy($tableOccupyRequest->tableId, $tableOccupyRequest->isOccupied);
+    public function occupyTable($tableOccupyRequest, $restaurantId) {
+        $occupyResult = $this->getTableObj()->occupy(
+                $tableOccupyRequest->tableId, 
+                $tableOccupyRequest->isOccupied);
+        if($occupyResult){
+            $this->makeSyncEntry(json_encode($tableOccupyRequest), $restaurantId);
+        }
+        return $occupyResult;
     }
     
      public function prepareInsertStatements($restaurantId) {
@@ -45,6 +51,11 @@ class RTablesController extends ApiController {
             $preparedStatements = str_replace('@UpdatedDate', $rTables->updatedDate, $preparedStatements);
         }
         return $preparedStatements;
+    }
+    
+    private function makeSyncEntry($json , $restaurantId) {
+        $syncController = new SyncController();
+        $syncController->rtableEntry($json, UPDATE, $restaurantId);
     }
     
 }

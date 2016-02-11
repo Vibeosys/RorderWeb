@@ -28,8 +28,9 @@ class BillDetailsController {
         if(is_array($billDetailsEntryList)){
             foreach ($billDetailsEntryList as $billDetailsEntry){
                 $billDetailsEntryResult = $this->getTableObj()->insert($billDetailsEntry);  
-                $this->makeSyncEntry($billDetailsEntry->billNo, $userId, $restaurantId);
+                $billNo = $billDetailsEntry->billNo;
             }
+            $this->makeSyncEntry($billNo, $userId, $restaurantId);
         }
         return $billDetailsEntryResult;
     }
@@ -43,7 +44,7 @@ class BillDetailsController {
              $syncController->billDetailsEntry($userId, json_encode($newBillDetails), INSERT, $restaurantId);
              }
              Log::debug(' New bill Details entry successfully place in sync table');
-             return ;
+             
          }
          Log::error('Error occured in sync entry of new bill Details ');
          return;
