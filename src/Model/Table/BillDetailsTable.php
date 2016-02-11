@@ -9,6 +9,7 @@ use Cake\ORM\TableRegistry;
 use Cake\ORM\Table;
 use Cake\Log\Log;
 use App\DTO\UploadDTO;
+use App\DTO\DownloadDTO;
 /**
  * Description of BillDetailsTable
  *
@@ -39,5 +40,29 @@ class BillDetailsTable extends Table{
         Log::error('error ocurred in Bill details creating for BillNo :-' .
                 $billDetails->billNo);
         return 0;
+    }
+    
+    public function getNewDetails($billNo) {
+        try{
+            $newBillDetials = NULL;
+            $conditions = ['BillNo =' => $billNo];
+            $billDetails = $this->connect()->find()->where($conditions);
+            if($billDetails->count()){
+                $newBillDetials = array();
+                $newBillDetialsCounter = 0;
+                foreach ($billDetails as $details){
+                    $billDetailsDownloadDto = new DownloadDTO\BillDetailsDownloadDto(
+                            $details->AutoId, 
+                            $details->OrderId, 
+                            $details->BillNo, 
+                            $details->CreatedDate, 
+                            $details->UpdatedDate);
+                    $newBillDetials[$newBillDetialsCounter++] = $billDetailsDownloadDto;
+                }
+            }
+            return $newBillDetials;
+        } catch (Exception $ex) {
+            echo 'Error occured in bill details table during retriving new Bill details'.$ex;
+        }
     }
 }

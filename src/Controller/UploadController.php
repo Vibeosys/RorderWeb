@@ -79,7 +79,7 @@ class UploadController extends ApiController {
                 case $this->operations['GB']:
                     $operationData = $record->operationData;
                     $result = $this->generateBill($operationData, $userData);
-                    
+                   
                   break;
                 default :
                     echo 'Operation name didnt match';
@@ -233,7 +233,7 @@ class UploadController extends ApiController {
             $billDetails->billNo = $generateBillResult;
         }
         $billDetailsController = new BillDetailsController();
-        $addBillDetailsResult = $billDetailsController->addBillDetails($billDetailsList);
+        $addBillDetailsResult = $billDetailsController->addBillDetails($billDetailsList, $userInfo->userId, $userInfo->restaurantId);
         if(!$addBillDetailsResult){
                 Log::error('Bill details generation failed');
                 return 0;
@@ -247,6 +247,7 @@ class UploadController extends ApiController {
                 Log::error('Bill Tax Tansactions generation failed');
                 return 0;
         }
+         $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Bill has been generated'));
         
         
 

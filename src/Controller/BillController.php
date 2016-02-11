@@ -7,6 +7,7 @@ namespace App\Controller;
  */
 use App\Model\Table;
 use Cake\Log\Log;
+use App\DTO\UploadDTO;
 /**
  * Description of BillController
  *
@@ -14,6 +15,9 @@ use Cake\Log\Log;
  */
 class BillController  extends ApiController{
     
+    private $insert = 'insert';
+
+
     private function getTableObj() {
         
         return new Table\BillTable();
@@ -31,9 +35,29 @@ class BillController  extends ApiController{
         $billEntryResult = $this->getTableObj()->insert($billEntryDto);
         if($billEntryResult){
             Log::debug('you bill is generated');
+            $this->makeSyncEntry($billEntryDto);
             return $billEntryResult;
         }
         return false;
+    }
+    
+    private function makeSyncEntry(UploadDTO\BillEntryDto $billEntryDto) {
+     
+          $newBillEntry = $this->getTableObj()->getNewBill(
+                  $billEntryDto->billNo, 
+                  $billEntryDto->restaurantId, 
+                  $billEntryDto->userId);
+         if(!is_null($newBillEntry)){
+             $syncController = new SyncController();
+             $syncController->billEntry($billEntryDto->userId, 
+                     json_encode($newBillEntry), 
+                     $this->insert, 
+                     $billEntryDto->restaurantId);
+             Log::debug(' New bill entry successfully place in sync table');
+             return ;
+         }
+         Log::error('Error occured in sync entry of new bill');
+         return;
     }
     
     

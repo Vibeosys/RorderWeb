@@ -9,6 +9,7 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use App\DTO\UploadDTO;
+use \App\DTO\DownloadDTO;
 /**
  * Description of BillTable
  *
@@ -61,6 +62,35 @@ class BillTable extends Table{
         }
         Log::debug('Order Number generated for new order orderNo is :- ' . $maxBillNo);
         return $maxBillNo;
+    }
+    
+    
+    public function getNewBill($billNo, $restuarantId, $userId) {
+        try{
+            $billDownloadDto = null;
+            $conditions = ['BillNo =' =>$billNo, 'RestaurantId =' => $restuarantId, 'UserId =' =>$userId];
+            $newBill = $this->connect()->find()->where($conditions);
+            if($newBill->count()){
+                foreach ($newBill as $bill){
+                    $billDownloadDto = new DownloadDTO\BillDownloadDto(
+                            $bill->BillNo, 
+                            $bill->BillDate, 
+                            $bill->BillTime, 
+                            $bill->NetAmount, 
+                            $bill->TotalTaxAmount, 
+                            $bill->TotalPayAmount, 
+                            $bill->CreatedDate, 
+                            $bill->UpdatedDate, 
+                            $bill->UserId);
+                }
+            }
+            return $billDownloadDto;
+        } catch (Exception $ex) {
+            echo 'bill table database error'.$ex;
+        }
+        
+        
+        
     }
     
     

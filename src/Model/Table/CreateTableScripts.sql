@@ -87,7 +87,7 @@ CREATE TABLE [menu_category](
   CREATE TABLE [bill_details] (
   'AutoId'                  INTEGER NOT NULL PRIMARY KEY,
   'OrderId'                 TEXT,
-  'BillNo'                      INTEGER,
+  'BillNo'                  INTEGER,
   'CreatedDate'             DATETIME,
   'UpdatedDate'             DATETIME);
   
