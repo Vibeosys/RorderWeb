@@ -82,7 +82,11 @@ CREATE TABLE [menu_category](
   'TotalPayAmount'      DOUBLE,
   'CreatedDate'             DATETIME,
   'UpdatedDate'             DATETIME,
-  'UserId'                          TEXT);
+  'UserId'                  TEXT,
+  'CustId'                  TEXT,
+  'TableId'                 INTEGER,
+  'IsPayed'                 BOOLEAN,
+  'PayedBy'                 TEXT);
   
   CREATE TABLE [bill_details] (
   'AutoId'                  INTEGER NOT NULL PRIMARY KEY,
@@ -125,6 +129,12 @@ CREATE TABLE [table_transaction](
  'IsWaiting'      BOOLEAN,
  'ArrivalTime'       DATETIME,
  'Occupancy'        INTEGER
+);
+
+CREATE TABLE [payment_mode_master](
+ 'PaymentModeId'    INTEGER,
+ 'PaymentModeTitle'    TEXT,
+ 'Active'           BOOLEAN
 );
 
 

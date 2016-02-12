@@ -10,7 +10,7 @@ namespace App\DTO\UploadDTO;
 
 /**
  * Description of BillEntryDto
- *
+ *  used for bill entry in mysql table
  * @author niteen
  */
 class BillEntryDto {

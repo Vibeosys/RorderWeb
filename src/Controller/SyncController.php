@@ -29,6 +29,8 @@ class SyncController extends ApiController {
     public $orderDetailsTable = "order_details";
     public $billTable = "bill";
     public $billDetailsTable = "bill_details";
+    public $customerTable = "customer";
+    public $tableTransactionTable = "table_transaction";
 
 
 
@@ -54,7 +56,6 @@ class SyncController extends ApiController {
         $allUser = $UserObj->getUsers($restaurantId);
         if ($allUser) {
             foreach ($allUser as $user) {
-
                 $this->getTableObj()->Insert($user->userId, $json, $this->menuTable, $operation, $restaurantId);
             }
         }
@@ -77,7 +78,6 @@ class SyncController extends ApiController {
         $i = 0;
         if ($allUser) {
             foreach ($allUser as $user) {
-
                 $this->getTableObj()->Insert($user->userId, $json, $this->menuTagTable, $operation, $restaurantId);
             }
         }
@@ -89,7 +89,6 @@ class SyncController extends ApiController {
         $i = 0;
         if ($allUser) {
             foreach ($allUser as $user) {
-
                 $this->getTableObj()->Insert($user->userId, $json, $this->rtableTable, $operation, $restaurantId);
             }
         }
@@ -100,7 +99,6 @@ class SyncController extends ApiController {
         $allUser = $UserObj->getUsers($restaurantId);
         if ($allUser) {
             foreach ($allUser as $user) {
-
                 $this->getTableObj()->Insert($user->userId, $json, $this->tableCategoryTable, $operation, $restaurantId);
             }
         }
@@ -116,7 +114,7 @@ class SyncController extends ApiController {
                     \Cake\Log\Log::debug('new sync entry for restaurantId :- '.$restaurantId);
                 }  else {
                     \Cake\Log\Log::debug('new sync entry for restaurantId :- '.$restaurantId);
-                    $this->getTableObj()->Insert($user->userId, $json, $this->ordersTable, 'update', $restaurantId);
+                    $this->getTableObj()->Insert($user->userId, $json, $this->ordersTable, UPDATE, $restaurantId);
                 }
             }
         }
@@ -139,7 +137,6 @@ class SyncController extends ApiController {
     }
     
     public function billEntry($userId, $json, $operation, $restaurantId) {
-        
             
                 if ($userId) {
                     try {
@@ -148,23 +145,48 @@ class SyncController extends ApiController {
                         throw new Exception($ex);
                     }
                 }
-            
-        
     }
     
-    
     public function billDetailsEntry($userId, $json, $operation, $restaurantId) {
-        
-            
-                if ($userId) {
-                    try {
-                        $this->getTableObj()->Insert($userId, $json, $this->billDetailsTable, $operation, $restaurantId);
-                    } catch (Excption $ex) {
-                        throw new Exception($ex);
-                    }
+        if ($userId) {
+            try {
+                    $this->getTableObj()->Insert($userId, $json, $this->billDetailsTable, $operation, $restaurantId);
+                } catch (Excption $ex) {
+                    throw new Exception($ex);
                 }
-            
-        
+       }
+    }
+    
+    public function customerEntry($userId, $json, $operation, $restaurantId) {
+        $UserObj = new UserController;
+        $allUser = $UserObj->getUsers($restaurantId);
+        if ($allUser) {
+            foreach ($allUser as $user) {
+                if ($user->userId != $userId) {
+                    $this->getTableObj()->Insert($user->userId, $json, $this->customerTable, $operation, $restaurantId);
+                    \Cake\Log\Log::debug('new Customer entry for restaurantId :- '.$restaurantId);
+                }  else {
+                    \Cake\Log\Log::debug('new Customer entry for restaurantId :- '.$restaurantId);
+                    $this->getTableObj()->Insert($user->userId, $json, $this->customerTable, UPDATE, $restaurantId);
+                }
+            }
+        }
+    }
+    
+    public function tableTransactionEntry($userId, $json, $operation, $restaurantId) {
+        $UserObj = new UserController;
+        $allUser = $UserObj->getUsers($restaurantId);
+        if ($allUser) {
+            foreach ($allUser as $user) {
+                if ($user->userId != $userId) {
+                    $this->getTableObj()->Insert($user->userId, $json, $this->tableTransactionTable, $operation, $restaurantId);
+                    \Cake\Log\Log::debug('new Customer waiting entry for restaurantId :- '.$restaurantId);
+                }  else {
+                    \Cake\Log\Log::debug('new Customer waiting entry for restaurantId :- '.$restaurantId);
+                    $this->getTableObj()->Insert($user->userId, $json, $this->tableTransactionTable, UPDATE, $restaurantId);
+                }
+            }
+        }
     }
 
    
@@ -174,7 +196,6 @@ class SyncController extends ApiController {
         \Cake\Log\Log::info("in Sync controller download method");
         $Update = $this->getTableObj()->getUpdate($userId, $restaurantId);
         if ($Update) {
-
             $this->response->body(json_encode($Update));
             $this->response->send();
             \Cake\Log\Log::debug("Update send to User : " . $userId." Update json for this user".  json_encode($Update));

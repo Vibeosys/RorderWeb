@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use App\Model\Table;
 use Cake\Log\Log;
+use App\DTO\UploadDTO;
 
 /**
  * Description of TableTransactionController
@@ -25,7 +26,43 @@ class TableTransactionController extends ApiController {
     private function getTableObj() {
         return new Table\TableTransactionTable();
     }
-
+    
+    public function addNewEntry(UploadDTO\TableTransactionUploadDto $addWaitingCustomerEntry, $userInfo) {
+        $isWaitingResult = $this->getTableObj()->isCustomerWaiting(
+                $addWaitingCustomerEntry->custId,
+                $userInfo->restaurantId);
+        $updateResult = $insertResult = false;
+        if($isWaitingResult){
+            $updateResult = $this->getTableObj()->update($addWaitingCustomerEntry);
+        }else{
+            $insertResult = $this->getTableObj()->insert(
+                    $addWaitingCustomerEntry, $userInfo->restaurantId);
+        }
+        $syncController = new SyncController();
+        if($updateResult){
+            $newEntry = $this->getTableObj()->getTableTransaction(
+                    $addWaitingCustomerEntry->custId, $userInfo->restaurantId);
+            $syncController->tableTransactionEntry(
+                    $userInfo->userId, 
+                    json_encode($newEntry), 
+                    UPDATE, 
+                    $userInfo->restaurantId);
+            return $updateResult;
+        }elseif ($insertResult) {
+             $newEntry = $this->getTableObj()->getTableTransaction(
+                    $addWaitingCustomerEntry->custId, $userInfo->restaurantId);
+            $syncController->tableTransactionEntry(
+                    $userInfo->userId, 
+                    json_encode($newEntry), 
+                    INSERT, 
+                    $userInfo->restaurantId);
+            return $insertResult;
+        }  else {
+            return false;
+        }
+    }
+    
+  
     public function getTableTransactions($restaurantId) {
         $result = $this->getTableObj()->getTableTransactions($restaurantId);
         if ($result) {

@@ -34,13 +34,11 @@ class SqliteController extends ApiController {
             $this->addTableCategories($tableObject);
             $this->addMenuTags($tableObject);
             $this->addMenuItems($tableObject);
+            $this->addPaymentMode($tableObject);
 
             $this->response->type('class');
             $this->response->file(SQLITE_DB_DIR . 'RorderDb.sqlite', ['download' => true]);
-            // $this->response->file('Controller'.DS.'RorderDb.sqlite',['download' => true]);
-
             $this->response->send();
-
             unlink(SQLITE_DB_DIR . 'RorderDb.sqlite');
             Log::debug('RorderDb.sqlite  File deleted successfully');
         }
@@ -139,5 +137,17 @@ class SqliteController extends ApiController {
             Log::error('Record is not inserted into Table_Transactions SQLite table');
         }
     }
+    
+    private function addPaymentMode($tableObject) {
+        $paymentModeController = new PaymentModeMasterController();
+        $paymentModePreparedStatement = $paymentModeController->prepareInsertStatements($this->RestaurantId);
+        if ($tableObject->excutePreparedStatement($paymentModePreparedStatement)) {
+            Log::debug('Record is inserted into payment_mode_master SQLite table for restaurantId ' . $this->RestaurantId);
+        } else {
+            Log::error('Record is not inserted into payment_mode_master SQLite table');
+        }
+    }
+    
+    
 
 }

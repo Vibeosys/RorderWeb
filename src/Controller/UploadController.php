@@ -24,7 +24,10 @@ class UploadController extends ApiController {
         'PO' => 'placeOrder',
         'TO' => 'tableOccupy',
         'GB' => 'generateBill', 
-        'OFF' => 'orderFulfilled'];
+        'OFF' => 'orderFulfilled',
+        'AC' => 'addCustomer',
+        'PB' => 'payedBill',
+        'AWC' => 'addWaitingCustomer'];
 
     public function index() {
         $this->autoRender = false;
@@ -38,7 +41,10 @@ class UploadController extends ApiController {
         $result = UploadDTO\MainUploadDto::Deserialize($jsonData);
         $userData = UploadDTO\UserUploadDto::Deserialize($result->user);
         $userController = new UserController();
-        $userValidateResult = $userController->validateUserForUpload($userData->userId, $userData->password, $userData->restaurantId);
+        $userValidateResult = $userController->validateUserForUpload(
+                $userData->userId, 
+                $userData->password, 
+                $userData->restaurantId);
         if (!$userValidateResult) {
             $this->response->body(DTO\ErrorDto::prepareError(102));
             \Cake\Log\Log::error("request with incorrect  userId :- " . $userData->userId);
@@ -89,10 +95,22 @@ class UploadController extends ApiController {
                     $result = $this->generateBill($operationData, $userData);
                    
                   break;
+                case $this->operations['PB']:
+                    $operationData = $record->operationData; 
+                    $this->payedBill($operationData, $userData);
+                    break;
                 case $this->operations['OFF']:
                        $operationData = $record->operationData; 
                        $this->orderFullfiled($operationData, $userData);
-                  break;      
+                  break; 
+                case $this->operations['AC']:
+                    $operationData = $record->operationData; 
+                    $this->addCustomer($operationData, $userData);
+                    break;
+                case $this->operations['AWC']:
+                    $operationData = $record->operationData;
+                    $this->addWaitingCustomer($operationData, $userData);
+                    break;
                 default :
                     $this->response->body(DTO\ErrorDto::prepareError(108));
                     break;
@@ -297,6 +315,41 @@ class UploadController extends ApiController {
              Log::error('Changing Billed Order status failed');
         }
         $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Order Status has been changed'));
+    }
+    
+    private function payedBill($operationData, $userInfo) {
+        $payedBillRequest = UploadDTO\BillPaymentUploadDto::Deserialize($operationData);
+        $billController = new BillController();
+        $payedBillResult = $billController->changeBillPaymetStatus($payedBillRequest, $userInfo);
+        if($payedBillResult){
+            $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Bill payment has been done'));
+            return ;
+        }
+        $this->response->body(DTO\ErrorDto::prepareError(111));
+        return;
+    }
+    
+    private function addCustomer($operationData, $userInfo) {
+        $addCustomerRequest = UploadDTO\CustomerUploadDto::Deserialize($operationData);
+        $customerControllr = new CustomerController();
+        $addCustomerResult = $customerControllr->addNewCustomer($addCustomerRequest, $userInfo);
+        if($addCustomerResult){
+            $this->response->body(DTO\ErrorDto::prepareSuccessMessage('New customer has been added'));
+            return ;
+        }
+        $this->response->body(DTO\ErrorDto::prepareError(112));
+    }
+    
+    private function addWaitingCustomer($operationData, $userInfo) {
+        $addWaitingCustomerRequest = UploadDTO\TableTransactionUploadDto::Deserialize($operationData);
+        $tableTransactionController = new TableTransactionController();
+        $addWaitingCustomerResult = $tableTransactionController->addNewEntry($addWaitingCustomerRequest, $userInfo);
+        if($addWaitingCustomerResult){
+            $this->response->body(DTO\ErrorDto::prepareSuccessMessage('waiting request added'));
+            return;
+        }
+        $this->response->body(DTO\ErrorDto::prepareError(113));
+        return;
     }
 
 }

@@ -6,29 +6,31 @@
  * and open the template in the editor.
  */
 
-namespace App\DTO\DownloadDTO;
-
+namespace App\DTO\UploadDTO;
+use App\DTO;
 /**
- * Description of TableTransactionDownloadDto
+ * Description of TableTransactionUploadDto
  *
- * @author anand
+ * @author niteen
  */
-class TableTransactionDownloadDto {
-
-    //put your code here
+class TableTransactionUploadDto extends DTO\JsonDeserializer{
+    
     public $tableId;
     public $userId;
     public $custId;
     public $isWaiting;
-    public $arrivalTime;    
-
+    public $arrivalTime;
+    public $occupancy;
+    
     public function __construct($tableId = null, $userId = null, $custId = null, 
-            $isWaiting = null, $arrivalTime = null) {
-        $this->custId = $custId;
-        $this->userId = $userId;
+            $isWaiting = null, $arrivalTime = null, $occupancy = null) {
         $this->tableId = $tableId;
+        $this->userId = $userId;
+        $this->custId = $custId;
         $this->isWaiting = $isWaiting;
         $this->arrivalTime = $arrivalTime;
+        $this->occupancy  = $occupancy;
     }
-
+    
+    
 }

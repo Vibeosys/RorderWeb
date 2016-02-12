@@ -23,7 +23,19 @@ class CustomerController extends ApiController{
     private function getTableObj() {
         return new Table\CustomerTable();
     }
-    
+
+    public function addNewCustomer($newCustomer, $userInfo) {
+        $insertResult = $this->getTableObj()->insert($newCustomer,$userInfo);
+        if($insertResult){
+            $syncController = new SyncController();
+            $syncEntryResult = $syncController->customerEntry(
+                    $userInfo->userId, 
+                    json_encode($newCustomer), 
+                    INSERT, 
+                    $userInfo->restaurantId);
+        }
+        return $insertResult;
+    }
     public function getCustomers($restaurantId) {
         
         $result = $this->getTableObj()->getCustomers($restaurantId);
@@ -32,6 +44,7 @@ class CustomerController extends ApiController{
         }
         return false;
     }
+    
     
     public function prepareInsertStatements($restaurantId) {
     

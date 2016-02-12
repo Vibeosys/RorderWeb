@@ -140,7 +140,7 @@ class OrderTable extends Table {
             Log::error('Error occured in changing order Status for custId : '.$custId);
             return false;
         } catch (Exception $ex) {
-            echo 'Database error in updation of order status'.$ex;
+            return false;
         }
     }
 
