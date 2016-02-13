@@ -35,8 +35,6 @@ class MenuTable extends Table {
         $allMenus[] = null;
         $i = 0;
         foreach ($menus as $menu) {
-            //if($restaurantId == $menu->RestaurantId){
-            Log::debug('menu for restaurantId = ' . $restaurantId . ' is found');
             $menuDto = new DownloadDTO\MenuDownloadDto(
                     $menu->MenuId, 
                     $menu->MenuTitle, 

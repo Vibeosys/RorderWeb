@@ -137,6 +137,12 @@ CREATE TABLE [payment_mode_master](
  'Active'           BOOLEAN
 );
 
+CREATE TABLE [feedback_master](
+ 'FeedbackId'    INTEGER,
+ 'FeedbackTitle'    TEXT,
+ 'Active'           BOOLEAN
+);
+
 
 
 

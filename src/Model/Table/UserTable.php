@@ -47,7 +47,6 @@ class UserTable extends Table {
                     $user->RestaurantId);
 
             $result[$i] = $userDto;
-            Log::info('updated date of user' . $userDto->updatedDate);
             $i++;
         }
         return $result;

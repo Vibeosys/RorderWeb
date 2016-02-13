@@ -17,8 +17,8 @@ use App\DTO\UploadDTO;
  *
  * @author anand
  */
-define('TBL_TRN_INS_QRY', "INSERT INTO table_transactions (TableId,CustId,UserId,IsWaiting,ArrivalTime)"
-        . "VALUES (@TableId,\"@CustId\",\"@UserId\",@IsWaiting,\"@ArrivalTime\")");
+define('TBL_TRN_INS_QRY', "INSERT INTO table_transaction (TableId,CustId,UserId,IsWaiting,ArrivalTime)"
+        . "VALUES (@TableId,\"@CustId\",\"@UserId\",@IsWaiting,\"@ArrivalTime\");");
 
 class TableTransactionController extends ApiController {
 

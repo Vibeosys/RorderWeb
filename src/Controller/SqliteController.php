@@ -35,6 +35,7 @@ class SqliteController extends ApiController {
             $this->addMenuTags($tableObject);
             $this->addMenuItems($tableObject);
             $this->addPaymentMode($tableObject);
+            $this->addFeedback($tableObject);
 
             $this->response->type('class');
             $this->response->file(SQLITE_DB_DIR . 'RorderDb.sqlite', ['download' => true]);
@@ -145,6 +146,16 @@ class SqliteController extends ApiController {
             Log::debug('Record is inserted into payment_mode_master SQLite table for restaurantId ' . $this->RestaurantId);
         } else {
             Log::error('Record is not inserted into payment_mode_master SQLite table');
+        }
+    }
+    
+     private function addFeedback($tableObject) {
+        $feedbackController = new FeedbackController();
+        $feedbackPreparedStatement = $feedbackController->prepareInsertStatements($this->RestaurantId);
+        if ($tableObject->excutePreparedStatement($feedbackPreparedStatement)) {
+            Log::debug('Record is inserted into feedback_master SQLite table for restaurantId ' . $this->RestaurantId);
+        } else {
+            Log::error('Record is not inserted into feedback_master SQLite table');
         }
     }
     
