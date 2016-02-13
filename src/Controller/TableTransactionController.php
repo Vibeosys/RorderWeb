@@ -38,31 +38,30 @@ class TableTransactionController extends ApiController {
             $insertResult = $this->getTableObj()->insert(
                     $addWaitingCustomerEntry, $userInfo->restaurantId);
         }
-        $syncController = new SyncController();
         if($updateResult){
             $newEntry = $this->getTableObj()->getTableTransaction(
                     $addWaitingCustomerEntry->custId, $userInfo->restaurantId);
-            $syncController->tableTransactionEntry(
-                    $userInfo->userId, 
-                    json_encode($newEntry), 
-                    UPDATE, 
-                    $userInfo->restaurantId);
+            $this->makeSyncEntry($userInfo, json_encode($newEntry), UPDATE_OPERATION);
             return $updateResult;
         }elseif ($insertResult) {
              $newEntry = $this->getTableObj()->getTableTransaction(
                     $addWaitingCustomerEntry->custId, $userInfo->restaurantId);
-            $syncController->tableTransactionEntry(
-                    $userInfo->userId, 
-                    json_encode($newEntry), 
-                    INSERT, 
-                    $userInfo->restaurantId);
+           $this->makeSyncEntry($userInfo, json_encode($newEntry), INSERT_OPERATION);
             return $insertResult;
         }  else {
             return false;
         }
     }
     
-  
+    public function deleteTransactionEntry(UploadDTO\TableTransactionUploadDto $deleteWaitingCustomer, $userInfo) {
+        $deleteResult = $this->getTableObj()->deleteEnrty($deleteWaitingCustomer, $userInfo->restaurantId);
+        if($deleteResult){
+             $this->makeSyncEntry($userInfo, json_encode($deleteWaitingCustomer), DELETE_OPERATION);
+            return true;
+        }
+        return false;
+    }
+    
     public function getTableTransactions($restaurantId) {
         $result = $this->getTableObj()->getTableTransactions($restaurantId);
         if ($result) {
@@ -88,6 +87,16 @@ class TableTransactionController extends ApiController {
             $preparedStatements = str_replace('@IsWaiting', $tableTransaction->isWaiting, $preparedStatements);
         }
         return $preparedStatements;
+    }
+    
+    private function makeSyncEntry($userInfo, $json, $operation) {
+         $syncController = new SyncController();
+         $syncController->tableTransactionEntry(
+                    $userInfo->userId, 
+                    $json, 
+                    $operation, 
+                    $userInfo->restaurantId);
+            Log::debug('Sync update save for table_transaction table deletion');
     }
 
 }

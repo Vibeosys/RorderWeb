@@ -70,7 +70,7 @@ class OrderController extends ApiController {
             $result = $syncController->orderEntry(
                     NULL, 
                     json_encode($orderStatusDto), 
-                    UPDATE, 
+                    UPDATE_OPERATION, 
                     $restaurantId);
         }
         return $statusResult;

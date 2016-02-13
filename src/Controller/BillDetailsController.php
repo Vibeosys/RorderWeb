@@ -41,7 +41,7 @@ class BillDetailsController {
          if(!is_null($newBillDetailsEntryList)){
              $syncController = new SyncController();
              foreach ($newBillDetailsEntryList as $newBillDetails){
-             $syncController->billDetailsEntry($userId, json_encode($newBillDetails), INSERT, $restaurantId);
+             $syncController->billDetailsEntry($userId, json_encode($newBillDetails), INSERT_OPERATION, $restaurantId);
              }
              Log::debug(' New bill Details entry successfully place in sync table');
              

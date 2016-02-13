@@ -27,7 +27,9 @@ class UploadController extends ApiController {
         'OFF' => 'orderFulfilled',
         'AC' => 'addCustomer',
         'PB' => 'payedBill',
-        'AWC' => 'addWaitingCustomer'];
+        'AWC' => 'addWaitingCustomer',
+        'CF' =>'customerFeedback',
+        'CT' =>'closeTable'];
 
     public function index() {
         $this->autoRender = false;
@@ -63,23 +65,6 @@ class UploadController extends ApiController {
                     $operationData = $record->operationData;
                     $orderNo = $this->placeOrder($operationData, $userData);
                     $this->response->body(DTO\ErrorDto::prepareSuccessMessage($orderNo));
-                    /* if ($record->operationData) {
-
-                      $orderUploadDto = new UploadDTO\OrderUploadDto(
-                      $record->tableData->orderId, $record->tableData->custId, $record->tableData->orderStatus, $record->tableData->orderDate, $record->tableData->orderTime, $record->tableData->orderAmount, $record->tableData->userId, $record->tableData->tableId);
-                      $orderController = new OrderController();
-                      $uploadResult = $orderController->placeOrder($userData->userId, $userData->restaurantId, $orderUploadDto);
-
-                      if ($uploadResult) {
-                      if (is_integer($uploadResult)) {
-                      $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Order has been placed for Order Number :- ' . $uploadResult));
-                      } else {
-                      $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Order has been updated for Order Number'));
-                      }
-                      } else {
-                      $this->response->body(DTO\ErrorDto::prepareError(105));
-                      }
-                      } */
                     break;
                  case $this->operations['TO']:
                      $operationData = $record->operationData;
@@ -93,7 +78,6 @@ class UploadController extends ApiController {
                 case $this->operations['GB']:
                     $operationData = $record->operationData;
                     $result = $this->generateBill($operationData, $userData);
-                   
                   break;
                 case $this->operations['PB']:
                     $operationData = $record->operationData; 
@@ -110,6 +94,14 @@ class UploadController extends ApiController {
                 case $this->operations['AWC']:
                     $operationData = $record->operationData;
                     $this->addWaitingCustomer($operationData, $userData);
+                    break;
+                case $this->operations['CF']:
+                    $operationData = $record->operationData;
+                    $this->addCustomerFeedback($operationData, $userData);
+                    break;
+                case $this->operations['CT']:
+                    $operationData = $record->operationData;
+                    $this->closeTable($operationData, $userData);
                     break;
                 default :
                     $this->response->body(DTO\ErrorDto::prepareError(108));
@@ -189,7 +181,6 @@ class UploadController extends ApiController {
                 $resultObject = $record;
             }
         }
-
         return $resultObject;
     }
     
@@ -315,6 +306,7 @@ class UploadController extends ApiController {
              Log::error('Changing Billed Order status failed');
         }
         $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Order Status has been changed'));
+        return;
     }
     
     private function payedBill($operationData, $userInfo) {
@@ -349,6 +341,30 @@ class UploadController extends ApiController {
             return;
         }
         $this->response->body(DTO\ErrorDto::prepareError(113));
+        return;
+    }
+    
+    private function addCustomerFeedback($operationData, $userInfo) {
+        $addCustomerFeedbackRequest = UploadDTO\CustomerFeedbackUploadDto::Deserialize($operationData);
+        $customerFeedbackController = new CustomerFeedbackController();
+        $addCustomerFeedbackResult = $customerFeedbackController->addCustomerFeedback($addCustomerFeedbackRequest, $userInfo);
+         if($addCustomerFeedbackResult){
+            $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Customer feedback saved successfully'));
+            return;
+        }
+        $this->response->body(DTO\ErrorDto::prepareError(114));
+        return;
+    }
+    
+    private function closeTable($operationData, $userInfo) {
+         $closeTableRequest = UploadDTO\TableTransactionUploadDto::Deserialize($operationData);
+        $tableTransactionController = new TableTransactionController();
+        $closeTableResult = $tableTransactionController->deleteTransactionEntry($closeTableRequest, $userInfo);
+        if($closeTableResult){
+            $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Table record has been deleted from table transaction'));
+            return;
+        }
+        $this->response->body(DTO\ErrorDto::prepareError(115));
         return;
     }
 

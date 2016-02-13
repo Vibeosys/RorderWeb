@@ -84,6 +84,22 @@ class TableTransactionTable extends Table {
         }
     }
     
+    public function deleteEnrty(UploadDTO\TableTransactionUploadDto $deleteWaitingEntry, $restaurantId) {
+        $conditions = ['CustId =' => $deleteWaitingEntry->custId,
+                       'TableId =' => $deleteWaitingEntry->tableId,
+                       'RestaurantId =' => $restaurantId];
+        try{
+           // $deleteEntry = $this->connect()->get($deleteWaitingEntry->custId);
+            $deleteResult = $this->connect()->deleteAll($conditions);
+            if($deleteResult){
+                return true;
+            }
+            return false;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+    
     public function getTableTransaction($custId, $restaurantId) {
       $result = false;
         $conditions = [

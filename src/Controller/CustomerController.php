@@ -31,7 +31,7 @@ class CustomerController extends ApiController{
             $syncEntryResult = $syncController->customerEntry(
                     $userInfo->userId, 
                     json_encode($newCustomer), 
-                    INSERT, 
+                    INSERT_OPERATION, 
                     $userInfo->restaurantId);
         }
         return $insertResult;

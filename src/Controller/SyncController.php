@@ -114,7 +114,7 @@ class SyncController extends ApiController {
                     \Cake\Log\Log::debug('new sync entry for restaurantId :- '.$restaurantId);
                 }  else {
                     \Cake\Log\Log::debug('new sync entry for restaurantId :- '.$restaurantId);
-                    $this->getTableObj()->Insert($user->userId, $json, $this->ordersTable, UPDATE, $restaurantId);
+                    $this->getTableObj()->Insert($user->userId, $json, $this->ordersTable, UPDATE_OPERATION, $restaurantId);
                 }
             }
         }
@@ -167,7 +167,7 @@ class SyncController extends ApiController {
                     \Cake\Log\Log::debug('new Customer entry for restaurantId :- '.$restaurantId);
                 }  else {
                     \Cake\Log\Log::debug('new Customer entry for restaurantId :- '.$restaurantId);
-                    $this->getTableObj()->Insert($user->userId, $json, $this->customerTable, UPDATE, $restaurantId);
+                    $this->getTableObj()->Insert($user->userId, $json, $this->customerTable, UPDATE_OPERATION, $restaurantId);
                 }
             }
         }
@@ -176,6 +176,11 @@ class SyncController extends ApiController {
     public function tableTransactionEntry($userId, $json, $operation, $restaurantId) {
         $UserObj = new UserController;
         $allUser = $UserObj->getUsers($restaurantId);
+        if($operation == INSERT_OPERATION){
+            $userOperation = UPDATE_OPERATION;
+        }  else {
+           $userOperation = $operation; 
+        }
         if ($allUser) {
             foreach ($allUser as $user) {
                 if ($user->userId != $userId) {
@@ -183,7 +188,7 @@ class SyncController extends ApiController {
                     \Cake\Log\Log::debug('new Customer waiting entry for restaurantId :- '.$restaurantId);
                 }  else {
                     \Cake\Log\Log::debug('new Customer waiting entry for restaurantId :- '.$restaurantId);
-                    $this->getTableObj()->Insert($user->userId, $json, $this->tableTransactionTable, UPDATE, $restaurantId);
+                    $this->getTableObj()->Insert($user->userId, $json, $this->tableTransactionTable, $userOperation, $restaurantId);
                 }
             }
         }

@@ -55,7 +55,7 @@ class RTablesController extends ApiController {
     
     private function makeSyncEntry($json , $restaurantId) {
         $syncController = new SyncController();
-        $syncController->rtableEntry($json, UPDATE, $restaurantId);
+        $syncController->rtableEntry($json, UPDATE_OPERATION, $restaurantId);
     }
     
 }

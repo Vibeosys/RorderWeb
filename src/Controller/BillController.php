@@ -47,7 +47,7 @@ class BillController  extends ApiController{
              $syncController = new SyncController();
              $syncController->billEntry($userInfo->userId, 
                      json_encode($billPaymentRequest), 
-                     UPDATE, 
+                     UPDATE_OPERATION, 
                      $userInfo->restaurantId);
              Log::debug('Payment is done successfully for BillNo :- '.$billPaymentRequest->billNo);
              return $chagePaymentStatusResult;
