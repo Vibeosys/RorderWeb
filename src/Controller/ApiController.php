@@ -25,5 +25,7 @@ class ApiController extends AppController{
         \Cake\Log\Log::error('User hit with unknown api Endpoint : '.$url);
         $this->response->body(DTO\ErrorDto::prepareError(404));
     }
+    
+    
   
 }

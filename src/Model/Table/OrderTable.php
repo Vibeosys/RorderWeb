@@ -137,7 +137,7 @@ class OrderTable extends Table {
                 Log::debug('Order Status has been changed to : '.$status);
                 return true;
             }
-            Log::error('Error occured in changing order Status for custId : '.$custId);
+            Log::error('Error occured in changing order Status for orderId : '.$orderId);
             return false;
         } catch (Exception $ex) {
             return false;

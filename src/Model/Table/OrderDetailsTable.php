@@ -26,11 +26,12 @@ class OrderDetailsTable extends Table{
         //$newOrder->OrderDetailsId = $orderDetailsEntryDto;
         $newOrder->OrderPrice = $orderDetailsEntryDto->orderPrice;
         $newOrder->OrderQuantity = $orderDetailsEntryDto->orderQty;
-        $newOrder->CreatedDate = date('Y-m-d H:i:s');
-        $newOrder->UpdatedDate = date('Y-m-d H:i:s');
+        $newOrder->CreatedDate = date(VB_DATE_TIME_FORMAT);
+        $newOrder->UpdatedDate = date(VB_DATE_TIME_FORMAT);
         $newOrder->OrderId = $orderDetailsEntryDto->orderId;
         $newOrder->MenuId = $orderDetailsEntryDto->menuId;
         $newOrder->MenuTitle = $orderDetailsEntryDto->menuTitle;
+       
         if($tableObj->save($newOrder)){
             Log::debug('order Details has been saved for OrderDetailsId :-'.$newOrder->OrderDetailsId);
             return $newOrder->OrderDetailsId;
@@ -68,7 +69,7 @@ class OrderDetailsTable extends Table{
                 $orderDetailDto = new DownloadDTO\OrderDetailsDownloadDto ($orderDetail->OrderDetailsId, 
                         $orderDetail->OrderPrice, $orderDetail->OrderQuantity, 
                         $orderDetail->CreatedDate, $orderDetail->UpdatedDate, 
-                        $orderDetail->OrderId, $orderDetail->MenuId, $orderDetail->MenuTitle);
+                        $orderDetail->OrderId, $orderDetail->MenuId, $orderDetail->MenuTitle, $orderDetail->Note);
                  Log::debug('OrderDetails goes in sync Table : Id -> '.$orderDetailDto->orderDetailsId);
             }
             return $orderDetailDto;

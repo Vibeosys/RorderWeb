@@ -40,9 +40,6 @@ class PaymentModeMasterController extends ApiController{
             $preparedStatements = str_replace('@Active', $paymentMode->active, $preparedStatements);
         }
         return $preparedStatements;
-        
-        
-        
     }
     
 }

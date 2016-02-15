@@ -42,6 +42,12 @@ class UploadController extends ApiController {
         }
         $result = UploadDTO\MainUploadDto::Deserialize($jsonData);
         $userData = UploadDTO\UserUploadDto::Deserialize($result->user);
+        $restaurantController = new RestaurantController();
+        if(!$restaurantController->isValidate($userData->restaurantId)){
+            $this->response->body(DTO\ErrorDto::prepareError(100));
+            \Cake\Log\Log::error("request with incorrect restaurantId :- ".$userData->restaurantId);
+            return;
+        }
         $userController = new UserController();
         $userValidateResult = $userController->validateUserForUpload(
                 $userData->userId, 
@@ -127,19 +133,28 @@ class UploadController extends ApiController {
         $menuIdLoopCounter = 0;
         foreach ($orderUploadRequest->orderDetails as $menuItemIndex => $menuItemRecord) {
             $menuIdList[$menuIdLoopCounter] = $menuItemRecord->menuId;
+            $orderNote[$menuItemRecord->menuId] = $menuItemRecord->note;
             $menuIdLoopCounter++;
         }
         $orderTotalAmt = 0;
         $orderLoopCounter = 0;
         $orderDetailList[] = NULL;
         $menuController = new MenuController();
-        $resultMenuInfoList = $menuController->getMenuItemList($userInfo->restaurantId, $menuIdList);
+        $resultMenuInfoList = $menuController->getMenuItemList(
+                $userInfo->restaurantId, 
+                $menuIdList);
         foreach ($resultMenuInfoList as $menuInfo) {
-            $resultArray = $this->search($orderUploadRequest->orderDetails, "menuId", $menuInfo->menuId);
+            $resultArray = $this->search($orderUploadRequest->orderDetails, 
+                    "menuId", $menuInfo->menuId);
             $menuQty = $resultArray->orderQty;
             $orderTotalAmt += $menuQty * $menuInfo->price;
             $orderDetailEntryDto = new UploadDTO\OrderDetailEntryDto(
-                    $orderUploadRequest->orderId, $menuQty, $menuQty * $menuInfo->price, $menuInfo->menuId, $menuInfo->menuTitle, $menuInfo->price);
+                    $orderUploadRequest->orderId, $menuQty, 
+                    $menuQty * $menuInfo->price, 
+                    $menuInfo->menuId, 
+                    $menuInfo->menuTitle, 
+                    $menuInfo->price, 
+                    $orderNote[$menuInfo->menuId]);
             $orderDetailList[$orderLoopCounter] = $orderDetailEntryDto;
             $orderLoopCounter++;
         }

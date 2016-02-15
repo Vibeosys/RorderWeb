@@ -67,7 +67,8 @@ CREATE TABLE [menu_category](
   'UpdatedDate'                 DATETIME,
   'OrderId'                         TEXT,
   'MenuId'                          INTEGER,
-  'MenuTitle'                       TEXT);
+  'MenuTitle'                       TEXT,
+  'Note'                 TEXT);
   
   CREATE TABLE [menu_tags] (
   'TagId'                       INTEGER NOT NULL PRIMARY KEY,
@@ -118,6 +119,7 @@ CREATE TABLE [temp_order](
  'TableNo'                  INTEGER NOT NULL,
  'MenuId'                   INTEGER NOT NULL,
  'Quantity'                 INTEGER NOT NULL,
+ 'Note'                 TEXT,
  'OrderDate'                INTEGER NOT NULL,
  'OrderTime'                INTEGER NOT NULL,
  'OrderStatus'              INTEGER NOT NULL);
@@ -125,27 +127,32 @@ CREATE TABLE [temp_order](
 CREATE TABLE [table_transaction](
  'TableId'          INTEGER,
  'UserId'           TEXT,
- 'CustId'           TEXT UNIQUE,
+ 'CustId'           TEXT UNIQUE PRIMARY KEY,
  'IsWaiting'      BOOLEAN,
  'ArrivalTime'       DATETIME,
  'Occupancy'        INTEGER
 );
 
 CREATE TABLE [payment_mode_master](
- 'PaymentModeId'    INTEGER,
+ 'PaymentModeId'    INTEGER PRIMARY KEY,
  'PaymentModeTitle'    TEXT,
  'Active'           BOOLEAN
 );
 
 CREATE TABLE [feedback_master](
- 'FeedbackId'    INTEGER,
+ 'FeedbackId'    INTEGER PRIMARY KEY,
  'FeedbackTitle'    TEXT,
+ 'Active'           BOOLEAN
+);
+
+CREATE TABLE [menu_note_master](
+ 'NoteId'    INTEGER PRIMARY KEY,
+ 'NoteTitle'    TEXT,
  'Active'           BOOLEAN
 );
 
 
 
-
-
+   
    
    

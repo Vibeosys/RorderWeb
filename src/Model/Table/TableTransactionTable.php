@@ -31,8 +31,16 @@ class TableTransactionTable extends Table {
         try{
             $tableObj = $this->connect();
             $newWaiting = $tableObj->newEntity();
-            $newWaiting->TableId = $newWaitingEntry->tableId;
-            $newWaiting->UserId = $newWaitingEntry->userId;
+            if(!$newWaitingEntry->tableId){
+                $newWaiting->TableId = null;
+            }  else {
+                $newWaiting->TableId = $newWaitingEntry->tableId;
+            }
+            if(!$newWaitingEntry->userId){
+                $newWaiting->UserId = null;
+            }  else {
+                $newWaiting->UserId = $newWaitingEntry->userId;
+            }
             $newWaiting->CustId = $newWaitingEntry->custId;
             $newWaiting->IsWaiting = $newWaitingEntry->isWaiting;
             $newWaiting->ArrivalTime = date(VB_DATE_TIME_FORMAT);
