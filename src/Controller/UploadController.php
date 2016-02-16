@@ -133,7 +133,12 @@ class UploadController extends ApiController {
         $menuIdLoopCounter = 0;
         foreach ($orderUploadRequest->orderDetails as $menuItemIndex => $menuItemRecord) {
             $menuIdList[$menuIdLoopCounter] = $menuItemRecord->menuId;
-            $orderNote[$menuItemRecord->menuId] = $menuItemRecord->note;
+            if(isset($menuItemRecord->note)){
+                $note = $menuItemRecord->note;
+            }  else {
+               $note = null; 
+            }
+            $orderNote[$menuItemRecord->menuId] = $note;
             $menuIdLoopCounter++;
         }
         $orderTotalAmt = 0;
@@ -185,6 +190,8 @@ class UploadController extends ApiController {
         }
         return $maxOrderNo;
     }
+    
+    
 
     function search($arrayToSearch, $key, $value) {
         $resultObject = NULL;

@@ -31,6 +31,7 @@ class OrderDetailsTable extends Table{
         $newOrder->OrderId = $orderDetailsEntryDto->orderId;
         $newOrder->MenuId = $orderDetailsEntryDto->menuId;
         $newOrder->MenuTitle = $orderDetailsEntryDto->menuTitle;
+        $newOrder->Note = $orderDetailsEntryDto->note;
        
         if($tableObj->save($newOrder)){
             Log::debug('order Details has been saved for OrderDetailsId :-'.$newOrder->OrderDetailsId);

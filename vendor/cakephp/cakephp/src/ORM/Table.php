@@ -319,6 +319,18 @@ class Table implements RepositoryInterface, EventListenerInterface, EventDispatc
     public function initialize(array $config)
     {
     }
+    /*
+     * Returns the boolean value true or false
+     * 
+     * @param integer 1 or 0
+     * @return boolean
+     */
+    public function getNull($value) {
+        if(is_null($value)){
+            return 0;
+        }
+        return $value;
+    }
 
     /**
      * Returns the database table name or sets a new one

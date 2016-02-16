@@ -24,10 +24,10 @@ class SqliteTable extends Table {
         $returnValue = false;
         $dbDir = new Folder(SQLITE_DB_DIR, true);
         \Cake\Log\Log::debug('folder created');
-        $this->sqliteFile = $dbDir->path. 'RorderDb'.'.sqlite';
+        $this->sqliteFile = $dbDir->path . 'RorderDb' . '.sqlite';
         $db = new \SQLite3($this->sqliteFile);
         if ($db != NULL) {
-            $fileContents = file_get_contents(__DIR__ .DS.'CreateTableScripts.sql');
+            $fileContents = file_get_contents(__DIR__ . DS . 'CreateTableScripts.sql');
             $returnValue = $db->exec($fileContents);
             $db->close();
             //$returnValue = true;
@@ -38,9 +38,13 @@ class SqliteTable extends Table {
     public function excutePreparedStatement($Text) {
         $db = new \SQLite3($this->sqliteFile);
         if ($Text) {
-            $success = $db->exec($Text);
-            $db->close();
-            return $success;
+            try {
+                $success = $db->exec($Text);
+                $db->close();
+                return $success;
+            } catch (Exception $ex) {
+                throw "sqlite database error";
+            }
         }
         return false;
     }

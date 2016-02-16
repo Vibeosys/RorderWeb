@@ -118,10 +118,10 @@ class TableTransactionTable extends Table {
             if($waitingList->count()){
                 foreach ($waitingList as $waiting){
                     $result = new DownloadDTO\TableTransactionDownloadDto(
-                            $waiting->TableId, 
-                            $waiting->UserId, 
+                            $this->getNull($waiting->TableId), 
+                            $this->getNull($waiting->UserId), 
                             $waiting->CustId, 
-                            $waiting->IsWaiting, 
+                            $this->getNull($waiting->IsWaiting), 
                             $waiting->ArrivalTime);
                 }
             }
@@ -143,10 +143,10 @@ class TableTransactionTable extends Table {
         foreach ($tableTransactions as $tableTransaction) {
 
             $tableTransactionDto = new DownloadDTO\TableTransactionDownloadDto(
-                    $tableTransaction -> TableId, 
-                    $tableTransaction -> UserId, 
+                    $this->getNull($tableTransaction -> TableId), 
+                    $this->getNull($tableTransaction -> UserId), 
                     $tableTransaction -> CustId, 
-                    $tableTransaction -> IsWaiting, 
+                    $this->getNull($tableTransaction -> IsWaiting), 
                     $tableTransaction -> ArrivalTime);
             $tableTransactionArray[$i] = $tableTransactionDto;
             $i++;

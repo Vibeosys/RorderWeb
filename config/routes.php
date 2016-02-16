@@ -9,8 +9,8 @@ Router::defaultRouteClass('DashedRoute');
 
 
 Router::scope('/', function ($routes) {
-    $routes->connect('/', ['controller' => 'Pages', 'action' => 'myhome']);
-   
+    $routes->connect('/', ['controller' => 'Pages', 'action' => 'rorderHome']);
+    $routes->connect('/*', ['controller' => 'Pages', 'action' => 'error']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
     $routes->fallbacks('DashedRoute');
 });
