@@ -63,9 +63,12 @@ class PagesController extends AppController
         }
     }
     
-    public function myhome() {
+    public function rorderHome() {
+        echo Configure::version();
+        return;
         
-        
+    }
+    public function error() {
         
     }
 }

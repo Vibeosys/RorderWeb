@@ -48,6 +48,12 @@ class UploadController extends ApiController {
             \Cake\Log\Log::error("request with incorrect restaurantId :- ".$userData->restaurantId);
             return;
         }
+        $restaurantIMEIController = new RestaurantImeiController();
+        if(!$restaurantIMEIController->isPresent($userData->restaurantId, $userData->imei)){
+            $this->response->body(DTO\ErrorDto::prepareError(116));
+            \Cake\Log\Log::error("request with incorrect restaurantId :- ".$userData->restaurantId);
+            return;
+        }
         $userController = new UserController();
         $userValidateResult = $userController->validateUserForUpload(
                 $userData->userId, 

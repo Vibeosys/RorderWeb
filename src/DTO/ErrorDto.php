@@ -55,7 +55,7 @@ class ErrorDto {
         113 => 'Error occured in customer waiting request addition',
         114 => 'Error occured in customer feedback',
         115 => 'Transaction Entries are deleted',
-        116 => 'Please choose valid input',
+        116 => 'No such IMEI number found for restaurant',
         117 => 'Invalid data',
         118 => 'Invalid to email address',
         119 => 'OTP verification failed',

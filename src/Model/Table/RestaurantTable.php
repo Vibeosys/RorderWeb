@@ -6,7 +6,6 @@ namespace App\Model\Table;
  * and open the template in the editor.
  */
 use Cake\ORM\Table;
-
 use Cake\ORM\TableRegistry;
 use App\DTO\DownloadDTO;
 /**
@@ -22,25 +21,19 @@ class RestaurantTable extends Table{
         return TableRegistry::get('restaurant');
     }
     
-    public function getData() {
-        if (!$this->connect()->find()->count()) {
-            return false;
-        }
-        $rows = $this->connect()->find();
-         $restaurants[] = null;
-        $i = 0;
+    public function getData($restaurantId) {
+        $conditions = ['RestaurantId =' => $restaurantId];
+        $rows = $this->connect()->find()->where($conditions);
+         $restaurant = null;
         foreach ($rows as $row) {
-         
                 $entity = new DownloadDTO\RestaurantDownloadDto($row->RestaurantId, $row->Title);  
-                $restaurants[$i]= $entity;
-                $i++;
-            
+                $restaurant = $entity;
         }
-        return $restaurants;
-        
+        return $restaurant;
     }
-    public function check($id) {
-        $result = $this->connect()->find()->where(['RestaurantId =' => $id]);
+    public function check($restaurantId) {
+        $conditions = ['RestaurantId =' => $restaurantId];
+        $result = $this->connect()->find()->where($conditions);
         if($result->count()){
             \Cake\Log\Log::debug('restaurant checking result = '.$result->count());
             return true;

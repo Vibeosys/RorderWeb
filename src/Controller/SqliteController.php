@@ -25,7 +25,7 @@ class SqliteController extends ApiController {
         $this->RestaurantId = $restaurantId;
         $tableObject = new Table\SqliteTable();
         if ($tableObject->create()) {
-
+            $this->addRestaurant($tableObject);
             $this->addUsers($tableObject);
             $this->addRTables($tableObject);
             $this->addCustomers($tableObject);
@@ -43,6 +43,16 @@ class SqliteController extends ApiController {
             $this->response->send();
             unlink(SQLITE_DB_DIR . 'RorderDb.sqlite');
             Log::debug('RorderDb.sqlite  File deleted successfully');
+        }
+    }
+    
+    private function addRestaurant($tableObject) {
+        $restaurantController = new RestaurantController();
+        $restaurantPreparedStatement = $restaurantController->prepareInsertStatements($this->RestaurantId);
+        if ($tableObject->excutePreparedStatement($restaurantPreparedStatement)) {
+            Log::debug('Record is inserted into Restaurant SQLite table for restaurantId ' . $this->RestaurantId);
+        } else {
+            Log::error('Record is not inserted into Restaurant SQLite table');
         }
     }
 
@@ -73,7 +83,7 @@ class SqliteController extends ApiController {
     private function addMenuCategories($tableObject) {
         //menu category table enrty in sqlite database
         $menuCategoryController = new MenuCategoryController();
-        $menuCategoryPreparedStatement = $menuCategoryController->prepareInsertStatements();
+        $menuCategoryPreparedStatement = $menuCategoryController->prepareInsertStatements($this->RestaurantId);
         //Log::info($userPreparedStatement);
         if ($tableObject->excutePreparedStatement($menuCategoryPreparedStatement)) {
             Log::debug('Record is inserted into Menu category SQLite table for restaurantId ' . $this->RestaurantId);
@@ -85,7 +95,7 @@ class SqliteController extends ApiController {
     private function addTableCategories($tableObject) {
         //table category table enrty in sqlite database
         $tableCategoryController = new TableCategoryController();
-        $tableCategoryPreparedStatement = $tableCategoryController->prepareInsertStatements();
+        $tableCategoryPreparedStatement = $tableCategoryController->prepareInsertStatements($this->RestaurantId);
         //Log::info($userPreparedStatement);
         if ($tableObject->excutePreparedStatement($tableCategoryPreparedStatement)) {
             Log::debug('Record is inserted into Table category SQLite table for restaurantId ' . $this->RestaurantId);

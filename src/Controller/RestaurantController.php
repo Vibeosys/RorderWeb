@@ -14,20 +14,16 @@ use Cake\Log\Log;
  *
  * @author niteen
  */
+define('R_INS_QRY', "INSERT INTO restaurant (RestaurantId,"
+        . "RestaurantTitle) VALUES (@RestaurantId,\"@RestaurantTitle\");");
 class RestaurantController extends ApiController{
     
     private function getTableObj() {
         return new Table\RestaurantTable();;
     }
      
-    public function index() {
-        $this->autoRender = false;
-        
-        if(1){
-            $result  = $this->getTableObj()->getData();
-            Log::debug("All restaurant send to anominous user");
-            $this->response->body(json_encode($result));
-        }
+    public function getRestaurant($restaurantId) {
+        return $this->getTableObj()->getData($restaurantId);
     }
     public function isValidate($id) {
         if($id){
@@ -36,10 +32,21 @@ class RestaurantController extends ApiController{
                 Log::debug('Requested Restaurant is valid');
                 return true;
             }
-            
         Log::debug('Requested Restaurant is invalid');
         return false;           
         }
-
+    }
+    
+    public function prepareInsertStatements($restaurantId) {
+        $restaurants = $this->getRestaurant($restaurantId);
+        if(is_null($restaurants)){
+            return false;
+        }
+         $preparedStatements = null;
+            $preparedStatements .= R_INS_QRY;
+            $preparedStatements = str_replace('@RestaurantId', $restaurants->restaurantId, $preparedStatements);
+            $preparedStatements = str_replace('@RestaurantTitle', $restaurants->title, $preparedStatements);
+        return $preparedStatements;
+        
     }
 }

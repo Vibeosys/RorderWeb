@@ -19,7 +19,7 @@ Router::scope('/', function ($routes) {
 Router::scope('/api/v1', function ($routes) {
     
      $routes->connect('/downloadDb', ['controller' => 'DownloadDb', 'action' => 'index']); 
-     $routes->connect('/getRestaurant', ['controller' => 'Restaurant', 'action' => 'index']);
+     //$routes->connect('/getRestaurant', ['controller' => 'Restaurant', 'action' => 'index']);
      $routes->connect('/download', ['controller' => 'Download', 'action' => 'index']); 
      $routes->connect('/upload', ['controller' => 'Upload', 'action' => 'index']);
      $routes->connect('/*', ['controller' => 'Api', 'action' => 'error']);

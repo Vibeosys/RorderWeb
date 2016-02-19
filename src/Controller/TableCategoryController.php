@@ -22,16 +22,16 @@ class TableCategoryController extends ApiController{
         return new Table\TableCategoryTable();
     }
     
-    public function getTableCategories() {
-        $result = $this->getTableObj()->getTableCategory();
+    public function getTableCategories($restaurantId) {
+        $result = $this->getTableObj()->getTableCategory($restaurantId);
         if($result){
             return $result;
         }
         return false;
     }
     
-    public function prepareInsertStatements() {
-        $allTableCategories = $this->getTableCategories();
+    public function prepareInsertStatements($restaurantId) {
+        $allTableCategories = $this->getTableCategories($restaurantId);
         if (!$allTableCategories) {
             return false;
         }

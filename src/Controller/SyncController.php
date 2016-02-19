@@ -22,8 +22,8 @@ class SyncController extends ApiController {
     public $usersTable = "users";
     public $menuTable = "menu";
     public $menuCategoryTable = "menu_category";
-    public $menuTagTable = "menu_tag";
-    public $rtableTable = "r_table";
+    public $menuTagTable = "menu_tags";
+    public $rtableTable = "r_tables";
     public $tableCategoryTable = "table_category";
     public $ordersTable = "orders";
     public $orderDetailsTable = "order_details";
@@ -121,18 +121,19 @@ class SyncController extends ApiController {
     }
 
     public function orderDetailsEntry($userId, $json, $operation, $restaurantId) {
+        $syncEntryCounter = 0;
         $UserObj = new UserController;
         $allUser = $UserObj->getUsers($restaurantId);
         if ($allUser) {
             foreach ($allUser as $user) {
-                if (1) {
                     try {
-                        $this->getTableObj()->Insert($user->userId, $json, $this->orderDetailsTable, $operation, $restaurantId);
+                        if($this->getTableObj()->Insert($user->userId, $json, $this->orderDetailsTable, $operation, $restaurantId))
+                        $syncEntryCounter++;
                     } catch (Excption $ex) {
                         throw new Exception($ex);
                     }
-                }
             }
+            return $syncEntryCounter;
         }
     }
     

@@ -13,6 +13,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use App\DTO\DownloadDTO;
 use App\DTO\UploadDTO;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Description of OrderTable
@@ -26,6 +27,9 @@ class OrderTable extends Table {
     }
 
     public function insert($orderEntry) {
+        $conn = ConnectionManager::get('default');
+        $conn->begin();
+        //$orderEntryCounter = 0;
         $tableObj = $this->connect();
         $newOrder = $tableObj->newEntity();
         $newOrder->OrderId = $orderEntry->orderId;
@@ -45,6 +49,7 @@ class OrderTable extends Table {
                     $orderEntry->orderId);
             return $newOrder->OrderNo;
         }
+        $conn->rollback();
         Log::error('error ocurred in order placing for OrderId :-' .
                 $orderEntry->orderId);
         return 0;

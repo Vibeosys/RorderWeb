@@ -53,8 +53,10 @@ class UserTable extends Table {
     }
 
     public function isValid($id, $restaurantId) {
-        $users = $this->connect()->find()->where(['UserId =' => $id, 'RestaurantId =' => $restaurantId]);
-        return $users->count();
+        $conditions = ['UserId =' => $id, 'RestaurantId =' => $restaurantId];
+        $users = $this->connect()->find()->where($conditions);
+        $userCount = $users->count();
+        return $userCount;
     }
 
     public function validateUserCredentials($userId, $password, $restaurantId) {

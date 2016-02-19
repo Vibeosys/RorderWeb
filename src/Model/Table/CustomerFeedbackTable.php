@@ -13,6 +13,7 @@ use Cake\Log\Log;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use App\DTO\UploadDTO;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Description of CustomerFeedbackTable
@@ -26,6 +27,8 @@ class CustomerFeedbackTable extends Table {
     }
 
     public function insert(UploadDTO\CustomerFeedbackUploadDto $customerFeedback, $userInfo) {
+        $conn = ConnectionManager::get('default');
+        $conn->begin();
         $tableObj = $this->connect();
         $customerFeedbackCounter = 0;
         try {
@@ -36,12 +39,20 @@ class CustomerFeedbackTable extends Table {
                 $newCustomerFeedback->FeedbackId = $feedback->feedbackId;
                 $newCustomerFeedback->FeedbackRating = $feedback->feedbackRating;
                 $newCustomerFeedback->CreatedDate = date(VB_DATE_TIME_FORMAT);
+                
                 if ($tableObj->save($newCustomerFeedback)) {
                     $customerFeedbackCounter++;
+                }  else {
+                    $customerFeedbackCounter = 0;
                 }
             }
-            return $customerFeedbackCounter;
+            
         } catch (Exception $ex) {
+            $conn->rollback();
+            return $customerFeedbackCounter;
+        }
+        if($customerFeedbackCounter){
+            $conn->commit();
             return $customerFeedbackCounter;
         }
     }

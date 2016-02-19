@@ -150,6 +150,10 @@ CREATE TABLE [menu_note_master](
  'NoteTitle'    TEXT,
  'Active'           BOOLEAN
 );
+CREATE TABLE [restaurant](
+ 'RestaurantId'    INTEGER PRIMARY KEY,
+ 'RestaurantTitle'    TEXT
+);
 
 
 

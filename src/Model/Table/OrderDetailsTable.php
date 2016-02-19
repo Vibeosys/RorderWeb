@@ -10,6 +10,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use App\DTO\UploadDTO;
 use App\DTO\DownloadDTO;
+use Cake\Datasource\ConnectionManager;
 /**
  * Description of OrderDetailsTable
  *
@@ -21,9 +22,9 @@ class OrderDetailsTable extends Table{
         return TableRegistry::get('order_details');
     }
     public function insert(UploadDTO\OrderDetailEntryDto $orderDetailsEntryDto) {
+        $conn = ConnectionManager::get('default');       
         $tableObj = $this->connect();
         $newOrder = $tableObj->newEntity();
-        //$newOrder->OrderDetailsId = $orderDetailsEntryDto;
         $newOrder->OrderPrice = $orderDetailsEntryDto->orderPrice;
         $newOrder->OrderQuantity = $orderDetailsEntryDto->orderQty;
         $newOrder->CreatedDate = date(VB_DATE_TIME_FORMAT);
@@ -32,11 +33,11 @@ class OrderDetailsTable extends Table{
         $newOrder->MenuId = $orderDetailsEntryDto->menuId;
         $newOrder->MenuTitle = $orderDetailsEntryDto->menuTitle;
         $newOrder->Note = $orderDetailsEntryDto->note;
-       
         if($tableObj->save($newOrder)){
             Log::debug('order Details has been saved for OrderDetailsId :-'.$newOrder->OrderDetailsId);
             return $newOrder->OrderDetailsId;
         }
+        $conn->rollback();
         Log::error('error ocurred in order Details for OrderId :-'.$orderDetailsEntryDto->orderId);
         return 0;
     }

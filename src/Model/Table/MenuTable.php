@@ -61,6 +61,7 @@ class MenuTable extends Table {
      * @param menu id list
      */
     public function getMenuItemInfoList($restaurantId, $menuIdList) {
+       
         $conditions = array('menu.MenuId IN ' => $menuIdList);
         $menuInfoList = $this->connect()->find('all', array('conditions' => $conditions));
         $resultMenuList[] = NULL; $loopCounter = 0;

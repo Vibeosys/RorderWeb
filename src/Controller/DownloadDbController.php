@@ -8,6 +8,8 @@ namespace App\Controller;
  * and open the template in the editor.
  */
 use App\DTO;
+use App\DTO\UploadDTO;
+use App\Controller\Component;
 /**
  * Description of DownloadDbController
  *
@@ -19,10 +21,16 @@ class DownloadDbController extends ApiController {
         $this->autoRender = false;
         
         $restaurantId = $this->request->query('restaurantId');
+        $info = base64_decode($this->request->query('info'));
+        $ipAddress ="113.193.128.35";// $this->request->clientIp();
         $restaurantController = new RestaurantController();
         \Cake\Log\Log::info('Request is in Download Controller');
-        if($restaurantController->isValidate($restaurantId)){
-            
+        if($restaurantController->isValidate($restaurantId) or empty($info)){
+        $networkDeviceDto = UploadDTO\NetworkDeviceInfoDto::Deserialize($info);
+        $ipInfo = new Component\Ipinfo();
+        $ipDetails = $ipInfo->getFullIpDetails($networkDeviceDto, $ipAddress);
+        $networkDeviceController = new NetworkDeviceController();
+        $addNetworkDeviceInfo = $networkDeviceController->addNetworkDeviceInfo($ipDetails, $restaurantId);
         $sqliteController = new SqliteController();
         $sqliteController->getDB($restaurantId);
         }else{

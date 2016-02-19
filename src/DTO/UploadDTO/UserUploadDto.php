@@ -19,14 +19,17 @@ class UserUploadDto extends DTO\JsonDeserializer{
     public $active;
     public $roleId;
     public $restaurantId;
-    
+    public $imei;
+
+
     public function __construct($userId =null, $userName=null, $password=null, 
-            $active=null, $roleId=null, $restaurantId=null) {
+            $active=null, $roleId=null, $restaurantId=null, $imei = null) {
         $this->userId = $userId;
         $this->userName = $userName;
         $this->password = $password;
         $this->active = $active;
         $this->roleId = $roleId;
         $this->restaurantId = $restaurantId;
+        $this->imei = $imei;
     }
 }
