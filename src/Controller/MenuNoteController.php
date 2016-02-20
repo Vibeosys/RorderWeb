@@ -22,8 +22,8 @@ class MenuNoteController {
         return new Table\MenuNoteTable();
     }
     
-    public function prepareInsertStatements($restaurantId) {
-        $allMenuNote = $this->getTableObj()->getMenuNote($restaurantId);
+    public function prepareInsertStatements() {
+        $allMenuNote = $this->getTableObj()->getMenuNote();
         if(!$allMenuNote){
             return false;
         }

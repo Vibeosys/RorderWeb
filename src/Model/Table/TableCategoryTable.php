@@ -19,9 +19,8 @@ class TableCategoryTable  extends Table{
     private function connect() {
         return TableRegistry::get('table_category');
     }
-    public function getTableCategory($restaurantId) {
-        $conditions = ['RestaurantId =' => $restaurantId];
-       $tableCategories = $this->connect()->find()->where($conditions);
+    public function getTableCategory() {
+       $tableCategories = $this->connect()->find();
        $count = $tableCategories->count();
         if(!$count){
             Log::debug('Table Categories are not found');

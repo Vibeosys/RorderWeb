@@ -83,7 +83,7 @@ class SqliteController extends ApiController {
     private function addMenuCategories($tableObject) {
         //menu category table enrty in sqlite database
         $menuCategoryController = new MenuCategoryController();
-        $menuCategoryPreparedStatement = $menuCategoryController->prepareInsertStatements($this->RestaurantId);
+        $menuCategoryPreparedStatement = $menuCategoryController->prepareInsertStatements();
         //Log::info($userPreparedStatement);
         if ($tableObject->excutePreparedStatement($menuCategoryPreparedStatement)) {
             Log::debug('Record is inserted into Menu category SQLite table for restaurantId ' . $this->RestaurantId);
@@ -95,7 +95,7 @@ class SqliteController extends ApiController {
     private function addTableCategories($tableObject) {
         //table category table enrty in sqlite database
         $tableCategoryController = new TableCategoryController();
-        $tableCategoryPreparedStatement = $tableCategoryController->prepareInsertStatements($this->RestaurantId);
+        $tableCategoryPreparedStatement = $tableCategoryController->prepareInsertStatements();
         //Log::info($userPreparedStatement);
         if ($tableObject->excutePreparedStatement($tableCategoryPreparedStatement)) {
             Log::debug('Record is inserted into Table category SQLite table for restaurantId ' . $this->RestaurantId);
@@ -172,7 +172,7 @@ class SqliteController extends ApiController {
     
     private function addMenuNote($tableObject) {
         $menuNoteController = new MenuNoteController();
-        $menuNotePreparedStatement = $menuNoteController->prepareInsertStatements($this->RestaurantId);
+        $menuNotePreparedStatement = $menuNoteController->prepareInsertStatements();
         if ($tableObject->excutePreparedStatement($menuNotePreparedStatement)) {
             Log::debug('Record is inserted into Menu_Note_Master SQLite table for restaurantId ' . $this->RestaurantId);
         } else {

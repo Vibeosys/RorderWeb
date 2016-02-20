@@ -25,12 +25,11 @@ class MenuNoteTable extends Table {
         return TableRegistry::get('menu_note_master');
     }
 
-    public function getMenuNote($restaurantId) {
+    public function getMenuNote() {
         $menuNoteList = null;
         $menuNoteCounter = 0;
-        $conditions = ['RestaurantId =' => $restaurantId, 'Active =' => ACTIVE];
         try {
-            $menuNotes = $this->connect()->find()->where($conditions);
+            $menuNotes = $this->connect()->find();
             if ($menuNotes->count()) {
                     $menuNoteList = array();
                 foreach ($menuNotes as $note) {
