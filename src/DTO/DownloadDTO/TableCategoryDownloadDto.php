@@ -16,17 +16,12 @@ class TableCategoryDownloadDto {
     public $tableCategoryId;
     public $categoryTitle;
     public $image;
-    public $createdDate;
-    public $updatedDate;
     
-    
-    public function __construct($tableCategoryId, $categoryTitle, $image, $createdDate, $updatedDate) {
+    public function __construct($tableCategoryId, $categoryTitle, $image) {
         
         $this->tableCategoryId = $tableCategoryId;
         $this->categoryTitle = $categoryTitle;
         $this->image = $image;
-        $this->createdDate = $createdDate;
-        $this->updatedDate = $updatedDate;
     }
     
 }

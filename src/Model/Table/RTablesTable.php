@@ -34,9 +34,7 @@ class RTablesTable extends Table{
                     $rTable->TableNo, 
                     $rTable->TableCategoryId, 
                     $rTable->Capacity, 
-                    $rTable->IsOccupied, 
-                    $rTable->CreatedDate, 
-                    $rTable->UpdatedDate);
+                    $rTable->IsOccupied);
             
             $allRTables[$i] = $rTablesDto;
             $i++;

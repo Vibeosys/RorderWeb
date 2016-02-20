@@ -25,16 +25,8 @@ class RestaurantController extends ApiController{
     public function getRestaurant($restaurantId) {
         return $this->getTableObj()->getData($restaurantId);
     }
-    public function isValidate($id) {
-        if($id){
-            $result =  $this->getTableObj()->check($id);
-            if($result){
-                Log::debug('Requested Restaurant is valid');
-                return true;
-            }
-        Log::debug('Requested Restaurant is invalid');
-        return false;           
-        }
+    public function isValidate($restaurantId) {
+        return  $this->getTableObj()->check($restaurantId);
     }
     
     public function prepareInsertStatements($restaurantId) {

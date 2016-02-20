@@ -13,7 +13,7 @@ use App\Model\Table;
  *
  * @author niteen
  */
-class RestaurantImeiController {
+class RestaurantImeiController extends ApiController{
     
     private function getTableObj() {
         return new Table\RestaurantImeiTable();

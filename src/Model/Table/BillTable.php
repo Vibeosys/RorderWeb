@@ -92,8 +92,6 @@ class BillTable extends Table {
                             $bill->NetAmount, 
                             $bill->TotalTaxAmount, 
                             $bill->TotalPayAmount, 
-                            $bill->CreatedDate, 
-                            $bill->UpdatedDate, 
                             $bill->UserId,
                             $bill->CustId,
                             $bill->TableId,

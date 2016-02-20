@@ -46,8 +46,6 @@ class MenuTable extends Table {
                     $menu->Active, 
                     $menu->FoodType, 
                     $menu->IsSpicy, 
-                    $menu->CreatedDate, 
-                    $menu->UpdatedDate, 
                     $menu->CategoryId);
             //}
             $allMenus[$i] = $menuDto;
@@ -64,7 +62,7 @@ class MenuTable extends Table {
        
         $conditions = array('menu.MenuId IN ' => $menuIdList);
         $menuInfoList = $this->connect()->find('all', array('conditions' => $conditions));
-        $resultMenuList[] = NULL; $loopCounter = 0;
+        $resultMenuList = NULL; $loopCounter = 0;
         foreach ($menuInfoList as $menuItemInfo)
         {
             $resultMenuList[$loopCounter] = new UploadDTO\MenuShortDto(

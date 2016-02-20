@@ -21,7 +21,7 @@ class OrderDetailsTable extends Table{
     private function connect() {
         return TableRegistry::get('order_details');
     }
-    public function insert(UploadDTO\OrderDetailEntryDto $orderDetailsEntryDto) {
+    public function insert(UploadDTO\OrderDetailEntryDto $orderDetailsEntryDto){
         $conn = ConnectionManager::get('default');       
         $tableObj = $this->connect();
         $newOrder = $tableObj->newEntity();
@@ -34,45 +34,31 @@ class OrderDetailsTable extends Table{
         $newOrder->MenuTitle = $orderDetailsEntryDto->menuTitle;
         $newOrder->Note = $orderDetailsEntryDto->note;
         if($tableObj->save($newOrder)){
-            Log::debug('order Details has been saved for OrderDetailsId :-'.$newOrder->OrderDetailsId);
+            Log::debug('order Details has been saved for OrderDetailsId :-'.
+                    $newOrder->OrderDetailsId);
             return $newOrder->OrderDetailsId;
         }
         $conn->rollback();
-        Log::error('error ocurred in order Details for OrderId :-'.$orderDetailsEntryDto->orderId);
+        Log::error('error ocurred in order Details for OrderId :-'.
+                $orderDetailsEntryDto->orderId);
         return 0;
     }
-    
-    public function update($orderDetailsId, $orderPrice, $orderQuantity, $orderId) {
-        $tableObj = $this->connect();
-        $oldOrder = $tableObj->query()->update();
-        $udate = date('Y-m-d H:i:s');
-        $oldOrder->set(['OrderPrice =' =>$orderPrice, 'OrderQuantity = ' =>$orderQuantity,'UpdatedDate = ' => $udate]);
-        $oldOrder->where(['OrderDetailsId =' => $orderDetailsId, 'OrderId = ' =>$orderId]);
-        if($oldOrder->execute()){
-            Log::debug('order details has been updated for OrderDetailsId :-'.$orderDetailsId .'date = '.$udate);
-                return true;
-            }
-            Log::error('error ocurred in order details updation for OrderDetailsId :-'.$orderDetailsId);
-            return false;
-    }
-    
-    public function isOrderDetailsPresent($orderDetailsId) {
-        $order = $this->connect()->find()->where(['OrderDetailsId =' => $orderDetailsId]);
-        Log::debug('order count for orderDetailsId :- '.$orderDetailsId);
-        return $order->count();
-    }
-    
-    
+  
     public function getOrderDetails($orderDetailsId) {
-        $orderDetails = $this->connect()->find()->where(['OrderDetailsId =' => $orderDetailsId]);
-        //Log::debug('Get request for new orderDetails Come : Id -> '.$orderDetailsId);
+        $conditions = ['OrderDetailsId =' => $orderDetailsId];
+        $orderDetails = $this->connect()->find()->where($conditions);
         if($orderDetails->count()){
             foreach ($orderDetails as $orderDetail){
-                $orderDetailDto = new DownloadDTO\OrderDetailsDownloadDto ($orderDetail->OrderDetailsId, 
-                        $orderDetail->OrderPrice, $orderDetail->OrderQuantity, 
-                        $orderDetail->CreatedDate, $orderDetail->UpdatedDate, 
-                        $orderDetail->OrderId, $orderDetail->MenuId, $orderDetail->MenuTitle, $orderDetail->Note);
-                 Log::debug('OrderDetails goes in sync Table : Id -> '.$orderDetailDto->orderDetailsId);
+                $orderDetailDto = new DownloadDTO\OrderDetailsDownloadDto (
+                        $orderDetail->OrderDetailsId, 
+                        $orderDetail->OrderPrice, 
+                        $orderDetail->OrderQuantity, 
+                        $orderDetail->OrderId, 
+                        $orderDetail->MenuId, 
+                        $orderDetail->MenuTitle, 
+                        $orderDetail->Note);
+                 Log::debug('OrderDetails goes in sync Table : Id -> '.
+                         $orderDetailDto->orderDetailsId);
             }
             return $orderDetailDto;
         }

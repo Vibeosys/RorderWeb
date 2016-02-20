@@ -14,8 +14,8 @@ use Cake\Log\Log;
  * @author niteen
  */
 define('MC_INS_QRY', 
-        "INSERT INTO menu_category (CategoryId,CategoryTitle,CategoryImage,Active,CreatedDate,UpdatedDate,Colour,ImgUrl)"
-        . " VALUES (@CategoryId,\"@CategoryTitle\",\"@CategoryImage\",@Active,\"@CreatedDate\",\"@UpdatedDate\",\"@Colour\",\"@ImgUrl\");");
+        "INSERT INTO menu_category (CategoryId,CategoryTitle,CategoryImage,Active,Colour)"
+        . " VALUES (@CategoryId,\"@CategoryTitle\",\"@CategoryImage\",@Active,\"@Colour\");");
 class MenuCategoryController extends ApiController{
     
     private function getTableObj() {
@@ -44,10 +44,8 @@ class MenuCategoryController extends ApiController{
             $preparedStatements = str_replace('@CategoryTitle', $menuCategory->categoryTitle, $preparedStatements);
             $preparedStatements = str_replace('@CategoryImage', $menuCategory->categoryImage, $preparedStatements);
             $preparedStatements = str_replace('@Active', $menuCategory->active, $preparedStatements);
-            $preparedStatements = str_replace('@CreatedDate', $menuCategory->createdDate, $preparedStatements);
-            $preparedStatements = str_replace('@UpdatedDate', $menuCategory->updatedDate, $preparedStatements);
             $preparedStatements = str_replace('@Colour', $menuCategory->colour, $preparedStatements);
-            $preparedStatements = str_replace('@ImgUrl', $menuCategory->imgUrl, $preparedStatements);
+        
             
         }
         return $preparedStatements;

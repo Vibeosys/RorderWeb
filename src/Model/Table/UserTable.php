@@ -41,8 +41,6 @@ class UserTable extends Table {
                     $user->UserName, 
                     $user->Password, 
                     $user->Active, 
-                    $user->CreatedDate, 
-                    $user->UpdatedDate, 
                     $user->RoleId, 
                     $user->RestaurantId);
 
@@ -61,7 +59,7 @@ class UserTable extends Table {
 
     public function validateUserCredentials($userId, $password, $restaurantId) {
         $resultUser = $this->connect()->get($userId);
-        if($resultUser->Password == $password && $resultUser->RestaurantId == $restaurantId && $resultUser->Active == 1)
+        if($resultUser->Password == $password && $resultUser->RestaurantId == $restaurantId && $resultUser->Active == ACTIVE)
         {
             return new UploadDTO\UserUploadDto(
                     $resultUser->UserId,

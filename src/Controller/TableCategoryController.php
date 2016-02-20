@@ -13,8 +13,8 @@ use Cake\Log\Log;
  *
  * @author niteen
  */
-define('TC_INS_QRY', "INSERT INTO table_category (TableCategoryId,CategoryTitle,Image,CreatedDate,"
-        . "UpdatedDate) VALUES (@TableCategoryId,\"@CategoryTitle\",\"@Image\",\"@CreatedDate\",\"@UpdatedDate\");");
+define('TC_INS_QRY', "INSERT INTO table_category (TableCategoryId,CategoryTitle,Image"
+        . ") VALUES (@TableCategoryId,\"@CategoryTitle\",\"@Image\");");
 class TableCategoryController extends ApiController{
     
     private function getTableObj() {
@@ -42,8 +42,6 @@ class TableCategoryController extends ApiController{
             $preparedStatements = str_replace('@TableCategoryId', $category->tableCategoryId, $preparedStatements);
             $preparedStatements = str_replace('@CategoryTitle', $category->categoryTitle, $preparedStatements);
             $preparedStatements = str_replace('@Image', $category->image, $preparedStatements);
-            $preparedStatements = str_replace('@CreatedDate', $category->createdDate, $preparedStatements);
-            $preparedStatements = str_replace('@UpdatedDate', $category->updatedDate, $preparedStatements);
         }
         return $preparedStatements;
         

@@ -17,9 +17,9 @@ use App\DTO;
  *
  * @author niteen
  */
-define('USER_INS_QRY', "INSERT INTO users (UserId,UserName,Password,Active,CreatedDate,"
-        . "UpdatedDate,RoleId,RestaurantId) VALUES (@UserId,\"@UserName\",\"@Password\","
-        . "@Active,\"@CreatedDate\",\"@UpdatedDate\",@RoleId,@RestaurantId);");
+define('USER_INS_QRY', "INSERT INTO users (UserId,UserName,Password,Active,"
+        . "RoleId,RestaurantId) VALUES (@UserId,\"@UserName\",\"@Password\","
+        . "@Active,@RoleId,@RestaurantId);");
 
 class UserController extends ApiController {
 
@@ -54,8 +54,6 @@ class UserController extends ApiController {
             $preparedStatements = str_replace('@UserName', $user->userName, $preparedStatements);
             $preparedStatements = str_replace('@Password', $user->password, $preparedStatements);
             $preparedStatements = str_replace('@Active', $user->active, $preparedStatements);
-            $preparedStatements = str_replace('@CreatedDate', $user->createdDate, $preparedStatements);
-            $preparedStatements = str_replace('@UpdatedDate', $user->updatedDate, $preparedStatements);
             $preparedStatements = str_replace('@RoleId', $user->roleId, $preparedStatements);
             $preparedStatements = str_replace('@RestaurantId', $user->restaurantId, $preparedStatements);
         }

@@ -48,18 +48,18 @@ class UploadController extends ApiController {
             \Cake\Log\Log::error("request with incorrect restaurantId :- ".$userData->restaurantId);
             return;
         }
-//        $restaurantIMEIController = new RestaurantImeiController();
-//        if(!$restaurantIMEIController->isPresent($userData->restaurantId, $userData->imei)){
-//            $this->response->body(DTO\ErrorDto::prepareError(116));
-//            \Cake\Log\Log::error("request with incorrect restaurantId :- ".$userData->restaurantId);
-//            return;
-//        }
+        $restaurantIMEIController = new RestaurantImeiController();
+        if(!$restaurantIMEIController->isPresent($userData->restaurantId, $userData->imei)){
+            $this->response->body(DTO\ErrorDto::prepareError(116));
+            \Cake\Log\Log::error("request with incorrect restaurantId :- ".$userData->restaurantId);
+            return;
+        }
         $userController = new UserController();
         $userValidateResult = $userController->validateUserForUpload(
                 $userData->userId, 
                 $userData->password, 
                 $userData->restaurantId);
-        if (!$userValidateResult) {
+        if (is_null($userValidateResult)) {
             $this->response->body(DTO\ErrorDto::prepareError(102));
             \Cake\Log\Log::error("request with incorrect  userId :- " . $userData->userId);
             return;
@@ -76,6 +76,7 @@ class UploadController extends ApiController {
                 case $this->operations['PO']:
                     $operationData = $record->operationData;
                     $orderNo = $this->placeOrder($operationData, $userData);
+                    if($orderNo)
                     $this->response->body(DTO\ErrorDto::prepareSuccessMessage($orderNo));
                     break;
                  case $this->operations['TO']:
@@ -135,9 +136,10 @@ class UploadController extends ApiController {
             Log::error("No menu items are provided or wrong element in JSON");
             return NULL;
         }
-        $menuIdList[] = null;
+        $menuIdList = null;
         $menuIdLoopCounter = 0;
         foreach ($orderUploadRequest->orderDetails as $menuItemIndex => $menuItemRecord) {
+            if($menuItemRecord->orderQty)
             $menuIdList[$menuIdLoopCounter] = $menuItemRecord->menuId;
             if(isset($menuItemRecord->note)){
                 $note = $menuItemRecord->note;
@@ -147,6 +149,11 @@ class UploadController extends ApiController {
             $orderNote[$menuItemRecord->menuId] = $note;
             $menuIdLoopCounter++;
         }
+        if(!count($menuIdList)){
+              $this->response->body(DTO\ErrorDto::prepareError(117));
+            \Cake\Log\Log::error("request with zero menu quantity");
+            return;
+        }
         $orderTotalAmt = 0;
         $orderLoopCounter = 0;
         $orderDetailList[] = NULL;
@@ -154,6 +161,11 @@ class UploadController extends ApiController {
         $resultMenuInfoList = $menuController->getMenuItemList(
                 $userInfo->restaurantId, 
                 $menuIdList);
+        if(is_null($resultMenuInfoList)){
+              $this->response->body(DTO\ErrorDto::prepareError(117));
+            \Cake\Log\Log::error("request with zero menu quantity");
+            return;
+        }
         foreach ($resultMenuInfoList as $menuInfo) {
             $resultArray = $this->search($orderUploadRequest->orderDetails, 
                     "menuId", $menuInfo->menuId);

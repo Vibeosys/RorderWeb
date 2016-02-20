@@ -21,8 +21,6 @@ class BillDownloadDto {
     public $netAmt;
     public $totalTaxAmt;
     public $totalPayAmt;
-    public $createdDate;
-    public $updatedDate;
     public $userId;
     public $custId;
     public $tableId;
@@ -30,8 +28,8 @@ class BillDownloadDto {
     public $payedBy;
     public function __construct($billNo = null, $billDate = null, 
             $billTime = null, $netAmt = null, $totalTaxAmt = null, 
-            $totalPayAmt = null, $createdDate = null, $updatedDate = null, 
-            $userId = null, $custId = null, $tableId = null, $isPayed = null, $payedBy = null) {
+            $totalPayAmt = null,$userId = null, $custId = null, 
+            $tableId = null, $isPayed = null, $payedBy = null) {
         
         $this->billNo = $billNo;
         $this->billDate = $billDate;
@@ -39,8 +37,6 @@ class BillDownloadDto {
         $this->netAmt = $netAmt;
         $this->totalTaxAmt = $totalTaxAmt;
         $this->totalPayAmt = $totalPayAmt;
-        $this->createdDate = $createdDate;
-        $this->updatedDate = $updatedDate;
         $this->userId = $userId;
         $this->custId = $custId;
         $this->tableId = $tableId;

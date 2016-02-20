@@ -32,27 +32,10 @@ class OrderDetailsController extends ApiController {
             $orderDetailsId = $this->getTableObj()->insert($orderDetailsEntry);
             if ($orderDetailsId) {
                 $this->makeSyncEntry($userInfo, $orderDetailsId);
+                $orderCounter ++;
             }
-            $orderCounter ++;
         }
         return $orderCounter;
-    }
-
-    public function updateOrderDetails($userId, $restaurantId, $orderDetailsDto) {
-        $result = $this->getTableObj()->update(
-                $orderDetailsDto->orderDetailsId, 
-                $orderDetailsDto->orderPrice, 
-                $orderDetailsDto->orderQuantity, 
-                $orderDetailsDto->orderId);
-        if ($result) {
-            $this->makeSyncEntry(
-                    $userId, 
-                    $restaurantId, 
-                    $this->update, 
-                    $orderDetailsDto->orderDetailsId);
-            Log::debug('New order Update insert into sync for all user');
-            return $result;
-        }
     }
 
     private function makeSyncEntry($userInfo, $orderDetailsId) {

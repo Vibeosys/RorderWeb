@@ -19,8 +19,6 @@ class OrderDownloadDto {
     public $orderStatus;
     public $orderDate;
     public $orderTime;
-    public $createdDate;
-    public $updatedDate;
     public $orderAmount;
     public $userId;
     public $tableId;
@@ -28,9 +26,8 @@ class OrderDownloadDto {
 
 
     public function __construct($orderId = null, $orderNo = null, 
-            $orderStatus = null, $orderDate = null ,$orderTime = null, 
-            $createdDate = null, $updatedDate = null, $orderAmount = null, 
-            $userId = null, $tableId = null, $custId = null) {
+            $orderStatus = null, $orderDate = null ,$orderTime = null,
+            $orderAmount = null,$userId = null, $tableId = null, $custId = null) {
         
         $this->orderId = $orderId;
         $this->orderNo = $orderNo;
@@ -38,8 +35,6 @@ class OrderDownloadDto {
         $this->orderStatus = $orderStatus;
         $this->orderDate = $orderDate;
         $this->orderTime = $orderTime;
-        $this->createdDate =$createdDate;
-        $this->updatedDate = $updatedDate;
         $this->orderAmount  =$orderAmount;
         $this->userId = $userId;
         $this->tableId = $tableId;

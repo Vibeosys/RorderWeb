@@ -37,10 +37,10 @@ class NetworkDeviceTable extends Table{
         $newEntry->Product = $networkDeviceDto->product;
         $newEntry->FmVersion = $networkDeviceDto->fmVersion;
         if($tableObj->save($newEntry)){
-            Log::debug("User Network Device Info save in database for userid : ".$networkDeviceDto->userId);
+            Log::debug("User Network Device Info save in database for userid : ".$networkDeviceDto->imei);
             return true;
         }
-        Log::error("User Network Device Info not save in database for userid : ".$networkDeviceDto->userId);
+        Log::error("User Network Device Info not save in database for userid : ".$networkDeviceDto->imei);
         return false;
     }
 }

@@ -19,29 +19,21 @@ class MenuCategoryDownloadDto {
     public $categoryTitle;
     public $categoryImage;
     public $active;
-    public $createdDate;
-    public $updatedDate;
     public $colour;
-    public $imgUrl;
+
 
     public function __construct(
             $categoryId = null, 
             $categoryTitle = null, 
             $categoryImage = null, 
             $active = null, 
-            $createdDate = null, 
-            $updatedDate = null,
-            $colour = null,
-            $imgUrl = null) {
+            $colour = null) {
 
         $this->categoryId = $categoryId;
         $this->categoryTitle = $categoryTitle;
         $this->categoryImage = $categoryImage;
         $this->active = $active;
-        $this->createdDate = $createdDate;
-        $this->updatedDate = $updatedDate;
         $this->colour = $colour;
-        $this->imgUrl = $imgUrl;
     }
 
 }

@@ -18,16 +18,12 @@ class RTableDownloadDto {
     public $tableCategoryId;
     public $capacity;
     public $isOccupied;
-    public $createdDate;
-    public $updatedDate;
     
-    public function __construct($tableId, $tableNo, $tableCategoryId, $capacity, $isOccupied, $createdDate, $updatedDate) {
+    public function __construct($tableId, $tableNo, $tableCategoryId, $capacity, $isOccupied) {
         $this->tableId = $tableId;
         $this->tableNo = $tableNo;
         $this->tableCategoryId = $tableCategoryId;
         $this->capacity = $capacity;
         $this->isOccupied = $isOccupied;
-        $this->createdDate = $createdDate;
-        $this->updatedDate = $updatedDate;
     }
 }

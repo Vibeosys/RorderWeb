@@ -56,7 +56,7 @@ class ErrorDto {
         114 => 'Error occured in customer feedback',
         115 => 'Transaction Entries are deleted',
         116 => 'No such IMEI number found for restaurant',
-        117 => 'Invalid data',
+        117 => 'Menu quantity should be greater than zaro(0)',
         118 => 'Invalid to email address',
         119 => 'OTP verification failed',
         120 => 'Answer Not Saved'

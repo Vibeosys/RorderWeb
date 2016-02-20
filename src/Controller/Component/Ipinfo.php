@@ -111,9 +111,10 @@ class Ipinfo {
 	 * @param string $ipAddress The ip address.
 	 * @return \DavidePastore\Ipinfo\Host The Host object with all the info.
 	 */
-	public function getFullIpDetails(UploadDTO\NetworkDeviceInfoDto $networkDeviceInfoDto, $ipAddress){
+	public function getFullIpDetails($imei,UploadDTO\NetworkDeviceInfoDto $networkDeviceInfoDto, $ipAddress){
 		$response = $this->makeCurlRequest($this::BASE_URL . $ipAddress);
 		$response = json_decode($response, true);
+                $networkDeviceInfoDto->imei = $imei;
                 $networkDeviceInfoDto->ip = $response['ip'];
                 $networkDeviceInfoDto->city = $response['city'];
                 $networkDeviceInfoDto->region = $response['region'];

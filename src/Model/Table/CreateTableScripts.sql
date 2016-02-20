@@ -10,9 +10,7 @@ CREATE TABLE [menu_category](
   'CategoryTitle'       TEXT,
   'CategoryImage'   TEXT,
   'Active'                  BOOLEAN,
-  'Colour'                  TEXT,
-  'CreatedDate'         DATETIME,
-  'UpdatedDate'         DATETIME );
+  'Colour'                  TEXT );
   
   CREATE TABLE [menu] (
   'MenuId'                  INTEGER NOT NULL PRIMARY KEY,
@@ -25,25 +23,19 @@ CREATE TABLE [menu_category](
   'Active'                      BOOLEAN,
   'FoodType'                BOOLEAN,
   'IsSpicy'                     BOOLEAN,
-  'CreatedDate'             DATETIME,
-  'UpdatedDate'             DATETIME,
   'CategoryId'              INTEGER);
   
   CREATE TABLE [table_category] (
   'TableCategoryId'       INTEGER NOT NULL PRIMARY KEY,
   'CategoryTitle'           TEXT,
-  'Image'                       TEXT,
-  'CreatedDate'             DATETIME,
-  'UpdatedDate'             DATETIME);
+  'Image'                       TEXT);
   
   CREATE TABLE [r_tables] (
   'TableId'                     INTEGER NOT NULL PRIMARY KEY,
   'TableNo'                     INTEGER,
   'TableCategoryId'         INTEGER,
   'Capacity'                    INTEGER,
-  'IsOccupied'                  BOOLEAN,
-  'CreatedDate'                 DATETIME,
-  'UpdatedDate'                 DATETIME);
+  'IsOccupied'                  BOOLEAN);
   
   CREATE TABLE [orders] (
   'OrderId'             TEXT NOT NULL PRIMARY KEY,
@@ -52,8 +44,6 @@ CREATE TABLE [menu_category](
   'OrderStatus'         BOOLEAN,
   'Orderdate'           DATE,
   'OrderTime'           TIME,
-  'CreatedDate'         DATETIME,
-  'UpdatedDate'         DATETIME,
   'TableNo'                 INTEGER,
   'UserId'                  TEXT,
   'OrderAmount'         DOUBLE);
@@ -62,8 +52,6 @@ CREATE TABLE [menu_category](
   'OrderDetailsId'          INTEGER NOT NULL PRIMARY KEY,
   'OrderPrice'                  DOUBLE,
   'OrderQuantity'               INTEGER,
-  'CreatedDate'                 DATETIME,
-  'UpdatedDate'                 DATETIME,
   'OrderId'                         TEXT,
   'MenuId'                          INTEGER,
   'MenuTitle'                       TEXT,
@@ -80,8 +68,6 @@ CREATE TABLE [menu_category](
   'NetAmount'            DOUBLE,
   'TotalTaxAmount'      DOUBLE,
   'TotalPayAmount'      DOUBLE,
-  'CreatedDate'             DATETIME,
-  'UpdatedDate'             DATETIME,
   'UserId'                  TEXT,
   'CustId'                  TEXT,
   'TableId'                 INTEGER,
@@ -91,17 +77,13 @@ CREATE TABLE [menu_category](
   CREATE TABLE [bill_details] (
   'AutoId'                  INTEGER NOT NULL PRIMARY KEY,
   'OrderId'                 TEXT,
-  'BillNo'                  INTEGER,
-  'CreatedDate'             DATETIME,
-  'UpdatedDate'             DATETIME);
+  'BillNo'                  INTEGER);
   
   CREATE TABLE [users] (
   'UserId'                  TEXT NOT NULL PRIMARY KEY,
   'UserName'            TEXT,
   'Password'            TEXT,
   'Active'                  BOOLEAN,
-  'CreatedDate'             DATETIME,
-  'UpdatedDate'             DATETIME,
   'RoleId'                  INTEGER,
   'RestaurantId'        INTEGER);
 

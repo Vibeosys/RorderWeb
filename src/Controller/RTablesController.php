@@ -8,8 +8,8 @@ use Cake\Log\Log;
  *
  * @author niteen
  */
-define('RT_INS_QRY', "INSERT INTO r_tables (TableId,TableNo,TableCategoryId,Capacity,IsOccupied,CreatedDate,"
-        . "UpdatedDate) VALUES (@TableId,@TableNo,@TableCategoryId,@Capacity,@IsOccupied,\"@CreatedDate\",\"@UpdatedDate\");");
+define('RT_INS_QRY', "INSERT INTO r_tables (TableId,TableNo,TableCategoryId,Capacity,IsOccupied"
+        . ") VALUES (@TableId,@TableNo,@TableCategoryId,@Capacity,@IsOccupied);");
 class RTablesController extends ApiController {
     
     
@@ -47,8 +47,6 @@ class RTablesController extends ApiController {
             $preparedStatements = str_replace('@TableCategoryId', $rTables->tableCategoryId, $preparedStatements);
             $preparedStatements = str_replace('@Capacity', $rTables->capacity, $preparedStatements);
             $preparedStatements = str_replace('@IsOccupied', $rTables->isOccupied, $preparedStatements);
-            $preparedStatements = str_replace('@CreatedDate', $rTables->createdDate, $preparedStatements);
-            $preparedStatements = str_replace('@UpdatedDate', $rTables->updatedDate, $preparedStatements);
         }
         return $preparedStatements;
     }

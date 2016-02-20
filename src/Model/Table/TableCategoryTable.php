@@ -31,7 +31,7 @@ class TableCategoryTable  extends Table{
        $i = 0;
        foreach ($tableCategories as $category){
            $tableCategoryDto = new DownloadDTO\TableCategoryDownloadDto($category->TableCategoryId, 
-                   $category->CategoryTitle, $category->Image, $category->CreatedDate, $category->UpdatedDate);
+                   $category->CategoryTitle, $category->Image);
            $allTableCategory[$i] = $tableCategoryDto;
            $i++;
        }

@@ -14,7 +14,6 @@ use App\DTO\DownloadDTO;
  * @author niteen
  */
 class RestaurantTable extends Table{
-    
        
     public function connect() {
       
@@ -26,13 +25,17 @@ class RestaurantTable extends Table{
         $rows = $this->connect()->find()->where($conditions);
          $restaurant = null;
         foreach ($rows as $row) {
-                $entity = new DownloadDTO\RestaurantDownloadDto($row->RestaurantId, $row->Title, $row->LogoUrl);  
+                $entity = new DownloadDTO\RestaurantDownloadDto(
+                        $row->RestaurantId, 
+                        $row->Title, 
+                        $row->LogoUrl);  
                 $restaurant = $entity;
         }
         return $restaurant;
     }
+    
     public function check($restaurantId) {
-        $conditions = ['RestaurantId =' => $restaurantId];
+        $conditions = ['RestaurantId =' => $restaurantId,'Active =' => ACTIVE];
         $result = $this->connect()->find()->where($conditions);
         if($result->count()){
             \Cake\Log\Log::debug('restaurant checking result = '.$result->count());
@@ -40,6 +43,4 @@ class RestaurantTable extends Table{
         }
         return false;
     }
-    
-    
 }

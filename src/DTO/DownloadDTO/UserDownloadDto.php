@@ -17,20 +17,16 @@ class UserDownloadDto {
     public $userName;
     public $password;
     public $active;
-    public $createdDate;
-    public $updatedDate;
     public $roleId;
     public $restaurantId;
     
     
      public function __construct($userId =null, $userName=null, $password=null, 
-            $active=null,$createdDate=null,$updatedDate=null, $roleId=null, $restaurantId=null) {
+            $active=null, $roleId=null, $restaurantId=null) {
         $this->userId = $userId;
         $this->userName = $userName;
         $this->password = $password;
         $this->active = $active;
-        $this->createdDate = $createdDate;
-        $this->updatedDate = $updatedDate;
         $this->roleId = $roleId;
         $this->restaurantId = $restaurantId;
     }

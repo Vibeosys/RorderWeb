@@ -56,9 +56,7 @@ class BillDetailsTable extends Table{
                     $billDetailsDownloadDto = new DownloadDTO\BillDetailsDownloadDto(
                             $details->AutoId, 
                             $details->OrderId, 
-                            $details->BillNo, 
-                            $details->CreatedDate, 
-                            $details->UpdatedDate);
+                            $details->BillNo);
                     $newBillDetials[$newBillDetialsCounter++] = $billDetailsDownloadDto;
                 }
             }

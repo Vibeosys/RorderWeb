@@ -99,8 +99,6 @@ class OrderTable extends Table {
                         $order->OrderStatus, 
                         $order->OrderDate, 
                         $order->OrderTime, 
-                        $order->CreatedDate, 
-                        $order->UpdatedDate, 
                         $order->OrderAmount, 
                         $order->UserId, 
                         $order->TableId,
