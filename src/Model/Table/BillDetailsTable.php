@@ -10,6 +10,7 @@ use Cake\ORM\Table;
 use Cake\Log\Log;
 use App\DTO\UploadDTO;
 use App\DTO\DownloadDTO;
+use Cake\Datasource\ConnectionManager;
 /**
  * Description of BillDetailsTable
  *
@@ -23,7 +24,7 @@ class BillDetailsTable extends Table{
     }
     
     public function insert(UploadDTO\BillDetailsUploadDto $billDetails) {
-        
+        $conn = ConnectionManager::get('default');
         $tableObj = $this->connect();
         $newBillDetails = $tableObj->newEntity();
         $newBillDetails->OrderId = $billDetails->orderId;
@@ -37,6 +38,7 @@ class BillDetailsTable extends Table{
                     $billDetails->billNo);
             return $billDetails->billNo;
         }
+        $conn->rollback();
         Log::error('error ocurred in Bill details creating for BillNo :-' .
                 $billDetails->billNo);
         return 0;

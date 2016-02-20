@@ -23,16 +23,16 @@ class MenuCategoryController extends ApiController{
         return new Table\MenuCategoryTable();
     }
     
-    public function getMenuCategories() {
-        $result = $this->getTableObj()->getMenuCategory();
+    public function getMenuCategories($restaurantId) {
+        $result = $this->getTableObj()->getMenuCategory($restaurantId);
         if($result){
             return $result;
         }
         return false;
     }
     
-    public function prepareInsertStatements() {
-        $allMenuCategories = $this->getMenuCategories();
+    public function prepareInsertStatements($restaurantId) {
+        $allMenuCategories = $this->getMenuCategories($restaurantId);
         if (!$allMenuCategories) {
             return false;
         }

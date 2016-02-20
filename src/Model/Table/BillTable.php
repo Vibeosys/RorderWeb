@@ -12,7 +12,8 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use App\DTO\UploadDTO;
-use \App\DTO\DownloadDTO;
+use App\DTO\DownloadDTO;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Description of BillTable
@@ -27,6 +28,8 @@ class BillTable extends Table {
     }
 
     public function insert(UploadDTO\BillEntryDto $billEntry) {
+        $conn = ConnectionManager::get('default');
+        $conn->begin();
         try {
             $tableObj = $this->connect();
             $newBill = $tableObj->newEntity();
@@ -48,10 +51,12 @@ class BillTable extends Table {
                         $billEntry->billNo);
                 return $billEntry->billNo;
             }
+            $conn->rollback();
             Log::error('error ocurred in Bill creating for BillNo :-' .
                     $billEntry->billNo);
             return 0;
         } catch (Exception $ex) {
+             $conn->rollback();
             return 0;
         }
     }

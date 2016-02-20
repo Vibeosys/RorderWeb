@@ -15,7 +15,7 @@ use Cake\Log\Log;
  * @author niteen
  */
 define('R_INS_QRY', "INSERT INTO restaurant (RestaurantId,"
-        . "RestaurantTitle) VALUES (@RestaurantId,\"@RestaurantTitle\");");
+        . "RestaurantTitle,LogoUrl) VALUES (@RestaurantId,\"@RestaurantTitle\",\"@LogoUrl\");");
 class RestaurantController extends ApiController{
     
     private function getTableObj() {
@@ -46,6 +46,7 @@ class RestaurantController extends ApiController{
             $preparedStatements .= R_INS_QRY;
             $preparedStatements = str_replace('@RestaurantId', $restaurants->restaurantId, $preparedStatements);
             $preparedStatements = str_replace('@RestaurantTitle', $restaurants->title, $preparedStatements);
+            $preparedStatements = str_replace('@LogoUrl', $restaurants->logoUrl, $preparedStatements);
         return $preparedStatements;
         
     }

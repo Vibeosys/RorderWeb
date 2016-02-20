@@ -15,10 +15,13 @@ class RestaurantDownloadDto{
    
     public $restaurantId;
     public $title;
-    
-    public function __construct($restaurantId = null, $title = null) {
+    public $logoUrl;
+
+
+    public function __construct($restaurantId = null, $title = null, 
+            $logoUrl = null) {
         $this->restaurantId  =$restaurantId;
         $this->title  = $title;
-        
+        $this->logoUrl = $logoUrl;
     }
 }

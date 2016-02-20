@@ -35,7 +35,10 @@ class BillController  extends ApiController{
         $billEntryResult = $this->getTableObj()->insert($billEntryDto);
         if($billEntryResult){
             Log::debug('you bill is generated');
-            $this->makeSyncEntry($billEntryDto);
+            $result = $this->makeSyncEntry($billEntryDto);
+            if(!$result){
+                $this->transRollback();
+            }
             return $billEntryResult;
         }
         return false;
@@ -64,15 +67,15 @@ class BillController  extends ApiController{
                   $billEntryDto->userId);
          if(!is_null($newBillEntry)){
              $syncController = new SyncController();
-             $syncController->billEntry($billEntryDto->userId, 
+            $syncResult = $syncController->billEntry($billEntryDto->userId, 
                      json_encode($newBillEntry), 
                      $this->insert, 
                      $billEntryDto->restaurantId);
              Log::debug(' New bill entry successfully place in sync table');
-             return ;
+             return $syncResult;
          }
          Log::error('Error occured in sync entry of new bill');
-         return;
+         return ;
     }
     
     

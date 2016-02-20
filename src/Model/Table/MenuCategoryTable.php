@@ -20,9 +20,9 @@ class MenuCategoryTable extends Table{
         return TableRegistry::get('menu_category');
     }
     
-    public function getMenuCategory() {
-        
-        $menuCategories = $this->connect()->find();
+    public function getMenuCategory($restaurantId) {
+        $conditions = ['RestaurantId =' => $restaurantId];
+        $menuCategories = $this->connect()->find()->where($conditions);
         $count = $menuCategories->count();
         if(!$count){
             return false;

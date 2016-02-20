@@ -11,7 +11,6 @@ CREATE TABLE [menu_category](
   'CategoryImage'   TEXT,
   'Active'                  BOOLEAN,
   'Colour'                  TEXT,
-  'ImgUrl'                  TEXT,
   'CreatedDate'         DATETIME,
   'UpdatedDate'         DATETIME );
   
@@ -152,7 +151,8 @@ CREATE TABLE [menu_note_master](
 );
 CREATE TABLE [restaurant](
  'RestaurantId'    INTEGER PRIMARY KEY,
- 'RestaurantTitle'    TEXT
+ 'RestaurantTitle'    TEXT,
+ 'LogoUrl'            TEXT
 );
 
 

@@ -13,7 +13,7 @@ use App\DTO\UploadDTO;
  *
  * @author niteen
  */
-class BillDetailsController {
+class BillDetailsController extends ApiController{
     
 
 
@@ -30,7 +30,10 @@ class BillDetailsController {
                 $billDetailsEntryResult = $this->getTableObj()->insert($billDetailsEntry);  
                 $billNo = $billDetailsEntry->billNo;
             }
-            $this->makeSyncEntry($billNo, $userId, $restaurantId);
+           $result = $this->makeSyncEntry($billNo, $userId, $restaurantId);
+           if(!$result){
+               $this->transRollback();
+           }
         }
         return $billDetailsEntryResult;
     }
@@ -41,10 +44,17 @@ class BillDetailsController {
          if(!is_null($newBillDetailsEntryList)){
              $syncController = new SyncController();
              foreach ($newBillDetailsEntryList as $newBillDetails){
-             $syncController->billDetailsEntry($userId, json_encode($newBillDetails), INSERT_OPERATION, $restaurantId);
+                $syncResult = $syncController->billDetailsEntry(
+                        $userId, 
+                        json_encode($newBillDetails), 
+                        INSERT_OPERATION, 
+                        $restaurantId);
+                if(!$syncResult){
+                    return $syncResult;
+                }
              }
              Log::debug(' New bill Details entry successfully place in sync table');
-             
+             return $syncResult;
          }
          Log::error('Error occured in sync entry of new bill Details ');
          return;

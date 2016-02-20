@@ -26,7 +26,7 @@ class RestaurantTable extends Table{
         $rows = $this->connect()->find()->where($conditions);
          $restaurant = null;
         foreach ($rows as $row) {
-                $entity = new DownloadDTO\RestaurantDownloadDto($row->RestaurantId, $row->Title);  
+                $entity = new DownloadDTO\RestaurantDownloadDto($row->RestaurantId, $row->Title, $row->LogoUrl);  
                 $restaurant = $entity;
         }
         return $restaurant;

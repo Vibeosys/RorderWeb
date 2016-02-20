@@ -11,7 +11,7 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use App\DTO\UploadDTO;
-
+use Cake\Datasource\ConnectionManager;
 /**
  * Description of BillTaxTransactionsTable
  *
@@ -24,7 +24,7 @@ class BillTaxTransactionsTable extends Table{
     }
     
     public function insert(UploadDTO\BillTaxTransactionDto $billTaxTransactions) {
-        
+        $conn = ConnectionManager::get('default');
         $tableObj = $this->connect();
         $newBillTax = $tableObj->newEntity();
         $newBillTax->BillNo = $billTaxTransactions->billNo;
@@ -34,8 +34,10 @@ class BillTaxTransactionsTable extends Table{
          if ($tableObj->save($newBillTax)) {
             Log::debug('Bill Tax Transactions has been created for BillNo :-' .
                     $billTaxTransactions->billNo);
+            $conn->commit();
             return $billTaxTransactions->billNo;
         }
+        $conn->rollback();
         Log::error('error ocurred in Bill Tax Transactions creating for BillNo :-' .
                 $billTaxTransactions->billNo);
         return 0;

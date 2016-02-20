@@ -141,7 +141,7 @@ class SyncController extends ApiController {
             
                 if ($userId) {
                     try {
-                        $this->getTableObj()->Insert($userId, $json, $this->billTable, $operation, $restaurantId);
+                        return $this->getTableObj()->Insert($userId, $json, $this->billTable, $operation, $restaurantId);
                     } catch (Excption $ex) {
                         throw new Exception($ex);
                     }
@@ -151,7 +151,7 @@ class SyncController extends ApiController {
     public function billDetailsEntry($userId, $json, $operation, $restaurantId) {
         if ($userId) {
             try {
-                    $this->getTableObj()->Insert($userId, $json, $this->billDetailsTable, $operation, $restaurantId);
+                return  $this->getTableObj()->Insert($userId, $json, $this->billDetailsTable, $operation, $restaurantId);
                 } catch (Excption $ex) {
                     throw new Exception($ex);
                 }
