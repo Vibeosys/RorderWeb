@@ -29,3 +29,11 @@ define('BILLED_ORDER_STATUS', 3);
 define('ACTIVE', 1);
 
 define('INACTIVE', 0);
+
+define('SELECT_FILE_MESSAGE', 'Please select file to import data');
+
+
+
+define('DB_FILE_ERROR', 'Sorry! There is some problem.');
+
+

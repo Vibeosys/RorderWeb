@@ -47,7 +47,6 @@ class MenuTable extends Table {
                     $menu->FoodType, 
                     $menu->IsSpicy, 
                     $menu->CategoryId);
-            //}
             $allMenus[$i] = $menuDto;
             $i++;
         }
@@ -72,6 +71,28 @@ class MenuTable extends Table {
             $loopCounter++;
         }
         return $resultMenuList;
+    }
+    
+    public function insert($allMenu) {
+         $insertResult = false;
+        if(is_null($allMenu)){
+            return $insertResult;
+        }
+        foreach ($allMenu as $menu){
+            $tableObj = $this->connect();
+            $newMenu = $tableObj->newEntity();
+            $newMenu->MenuTitle = 
+            $newMenu->Image, 
+            $newMenu->Price, 
+            $newMenu->Ingredients, 
+            $newMenu->Tags, 
+            $newMenu->AvailabilityStatus, 
+            $newMenu->Active, 
+            $newMenu->FoodType, 
+            $newMenu->IsSpicy, 
+            $newMenu->CategoryId
+            
+        }
     }
 
 }

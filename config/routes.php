@@ -9,8 +9,10 @@ Router::defaultRouteClass('DashedRoute');
 
 
 Router::scope('/', function ($routes) {
+    $routes->connect('menu/addnewmenu', ['controller' => 'Menu', 'action' => 'addNewMenu']);
+    $routes->connect('menu-category/addnewmenucategory', ['controller' => 'MenuCategory', 'action' => 'addNewMenuCategory']);
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'rorderHome']);
-    $routes->connect('/*', ['controller' => 'Pages', 'action' => 'error']);
+    $routes->connect('/insertMasterData', ['controller' => 'Pages', 'action' => 'insertMasterData']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
     $routes->fallbacks('DashedRoute');
 });

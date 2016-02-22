@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use App\Model\Table;
 use Cake\Log\Log;
+use Cake\Filesystem\File;
 
 /**
  * Description of MenuController
@@ -67,6 +68,45 @@ class MenuController extends ApiController {
             $preparedStatements = str_replace('@CategoryId', $menu->categortId, $preparedStatements);
         }
         return $preparedStatements;
+    }
+    
+    public function addNewMenu() {
+       if ($this->request->is('post')) {
+            $data = $this->request->data();
+            $file = $data['file-upload']['tmp_name'];
+            if (empty($file)) {
+                $this->set(['message' => SELECT_FILE_MESSAGE,'color' => 'red']);
+            } else {
+                if (($handle = fopen($file, "r")) !== FALSE) {
+                    $counter = 0;
+                    $allMenus= null;
+                    fgetcsv($handle);
+                    while (($filesop = fgetcsv($handle, 1000, ",")) !== false) {
+                            $menuDto = new DownloadDTO\MenuDownloadDto(
+                           null, 
+                           $filesop[0], 
+                           $filesop[1], 
+                           $filesop[2], 
+                           $filesop[3], 
+                           $filesop[4], 
+                           $filesop[5], 
+                           $filesop[6], 
+                           $filesop[7], 
+                           $filesop[8], 
+                           $filesop[9]);
+                           $allMenus[$counter] = $menuDto;
+                           $counter++;
+                    }
+                    fclose($handle);
+                    $result = $this->getTableObj()->insert($allMenus);
+                    if ($result) {
+                        $this->set(['message' => 'You database has imported successfully. You have inserted ' . $result . ' recoreds','color' => 'green']);
+                    } else {
+                        $this->set(['message' => DB_FILE_ERROR,'color' => 'red']);
+                    }
+                }
+            }
+        }
     }
 
 }

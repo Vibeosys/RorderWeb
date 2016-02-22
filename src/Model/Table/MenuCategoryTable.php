@@ -9,6 +9,7 @@ use App\DTO\DownloadDTO;
 use Cake\Log\Log;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
+
 /**
  * Description of MenuCategoryTable
  *
@@ -40,6 +41,28 @@ class MenuCategoryTable extends Table{
         }
         return $allMenuCategories;
         
+    }
+    
+    public function insert($allMenuCategory) {
+        $insertResult = false;
+        if(is_null($allMenuCategory)){
+            return $insertResult;
+        }
+        $insertCounter = 0;
+        foreach ($allMenuCategory as $category){
+            $tableObj = $this->connect();
+            $newCategory = $tableObj->newEntity();
+            $newCategory->CategoryTitle = $category->categoryTitle;
+            $newCategory->CategoryImage = $category->categoryImage;
+            $newCategory->Active = $category->active;
+            $newCategory->CreatedDate = date(VB_DATE_TIME_FORMAT);
+            $newCategory->UpdatedDate = date(VB_DATE_TIME_FORMAT);
+            $newCategory->Colour = $category->colour;
+            if($tableObj->save($newCategory)){
+                $insertCounter++;
+            }
+        }
+        return $insertCounter;
     }
     
 }
