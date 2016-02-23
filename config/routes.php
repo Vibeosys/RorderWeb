@@ -11,6 +11,8 @@ Router::defaultRouteClass('DashedRoute');
 Router::scope('/', function ($routes) {
     $routes->connect('menu/addnewmenu', ['controller' => 'Menu', 'action' => 'addNewMenu']);
     $routes->connect('menu-category/addnewmenucategory', ['controller' => 'MenuCategory', 'action' => 'addNewMenuCategory']);
+    $routes->connect('table-category/addnewtablecategory', ['controller' => 'TableCategory', 'action' => 'addNewTableCategory']);
+    $routes->connect('rtables/addnewtables', ['controller' => 'RTables', 'action' => 'addNewTables']);
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'rorderHome']);
     $routes->connect('/insertMasterData', ['controller' => 'Pages', 'action' => 'insertMasterData']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);

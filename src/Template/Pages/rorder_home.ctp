@@ -31,7 +31,7 @@
         <h4>This is Default Home Page for Website.</h4>
 <p>Website under construction......</p>
     </div>
-
+    <div id="content" ><a href="login.php"><button style="background-color:orange;width:200px;hieght:100px">Login To Admin Panel</button></a></div>
     <footer>
     </footer>
 </body>

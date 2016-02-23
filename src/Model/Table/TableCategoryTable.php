@@ -38,6 +38,37 @@ class TableCategoryTable  extends Table{
      return $allTableCategory;
     }
     
+    public function insert(DownloadDTO\TableCategoryDownloadDto $tableCategoryDto) {
+        $result = false;
+        if($tableCategoryDto){
+            $tableObj = $this->connect();
+            $newTableCategory  = $tableObj->newEntity();
+            $newTableCategory->CategoryTitle = $tableCategoryDto->categoryTitle;
+            $newTableCategory->Image = $tableCategoryDto->image;
+            $newTableCategory->CreatedDate = date(VB_DATE_TIME_FORMAT);
+            $newTableCategory->UpdatedDate = date(VB_DATE_TIME_FORMAT);
+            if($tableObj->save($newTableCategory)){
+                return $newTableCategory->CategoryId;
+            }
+            return $result;
+        }
+    }
+    
+    public function getSingleCategory($categoryId) {
+        $condition = ['TableCategoryId' => $categoryId];
+         $tableCategories = $this->connect()->find()->where($condition);
+        if(!$tableCategories->count()){
+            Log::debug('Table Categories are not found');
+            return false;
+        }
+        foreach ($tableCategories as $category){
+           $tableCategoryDto = new DownloadDTO\TableCategoryDownloadDto($category->TableCategoryId, 
+                   $category->CategoryTitle, $category->Image);
+           
+       }
+       return $tableCategoryDto;
+    }
+    
     
     
     

@@ -32,9 +32,12 @@ class MenuCategoryTable extends Table{
         $i = 0;
         foreach ($menuCategories as $menuCategory){
             
-            $menuCategoryDto = new DownloadDTO\MenuCategoryDownloadDto($menuCategory->CategoryId,
-                    $menuCategory->CategoryTitle, $menuCategory->CategoryImage, $menuCategory->Active, 
-                   $menuCategory->Colour);
+            $menuCategoryDto = new DownloadDTO\MenuCategoryDownloadDto(
+                    $menuCategory->CategoryId,
+                    $menuCategory->CategoryTitle, 
+                    $menuCategory->CategoryImage, 
+                    $menuCategory->Active, 
+                    $menuCategory->Colour);
             
             $allMenuCategories[$i] = $menuCategoryDto;
             $i++;

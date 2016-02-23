@@ -8,17 +8,17 @@
 
     $this->layout = false;
      $this->layout = 'rorder_layout';
-     $this->assign('title', 'ADD NEW MENU');
+     $this->assign('title', 'ADD NEW TABLES');
      //$this->start('content');
 ?>
             <section class="content-header">
                 <h1>
-                    Restaurant Menu
+                    Restaurant Tables
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="Login.html"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li><a href="../menu-category">Menu</a></li>
-                    <li class="active">Add New Menu</li>
+                    <li><a href="../">Tables</a></li>
+                    <li class="active">Restaurant Tables</li>
                 </ol>
             </section>
             <!-- Main content -->
@@ -34,7 +34,7 @@
                                     </div><!-- /.box-header -->
                                     <!-- form start -->
                                     <div class="form-horizontal">
-                                        <form method="post" action="addnewmenu" enctype="multipart/form-data">
+                                        <form method="post" action="addnewtables" enctype="multipart/form-data">
                                         <div class="box-body">
                                             <div class="form-group">
                                                 <label for="Title" class="col-sm-2 control-label">File</label>

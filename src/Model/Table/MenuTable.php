@@ -78,21 +78,28 @@ class MenuTable extends Table {
         if(is_null($allMenu)){
             return $insertResult;
         }
+        $insertCounter = 0;
         foreach ($allMenu as $menu){
             $tableObj = $this->connect();
             $newMenu = $tableObj->newEntity();
-            $newMenu->MenuTitle = 
-            $newMenu->Image, 
-            $newMenu->Price, 
-            $newMenu->Ingredients, 
-            $newMenu->Tags, 
-            $newMenu->AvailabilityStatus, 
-            $newMenu->Active, 
-            $newMenu->FoodType, 
-            $newMenu->IsSpicy, 
-            $newMenu->CategoryId
-            
+            $newMenu->MenuTitle = $menu->menuTitle;
+            $newMenu->Image = $menu->image; 
+            $newMenu->Price = $menu->price; 
+            $newMenu->Ingredients = $menu->ingredients;
+            $newMenu->Tags = $menu->tags; 
+            $newMenu->AvailabilityStatus = $menu->availabilityStatus; 
+            $newMenu->Active = $menu->active; 
+            $newMenu->FoodType = $menu->foodType; 
+            $newMenu->IsSpicy = $menu->isSpicy; 
+            $newMenu->CreatedDate = date(VB_DATE_TIME_FORMAT);
+            $newMenu->UpdatedDate = date(VB_DATE_TIME_FORMAT);
+            $newMenu->CategoryId = $menu->categoryId+22;
+            $newMenu->RestaurantId = $menu->restaurantId;
+            if($tableObj->save($newMenu)){
+                $insertCounter++;
+            }
         }
+        return $insertCounter;
     }
 
 }

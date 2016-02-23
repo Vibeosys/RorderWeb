@@ -58,4 +58,23 @@ class RTablesTable extends Table{
         }
         
     }
+    
+    public function insert($allTables) {
+        $insertCounter = 0;
+        foreach ($allTables as $table){
+            $tableObj = $this->connect();
+            $newTable = $tableObj->newEntity();
+            $newTable->TableNo  = $table->tableNo;
+            $newTable->TableCategoryId = $table->tableCategoryId;
+            $newTable->Capacity = $table->capacity;
+            $newTable->CreatedDate = date(VB_DATE_TIME_FORMAT);
+            $newTable->UpdatedDate = date(VB_DATE_TIME_FORMAT);
+            $newTable->IsOccupied = $table->isOccupied;
+            $newTable->RestaurantId = $table->restaurantId;
+            if($tableObj->save($newTable)){
+                $insertCounter++;
+            }
+        }
+        return $insertCounter;
+    }
 }

@@ -11,6 +11,7 @@ namespace App\Controller;
 use App\Model\Table;
 use Cake\Log\Log;
 use Cake\Filesystem\File;
+use App\DTO\DownloadDTO;
 
 /**
  * Description of MenuController
@@ -74,26 +75,29 @@ class MenuController extends ApiController {
        if ($this->request->is('post')) {
             $data = $this->request->data();
             $file = $data['file-upload']['tmp_name'];
+            $extenstion = $this->getExtension($data['file-upload']['name']);
             if (empty($file)) {
                 $this->set(['message' => SELECT_FILE_MESSAGE,'color' => 'red']);
+            } elseif ($extenstion != CSV_EXT) {
+                $this->set([MESSAGE => INCORRECT_FILE_MESSAGE, 'color' => 'red']);
             } else {
                 if (($handle = fopen($file, "r")) !== FALSE) {
                     $counter = 0;
                     $allMenus= null;
                     fgetcsv($handle);
                     while (($filesop = fgetcsv($handle, 1000, ",")) !== false) {
-                            $menuDto = new DownloadDTO\MenuDownloadDto(
-                           null, 
-                           $filesop[0], 
-                           $filesop[1], 
-                           $filesop[2], 
-                           $filesop[3], 
-                           $filesop[4], 
-                           $filesop[5], 
-                           $filesop[6], 
-                           $filesop[7], 
-                           $filesop[8], 
-                           $filesop[9]);
+                            $menuDto = new \App\DTO\UploadDTO\MenuInsertDto(
+                                    $filesop[0], 
+                                    null, 
+                                    $filesop[1], 
+                                    $filesop[2], 
+                                    null, 
+                                    ACTIVE, 
+                                    ACTIVE, 
+                                    $filesop[3], 
+                                    $filesop[4], 
+                                    $filesop[5], 
+                                    123456);
                            $allMenus[$counter] = $menuDto;
                            $counter++;
                     }

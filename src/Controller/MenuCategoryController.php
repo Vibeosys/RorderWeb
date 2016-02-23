@@ -57,24 +57,32 @@ class MenuCategoryController extends ApiController {
         if ($this->request->is('post')) {
             $data = $this->request->data();
             $file = $data['file-upload']['tmp_name'];
+            $extenstion = $this->getExtension($data['file-upload']['name']);
             if (empty($file)) {
-                $this->set(['message' => SELECT_FILE_MESSAGE,'color' => 'red']);
+                $this->set([MESSAGE => SELECT_FILE_MESSAGE, 'color' => 'red']);
+            } elseif ($extenstion != CSV_EXT) {
+                $this->set([MESSAGE => INCORRECT_FILE_MESSAGE, 'color' => 'red']);
             } else {
                 if (($handle = fopen($file, "r")) !== FALSE) {
                     $counter = 0;
                     $allMenuCategory = null;
                     fgetcsv($handle);
                     while (($filesop = fgetcsv($handle, 1000, ",")) !== false) {
-                      $allMenuCategory[$counter] = new DownloadDTO\MenuCategoryDownloadDto(null, $filesop[0], $filesop[1], $filesop[2], $filesop[3]);
+                        $allMenuCategory[$counter] = new DownloadDTO\MenuCategoryDownloadDto(
+                                null, 
+                                $filesop[0], 
+                                $filesop[1], 
+                                ACTIVE, 
+                                $filesop[2]);
                         $counter++;
                     }
                     fclose($handle);
                     $result = $this->getTableObj()->insert($allMenuCategory);
-                    if ($result) {
-                        $this->set(['message' => 'You database has imported successfully. You have inserted ' . $result . ' recoreds','color' => 'green']);
-                    } else {
-                        $this->set(['message' => DB_FILE_ERROR,'color' => 'red']);
-                    }
+                }
+                if ($result) {
+                    $this->set([MESSAGE => 'You database has imported successfully. You have inserted ' . $result . ' recoreds', 'color' => 'green']);
+                } else {
+                    $this->set([MESSAGE => DB_FILE_ERROR, 'color' => 'red']);
                 }
             }
         }

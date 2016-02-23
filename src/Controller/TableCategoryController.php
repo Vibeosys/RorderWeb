@@ -7,6 +7,8 @@ namespace App\Controller;
  */
 use App\Model\Table;
 use Cake\Log\Log;
+use Cake\Filesystem\Folder;
+use App\DTO\DownloadDTO;
 
 /**
  * Description of TableCategoryController
@@ -17,6 +19,8 @@ define('TC_INS_QRY', "INSERT INTO table_category (TableCategoryId,CategoryTitle,
         . ") VALUES (@TableCategoryId,\"@CategoryTitle\",\"@Image\");");
 class TableCategoryController extends ApiController{
     
+    private $validExt = array('png','jpg','jpeg');
+    private $restaurantId = 123456;
     private function getTableObj() {
         
         return new Table\TableCategoryTable();
@@ -44,8 +48,38 @@ class TableCategoryController extends ApiController{
             $preparedStatements = str_replace('@Image', $category->image, $preparedStatements);
         }
         return $preparedStatements;
-        
-        
+    }
+    
+    public function addNewTableCategory() {
+        if($this->request->is('post') and isset($this->request->data['save'])){
+            $data = $this->request->data;
+            $fileName = $data['file-upload']['name'];
+            $ext  = strtolower($this->getExtension($fileName));
+            if(!in_array($ext, $this->validExt)){
+                $this->set([MESSAGE => INCORRECT_FILE_MESSAGE.'"png, jpg, jpeg"',COLOR => ERROR_COLOR]);
+                return;
+            }
+            $uploadedFile = $data['file-upload']['tmp_name'];
+            $imgDir = new Folder(IMAGE_UPLOAD, true);
+            $destination = $imgDir->path.$this->getGUID().$fileName;
+            $uploadResult = move_uploaded_file($uploadedFile, $destination);
+            if($uploadResult){
+                $tableCategoryDto = new DownloadDTO\TableCategoryDownloadDto(
+                        null, 
+                        $data['categoryTitle'], 
+                        $destination);
+                $insertResult = $this->getTableObj()->insert($tableCategoryDto);
+                $newTableCategory = $this->getTableObj()->getSingleCategory($insertResult);
+                $syncController = new SyncController();
+                $syncController->tableCategoryEntry(json_encode($newTableCategory), INSERT_OPERATION, $this->restaurantId);
+                 if ($insertResult) {
+                        $this->set(['message' => 'Table Category added successfully','color' => 'green']);
+                    } else {
+                        $this->set(['message' => 'ERROR occured...','color' => 'red']);
+                    }
+                $this->set([MESSAGE =>'image uploaded : '.$destination,COLOR => SUCCESS_COLOR]);
+            }
+        }
     }
     
     

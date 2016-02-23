@@ -84,9 +84,9 @@ class UploadController extends ApiController {
                      $result = $this->tableOccupy($operationData, $userData);
                      if($result){
                          $this->response->body(DTO\ErrorDto::prepareSuccessMessage($result));
-                         return;
+                     }  else {
+                         $this->response->body(DTO\ErrorDto::prepareError(110));
                      }
-                     $this->response->body(DTO\ErrorDto::prepareError(110));
                   break; 
                 case $this->operations['GB']:
                     $operationData = $record->operationData;

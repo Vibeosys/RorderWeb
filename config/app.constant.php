@@ -32,8 +32,17 @@ define('INACTIVE', 0);
 
 define('SELECT_FILE_MESSAGE', 'Please select file to import data');
 
-
+define('CSV_EXT', 'csv');
 
 define('DB_FILE_ERROR', 'Sorry! There is some problem.');
 
+define('MESSAGE', 'message');
+
+define('INCORRECT_FILE_MESSAGE', 'Please select valid file with extension ');
+
+define('COLOR', 'color');
+
+define('ERROR_COLOR', 'red');
+
+define('SUCCESS_COLOR', 'green');
 

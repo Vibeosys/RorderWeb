@@ -1,21 +1,20 @@
 <?php
 
-namespace App\DTO\DownloadDTO;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
+namespace App\DTO\UploadDTO;
+
 /**
- * Description of MenuDownloadDto
+ * Description of MenuInsertDto
  *
  * @author niteen
  */
-class MenuDownloadDto {
+class MenuInsertDto {
 
-    public $menuId;
     public $menuTitle;
     public $image;
     public $price;
@@ -26,10 +25,10 @@ class MenuDownloadDto {
     public $foodType;
     public $isSpicy;
     public $categoryId;
-
-    public function __construct($menuId, $menuTitle, $image, $price, $ingredients, $tags, 
-            $availabilityStatus, $active, $foodType, $isSpicy, $categoryId) {
-        $this->menuId = $menuId;
+    public $restaurantId;
+    
+     public function __construct($menuTitle, $image, $price, $ingredients, $tags, 
+            $availabilityStatus, $active, $foodType, $isSpicy, $categoryId, $restaurantId) {
         $this->menuTitle = $menuTitle;
         $this->image = $image;
         $this->price = $price;
@@ -40,6 +39,6 @@ class MenuDownloadDto {
         $this->foodType = $foodType;
         $this->isSpicy = $isSpicy;
         $this->categoryId = $categoryId;
+        $this->restaurantId = $restaurantId;
     }
-
 }
