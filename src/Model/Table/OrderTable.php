@@ -69,11 +69,11 @@ class OrderTable extends Table {
         return false;
     }
 
-    public function isOrderPresent($orderId) {
-        $order = $this->connect()->find()->where(['OrderId =' => $orderId]);
-        Log::debug('order count for orderId :- ' . $orderId);
-        return $order->count();
-    }
+//    public function isOrderPresent($orderId) {
+//        $order = $this->connect()->find()->where(['OrderId =' => $orderId]);
+//        Log::debug('order count for orderId :- ' . $orderId);
+//        return $order->count();
+//    }
 
     public function getOrderNo($restaurantId) {
         $conditions = array(
@@ -110,7 +110,7 @@ class OrderTable extends Table {
 
     public function getCustomerOrderList($custId, $restaurantId) {
         $allOrders = NULL;
-        $condition = ['CustId =' => $custId, 'RestaurantId =' => $restaurantId, 'OrderStatus =' => 2];
+        $condition = ['CustId =' => $custId, 'RestaurantId =' => $restaurantId, 'OrderStatus =' => FULFILLED_ORDER_STATUS];
         $orders = $this->connect()->find()
                 ->where($condition);
         if ($orders->count()) {
@@ -129,6 +129,20 @@ class OrderTable extends Table {
             Log::debug('Orders are retrived for customer ID : ' . $custId);
         }
         return $allOrders;
+    }
+    
+    public function IsOrderPresent($custId, $restaurantId, $orderStatus) {
+        $condition = [
+            'CustId =' => $custId, 
+            'RestaurantId =' => $restaurantId, 
+            'OrderStatus =' => $orderStatus];
+            $orders = $this->connect()->find()
+                ->where($condition);
+            $count = $orders->count();
+        if ($count){
+            return true;
+        }
+        return false;
     }
     
     public function changeStatus($orderId, $status) {

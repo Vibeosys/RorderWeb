@@ -11,6 +11,7 @@ namespace App\Controller;
 use App\Model\Table;
 use Cake\Log\Log;
 use App\DTO\UploadDTO;
+use App\DTO;
 
 /**
  * Description of TableTransactionController
@@ -28,6 +29,12 @@ class TableTransactionController extends ApiController {
     }
     
     public function addNewEntry(UploadDTO\TableTransactionUploadDto $addWaitingCustomerEntry, $userInfo) {
+        if(isset($addWaitingCustomerEntry->tableId)and 
+                $this->getTableObj()->isEntryPresent(
+                        $addWaitingCustomerEntry->tableId, $userInfo->restaurantId)){
+            $this->response->body(DTO\ErrorDto::prepareError(113));
+            return;
+        }
         $isWaitingResult = $this->getTableObj()->isCustomerWaiting(
                 $addWaitingCustomerEntry->custId,
                 $userInfo->restaurantId);

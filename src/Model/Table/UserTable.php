@@ -74,5 +74,58 @@ class UserTable extends Table {
             return NULL;
         }
     }
+    public function insert(DownloadDTO\UserDownloadDto $user) {
+        try{
+            $tableObj = $this->connect();
+            $newUser = $tableObj->newEntity();
+            $newUser->UserId  = $user->userId;
+            $newUser->UserName  = $user->userName;
+            $newUser->Password = $user->password;
+            $newUser->Active  = $user->active;
+            $newUser->CreatedDate = date(VB_DATE_TIME_FORMAT);
+            $newUser->UpdatedDate = date(VB_DATE_TIME_FORMAT);
+            $newUser->RoleId = $user->roleId;
+            $newUser->RestaurantId = $user->restaurantId;
+            if($tableObj->save($newUser)){
+                return TRUE;
+            }
+            return false;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+     public function getUserId($restaurantId) {
+        $conditions = array(
+            'conditions' => array('users.RestaurantId =' => $restaurantId),
+            'fields' => array('maxUserId' => 'MAX(users.UserId)'));
+        $orderTableEntry = $this->connect()->find('all', $conditions)->toArray();
+        $maxUserId = 0;
+        if ($orderTableEntry) {
+            $maxUserId = $orderTableEntry[0]['maxUserId'];
+        }
+        Log::debug('max UserId is :- ' . $maxUserId);
+        return $maxUserId;
+    }
+    
+    public function getNewUser($userId) {
+        $conditions = ['UserId =' => $userId];
+         $users = $this->connect()->find()->where($conditions);
+        $count = $users->count();
+        if (!$count) {
+            return 0;
+        }
+        foreach ($users as $user) {
+            $userDto = new DownloadDTO\UserDownloadDto(
+                    $user->UserId, 
+                    $user->UserName, 
+                    $user->Password, 
+                    $user->Active, 
+                    $user->RoleId, 
+                    $user->RestaurantId);
+
+        }
+        return $userDto;
+    }
+    
 
 }

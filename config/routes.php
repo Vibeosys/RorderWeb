@@ -13,6 +13,8 @@ Router::scope('/', function ($routes) {
     $routes->connect('menu-category/addnewmenucategory', ['controller' => 'MenuCategory', 'action' => 'addNewMenuCategory']);
     $routes->connect('table-category/addnewtablecategory', ['controller' => 'TableCategory', 'action' => 'addNewTableCategory']);
     $routes->connect('rtables/addnewtables', ['controller' => 'RTables', 'action' => 'addNewTables']);
+    $routes->connect('user/addnewuser', ['controller' => 'User', 'action' => 'addNewUser']);
+    $routes->connect('mgmtpanel', ['controller' => 'MgmtPanel', 'action' => 'mgmtPanel']);
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'rorderHome']);
     $routes->connect('/insertMasterData', ['controller' => 'Pages', 'action' => 'insertMasterData']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);

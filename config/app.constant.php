@@ -46,3 +46,5 @@ define('ERROR_COLOR', 'red');
 
 define('SUCCESS_COLOR', 'green');
 
+define('ENCRYPTION_KEY', '331bfa42-a505-4354');
+

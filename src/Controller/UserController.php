@@ -10,7 +10,7 @@ namespace App\Controller;
 
 use App\Model\Table;
 use Cake\Log\Log;
-use App\DTO;
+use App\DTO\DownloadDTO;
 
 /**
  * Description of UserController
@@ -59,5 +59,45 @@ class UserController extends ApiController {
         }
         return $preparedStatements;
     }
-
+    
+    public function addNewUser() {
+        $userRoleController =  new UserRoleController();
+         $userRoles = $userRoleController->getUserRole();
+        $restaurantId = 123456;
+        if($this->request->is('post') and isset($this->request->data['save'])){
+            $userData = $this->request->data;
+            $userId = $this->getTbaleObj()->getUserId($restaurantId) + 1;
+            $userUploadDto  = new DownloadDTO\UserDownloadDto(
+                    $userId,
+                    $userData['userName'], 
+                    $this->encrypt($userData['password']),
+                    ACTIVE,
+                    $userData['userRole'], 
+                    $restaurantId);
+            $insertResult = $this->getTbaleObj()->insert($userUploadDto);
+            if ($insertResult) {
+                $newUser = $this->getTbaleObj()->getNewUser($userId);
+                $newUser->password = $this->decrypt($newUser->password);
+                $this->makeSyncEntry(
+                        $userId, 
+                        json_encode($newUser), 
+                        INSERT_OPERATION, 
+                        $restaurantId);
+                $this->set(['message' => 'User added successfully',COLOR => SUCCESS_COLOR, 'roles' => $userRoles]);
+            } else {
+                $this->set(['message' => 'ERROR Occured...',COLOR => ERROR_COLOR, 'roles' => $userRoles]);
+            }
+        }  else {
+          
+           $this->set(['roles' => $userRoles]);
+        }
+    }
+    
+    private function makeSyncEntry($userId, $json, $operation, $restaurantId) {
+        $syncController = new SyncController();
+        $result = $syncController->usersEntry($userId, $json, $operation, $restaurantId);
+        return $result;
+    }
+    
+    
 }

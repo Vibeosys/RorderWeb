@@ -56,7 +56,6 @@ class RTablesTable extends Table{
             Log::error('Table Occupied status changes for giveen request');
             return false;
         }
-        
     }
     
     public function insert($allTables) {
@@ -76,5 +75,12 @@ class RTablesTable extends Table{
             }
         }
         return $insertCounter;
+    }
+    
+    public function tableOccupancyCheck($tableId, $isOccupied) {
+        $conditions = ['TableId =' => $tableId,'IsOccupied =' => $isOccupied];
+        $tables = $this->connect()->find()->where($conditions);
+        $occupancyCheck = $tables->count();
+        return $occupancyCheck;
     }
 }

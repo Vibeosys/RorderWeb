@@ -97,7 +97,6 @@ class TableTransactionTable extends Table {
                        'TableId =' => $deleteWaitingEntry->tableId,
                        'RestaurantId =' => $restaurantId];
         try{
-           // $deleteEntry = $this->connect()->get($deleteWaitingEntry->custId);
             $deleteResult = $this->connect()->deleteAll($conditions);
             if($deleteResult){
                 return true;
@@ -132,7 +131,8 @@ class TableTransactionTable extends Table {
         
     }
     public function getTableTransactions($restaurantId) {
-        $tableTransactions = $this->connect()->find()->where(['RestaurantId =' => $restaurantId]);
+        $conditions = ['RestaurantId =' => $restaurantId];
+        $tableTransactions = $this->connect()->find()->where($conditions);
         $count = $tableTransactions->count();
         if (!$count) {
             Log::debug('Table transactions are not found');
@@ -153,6 +153,14 @@ class TableTransactionTable extends Table {
         }
         Log::debug('Table transactions are successfully returned');
         return $tableTransactionArray;
+    }
+    
+    public function isEntryPresent($tableId, $restaurantId) {
+        $conditions = [
+            'TableId =' => $tableId,
+            'RestaurantId =' =>$restaurantId];
+        $transactionEntry = $this->connect()->find()->where($conditions);
+        return $transactionEntry->count();
     }
 
 }

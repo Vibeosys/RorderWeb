@@ -30,7 +30,7 @@ class SyncTable extends Table {
         $query->JsonSync = $update;
         $query->TableName = $table;
         $query->Operation = $operation;
-        $query->UpdatedDate = date("Y-m-d H:i:s");
+        $query->UpdatedDate = date(VB_DATE_TIME_FORMAT);
         $query->RestaurantId = $restaurantId;
         $save = $this->connect()->save($query);
         if($save){

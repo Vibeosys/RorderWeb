@@ -25,6 +25,11 @@ class RTablesController extends ApiController {
         return false;
     }
     public function occupyTable($tableOccupyRequest, $restaurantId) {
+        if($this->getTableObj()->tableOccupancyCheck(
+                $tableOccupyRequest->tableId, 
+                $tableOccupyRequest->isOccupied)){
+                return false;
+        }
         $occupyResult = $this->getTableObj()->occupy(
                 $tableOccupyRequest->tableId, 
                 $tableOccupyRequest->isOccupied);

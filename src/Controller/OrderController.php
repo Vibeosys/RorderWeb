@@ -57,8 +57,10 @@ class OrderController extends ApiController {
     }
 
     public function getCustomerOrders($custId, $restaurantId) {
+        if($this->orderCheck($custId, $restaurantId, PLACED_ORDER_STATUS)){
+            return null;
+        }
         return $this->getTableObj()->getCustomerOrderList($custId, $restaurantId);
-        
     }
     
     public function changeOrderStatus($orderId, $status, $restaurantId) {
@@ -74,6 +76,10 @@ class OrderController extends ApiController {
                     $restaurantId);
         }
         return $statusResult;
+    }
+    
+    public function orderCheck($custId, $restaurantId, $orderStatus) {
+        return $this->getTableObj()->IsOrderPresent($custId, $restaurantId, $orderStatus);
     }
 
 }

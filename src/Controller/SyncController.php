@@ -39,16 +39,19 @@ class SyncController extends ApiController {
         return new Table\SyncTable();
     }
 
-    public function usersEntry($newUserId, $restaurantId, $json, $operation) {
+    public function usersEntry($newUserId, $json, $operation, $restaurantId) {
+        $userEntryCounter = 0;
         $userController = new UserController();
         $allUser = $userController->getUsers($restaurantId);
         if ($allUser) {
             foreach ($allUser as $user) {
                 if ($user->userId != $newUserId) {
                     $this->getTableObj()->Insert($user->userId, $json, $this->usersTable, $operation, $restaurantId);
+                    $userEntryCounter++;
                 }
             }
         }
+        return $userEntryCounter;
     }
 
     public function MenuEntry($json, $operation, $restaurantId) {

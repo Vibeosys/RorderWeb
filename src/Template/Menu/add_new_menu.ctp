@@ -64,4 +64,4 @@
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </section><!-- /.content -->
-      
+       <?php $this->end();?>

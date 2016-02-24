@@ -136,6 +136,15 @@ class UploadController extends ApiController {
             Log::error("No menu items are provided or wrong element in JSON");
             return NULL;
         }
+        $orderController = new OrderController();
+        $orderCheck = $orderController->orderCheck(
+                $orderUploadRequest->custId, 
+                $userInfo->restaurantId, 
+                BILLED_ORDER_STATUS);
+        if($orderCheck){
+            $this->response->body(DTO\ErrorDto::prepareError(105));
+            return;
+        }
         $menuIdList = null;
         $menuIdLoopCounter = 0;
         foreach ($orderUploadRequest->orderDetails as $menuItemIndex => $menuItemRecord) {
@@ -181,7 +190,7 @@ class UploadController extends ApiController {
             $orderDetailList[$orderLoopCounter] = $orderDetailEntryDto;
             $orderLoopCounter++;
         }
-        $orderController = new OrderController();
+        
         $maxOrderNo = $orderController->getMaxOrderNo($userInfo->restaurantId);
         $orderEntryDto = new UploadDTO\OrderEntryDto(
                 $orderUploadRequest->orderId, 

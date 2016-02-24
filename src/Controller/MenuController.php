@@ -66,7 +66,7 @@ class MenuController extends ApiController {
             $preparedStatements = str_replace('@Active', $menu->active, $preparedStatements);
             $preparedStatements = str_replace('@FoodType', $menu->foodType, $preparedStatements);
             $preparedStatements = str_replace('@IsSpicy', $menu->isSpicy, $preparedStatements);
-            $preparedStatements = str_replace('@CategoryId', $menu->categortId, $preparedStatements);
+            $preparedStatements = str_replace('@CategoryId', $menu->categoryId, $preparedStatements);
         }
         return $preparedStatements;
     }

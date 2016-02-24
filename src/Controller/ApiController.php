@@ -11,6 +11,7 @@ namespace App\Controller;
 use App\Model\Table;
 use App\DTO;
 use Cake\Datasource\ConnectionManager;
+use Cake\Utility\Security;
 
 /**
  * Description of ApiController
@@ -64,6 +65,16 @@ class ApiController extends AppController {
                     . substr($charid, 20, 12); // "}"
             return $uuid;
         }
+    }
+    
+    public function encrypt($plain) {
+         $data = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, ENCRYPTION_KEY, trim($plain), MCRYPT_MODE_ECB);
+        return base64_encode( $data );
+    }
+    
+    public function decrypt($cipher) {
+        $data = base64_decode($cipher);
+        return trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, ENCRYPTION_KEY, trim($data), MCRYPT_MODE_ECB));
     }
 
 }
