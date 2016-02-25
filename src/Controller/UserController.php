@@ -29,8 +29,9 @@ class UserController extends ApiController {
 
     public function getUsers($restaurantId) {
         $this->autoRender = false;
-        $result = $this->getTbaleObj()->getUser($restaurantId);
-        return $result;
+        $userResult = $this->getTbaleObj()->getUser($restaurantId);
+      
+        return $userResult;
     }
 
     public function isUserValid($userId, $restaurantId) {
@@ -63,21 +64,20 @@ class UserController extends ApiController {
     public function addNewUser() {
         $userRoleController =  new UserRoleController();
          $userRoles = $userRoleController->getUserRole();
-        $restaurantId = 123456;
+        $restaurantId = 999999;
         if($this->request->is('post') and isset($this->request->data['save'])){
             $userData = $this->request->data;
-            $userId = $this->getTbaleObj()->getUserId($restaurantId) + 1;
+            $userId = $this->getTbaleObj()->getUserId() + 1;
             $userUploadDto  = new DownloadDTO\UserDownloadDto(
                     $userId,
                     $userData['userName'], 
-                    $this->encrypt($userData['password']),
+                    $userData['password'],
                     ACTIVE,
                     $userData['userRole'], 
                     $restaurantId);
             $insertResult = $this->getTbaleObj()->insert($userUploadDto);
             if ($insertResult) {
                 $newUser = $this->getTbaleObj()->getNewUser($userId);
-                $newUser->password = $this->decrypt($newUser->password);
                 $this->makeSyncEntry(
                         $userId, 
                         json_encode($newUser), 

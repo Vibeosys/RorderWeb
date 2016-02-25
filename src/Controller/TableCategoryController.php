@@ -77,7 +77,6 @@ class TableCategoryController extends ApiController{
                     } else {
                         $this->set(['message' => 'ERROR occured...','color' => 'red']);
                     }
-                $this->set([MESSAGE =>'image uploaded : '.$destination,COLOR => SUCCESS_COLOR]);
             }
         }
     }

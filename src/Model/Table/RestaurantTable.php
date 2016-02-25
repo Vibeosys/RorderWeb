@@ -34,6 +34,7 @@ class RestaurantTable extends Table{
         return $restaurant;
     }
     
+    
     public function check($restaurantId) {
         $conditions = ['RestaurantId =' => $restaurantId,'Active =' => ACTIVE];
         $result = $this->connect()->find()->where($conditions);
@@ -42,5 +43,19 @@ class RestaurantTable extends Table{
             return true;
         }
         return false;
+    }
+    
+    public function getRestaurants($restaurantId) {
+        $conditions = ['RestaurantId =' => $restaurantId];
+        $rows = $this->connect()->find()->where($conditions);
+        $restaurant = null;$i = 0;
+        foreach ($rows as $row) {
+                $entity = new DownloadDTO\RestaurantDownloadDto(
+                        $row->RestaurantId, 
+                        $row->Title, 
+                        $row->LogoUrl);  
+                $restaurant[$i] = $entity;$i++;
+        }
+        return $restaurant;
     }
 }

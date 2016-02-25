@@ -72,24 +72,39 @@ $this->layout = false;
                                     <div class="with-border box-header">
                                         <h3 class="box-title">Your Subscribed Restaurant</h3>
                                     </div><!-- /.box-header -->
-                                        <div class="mgmt-box-body col-xs-6">
+                                    <?php if(isset($data)){
+                                        foreach ($data as $rest){?>
+                                        <div class="mgmt-box-body col-xs-4">
+                                            <div class="row">
                                             <div class="restaurant-logo col-lg-4">
-                                                  <?= $this->Html->image('user.png', ['class' => 'user-image','width' => '40px','hright' => '40px','alt' => 'User Image'])?>
+                                                  <?= $this->Html->image('user.png', ['class' => 'user-image','alt' => 'User Image'])?>
                                             </div>
                                             <div class="restaurant-info col-lg-8">
                                             <div class="restaurant-name">
-                                                <b>Redd Cilly</b>
+                                                <b><?= $rest->title ?></b>
                                             </div>
                                             <div class="restaurant-name">
-                                                Baner,Pune
+                                                Baner,Pune<br>
                                                 India
                                             </div>
                                             </div>
+                                            </div>
+                                            <div class="row">
                                             <div class="restaurant-edit">
-                                                 <button name="save" value="true" type="submit" class="dark-orange add-save-btn">Edit</button>
-                                                  <button name="save" value="true" type="submit" class="dark-orange add-save-btn">View State</button>
+                                                <form action="mgmtpanel" method="post">
+                                                 <button name="edit" value="true" type="submit" class="dark-orange add-save-btn">Edit</button>
+                                                 <button name="view-stat" value="true" type="submit" class="dark-orange add-save-btn">View Stat</button>
+                                                 <button name="mgmt" value="true" type="submit" class="dark-orange add-save-btn">Manage Menu and Others</button>
+                                                </form>
+                                            </div>
                                             </div>
                                         </div><!-- /.box-body -->
+                                    <?php }}else {?>
+                                           <?php if(isset($message)){?>
+                                            <div id="error-div" style="margin-left: 20%;color: <?= $color ?>" ><?=$message?></div>
+                                    <?php }}?>
+                                        
+                                    
                                 </div>
                             </section>
                         </div><!-- /.box -->

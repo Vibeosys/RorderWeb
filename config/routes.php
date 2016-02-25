@@ -15,7 +15,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('rtables/addnewtables', ['controller' => 'RTables', 'action' => 'addNewTables']);
     $routes->connect('user/addnewuser', ['controller' => 'User', 'action' => 'addNewUser']);
     $routes->connect('mgmtpanel', ['controller' => 'MgmtPanel', 'action' => 'mgmtPanel']);
-    $routes->connect('/', ['controller' => 'Pages', 'action' => 'rorderHome']);
+    $routes->connect('/', ['controller' => 'MgmtPanel', 'action' => 'login']);
     $routes->connect('/insertMasterData', ['controller' => 'Pages', 'action' => 'insertMasterData']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
     $routes->fallbacks('DashedRoute');

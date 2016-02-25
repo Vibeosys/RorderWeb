@@ -6,7 +6,6 @@
     use Cake\Network\Exception\NotFoundException;
     use App\Controller;
 
-    $this->layout = false;
      $this->layout = 'rorder_layout';
      $this->assign('title', 'ADD NEW USER');
      //$this->start('content');

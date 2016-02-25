@@ -75,7 +75,7 @@ use RuntimeException;
  *   Called after each action is complete and after the view is rendered.
  *
  * @property \Cake\Controller\Component\AuthComponent $Auth
- * @property \Cake\Controller\Component\CookieComponent $Cookie
+ * @property \Cake\Controller\Component\CookieComponent $cookie
  * @property \Cake\Controller\Component\CsrfComponent $Csrf
  * @property \Cake\Controller\Component\FlashComponent $Flash
  * @property \Cake\Controller\Component\PaginatorComponent $Paginator

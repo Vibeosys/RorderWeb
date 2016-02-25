@@ -26,8 +26,8 @@ class UserTable extends Table {
     }
 
     public function getUser($restaurantId) {
-
-        $users = $this->connect()->find()->where(['RestaurantId =' => $restaurantId]);
+        $conditions = ['RestaurantId =' => $restaurantId];
+        $users = $this->connect()->find()->where($conditions);
         $count = $users->count();
         Log::debug('number of user present in database : ' . $count);
         if (!$count) {
@@ -43,7 +43,6 @@ class UserTable extends Table {
                     $user->Active, 
                     $user->RoleId, 
                     $user->RestaurantId);
-
             $result[$i] = $userDto;
             $i++;
         }
@@ -94,9 +93,8 @@ class UserTable extends Table {
             return false;
         }
     }
-     public function getUserId($restaurantId) {
+     public function getUserId() {
         $conditions = array(
-            'conditions' => array('users.RestaurantId =' => $restaurantId),
             'fields' => array('maxUserId' => 'MAX(users.UserId)'));
         $orderTableEntry = $this->connect()->find('all', $conditions)->toArray();
         $maxUserId = 0;
@@ -104,6 +102,9 @@ class UserTable extends Table {
             $maxUserId = $orderTableEntry[0]['maxUserId'];
         }
         Log::debug('max UserId is :- ' . $maxUserId);
+        if(!$maxUserId){
+            $maxUserId = 100;
+        }
         return $maxUserId;
     }
     

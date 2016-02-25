@@ -29,6 +29,10 @@ class RestaurantController extends ApiController{
         return  $this->getTableObj()->check($restaurantId);
     }
     
+    public function getAdminRestaurants($restaurantId) {
+        return $this->getTableObj()->getRestaurants($restaurantId);
+    }
+    
     public function prepareInsertStatements($restaurantId) {
         $restaurants = $this->getRestaurant($restaurantId);
         if(is_null($restaurants)){

@@ -73,6 +73,7 @@ class MenuController extends ApiController {
     
     public function addNewMenu() {
        if ($this->request->is('post')) {
+            $restaurantId = 999999;
             $data = $this->request->data();
             $file = $data['file-upload']['tmp_name'];
             $extenstion = $this->getExtension($data['file-upload']['name']);
@@ -97,7 +98,7 @@ class MenuController extends ApiController {
                                     $filesop[3], 
                                     $filesop[4], 
                                     $filesop[5], 
-                                    123456);
+                                    $restaurantId);
                            $allMenus[$counter] = $menuDto;
                            $counter++;
                     }

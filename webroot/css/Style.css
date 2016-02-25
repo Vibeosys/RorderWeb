@@ -1836,6 +1836,14 @@ div.restaurant-edit{
     margin-left: 20px;
    margin-top: 40px;
 }
+div.restaurant-logo{
+    border-radius: 50%;
+}
+div.restaurant-logo > img{
+    width: 100px;
+    height: 100px;
+    
+}
 .no-header .box-body {
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
