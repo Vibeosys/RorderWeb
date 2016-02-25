@@ -20,17 +20,23 @@ class SqliteTable extends Table {
 
     private $sqliteFile;
 
-    public function create() {
+    public function create($prefix) {
         $returnValue = false;
         $dbDir = new Folder(SQLITE_DB_DIR, true);
         \Cake\Log\Log::debug('folder created');
-        $this->sqliteFile = $dbDir->path . 'RorderDb' . '.sqlite';
+        $fileName = $prefix.'RorderDb' . '.sqlite';
+        $this->sqliteFile = $dbDir->path .$fileName ;
+        if(file_exists($this->sqliteFile)){
+            unlink($this->sqliteFile);
+        }
         $db = new \SQLite3($this->sqliteFile);
         if ($db != NULL) {
             $fileContents = file_get_contents(__DIR__ . DS . 'CreateTableScripts.sql');
             $returnValue = $db->exec($fileContents);
             $db->close();
-            //$returnValue = true;
+        }
+        if($returnValue){
+            return $this->sqliteFile;
         }
         return $returnValue;
     }

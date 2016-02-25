@@ -19,12 +19,15 @@ use Cake\Log\Log;
 class SqliteController extends ApiController {
 
     private $RestaurantId;
+    private $prefix;
+    private $sqliteFile;
 
     public function getDB($restaurantId) {
-
         $this->RestaurantId = $restaurantId;
         $tableObject = new Table\SqliteTable();
-        if ($tableObject->create()) {
+        $this->prefix = $this->getGUID();
+        $this->sqliteFile = $tableObject->create($this->prefix);
+        if ($this->sqliteFile) {
             $this->addRestaurant($tableObject);
             $this->addUsers($tableObject);
             $this->addRTables($tableObject);
@@ -39,9 +42,9 @@ class SqliteController extends ApiController {
             $this->addMenuNote($tableObject);
 
             $this->response->type('class');
-            $this->response->file(SQLITE_DB_DIR . 'RorderDb.sqlite', ['download' => true]);
+            $this->response->file($this->sqliteFile, ['download' => true]);
             $this->response->send();
-            unlink(SQLITE_DB_DIR . 'RorderDb.sqlite');
+            unlink($this->sqliteFile);
             Log::debug('RorderDb.sqlite  File deleted successfully');
         }
     }
