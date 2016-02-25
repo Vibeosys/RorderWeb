@@ -20,12 +20,12 @@ class FeedbackController extends ApiController{
         return new Table\FeedbackTable();
     }
     
-    public function getFeedbackList() {
-        return $this->getTableobj()->getFeedback();
+    public function getFeedbackList($restaurantId) {
+        return $this->getTableobj()->getFeedback($restaurantId);
     }
     
-    public function prepareInsertStatements() {
-        $feedbackList = $this->getFeedbackList();
+    public function prepareInsertStatements($restaurantId) {
+        $feedbackList = $this->getFeedbackList($restaurantId);
         if(is_null($feedbackList)){
             return false;
         }
