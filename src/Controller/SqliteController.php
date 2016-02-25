@@ -152,7 +152,7 @@ class SqliteController extends ApiController {
     
     private function addPaymentMode($tableObject) {
         $paymentModeController = new PaymentModeMasterController();
-        $paymentModePreparedStatement = $paymentModeController->prepareInsertStatements($this->RestaurantId);
+        $paymentModePreparedStatement = $paymentModeController->prepareInsertStatements();
         if ($tableObject->excutePreparedStatement($paymentModePreparedStatement)) {
             Log::debug('Record is inserted into payment_mode_master SQLite table for restaurantId ' . $this->RestaurantId);
         } else {
@@ -162,7 +162,7 @@ class SqliteController extends ApiController {
     
     private function addFeedback($tableObject) {
         $feedbackController = new FeedbackController();
-        $feedbackPreparedStatement = $feedbackController->prepareInsertStatements($this->RestaurantId);
+        $feedbackPreparedStatement = $feedbackController->prepareInsertStatements();
         if ($tableObject->excutePreparedStatement($feedbackPreparedStatement)) {
             Log::debug('Record is inserted into feedback_master SQLite table for restaurantId ' . $this->RestaurantId);
         } else {

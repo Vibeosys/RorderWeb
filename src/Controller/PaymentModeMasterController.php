@@ -22,12 +22,12 @@ class PaymentModeMasterController extends ApiController{
         return new Table\PaymentModeMasterTable();
     }
     
-    public function getPaymetModes($restaurantId) {
-        return $this->getTableObj()->getPaymentMode($restaurantId);
+    public function getPaymetModes() {
+        return $this->getTableObj()->getPaymentMode();
     }
     
-    public function prepareInsertStatements($restaurantId) {
-        $allPaymentMode = $this->getPaymetModes($restaurantId);
+    public function prepareInsertStatements() {
+        $allPaymentMode = $this->getPaymetModes();
         if(!$allPaymentMode){
             return false;
         }

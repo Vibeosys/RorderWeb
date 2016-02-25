@@ -21,9 +21,9 @@ class PaymentModeMasterTable extends Table{
     private function connect() {
         return TableRegistry::get('payment_mode_master');
     }
-    public function getPaymentMode($restaurantId) {
+    public function getPaymentMode() {
         $allPaymentMode = null;
-        $conditions = ['RestaurantId =' => $restaurantId, 'Active =' => ACTIVE];
+        $conditions = ['Active =' => ACTIVE];
         try {
            $paymentModes =  $this->connect()->find()->where($conditions);
            if($paymentModes->count()){
