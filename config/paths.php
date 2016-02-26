@@ -87,4 +87,4 @@ define('CAKE', CORE_PATH . 'src' . DS);
 
 define('SQLITE_DB_DIR',TMP.'SqliteDBFiles'.DS);
 
-define('IMAGE_UPLOAD', WWW_ROOT.'uploads'.DS);
+define('IMAGE_UPLOAD', WWW_ROOT.'img'.DS);

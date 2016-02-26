@@ -8,6 +8,7 @@ namespace App\Model\Table;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use App\DTO\DownloadDTO;
+use Cake\Network\Exception;
 /**
  * Description of RestaurantTable
  *
@@ -46,16 +47,50 @@ class RestaurantTable extends Table{
     }
     
     public function getRestaurants($restaurantId) {
-        $conditions = ['RestaurantId =' => $restaurantId];
+        $restaurant = null;
+        if($restaurantId){
+        $conditions = ['RestaurantId IN' => $restaurantId];
         $rows = $this->connect()->find()->where($conditions);
-        $restaurant = null;$i = 0;
+        $i = 0;
         foreach ($rows as $row) {
-                $entity = new DownloadDTO\RestaurantDownloadDto(
+                $entity = new DownloadDTO\RestaurantShowDto(
                         $row->RestaurantId, 
                         $row->Title, 
-                        $row->LogoUrl);  
+                        $row->LogoUrl,
+                        $row->Address,
+                        $row->Active,
+                        $row->Area,
+                        $row->City,
+                        $row->Country);  
                 $restaurant[$i] = $entity;$i++;
         }
+        }
         return $restaurant;
+    }
+    
+    public function update(DownloadDTO\RestaurantShowDto $restaurantInfo) {
+        $key = [
+                'Title' => $restaurantInfo->title,
+                'LogoUrl' => $restaurantInfo->logoUrl,
+                'Address' => $restaurantInfo->address,
+                'Area' => $restaurantInfo->area,
+                'City' => $restaurantInfo->city,
+                'Country' => $restaurantInfo->country
+                ];
+        $conditions = ['RestaurantId =' => $restaurantInfo->restaurantId];
+        if(!is_null($restaurantInfo->active)){
+             $key['Active'] = $restaurantInfo->active;
+        }
+        try{
+            $tableObj = $this->connect()->query()->update();
+            $tableObj->set($key);
+            $tableObj->where($conditions);
+            if($tableObj->execute()){
+                return true;
+            }
+            return false;
+        } catch (Exception $ex) {
+            throw new Exception\NotFoundException('Database error occured in restaurant info updation');
+        }
     }
 }

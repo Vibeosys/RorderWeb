@@ -1831,18 +1831,61 @@ label{
   border-bottom-left-radius: 3px;
   padding: 10px;
   border: 1px solid red;
+  margin: 2%;
 }
 div.restaurant-edit{
     margin-left: 20px;
    margin-top: 40px;
 }
-div.restaurant-logo{
-    border-radius: 50%;
-}
-div.restaurant-logo > img{
+div.restaurant-logo,a.restaurant-logo{
     width: 100px;
     height: 100px;
-    
+}
+div.restaurant-logo > img, a.restaurant-logo > img{
+    width: 140px;
+    height: 140px;
+    min-height: 20px;
+    max-height: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    border-radius: 50%;
+    border: 1px solid orange;
+}
+div.restaurant-logo-overline{
+    background-color: transparent;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    padding-top: 20%;
+    padding-left: 2%;
+    position: relative;
+    top: -100px;
+      -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+a.restaurant-logo-overline{
+    height: 100px;
+    color: transparent;
+    position: relative;
+    top: -160px;
+}
+a.restaurant-logo-overline:hover{
+    color: white;
+    font-weight: bold;
+    padding-left: 2%;
+   
+}
+div.restaurant-logo-overline:hover{
+     background-color: #ffffe6;
+    opacity: 0.3;
+}
+div.restaurant-info{
+    padding-right: 0px;
+    padding-left: 50px;
+}
+.show-edit-section{
+    display: none;
 }
 .no-header .box-body {
   border-top-right-radius: 3px;

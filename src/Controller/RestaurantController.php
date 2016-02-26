@@ -44,6 +44,10 @@ class RestaurantController extends ApiController{
             $preparedStatements = str_replace('@RestaurantTitle', $restaurants->title, $preparedStatements);
             $preparedStatements = str_replace('@LogoUrl', $restaurants->logoUrl, $preparedStatements);
         return $preparedStatements;
-        
+    }
+    
+    public function updateRestaurantInfo($restaurantDto) {
+        return $this->getTableObj()->update($restaurantDto);
     }
 }
+    

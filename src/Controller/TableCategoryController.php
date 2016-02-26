@@ -19,7 +19,7 @@ define('TC_INS_QRY', "INSERT INTO table_category (TableCategoryId,CategoryTitle,
         . ") VALUES (@TableCategoryId,\"@CategoryTitle\",\"@Image\");");
 class TableCategoryController extends ApiController{
     
-    private $validExt = array('png','jpg','jpeg');
+   
     private $restaurantId = 123456;
     private function getTableObj() {
         
@@ -54,8 +54,7 @@ class TableCategoryController extends ApiController{
         if($this->request->is('post') and isset($this->request->data['save'])){
             $data = $this->request->data;
             $fileName = $data['file-upload']['name'];
-            $ext  = strtolower($this->getExtension($fileName));
-            if(!in_array($ext, $this->validExt)){
+            if(!$this->isImage($fileName)){
                 $this->set([MESSAGE => INCORRECT_FILE_MESSAGE.'"png, jpg, jpeg"',COLOR => ERROR_COLOR]);
                 return;
             }

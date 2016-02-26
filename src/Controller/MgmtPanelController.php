@@ -8,8 +8,12 @@
 
 namespace App\Controller;
 use App\DTO\UploadDTO;
+use App\DTO\DownloadDTO;
 use Cake\Controller\Component\CookieComponent;
 use Cake\Controller\ComponentRegistry;
+use Cake\Log\Log;
+use Cake\Filesystem\Folder;
+
 
 /**
  * Description of MgmtPanelController
@@ -17,12 +21,15 @@ use Cake\Controller\ComponentRegistry;
  * @author niteen
  */
 class MgmtPanelController extends ApiController{
-    private $cookie;
+    
+    public $components = array('Cookie');
     public function login() {
-        /* @var $userName type */
-        $this->cookie = new CookieComponent(new ComponentRegistry());
-        //$userName = $this->Cookie->read('userName');
-        //$password = $this->Cookie->read('password');
+
+        $userName = $this->Cookie->read('userName');
+        $password = $this->Cookie->read('password');
+        Log::info('cookie user name :- '.$userName);
+        Log::info('Cookie Password :- '.$password);
+        $session = $this->request->session();
         if($this->request->is('post') and isset($this->request->data['login'])){
             $requestData = $this->request->data;
             $adminCredential = new UploadDTO\AdminUserUploadDto(
@@ -31,19 +38,23 @@ class MgmtPanelController extends ApiController{
             $adminUserController = new AdminUserController();
             $validResult = $adminUserController->isAdminUserValid($adminCredential);
             if($validResult){
-                $session = $this->request->session();
+                
                 $session->write('login', TRUE);
                 $session->write('AdminUserId', $validResult);
-                $this->cookie->configKey('userName', ['expires' => +86400, 'path' => '/']);
-                $this->cookie->write('userName', $adminCredential->adminUserName);
-                $this->cookie->configKey('password', ['expires' => +86400, 'path' => '/']);
-                $this->cookie->write('password', $adminCredential->adminUserName);
+                $this->Cookie->configKey('userName', ['domain' => 'localhost','expires' => '1 day','path' => '/']);
+                $this->Cookie->write('userName', $adminCredential->adminUserName);
+                $this->Cookie->configKey('password', ['domain' => 'localhost','expires' => '1 day', 'path' => '/']);
+                $this->Cookie->write('password', $adminCredential->adminUserPass);
                 $this->redirect('mgmtpanel');
             }  else {
                 $this->set([MESSAGE => 'ERROR..!Inccorect USERNAME or PASSWORD..',COLOR =>ERROR_COLOR]);    
             }
-        }elseif (isset ($userName) and isset ($password)) {
-             $session = $this->request->session();
+        }elseif (!is_null($userName) and !is_null ($password) and $session->read('login')) {
+             $adminCredential = new UploadDTO\AdminUserUploadDto(
+                    $userName, 
+                    $password);
+            $adminUserController = new AdminUserController();
+            $validResult = $adminUserController->isAdminUserValid($adminCredential);
                 $session->write('login', TRUE);
                 $session->write('AdminUserId', $validResult);
             $this->redirect('mgmtpanel');
@@ -51,13 +62,11 @@ class MgmtPanelController extends ApiController{
     }
     public function mgmtPanel() {
         if($this->request->is('post') and isset($this->request->data['edit'])){
-            $this->autoRender = false;
-            var_dump($this->request->data);
-            echo 'this is edit section';
+            $id = $this->request->data['restaurantId'];
+            $this->redirect('mgmtpanel/edit/'.  base64_encode($id));
         }  elseif($this->request->is('post') and isset($this->request->data['view-stat'])){
-            $this->autoRender = false;
-            var_dump($this->request->data);
-            echo 'this is view stat section';
+            $id = $this->request->data['restaurantId'];
+            $this->redirect('mgmtpanel/statistics/'.  base64_encode($id));
         } elseif ($this->request->is('post') and isset($this->request->data['mgmt'])) {
             $this->autoRender = false;
             var_dump($this->request->data);
@@ -66,13 +75,72 @@ class MgmtPanelController extends ApiController{
        $session = $this->request->session();
        if($session->read('login')){
            $adminId = $session->read('AdminUserId');
-           $restaurantId = 123456;
+           $restaurantAdminController = new RestaurantAdminController();
+           $restaurants = $restaurantAdminController->getAdminsRestaurants($adminId);
            $restaurantController = new RestaurantController();
-           $allRestaurants = $restaurantController->getAdminRestaurants($restaurantId);
+           $allRestaurants = $restaurantController->getAdminRestaurants($restaurants);
            $this->set(['data' => $allRestaurants]);
        }  else {
-           $this->set([MESSAGE => 'No restaurant Fonud',COLOR => ERROR_COLOR]);    
+           $this->redirect('/');
        }
        
+    }
+    
+    public function edit($id) {
+        if($this->request->is('post') and isset($this->request->data['save'])){
+            $data = $this->request->data;
+            $fileName = $data['file-upload']['name'];
+            if(!$this->isImage($fileName)){
+                $this->set([
+                    MESSAGE => INCORRECT_FILE_MESSAGE.'"png, jpg, jpeg"',
+                    COLOR => ERROR_COLOR]);
+                return;
+            }
+            $uploadedFile = $data['file-upload']['tmp_name'];
+            $imgDir = new Folder(IMAGE_UPLOAD, true);
+            $fileName = $this->getGUID().$fileName;
+            $destination = $imgDir->path.$fileName;
+            $uploadResult = move_uploaded_file($uploadedFile, $destination);
+            $activ = null;
+            if(isset($data['active'])){
+                $activ = $data['active'];
+            }
+            if($uploadResult){
+                $restaurantDto = new DownloadDTO\RestaurantShowDto(
+                        $data['restaurantId'], 
+                        $data['title'], 
+                        $fileName, 
+                        $data['address'], 
+                        $activ, 
+                        $data['area'], 
+                        $data['city'], 
+                        $data['country']);
+                $restaurantController = new RestaurantController();
+                $restaurantUpdateResult = $restaurantController->updateRestaurantInfo($restaurantDto);
+                $session = $this->request->session();
+                if($restaurantUpdateResult){
+                    $session->write('rest-edit-message', 'Your data updated successfully..!');
+                }  else {
+                    $session->write('rest-edit-message', 'ERROR...Restaurant Updation Failed!');
+                }
+                $this->redirect('mgmtpanel');
+            }
+        }elseif ($this->request->is('post') and isset($this->request->data['cancel'])) {
+            $this->redirect('mgmtpanel');
+        }
+        $restaurantId = base64_decode($id);
+        $restaurantController = new RestaurantController();
+        $allRestaurants = $restaurantController->getAdminRestaurants(array($restaurantId));
+        $this->set(['data' => $allRestaurants,'rites' => false]);
+    }
+    
+    public function statistics($id) {
+        $restaurantId = base64_decode($id);
+    }
+    
+    public function logout() {
+        $sessoin = $this->request->session();
+        $sessoin->destroy();
+        $this->redirect('/');
     }
 }

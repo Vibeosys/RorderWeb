@@ -6,6 +6,7 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Error\Debugger;
 use Cake\Network\Exception\NotFoundException;
 use App\Controller;
+use Cake\Network\Request;
 
 $this->layout = false;
 
@@ -15,7 +16,7 @@ $this->layout = false;
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><?= $this->fetch('title')?></title>
+    <title>QuickServe | Management panel</title>
      <?= $this->Html->meta ( 'favicon.ico', '/favicon.ico', array ('type' => 'icon' ) )?>
     <?= $this->Html->meta(
     'viewport',
@@ -33,7 +34,7 @@ $this->layout = false;
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
-            <a href="Login.html" class="logo">
+            <a href="mgmtpanel" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>A</b>N</span>
                 <!-- logo for regular state and mobile devices -->
@@ -52,7 +53,7 @@ $this->layout = false;
                     <ul class="nav navbar-nav">
                         <!-- User Account -->
                         <li class="dropdown user user-menu">
-                            <a href="Login.html">
+                            <a href="logout">
                                 <?= $this->Html->image('user.png', ['class' => 'user-image','alt' => 'User Image'])?>
                                 <span class="hidden-xs">Sign Off</span>
                             </a>
@@ -66,36 +67,48 @@ $this->layout = false;
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box">
-                            <section class="content content-div show-add-section">
+                            <section class="content content-div show-rest-section">
                                 <div class="row">
                                     <!--Destination Form -->
                                     <div class="with-border box-header">
                                         <h3 class="box-title">Your Subscribed Restaurant</h3>
+                                         <?php $session =  $this->request->session();
+                                        $message = $session->read('rest-edit-message');
+                                        $session->delete('rest-edit-message');
+                                    if(isset($message)){?>
+                                        <b style="color:green;padding-left: 20px"><?= $message ?></b>
+                                    <?php } ?>
                                     </div><!-- /.box-header -->
+                                   
                                     <?php if(isset($data)){
                                         foreach ($data as $rest){?>
                                         <div class="mgmt-box-body col-xs-4">
                                             <div class="row">
                                             <div class="restaurant-logo col-lg-4">
-                                                  <?= $this->Html->image('user.png', ['class' => 'user-image','alt' => 'User Image'])?>
+                                                  <?= $this->Html->image($rest->logoUrl, ['class' => 'user-image','alt' => 'User Image'])?>
                                             </div>
                                             <div class="restaurant-info col-lg-8">
                                             <div class="restaurant-name">
                                                 <b><?= $rest->title ?></b>
                                             </div>
                                             <div class="restaurant-name">
-                                                Baner,Pune<br>
-                                                India
+                                            <?= $rest->area ?>,<?= $rest->city ?><br>
+                                                <?= $rest->country ?>
                                             </div>
                                             </div>
                                             </div>
                                             <div class="row">
                                             <div class="restaurant-edit">
+                                                <?php if($rest->active){?>
                                                 <form action="mgmtpanel" method="post">
-                                                 <button name="edit" value="true" type="submit" class="dark-orange add-save-btn">Edit</button>
+                                                    <input style="display:none" type="text" value="<?=$rest->restaurantId?>" name="restaurantId">
+                                                 <button name="edit" value="true" type="submit" class="dark-orange view-edit-btn">Edit</button>
                                                  <button name="view-stat" value="true" type="submit" class="dark-orange add-save-btn">View Stat</button>
                                                  <button name="mgmt" value="true" type="submit" class="dark-orange add-save-btn">Manage Menu and Others</button>
                                                 </form>
+                                                <?php }else{ ?>
+                                                <b>Your Subscription Ended. Please contact on <a href="mailto:info@vibeosys.com">info@vibeosys.com</a>.</b>
+                                                <?php } ?>
                                             </div>
                                             </div>
                                         </div><!-- /.box-body -->
@@ -103,10 +116,9 @@ $this->layout = false;
                                            <?php if(isset($message)){?>
                                             <div id="error-div" style="margin-left: 20%;color: <?= $color ?>" ><?=$message?></div>
                                     <?php }}?>
-                                        
-                                    
                                 </div>
                             </section>
+                            
                         </div><!-- /.box -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -121,6 +133,7 @@ $this->layout = false;
     </div><!-- ./wrapper -->
         <?= $this->Html->script('jQuery-2.1.4.min.js') ?> 
         <?= $this->Html->script('bootstrap.min.js') ?> 
+        <?= $this->Html->script('vb-script-1.js') ?>
         <?= $this->Html->script('bootstrap-tagsinput.js') ?>
         <?= $this->Html->script('jquery.dataTables.js') ?> 
         <?= $this->Html->script('dataTables.bootstrap.min.js') ?> 

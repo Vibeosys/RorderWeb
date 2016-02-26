@@ -52,7 +52,7 @@ $this->layout = false;
                     <ul class="nav navbar-nav">
                         <!-- User Account -->
                         <li class="dropdown user user-menu">
-                            <a href="Login.html">
+                            <a href="../logout">
                                 <?= $this->Html->image('user.png', ['class' => 'user-image','alt' => 'User Image'])?>
                                 <span class="hidden-xs">Sign Off</span>
                             </a>
@@ -107,7 +107,8 @@ $this->layout = false;
             <strong>Copyright &copy; 2015-2016 <a href="#">Application Name</a>.</strong> All rights reserved.
         </footer>
     </div><!-- ./wrapper -->
-        <?= $this->Html->script('jQuery-2.1.4.min.js') ?> 
+        <?= $this->Html->script('jQuery-2.1.4.min.js') ?>
+        <?= $this->Html->script('vb-script-1.js') ?>
         <?= $this->Html->script('bootstrap.min.js') ?> 
         <?= $this->Html->script('bootstrap-tagsinput.js') ?>
         <?= $this->Html->script('jquery.dataTables.js') ?> 

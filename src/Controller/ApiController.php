@@ -19,6 +19,7 @@ use Cake\Utility\Security;
  * @author niteen
  */
 class ApiController extends AppController {
+     private $validExt = array('png','jpg','jpeg');
 
     public function initialize() {
         parent::initialize();
@@ -47,7 +48,7 @@ class ApiController extends AppController {
         $conn->commit();
     }
 
-    public function getExtension($fileName) {
+    private function getExtension($fileName) {
         return end((explode('.', $fileName)));
     }
 
@@ -75,6 +76,14 @@ class ApiController extends AppController {
     public function decrypt($cipher) {
         $data = base64_decode($cipher);
         return trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, ENCRYPTION_KEY, trim($data), MCRYPT_MODE_ECB));
+    }
+    
+    public function isImage($fileName) {
+        $ext  = strtolower($this->getExtension($fileName));
+        if(in_array($ext, $this->validExt)){
+             return true;
+        }
+        return false;
     }
 
 }
