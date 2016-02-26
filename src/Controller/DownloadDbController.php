@@ -25,7 +25,7 @@ class DownloadDbController extends ApiController {
         $restaurantId = $this->request->query('restaurantId');
         $imei = $this->request->query('imei');
         $info = base64_decode($this->request->query('info'));
-        $ipAddress = "113.193.128.35"; // $this->request->clientIp();
+        $ipAddress =  $this->request->clientIp();
          $restaurantIMEIController = new RestaurantImeiController();
         if(!$restaurantIMEIController->isPresent($restaurantId, $imei)){
             $this->response->body(DTO\ErrorDto::prepareError(116));
