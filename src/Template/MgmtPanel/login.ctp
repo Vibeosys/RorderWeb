@@ -12,6 +12,11 @@
 ?>
         <div class="site__container">
             <div class="grid__container">
+                <div class="site-logo">
+                    <div class="site-logo-img">
+                       <?= $this->Html->image('quickserve-logo.png', ['class' => 'quickserve-img','alt' => 'QuickServe'])?>
+                    </div>
+                </div>
                 <form action="/" method="post" class="form form--login">
                     <div class="form__field">
                         <label class="fontawesome-user" for="login__username"><span class="hidden">Username</span></label>
@@ -27,6 +32,7 @@
                     <div class="form__field" style="margin-left:190px">
                         <input name="login" type="submit" value="Sign In">
                     </div>
+                   <a href="forgotpassword">Forgot Password</a>
                 </form>
             </div>
         </div>

@@ -292,6 +292,13 @@ class UploadController extends ApiController {
                     $userInfo->restaurantId, 
                     $generateBillUploadrequest->custId, 
                     $generateBillUploadrequest->tableId);
+            $salesReportDto = new DTO\DownloadDTO\SalesHistoryReportDto(
+                    $userInfo->restaurantId, 
+                    date('m'), 
+                    date('Y'), 
+                    $billNetAmount, 
+                    $totalBillTaxAmt, 
+                    $totalPayBillAmt);
             $generateBillResult = $billController->addBillEntry($billEntryDto); 
             Log::debug('your Bill generated for Bill No : '.$generateBillResult);
             if(!$generateBillResult){

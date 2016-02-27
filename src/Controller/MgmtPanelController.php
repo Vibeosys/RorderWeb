@@ -143,4 +143,28 @@ class MgmtPanelController extends ApiController{
         $sessoin->destroy();
         $this->redirect('/');
     }
+    
+    public function upload() {
+         $this->autoRender = false;
+        if($this->request->is('ajax')){
+            //$this->autoRender = false;
+            $data = $this->request->data;
+            $fileName = $data[0]['name'];
+            Log::debug('ajax request hit with FileName :- '.$fileName);
+            //Log::debug($data);
+            $return = '/img/'.$fileName;
+            Log::debug('Logo return after uploading :- '.$return);
+            $ext = $this->isImage($fileName);
+            if($ext){
+               if(move_uploaded_file($data[0]['tmp_name'],IMAGE_UPLOAD.$fileName)){
+                   $this->response->type('multipart/form-data');
+                   $this->response->body($return);
+                  // Log::debug($this->response->body($return));
+               }  else {
+                   $this->response->body(false);
+               }
+            }
+        }
+        
+    }
 }

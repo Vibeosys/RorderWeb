@@ -108,8 +108,8 @@ $this->layout = false;
         </footer>
     </div><!-- ./wrapper -->
         <?= $this->Html->script('jQuery-2.1.4.min.js') ?>
-        <?= $this->Html->script('vb-script-1.js') ?>
         <?= $this->Html->script('bootstrap.min.js') ?> 
+        <?= $this->Html->script('vb-script-1.js') ?>
         <?= $this->Html->script('bootstrap-tagsinput.js') ?>
         <?= $this->Html->script('jquery.dataTables.js') ?> 
         <?= $this->Html->script('dataTables.bootstrap.min.js') ?> 

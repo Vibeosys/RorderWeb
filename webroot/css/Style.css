@@ -90,7 +90,7 @@ body {
 .content-wrapper,
 .right-side {
   min-height: 100%;
-  background-color: #ecf0f5;
+  background-color: #F7ECDA;
   z-index: 800;
 }
 .main-footer {
@@ -161,14 +161,14 @@ h6,
 }
 /* General Links */
 a {
-  color: #3c8dbc;
+  color: #ffa64d;
 }
 a:hover,
 a:active,
 a:focus {
   outline: none;
   text-decoration: none;
-  color: #72afd2;
+  color:  #ff8c1a;
 }
 /* Page Header */
 .page-header {
@@ -712,8 +712,11 @@ button{
     letter-spacing:1px
 }
 .dark-orange{  
-    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #3086d3 0%, #3086d3 100%) repeat scroll 0 0;
-    border-color: #1D5587;   
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #f58122 0%, #f58122 100%) repeat scroll 0 0;
+    border-color:  #cc6600;   
+}
+.dark-orange:hover{
+     background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #ff751a 0%, #ff751a 100%) repeat scroll 0 0;
 }
 .light-orange{
    background:rgba(0, 0, 0, 0) linear-gradient(to bottom, #999 0%, #999 100%) repeat scroll 0 0;
@@ -1491,7 +1494,7 @@ button{
 }
 label{
     font-weight:600;
-    color:#1d5587;
+    color:#ff8000;
 }
 /*
  * Component: Small Box
@@ -1837,6 +1840,7 @@ div.restaurant-edit{
     margin-left: 20px;
    margin-top: 40px;
 }
+
 div.restaurant-logo,a.restaurant-logo{
     width: 100px;
     height: 100px;
@@ -1874,10 +1878,18 @@ a.restaurant-logo-overline:hover{
     color: white;
     font-weight: bold;
     padding-left: 2%;
-   
+}
+input.file-control{
+    //border: 2px solid black;
+    //opacity: 1;
+    height: 60px;
+    top: -24px;
+}
+input.file-control:hover{
+   cursor: pointer; 
 }
 div.restaurant-logo-overline:hover{
-     background-color: #ffffe6;
+    background-color: #ffffe6;
     opacity: 0.3;
 }
 div.restaurant-info{

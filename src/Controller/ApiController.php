@@ -80,6 +80,7 @@ class ApiController extends AppController {
     
     public function isImage($fileName) {
         $ext  = strtolower($this->getExtension($fileName));
+        \Cake\Log\Log::debug('extenstion od image is :- '.$ext);
         if(in_array($ext, $this->validExt)){
              return true;
         }

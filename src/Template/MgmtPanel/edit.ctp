@@ -38,16 +38,18 @@
      foreach ($data as $rest){    
          ?>                             <div class="restaurant-edit-img col-sm-2">
                                             <a class="restaurant-logo" href="" rel="theater" id="u_jsonp_6_5">
-                                        	  <?= $this->Html->image($rest->logoUrl, ['class' => 'resturant-logo-img','alt' => 'Retsurant Logo'])?>
+                                            <?= $this->Html->image($rest->logoUrl, ['class' => 'resturant-logo-img','id' => 'logo','alt' => 'Retsurant Logo'])?>
                                             </a>
                                             <div class="restaurant-logo-overline">
                                            
                                         </div>
                                          <a tabindex="0" class="restaurant-logo-overline" href="#" data-ft="" rel="dialog" role="button">
                                               Choose Logo
-                                               <input type="file" name="file-upload" class="form-control" >
+                                               <input type="file" name="file-upload" class="file-control" >
                                             </a>
-             
+                                        <div class="spinner">
+                                            <?= $this->Html->image('loading1.gif', ['class' => 'resturant-upload-loading','id' => 'loading','alt' => 'loading'])?>
+                                        </div>
                                         </div>
                                             <div class="restaurant-edit-field col-sm-10">    
                                             <input style="display:none" type="text" name="restaurantId" value="<?=$rest->restaurantId?>">
@@ -55,15 +57,6 @@
                                                 <label for="Title" class="col-sm-2 control-label">Restaurant Title</label>
                                                 <div class="col-sm-8">
                                                     <input name="title" value="<?=$rest->title?>" type="text" class="form-control" id="Title" placeholder="Title" required>
-                                                </div>
-                                            </div>
-                                              <div class="form-group">
-                                                <label for="latitude" class="col-sm-2 control-label">Logo Image</label>
-                                                <div class="col-sm-8">
-                                                    <label for="file-upload" class="custom-file-upload">
-                                                        <i> <?= $this->Html->image('upload.png', ['width' => '25','alt' => 'Upload File'])?></i> Upload your image here
-                                                    </label>
-                                                    <input type="file" name="file-upload" class="form-control" >
                                                 </div>
                                             </div>
                                             <div class="form-group">

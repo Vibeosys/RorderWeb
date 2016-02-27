@@ -7,7 +7,7 @@
   background:rgba(255, 255, 255, 0.5) none repeat scroll 0 0;
 }
 .skin-blue .main-header .navbar .nav > li > a {
-  color:#1d5587;
+  color:#B75B0D;
   text-transform:uppercase;
 }
 .skin-blue .main-header .navbar .nav > li > a:hover,
@@ -62,7 +62,7 @@
 .skin-blue .wrapper,
 .skin-blue .main-sidebar,
 .skin-blue .left-side {  
-    background: #3086D3 url(../Images/elegant-blue-background_fJXpR_Su.jpg) no-repeat left bottom;
+    background: #ff8c1a;// url(../Images/elegant-blue-background_fJXpR_Su.jpg) no-repeat left bottom;
     background-size: cover;
 }
 .skin-blue .user-panel > .info,
@@ -376,7 +376,7 @@
     margin: 0 10px 0 0;
     width: 44px;
 }
-.sidebar-menu .icon.dashboard {
+/*.sidebar-menu .icon.dashboard {
     background-image: url("../Images/Sales.png");
 }
 .sidebar-menu .icon.products {
@@ -387,7 +387,7 @@
 }
 .sidebar-menu .icon.channels {
     background-image: url("../Images/Channels.png");
-}
+}*/
 @media (max-width: 767px) {
   .skin-black .main-header > .logo {
     background-color: #222222;

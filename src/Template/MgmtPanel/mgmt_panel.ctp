@@ -128,7 +128,7 @@ $this->layout = false;
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0.0
             </div>
-            <strong>Copyright &copy; 2015-2016 <a href="#">Application Name</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2015-2016 <a href="mgmtpanel">QuickServe</a>.</strong> All rights reserved.
         </footer>
     </div><!-- ./wrapper -->
         <?= $this->Html->script('jQuery-2.1.4.min.js') ?> 

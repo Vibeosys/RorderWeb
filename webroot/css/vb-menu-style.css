@@ -25,3 +25,14 @@ select.form-control-select {
     background-image: none;
     border: 1px solid #ccc;
 }
+.restaurant-upload-loading{
+    position: relative;
+    top: -100px;
+    display: none;
+}
+.spinner{
+     position: relative;
+    top: -250px;
+    left: 15%;
+    display: none;
+}
