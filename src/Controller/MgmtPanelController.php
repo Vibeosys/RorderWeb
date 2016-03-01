@@ -136,6 +136,7 @@ class MgmtPanelController extends ApiController{
     
     public function statistics($id) {
         $restaurantId = base64_decode($id);
+       
     }
     
     public function logout() {

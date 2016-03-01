@@ -62,7 +62,44 @@ $this->layout = false;
                 </div>
             </nav>
         </header>
-        <div class="content-wrapper">
+        <div class="restaurant-Show col-xs-2">
+        <?php if(isset($data)){
+                                        foreach ($data as $rest){?>
+            <div class="row">
+                                        <div class="mgmt-box-body">
+                                            <div class="row">
+                                            <div class="restaurant-logo col-lg-4">
+                                                  <?= $this->Html->image($rest->logoUrl, ['class' => 'user-image','alt' => 'User Image'])?>
+                                            </div>
+                                            <div class="restaurant-info col-lg-4">
+                                            <div class="restaurant-name">
+                                                <b><?= $rest->title ?></b>
+                                            </div>
+                                            <div class="restaurant-name">
+                                            <?= $rest->area ?>,<?= $rest->city ?><br>
+                                                <?= $rest->country ?>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <div class="row">
+                                            <div class="restaurant-edit">
+                                                <?php if($rest->active){?>
+                                                <form action="mgmtpanel" method="post">
+                                                    <input style="display:none" type="text" value="<?=$rest->restaurantId?>" name="restaurantId">
+                                                 <button name="edit" value="true" type="submit" class="dark-orange view-edit-btn">Edit</button>
+                                               
+                                                 <button name="mgmt" value="true" type="submit" class="dark-orange add-save-btn">Manage Menu and Others</button>
+                                                </form>
+                                                  <button name="view-stat" value="<?=$rest->restaurantId?>"  class="dark-orange view-stat-btn">View Stat</button><br>
+                                                <?php }else{ ?>
+                                                <b>Your Subscription Ended. Please contact on <a href="mailto:info@vibeosys.com">info@vibeosys.com</a>.</b>
+                                                <?php } ?>
+                                            </div>
+                                            </div>
+                                        </div><!-- /.box-body --></div>
+                                    <?php }}?>
+        </div>
+        <div class="content-wrapper col-xs-10">
            <section class="content">
                 <div class="row">
                     <div class="col-xs-12">
@@ -79,43 +116,19 @@ $this->layout = false;
                                         <b style="color:green;padding-left: 20px"><?= $message ?></b>
                                     <?php } ?>
                                     </div><!-- /.box-header -->
-                                   
-                                    <?php if(isset($data)){
-                                        foreach ($data as $rest){?>
-                                        <div class="mgmt-box-body col-xs-4">
-                                            <div class="row">
-                                            <div class="restaurant-logo col-lg-4">
-                                                  <?= $this->Html->image($rest->logoUrl, ['class' => 'user-image','alt' => 'User Image'])?>
-                                            </div>
-                                            <div class="restaurant-info col-lg-8">
-                                            <div class="restaurant-name">
-                                                <b><?= $rest->title ?></b>
-                                            </div>
-                                            <div class="restaurant-name">
-                                            <?= $rest->area ?>,<?= $rest->city ?><br>
-                                                <?= $rest->country ?>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            <div class="row">
-                                            <div class="restaurant-edit">
-                                                <?php if($rest->active){?>
-                                                <form action="mgmtpanel" method="post">
-                                                    <input style="display:none" type="text" value="<?=$rest->restaurantId?>" name="restaurantId">
-                                                 <button name="edit" value="true" type="submit" class="dark-orange view-edit-btn">Edit</button>
-                                                 <button name="view-stat" value="true" type="submit" class="dark-orange add-save-btn">View Stat</button>
-                                                 <button name="mgmt" value="true" type="submit" class="dark-orange add-save-btn">Manage Menu and Others</button>
-                                                </form>
-                                                <?php }else{ ?>
-                                                <b>Your Subscription Ended. Please contact on <a href="mailto:info@vibeosys.com">info@vibeosys.com</a>.</b>
-                                                <?php } ?>
-                                            </div>
-                                            </div>
-                                        </div><!-- /.box-body -->
-                                    <?php }}else {?>
-                                           <?php if(isset($message)){?>
-                                            <div id="error-div" style="margin-left: 20%;color: <?= $color ?>" ><?=$message?></div>
-                                    <?php }}?>
+                                </div>
+                                
+                                <div class="view-statistics">
+                                    <div class="sales-history">
+                                    <div id="sales-history-graph">   
+                                        FusionCharts XT will load here!
+                                    </div>   
+                                    </div>
+                                    <div class="customer-visit">
+                                        
+                                        
+                                        
+                                    </div>                                    
                                 </div>
                             </section>
                             
@@ -133,6 +146,39 @@ $this->layout = false;
     </div><!-- ./wrapper -->
         <?= $this->Html->script('jQuery-2.1.4.min.js') ?> 
         <?= $this->Html->script('bootstrap.min.js') ?> 
+        <?= $this->Html->script('fusioncharts.js') ?> 
+        <?= $this->Html->script('fusioncharts.theme.fint.js') ?> 
+    <script type="text/javascript">
+        $('.view-stat-btn').on('click', function(){
+            var restId =  $(this).val();
+            FusionCharts.ready(function () {
+                $.ajax({
+                    url: "/salesreport?id=" + restId, 
+                    type:"POST",
+                   // data: {id: restId},
+                    contentType: false,
+                    cache: false,
+                    processData:false, 
+                    success: function(result, jqXHR, textStatus){
+                    if(result){
+                        var revenueChart = new FusionCharts({
+                        type: 'column2d',
+                        renderAt: 'sales-history-graph',
+                        width: '550',
+                        height: '350',
+                        dataFormat: 'json',
+                        dataSource: result}).render();
+                    }else{
+                        alert('Error..!image Not Upload');
+                    }
+                    },
+                    error : function(jqXHR, textStatus, errorThrown) {
+                        alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                }});
+            });
+
+        });   
+    </script>
         <?= $this->Html->script('vb-script-1.js') ?>
         <?= $this->Html->script('bootstrap-tagsinput.js') ?>
         <?= $this->Html->script('jquery.dataTables.js') ?> 

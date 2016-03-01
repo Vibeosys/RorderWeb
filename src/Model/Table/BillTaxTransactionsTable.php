@@ -34,15 +34,11 @@ class BillTaxTransactionsTable extends Table{
          if ($tableObj->save($newBillTax)) {
             Log::debug('Bill Tax Transactions has been created for BillNo :-' .
                     $billTaxTransactions->billNo);
-            $conn->commit();
             return $billTaxTransactions->billNo;
         }
         $conn->rollback();
         Log::error('error ocurred in Bill Tax Transactions creating for BillNo :-' .
                 $billTaxTransactions->billNo);
         return 0;
-        
-        
-        
     }
 }

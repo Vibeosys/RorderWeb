@@ -334,16 +334,23 @@ class UploadController extends ApiController {
                 Log::error('Bill Tax Tansactions generation failed');
                 
         }
-         $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Bill has been generated'));
-         foreach ($customerOrders as $billedOrder){
-             $changeOrderStatusResult = $orderController->changeOrderStatus(
+        $salesHistoryController = new SalesHistoryController();
+        $reportResult = $salesHistoryController->makeSalesReportEntry($salesReportDto);
+         if(!$reportResult){
+                Log::error('Sales History report data not saved properly');
+                $this->response->body(DTO\ErrorDto::prepareError(107));
+                return 0;
+        }
+        $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Bill has been generated'));
+        foreach ($customerOrders as $billedOrder){
+            $changeOrderStatusResult = $orderController->changeOrderStatus(
                      $billedOrder->orderId, 
                      BILLED_ORDER_STATUS,
                      $userInfo->restaurantId);
-         }
-         if(!$changeOrderStatusResult){
-             Log::error('Changing Billed Order status failed');
-         }
+        }
+        if(!$changeOrderStatusResult){
+            Log::error('Changing Billed Order status failed');
+        }
     }
     
     private function orderFullfiled($operationData, $userInfo) {

@@ -4,7 +4,7 @@
  */
 .skin-blue .main-header .navbar {
   /*background-color: #3086D3;*/
-  background:rgba(255, 255, 255, 0.5) none repeat scroll 0 0;
+  background:rgba(243, 156, 18, 0.52) none repeat scroll 0 0;
 }
 .skin-blue .main-header .navbar .nav > li > a {
   color:#B75B0D;
@@ -18,7 +18,7 @@
 .skin-blue .main-header .navbar .nav .open > a:focus,
 .skin-blue .main-header .navbar .nav > .active > a {
   background: rgba(0, 0, 0, 0.1);
-  color: #f6f6f6;
+  color: #f58122;
 }
 .skin-blue .main-header .navbar .sidebar-toggle {
   color: #ffffff;
@@ -46,7 +46,7 @@
 }
 .skin-blue .main-header .logo {
   /*background-color:#3086D3;*/
-  color: #ffffff;
+  color: #f58122;
   border-bottom: 1px solid #999;
   background:rgba(255, 255, 255, 0) none repeat scroll 0 0;
 }
@@ -62,7 +62,7 @@
 .skin-blue .wrapper,
 .skin-blue .main-sidebar,
 .skin-blue .left-side {  
-    background: #ff8c1a;// url(../Images/elegant-blue-background_fJXpR_Su.jpg) no-repeat left bottom;
+    background: #fff;// url(../Images/elegant-blue-background_fJXpR_Su.jpg) no-repeat left bottom;
     background-size: cover;
 }
 .skin-blue .user-panel > .info,

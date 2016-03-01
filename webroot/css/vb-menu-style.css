@@ -36,3 +36,8 @@ select.form-control-select {
     left: 15%;
     display: none;
 }
+div.restaurant-Show{
+   // border: 2px solid black;
+  // padding-top: 2%;
+  min-width: 260px;
+}

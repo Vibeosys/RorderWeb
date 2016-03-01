@@ -27,12 +27,9 @@
                         <div class="box">                           
                             <section class="content content-div show-add-section">
                                 <div class="row">
-                                    <!--Destination Form -->
-                                  <!--  <div class="with-border box-header">
-                                        <h3 class="box-title">Add New Category</h3>
-                                    </div> /.box-header -->
-                                    <!-- form start -->
-                                   
+                                    <div id="chart-1">
+                                        
+                                    </div>
                                 </div>
                             </section>
                         </div><!-- /.box -->                       

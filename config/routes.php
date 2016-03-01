@@ -18,6 +18,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('upload', ['controller' => 'MgmtPanel', 'action' => 'upload']);
     $routes->connect('mgmtpanel/edit/id', ['controller' => 'MgmtPanel', 'action' => 'edit','id']);
     $routes->connect('logout', ['controller' => 'MgmtPanel', 'action' => 'logout']);
+    $routes->connect('salesreport', ['controller' => 'SalesHistory', 'action' => 'getReport']);
     $routes->connect('/', ['controller' => 'MgmtPanel', 'action' => 'login']);
     $routes->connect('/insertMasterData', ['controller' => 'Pages', 'action' => 'insertMasterData']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
