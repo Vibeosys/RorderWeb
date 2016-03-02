@@ -65,15 +65,13 @@ class SalesHistoryTable extends Table{
             'RestaurantId =' => $salesHistoryReport->restaurantId, 
             'Month =' => $salesHistoryReport->month, 
             'Year =' => $salesHistoryReport->year];
-          $key = [
-              'BillNetAmount ' => + $salesHistoryReport->billNetAmt, 
-              'BilltaxAmount ' => + $salesHistoryReport->taxAmt, 
-              'BillTotalAmount ' => + $salesHistoryReport->billTotalAmt];
         try{
-            $updateObj = $this->connect()->query()->update();
-            $updateObj->set($key);
-            $updateObj->where($conditions);
-            if($updateObj->execute()){
+            $tableObj = $this->connect();
+            $entity = $tableObj->get($conditions);
+            $entity->BillNetAmount = $entity->BillNetAmount + $salesHistoryReport->billNetAmt;
+            $entity->BillTaxAmount = $entity->BillTaxAmount + $salesHistoryReport->taxAmt;
+            $entity->BillTotalAmount = $entity->BillTotalAmount + $salesHistoryReport->billTotalAmt;
+            if($tableObj->save($entity)){
                 $conn->commit();
                 return true;
             }

@@ -195,7 +195,7 @@ a:focus {
   -o-transition: margin-left 0.3s ease-in-out;
   transition: margin-left 0.3s ease-in-out;
   margin-bottom: 0;
-  margin-left: 270px;
+  margin-left: 533px;
   border: none;
   min-height: 50px;
   border-radius: 0;
@@ -289,7 +289,8 @@ a:focus {
   font-size: 20px;
   line-height: 50px;
   text-align: center;
-  width: 270px;
+  width: 533px;
+  min-width: 100px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 0 15px;
   font-weight: 300;
@@ -713,12 +714,33 @@ button{
     text-transform:uppercase;
     letter-spacing:1px
 }
+.view-stat-btn{
+   -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+     border-image: none;
+    border-style: solid;
+    border-width: 0 0 2px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 12px;
+    height: 28px;
+    margin: 0 5px 0 0;  
+    text-align: center;
+    border-radius:2px;  
+    padding:0 15px;
+    text-transform:uppercase;
+    letter-spacing:1px  
+}
 .dark-orange{  
-    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #f58122 0%, #f58122 100%) repeat scroll 0 0;
-    border-color:  #cc6600;   
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #fff 0%, #fff 100%) repeat scroll 0 0;
+    border-color:  #cc6600;  
+    color: #f58122;
 }
 .dark-orange:hover{
      background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #ff751a 0%, #ff751a 100%) repeat scroll 0 0;
+     color: #fff;
 }
 .light-orange{
    background:rgba(0, 0, 0, 0) linear-gradient(to bottom, #999 0%, #999 100%) repeat scroll 0 0;
@@ -1777,6 +1799,9 @@ label{
   padding: 10px;
   position: relative;
 }
+span.mgmt-date{
+    float: right;
+}
 .box-header.with-border {
   border-bottom: 1px solid #f4f4f4;
 }
@@ -1840,14 +1865,28 @@ label{
 }
 div.restaurant-edit{
     margin-left: 20px;
-   margin-top: 40px;
+   margin-top: 10px;
 }
-
-div.restaurant-logo,a.restaurant-logo{
+div.restaurant-logo{
+    width: 50px;
+    height: 50px;
+    
+}
+a.restaurant-logo{
     width: 100px;
     height: 100px;
 }
-div.restaurant-logo > img, a.restaurant-logo > img{
+div.restaurant-logo > img{
+    width: 50px;
+    height: 50px;
+    min-height: 20px;
+    max-height: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    border-radius: 50%;
+    border: 1px solid orange;
+}
+a.restaurant-logo > img{
     width: 140px;
     height: 140px;
     min-height: 20px;

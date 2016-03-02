@@ -62,7 +62,7 @@ $this->layout = false;
                 </div>
             </nav>
         </header>
-        <div class="restaurant-Show col-xs-2">
+        <div class="restaurant-Show col-xs-4">
         <?php if(isset($data)){
                                         foreach ($data as $rest){?>
             <div class="row">
@@ -87,10 +87,10 @@ $this->layout = false;
                                                 <form action="mgmtpanel" method="post">
                                                     <input style="display:none" type="text" value="<?=$rest->restaurantId?>" name="restaurantId">
                                                  <button name="edit" value="true" type="submit" class="dark-orange view-edit-btn">Edit</button>
-                                               
                                                  <button name="mgmt" value="true" type="submit" class="dark-orange add-save-btn">Manage Menu and Others</button>
+                                                 <input type="button" value="view stats" name="<?= $rest->restaurantId ?>" class="dark-orange view-stat-btn">
                                                 </form>
-                                                  <button name="view-stat" value="<?=$rest->restaurantId?>"  class="dark-orange view-stat-btn">View Stat</button><br>
+<!--                                                  <button name="view-stat" value="<?=$rest->restaurantId?>" class="dark-orange view-stat-btn">View Stat</button>-->
                                                 <?php }else{ ?>
                                                 <b>Your Subscription Ended. Please contact on <a href="mailto:info@vibeosys.com">info@vibeosys.com</a>.</b>
                                                 <?php } ?>
@@ -99,7 +99,7 @@ $this->layout = false;
                                         </div><!-- /.box-body --></div>
                                     <?php }}?>
         </div>
-        <div class="content-wrapper col-xs-10">
+        <div class="content-wrapper col-xs-8 col-lg-8">
            <section class="content">
                 <div class="row">
                     <div class="col-xs-12">
@@ -109,6 +109,7 @@ $this->layout = false;
                                     <!--Destination Form -->
                                     <div class="with-border box-header">
                                         <h3 class="box-title">Your Subscribed Restaurant</h3>
+                                        <span class="mgmt-date"> As on date : <b><?php echo date('D,d-M-Y');?></b></span>
                                          <?php $session =  $this->request->session();
                                         $message = $session->read('rest-edit-message');
                                         $session->delete('rest-edit-message');
@@ -117,7 +118,6 @@ $this->layout = false;
                                     <?php } ?>
                                     </div><!-- /.box-header -->
                                 </div>
-                                
                                 <div class="view-statistics">
                                     <div class="sales-history">
                                     <div id="sales-history-graph">   
@@ -125,32 +125,31 @@ $this->layout = false;
                                     </div>   
                                     </div>
                                     <div class="customer-visit">
-                                        
-                                        
-                                        
+                                     <div id="customer-visit-graph">   
+                                        FusionCharts XT will load here!
+                                    </div>
                                     </div>                                    
                                 </div>
                             </section>
-                            
                         </div><!-- /.box -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </section>
         </div><!-- /.content-wrapper -->
+    </div><!-- ./wrapper -->
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0.0
             </div>
             <strong>Copyright &copy; 2015-2016 <a href="mgmtpanel">QuickServe</a>.</strong> All rights reserved.
         </footer>
-    </div><!-- ./wrapper -->
         <?= $this->Html->script('jQuery-2.1.4.min.js') ?> 
         <?= $this->Html->script('bootstrap.min.js') ?> 
         <?= $this->Html->script('fusioncharts.js') ?> 
         <?= $this->Html->script('fusioncharts.theme.fint.js') ?> 
     <script type="text/javascript">
         $('.view-stat-btn').on('click', function(){
-            var restId =  $(this).val();
+            var restId =  $(this).attr('name');
             FusionCharts.ready(function () {
                 $.ajax({
                     url: "/salesreport?id=" + restId, 
@@ -175,8 +174,30 @@ $this->layout = false;
                     error : function(jqXHR, textStatus, errorThrown) {
                         alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
                 }});
+             $.ajax({
+                    url: "/customervisitreport?id=" + restId, 
+                    type:"POST",
+                    contentType: false,
+                    cache: false,
+                    processData:false, 
+                    success: function(result, jqXHR, textStatus){
+                    if(result){
+                        var revenueChart = new FusionCharts({
+                        type: 'Doughnut2d',
+                        renderAt: 'customer-visit-graph',
+                        width: '550',
+                        height: '350',
+                        dataFormat: 'json',
+                        dataSource: result}).render();
+                    }else{
+                        alert('Error..!data Not found');
+                    }
+                    },
+                    error : function(jqXHR, textStatus, errorThrown) {
+                        alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                }});
+              
             });
-
         });   
     </script>
         <?= $this->Html->script('vb-script-1.js') ?>

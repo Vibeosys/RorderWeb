@@ -86,5 +86,23 @@ class ApiController extends AppController {
         }
         return false;
     }
+    
+    public function getTimeSlot($time) {
+        \Cake\Log\Log::debug('current hours :'.$time);
+        if(5.3 < $time and $time < 7.3){
+            return 'f11to2';
+        }elseif (7.3 < $time and $time < 9.3) {
+            return 'f2to3';
+        }elseif (9.3 < $time and $time < 11.3) {
+            return 'f4to6';
+        }elseif (11.3 < $time and $time < 13.3) {
+            return 'f6to8';
+        }elseif (13.3 < $time and $time < 15.3) {
+            return 'f8to10';
+        }elseif (15.3 < $time and $time < 17.3) {
+            return 'f10to12';
+        }
+        return false;
+    }
 
 }

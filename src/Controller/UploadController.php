@@ -398,8 +398,20 @@ class UploadController extends ApiController {
     private function addWaitingCustomer($operationData, $userInfo) {
         $addWaitingCustomerRequest = UploadDTO\TableTransactionUploadDto::Deserialize($operationData);
         $tableTransactionController = new TableTransactionController();
-        $addWaitingCustomerResult = $tableTransactionController->addNewEntry($addWaitingCustomerRequest, $userInfo);
-        if($addWaitingCustomerResult){
+        $addWaitingCustomerResult = $tableTransactionController->addNewEntry(
+                $addWaitingCustomerRequest, $userInfo);
+        $currentHour = date('H.i');
+        $timeSlot = $this->getTimeSlot($currentHour);
+        Log::debug('Time Slot for current Request :'.$timeSlot);
+        $customerVisitInsertData = new UploadDTO\CustomerVisitUpldDto(
+                $userInfo->restaurantId, 
+                date('m'), 
+                date('Y'), 
+                date('d'), 
+                $timeSlot);
+        $customerVisitController = new CustomerVisitController();
+        $makeCustomerVisitResult = $customerVisitController->makeCustomerVisitReport($customerVisitInsertData);
+        if($addWaitingCustomerResult and $makeCustomerVisitResult){
             $this->response->body(DTO\ErrorDto::prepareSuccessMessage('waiting request added'));
             return;
         }
