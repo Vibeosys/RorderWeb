@@ -66,6 +66,7 @@ class OrderController extends ApiController {
         if(is_null($result)){
             $this->response->body(DTO\ErrorDto::prepareError(118));
         }
+        return $result;
     }
     
     public function changeOrderStatus($orderId, $status, $restaurantId) {

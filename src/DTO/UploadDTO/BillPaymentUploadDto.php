@@ -18,11 +18,15 @@ class BillPaymentUploadDto extends DTO\JsonDeserializer{
     public $billNo;
     public $isPayed;
     public $payedBy;
-    
-    public function __construct($billNo = null, $isPayed = null, $payedBy = null) {
+    public $discount;
+
+
+    public function __construct($billNo = null, $isPayed = null, 
+            $payedBy = null, $discount = null) {
         
         $this->billNo = $billNo;
         $this->isPayed = $isPayed;
         $this->payedBy = $payedBy;
+        $this->discount = $discount;
     }
 }

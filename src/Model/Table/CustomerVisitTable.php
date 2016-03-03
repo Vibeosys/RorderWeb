@@ -27,7 +27,7 @@ class CustomerVisitTable extends Table{
         $conditions = ['RestaurantId' => $restaurantId,
                         'Month' => date('m'),
                         'Year' => date('Y'),
-                        'Day' => date('d')];
+                        'Day' => date('d')-1];
         $rows = $this->connect()->find()->where($conditions);
         $customerVisitDto = null;
         foreach ($rows as $row){

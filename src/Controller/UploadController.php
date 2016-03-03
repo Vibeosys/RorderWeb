@@ -331,7 +331,7 @@ class UploadController extends ApiController {
                 addBillTaxTransactions($billTaxList);
         if(!$addBillTaxTransactionsResult){
                 Log::error('Bill Tax Tansactions generation failed');
-                
+                return;
         }
         $salesHistoryController = new SalesHistoryController();
         $reportResult = $salesHistoryController->makeSalesReportEntry($salesReportDto);

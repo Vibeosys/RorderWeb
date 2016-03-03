@@ -109,7 +109,8 @@ class BillTable extends Table {
             $billPaymentRequest, $restaurantId) {
         $key = [
             'IsPayed' => $billPaymentRequest->isPayed, 
-            'PayedBy' => $billPaymentRequest->payedBy
+            'PayedBy' => $billPaymentRequest->payedBy,
+             'Discount' => $billPaymentRequest->discount   
                 ];
         $conditions = [
             'BillNo =' => $billPaymentRequest->billNo, 

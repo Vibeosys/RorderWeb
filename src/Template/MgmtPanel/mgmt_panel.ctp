@@ -35,10 +35,7 @@ $this->layout = false;
         <header class="main-header">
             <!-- Logo -->
             <a href="mgmtpanel" class="logo">
-                <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>A</b>N</span>
-                <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Application</b></span>
+                <i class="qs-logo"><?= $this->Html->image('quickserve-logo.png', ['class' => 'qs-image','alt' => 'QUICK SERVE'])?></i>
             </a>
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
