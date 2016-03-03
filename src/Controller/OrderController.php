@@ -11,6 +11,7 @@ namespace App\Controller;
 use App\Model\Table;
 use Cake\Log\Log;
 use App\DTO\DownloadDTO;
+use App\DTO;
 
 /**
  * Description of OrderController
@@ -58,9 +59,13 @@ class OrderController extends ApiController {
 
     public function getCustomerOrders($custId, $restaurantId) {
         if($this->orderCheck($custId, $restaurantId, PLACED_ORDER_STATUS)){
+            $this->response->body(DTO\ErrorDto::prepareError(106));
             return null;
         }
-        return $this->getTableObj()->getCustomerOrderList($custId, $restaurantId);
+        $result =  $this->getTableObj()->getCustomerOrderList($custId, $restaurantId);
+        if(is_null($result)){
+            $this->response->body(DTO\ErrorDto::prepareError(118));
+        }
     }
     
     public function changeOrderStatus($orderId, $status, $restaurantId) {

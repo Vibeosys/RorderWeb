@@ -255,7 +255,6 @@ class UploadController extends ApiController {
         $customerOrders = $orderController->getCustomerOrders(
                 $generateBillUploadrequest->custId,$userInfo->restaurantId);
         if(is_null($customerOrders)){
-            $this->response->body(DTO\ErrorDto::prepareError(106));
             return;
         }
         $billNetAmount = 0;

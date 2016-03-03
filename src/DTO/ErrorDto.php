@@ -57,7 +57,7 @@ class ErrorDto {
         115 => 'Transaction Entries are deleted',
         116 => 'Your device not registered with system. Please contact on info@vibeosys.com.',
         117 => 'Menu quantity should be greater than zaro(0)',
-        118 => 'Invalid to email address',
+        118 => 'Cant generate bill twise',
         119 => 'OTP verification failed',
         120 => 'Answer Not Saved'
        ];
