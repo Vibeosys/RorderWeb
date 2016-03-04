@@ -4,7 +4,8 @@
  */
 .skin-blue .main-header .navbar {
   /*background-color: #3086D3;*/
-  background:rgba(243, 156, 18, 0.52) none repeat scroll 0 0;
+  background:rgb(255, 255, 255) none repeat scroll 0 0;
+  border-bottom: 1px solid #999;
 }
 .skin-blue .main-header .navbar .nav > li > a {
   color:#B75B0D;

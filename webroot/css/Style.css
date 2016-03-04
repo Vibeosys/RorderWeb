@@ -21,6 +21,13 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
+.quickserve-button-img{
+    position: relative;
+    left: 25px;
+    width: 18px;
+    height: 18px;
+    
+}
 /* Layout */
 .wrapper {
   min-height: 100%;
@@ -90,7 +97,7 @@ body {
 .content-wrapper,
 .right-side {
   min-height: 100%;
-  background-color: #F7ECDA;
+  background-color: rgb(249, 249, 249);
   z-index: 800;
   min-width: 400px;
 }
@@ -98,7 +105,9 @@ body {
   background: #fff;
   padding: 15px;
   color: #444;
-  border-top: 1px solid #d2d6de;
+  border-top: 1px solid red;
+  //position: relative;
+  //top: 90%;
 }
 /* Fixed layout */
 .fixed .main-header,
@@ -199,12 +208,13 @@ a:focus {
   border: none;
   min-height: 50px;
   border-radius: 0;
+  border-bottom: 1px solid black;
 }
 .layout-top-nav .main-header > .navbar {
   margin-left: 0;
 }
 .main-header #navbar-search-input.form-control {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgb(255, 255, 255);
   border-color: transparent;
 }
 .main-header #navbar-search-input.form-control:focus,
@@ -738,7 +748,7 @@ button{
 }
 .dark-orange{  
     background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #fff 0%, #fff 100%) repeat scroll 0 0;
-    border-color:  #cc6600;  
+    border-color:  gainsboro;  
     color: #f58122;
    
 }
@@ -1803,8 +1813,12 @@ label{
   padding: 10px;
   position: relative;
 }
-span.mgmt-date{
+.box-header > .mgmt-date{
     float: right;
+      display: inline-block;
+  font-size: 18px;
+  margin: 0;
+  line-height: 1;
 }
 .box-header.with-border {
   border-bottom: 1px solid #f4f4f4;
@@ -1864,9 +1878,12 @@ span.mgmt-date{
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
   padding: 10px;
-  border: 1px solid red;
+  border: 1px solid gainsboro;
   margin: 2% 2% 0% 2%;
   border-radius: 5px;
+}
+.mgmt-box-body :hover{
+     
 }
 div.restaurant-edit{
     margin-left: 20px;

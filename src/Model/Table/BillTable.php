@@ -96,7 +96,8 @@ class BillTable extends Table {
                             $bill->CustId,
                             $bill->TableId,
                             $bill->IsPayed,
-                            $bill->PayedBy);
+                            $bill->PayedBy,
+                            $bill->Discount);
                 }
             }
             return $billDownloadDto;
@@ -106,24 +107,19 @@ class BillTable extends Table {
     }
     
     public function changePaymentStatus(UploadDTO\BillPaymentUploadDto 
-            $billPaymentRequest, $restaurantId) {
-        $key = [
-            'IsPayed' => $billPaymentRequest->isPayed, 
-            'PayedBy' => $billPaymentRequest->payedBy,
-             'Discount' => $billPaymentRequest->discount   
-                ];
-        $conditions = [
-            'BillNo =' => $billPaymentRequest->billNo, 
-            'RestaurantId =' =>$restaurantId
-                ];
+        $billPaymentRequest, $restaurantId) {
+        $primaryKey = $billPaymentRequest->billNo;
         try{
-            $oldBill = $this->connect()->query()->update();
-            $oldBill->set($key);
-            $oldBill->where($conditions);
-          if($oldBill->execute()){
+            $tableObj = $this->connect();
+            $oldBill = $tableObj->get($primaryKey);
+            $oldBill->TotalPayAmount = $oldBill->TotalPayAmount - $billPaymentRequest->discount;
+            $oldBill->IsPayed = $billPaymentRequest->isPayed;
+            $oldBill->PayedBy = $billPaymentRequest->payedBy;
+            $oldBill->Discount = $billPaymentRequest->discount;
+          if($tableObj->save($oldBill)){
                 Log::debug('Bill Payment Status has been changed for BillNo : '
                         .$billPaymentRequest->billNo);
-                return true;
+                return $billPaymentRequest->billNo;
             }
             Log::error('Error occured in changing bill Payment for BillNo : '
                     .$billPaymentRequest->billNo);

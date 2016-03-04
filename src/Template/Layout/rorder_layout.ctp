@@ -33,12 +33,9 @@ $this->layout = false;
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
-            <a href="Login.html" class="logo">
-                <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>A</b>N</span>
-                <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Application</b></span>
-            </a>
+          <a href="mgmtpanel" class="logo">
+                    <i class="qs-logo"><?= $this->Html->image('quickserve-logo.png', ['class' => 'qs-image','alt' => 'QUICK SERVE'])?></i>
+                </a>
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
@@ -100,13 +97,14 @@ $this->layout = false;
                       }
            ?>
         </div><!-- /.content-wrapper -->
-        <footer class="main-footer">
+       
+    </div><!-- ./wrapper -->
+     <footer class="main-footer">
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0.0
             </div>
             <strong>Copyright &copy; 2015-2016 <a href="#">Application Name</a>.</strong> All rights reserved.
         </footer>
-    </div><!-- ./wrapper -->
         <?= $this->Html->script('jQuery-2.1.4.min.js') ?>
         <?= $this->Html->script('bootstrap.min.js') ?> 
         <?= $this->Html->script('vb-script-1.js') ?>

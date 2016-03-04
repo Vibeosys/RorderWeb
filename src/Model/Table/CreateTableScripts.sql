@@ -72,7 +72,8 @@ CREATE TABLE [menu_category](
   'CustId'                  TEXT,
   'TableId'                 INTEGER,
   'IsPayed'                 BOOLEAN,
-  'PayedBy'                 TEXT);
+  'PayedBy'                 TEXT,
+  'Discount'                INTEGER);
   
   CREATE TABLE [bill_details] (
   'AutoId'                  INTEGER NOT NULL PRIMARY KEY,

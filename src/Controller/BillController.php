@@ -45,11 +45,16 @@ class BillController  extends ApiController{
     }
     
     public function changeBillPaymetStatus($billPaymentRequest, $userInfo) {
-        $chagePaymentStatusResult = $this->getTableObj()->changePaymentStatus($billPaymentRequest, $userInfo->restaurantId);
+        $chagePaymentStatusResult = $this->getTableObj()->changePaymentStatus(
+                $billPaymentRequest, $userInfo->restaurantId);
           if($chagePaymentStatusResult){
              $syncController = new SyncController();
+             $newBillEntry = $this->getTableObj()->getNewBill(
+                  $billPaymentRequest->billNo, 
+                  $userInfo->restaurantId, 
+                  $userInfo->userId);
              $syncController->billEntry($userInfo->userId, 
-                     json_encode($billPaymentRequest), 
+                     json_encode($newBillEntry), 
                      UPDATE_OPERATION, 
                      $userInfo->restaurantId);
              Log::debug('Payment is done successfully for BillNo :- '.$billPaymentRequest->billNo);
