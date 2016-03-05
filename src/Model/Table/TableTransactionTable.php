@@ -94,13 +94,15 @@ class TableTransactionTable extends Table {
     
     public function deleteEnrty(UploadDTO\TableTransactionUploadDto $deleteWaitingEntry, $restaurantId) {
         $conditions = ['CustId =' => $deleteWaitingEntry->custId,
-                       'TableId =' => $deleteWaitingEntry->tableId,
+                      
                        'RestaurantId =' => $restaurantId];
         try{
             $deleteResult = $this->connect()->deleteAll($conditions);
             if($deleteResult){
+                Log::debug('Customer deleted from waiting list transaction');
                 return true;
             }
+            Log::error('Error in table transaction waiting customer deletion');
             return false;
         } catch (Exception $ex) {
             return false;

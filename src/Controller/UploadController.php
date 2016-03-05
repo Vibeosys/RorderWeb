@@ -28,6 +28,7 @@ class UploadController extends ApiController {
         'AC' => 'addCustomer',
         'PB' => 'payedBill',
         'AWC' => 'addWaitingCustomer',
+        'DWC' => 'deleteWaitingCustomer',
         'CF' =>'customerFeedback',
         'CT' =>'closeTable'];
 
@@ -107,6 +108,10 @@ class UploadController extends ApiController {
                 case $this->operations['AWC']:
                     $operationData = $record->operationData;
                     $this->addWaitingCustomer($operationData, $userData);
+                    break;
+                case $this->operations['DWC']:
+                    $operationData = $record->operationData;
+                    $this->deleteWaitingCustomer($operationData, $userData);
                     break;
                 case $this->operations['CF']:
                     $operationData = $record->operationData;
@@ -415,6 +420,21 @@ class UploadController extends ApiController {
             return;
         }
         $this->response->body(DTO\ErrorDto::prepareError(113));
+        return;
+    }
+    
+    public function deleteWaitingCustomer($operationData, $userInfo) {
+        $deleteCustomerRequest = UploadDTO\CustomerUploadDto::Deserialize($operationData);
+        $customerController = new CustomerController();
+        $closeTableRequest = new UploadDTO\TableTransactionUploadDto(null, null, $deleteCustomerRequest->custId);
+        $tableTransactionController = new TableTransactionController();
+        $tableTransactionResult = $tableTransactionController->deleteTransactionEntry($closeTableRequest, $userInfo);
+        $customerResult = $customerController->deleteEntry($deleteCustomerRequest, $userInfo);
+        if($customerResult and $tableTransactionResult){
+            $this->response->body(DTO\ErrorDto::prepareSuccessMessage($deleteCustomerRequest->custName.' has been removed from list'));
+            return;
+        }
+        $this->response->body(DTO\ErrorDto::prepareError(119));
         return;
     }
     

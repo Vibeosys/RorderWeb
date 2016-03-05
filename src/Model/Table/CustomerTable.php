@@ -69,5 +69,23 @@ class CustomerTable extends Table {
         Log::debug('Customers are successfully returned');
         return $resultCustomers;
     }
+    
+    public function deleteCustomer(UploadDTO\CustomerUploadDto $customerInfo, $userInfo) {
+        $conditions = [
+            'CustId =' => $customerInfo->custId,
+            'RestaurantId =' => $userInfo->restaurantId
+        ];
+        try{
+            $delete = $this->connect()->deleteAll($conditions);
+            if($delete){
+                Log::debug('Waiting Customer'.$customerInfo->custName.' deleted from customer table');
+                return true;
+            }
+            Log::error('Error Occured in customer table during customer deletion');
+            return false;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
 
 }

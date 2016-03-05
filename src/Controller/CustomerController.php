@@ -45,6 +45,20 @@ class CustomerController extends ApiController{
         return false;
     }
     
+    public function deleteEntry($deleteEntryRequest, $userInfo) {
+        $deleteResult = $this->getTableObj()->deleteCustomer(
+                $deleteEntryRequest, $userInfo);
+        if($deleteResult){
+            $syncController = new SyncController();
+            $syncEntryResult = $syncController->customerEntry(
+                    $userInfo->userId, 
+                    json_encode($deleteEntryRequest), 
+                    DELETE_OPERATION, 
+                    $userInfo->restaurantId);
+        }
+        return $deleteResult;
+    }
+    
     
     public function prepareInsertStatements($restaurantId) {
     

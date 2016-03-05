@@ -58,7 +58,7 @@ class ErrorDto {
         116 => 'Your not registered with system. Please contact on info@vibeosys.com.',
         117 => 'Menu quantity should be greater than zaro(0)',
         118 => 'Cant generate bill twise',
-        119 => 'OTP verification failed',
+        119 => 'Error in customer remove',
         120 => 'Answer Not Saved'
        ];
     
