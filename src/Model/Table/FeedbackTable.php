@@ -23,10 +23,10 @@ class FeedbackTable extends Table{
         return TableRegistry::get('feedback_master');
     }
     
-    public function getFeedback($restaurantId) {
+    public function getFeedback() {
         $feedbackList = null;
         $feedbackCounter = 0;
-        $conditions = ['RestaurantId =' => $restaurantId, 'Active =' => ACTIVE];
+        $conditions = ['Active =' => ACTIVE];
         try{
             $allFeedback = $this->connect()->find()->where($conditions);
             if($allFeedback->count()){

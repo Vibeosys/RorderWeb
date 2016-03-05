@@ -165,9 +165,9 @@ class SqliteController extends ApiController {
     
     private function addFeedback($tableObject) {
         $feedbackController = new FeedbackController();
-        $feedbackPreparedStatement = $feedbackController->prepareInsertStatements($this->RestaurantId);
+        $feedbackPreparedStatement = $feedbackController->prepareInsertStatements();
         if ($tableObject->excutePreparedStatement($feedbackPreparedStatement)) {
-            Log::debug('Record is inserted into feedback_master SQLite table for restaurantId ' . $this->RestaurantId);
+            Log::debug('Record is inserted into feedback_master SQLite table for restaurantId ');
         } else {
             Log::error('Record is not inserted into feedback_master SQLite table');
         }
