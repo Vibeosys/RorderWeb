@@ -34,7 +34,7 @@ $this->layout = false;
         <header class="main-header">
             <!-- Logo -->
           <a href="mgmtpanel" class="logo">
-                    <i class="qs-logo"><?= $this->Html->image('quickserve-logo.png', ['class' => 'qs-image','alt' => 'QUICK SERVE'])?></i>
+                    <i class="qs-logo"><?= $this->Html->image('quickserve-logo.PNG', ['class' => 'qs-image','alt' => 'QUICK SERVE'])?></i>
                 </a>
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">

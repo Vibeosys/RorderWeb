@@ -14,7 +14,7 @@
             <div class="grid__container">
                 <div class="site-logo">
                     <div class="site-logo-img">
-                       <?= $this->Html->image('quickserve-logo.png', ['class' => 'quickserve-img','alt' => 'QuickServe'])?>
+                       <?= $this->Html->image('quickserve-logo.PNG', ['class' => 'quickserve-img','alt' => 'QuickServe'])?>
                     </div>
                 </div>
                 <form action="/" method="post" class="form form--login">
