@@ -27,7 +27,7 @@ use Cake\Event\Event;
  */
 class AppController extends Controller
 {
-
+   public $components = array('Cookie');
     /**
      * Initialization hook method.
      *
@@ -58,5 +58,18 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+    }
+    
+    public function writeCookie($name, $value, $expires = '1 Day', $path = '/') {
+        $this->Cookie->configKey($name, ['domain' => DOMAIN,'expires' => $expires ,'path' => $path]);
+        $this->Cookie->write($name, $value);
+    }
+     
+    public function readCookie($name) {
+        return $this->Cookie->read($name);
+    }
+     
+    public function deleteCookie($name) {
+        $this->Cookie->delete($name);
     }
 }

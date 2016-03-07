@@ -57,8 +57,7 @@ class MenuTable extends Table {
      * Get menu item information by providing menu id list
      * @param menu id list
      */
-    public function getMenuItemInfoList($restaurantId, $menuIdList) {
-       
+    public function getMenuItemInfoList($menuIdList) {
         $conditions = array('menu.MenuId IN ' => $menuIdList);
         $menuInfoList = $this->connect()->find('all', array('conditions' => $conditions));
         $resultMenuList = NULL; $loopCounter = 0;
@@ -67,7 +66,7 @@ class MenuTable extends Table {
             $resultMenuList[$loopCounter] = new UploadDTO\MenuShortDto(
                     $menuItemInfo->MenuId,
                     $menuItemInfo->MenuTitle,
-                    $menuItemInfo->Price );
+                    $menuItemInfo->Price);
             $loopCounter++;
         }
         return $resultMenuList;

@@ -9,12 +9,9 @@
 namespace App\Controller;
 use App\DTO\UploadDTO;
 use App\DTO\DownloadDTO;
-use Cake\Controller\Component\CookieComponent;
-use Cake\Controller\ComponentRegistry;
+use App\Controller\Component;
 use Cake\Log\Log;
 use Cake\Filesystem\Folder;
-
-
 /**
  * Description of MgmtPanelController
  *
@@ -24,12 +21,8 @@ class MgmtPanelController extends ApiController{
     
     public $components = array('Cookie');
     public function login() {
-
-        $userName = $this->Cookie->read('userName');
-        $password = $this->Cookie->read('password');
-        Log::info('cookie user name :- '.$userName);
-        Log::info('Cookie Password :- '.$password);
-        $session = $this->request->session();
+        $userName = parent::readCookie('un');
+        $password = parent::readCookie('pw');
         if($this->request->is('post') and isset($this->request->data['login'])){
             $requestData = $this->request->data;
             $adminCredential = new UploadDTO\AdminUserUploadDto(
@@ -38,25 +31,19 @@ class MgmtPanelController extends ApiController{
             $adminUserController = new AdminUserController();
             $validResult = $adminUserController->isAdminUserValid($adminCredential);
             if($validResult){
-                
-                $session->write('login', TRUE);
-                $session->write('AdminUserId', $validResult);
-                $this->Cookie->configKey('userName', ['domain' => 'localhost','expires' => '1 day','path' => '/']);
-                $this->Cookie->write('userName', $adminCredential->adminUserName);
-                $this->Cookie->configKey('password', ['domain' => 'localhost','expires' => '1 day', 'path' => '/']);
-                $this->Cookie->write('password', $adminCredential->adminUserPass);
+                parent::writeCookie('aui', $validResult);
+                parent::writeCookie('un', $adminCredential->adminUserName);
+                parent::writeCookie('pw', $adminCredential->adminUserPass);
                 $this->redirect('mgmtpanel');
             }  else {
-                $this->set([MESSAGE => 'ERROR..!Inccorect USERNAME or PASSWORD..',COLOR =>ERROR_COLOR]);    
+                $this->set([MESSAGE => 'Error Incorrect credentials. please verify',COLOR =>ERROR_COLOR]);    
             }
-        }elseif (!is_null($userName) and !is_null ($password) and $session->read('login')) {
+        }elseif (!is_null($userName) and !is_null ($password)) {
              $adminCredential = new UploadDTO\AdminUserUploadDto(
                     $userName, 
                     $password);
             $adminUserController = new AdminUserController();
             $validResult = $adminUserController->isAdminUserValid($adminCredential);
-                $session->write('login', TRUE);
-                $session->write('AdminUserId', $validResult);
             $this->redirect('mgmtpanel');
         }
     }
@@ -64,17 +51,13 @@ class MgmtPanelController extends ApiController{
         if($this->request->is('post') and isset($this->request->data['edit'])){
             $id = $this->request->data['restaurantId'];
             $this->redirect('mgmtpanel/edit/'.  base64_encode($id));
-        }  elseif($this->request->is('post') and isset($this->request->data['view-stat'])){
-            $id = $this->request->data['restaurantId'];
-            $this->redirect('mgmtpanel/statistics/'.  base64_encode($id));
         } elseif ($this->request->is('post') and isset($this->request->data['mgmt'])) {
-            $this->autoRender = false;
-            var_dump($this->request->data);
-            echo 'this is mgmt section';
+            $id = $this->request->data['restaurantId'];
+            parent::writeCookie('cri', $id);
+            $this->redirect('mgmtpanel/managedata');
        }
-       $session = $this->request->session();
-       if($session->read('login')){
-           $adminId = $session->read('AdminUserId');
+       $adminId = parent::readCookie('aui');
+       if(isset($adminId)){
            $restaurantAdminController = new RestaurantAdminController();
            $restaurants = $restaurantAdminController->getAdminsRestaurants($adminId);
            $restaurantController = new RestaurantController();
@@ -119,9 +102,9 @@ class MgmtPanelController extends ApiController{
                 $restaurantUpdateResult = $restaurantController->updateRestaurantInfo($restaurantDto);
                 $session = $this->request->session();
                 if($restaurantUpdateResult){
-                    $session->write('rest-edit-message', 'Your data updated successfully..!');
+                    parent::writeCookie('rem', 'Your data updated successfully..!');
                 }  else {
-                    $session->write('rest-edit-message', 'ERROR...Restaurant Updation Failed!');
+                    parent::writeCookie('rem', 'ERROR...Restaurant Updation Failed!');
                 }
                 $this->redirect('mgmtpanel');
             }
@@ -134,25 +117,24 @@ class MgmtPanelController extends ApiController{
         $this->set(['data' => $allRestaurants,'rites' => false]);
     }
     
-    public function statistics($id) {
-        $restaurantId = base64_decode($id);
-       
+    public function manageData() {
+        $restId = parent::readCookie('cri');
     }
     
     public function logout() {
-        $sessoin = $this->request->session();
-        $sessoin->destroy();
+        parent::deleteCookie('un');
+        parent::deleteCookie('pw');
+        parent::deleteCookie('aui');
+        parent::deleteCookie('cri');
         $this->redirect('/');
     }
     
     public function upload() {
          $this->autoRender = false;
         if($this->request->is('ajax')){
-            //$this->autoRender = false;
             $data = $this->request->data;
             $fileName = $data[0]['name'];
             Log::debug('ajax request hit with FileName :- '.$fileName);
-            //Log::debug($data);
             $return = '/img/'.$fileName;
             Log::debug('Logo return after uploading :- '.$return);
             $ext = $this->isImage($fileName);
@@ -160,12 +142,74 @@ class MgmtPanelController extends ApiController{
                if(move_uploaded_file($data[0]['tmp_name'],IMAGE_UPLOAD.$fileName)){
                    $this->response->type('multipart/form-data');
                    $this->response->body($return);
-                  // Log::debug($this->response->body($return));
                }  else {
                    $this->response->body(false);
                }
             }
         }
-        
+    }
+    
+    public function printBill() {
+        $restId = parent::readCookie('cri');
+        Log::debug('Current restaurant is : -'.$restId);
+        if(empty($restId)){
+             $this->redirect('/');
+        }
+        if($this->request->is('post')){
+            $this->autoRender = false;
+            $tableId  =  $this->request->data['bi'];
+           
+            $billController = new BillController();
+            $billInfo = $billController->getBill($tableId);
+            if(is_null($billInfo)){
+                $this->set([MESSAGE => 'Bill has been not generated for this table',COLOR => ERROR_COLOR]);
+                return;
+            }
+            $billDetailsController = new BillDetailsController();
+            $billDeatilsInfo = $billDetailsController->getOrderId($billInfo->billNo);
+             $orders = array();
+            foreach ($billDeatilsInfo as $info){
+                array_push($orders, $info->orderId);
+            }
+            $orderDetailsController = new OrderDetailsController();
+            $billOrderDetails = $orderDetailsController->getbillOrderDetails($orders);
+             $menuList = array();
+            foreach ($billOrderDetails as $printinfo){
+                if(!in_array($printinfo->menuId, $menuList)){
+                    array_push($menuList, $printinfo->menuId);
+                }
+            }
+            $menuController = new MenuController();
+            $menuInfo = $menuController->getMenuItemList($menuList);
+            $billPrintInfo = array();
+            $indexCounter = 0;
+            foreach ($menuInfo as $menu){
+                $billPrintDto = new DownloadDTO\BillPrintDwnldDto(
+                        $indexCounter + 1,
+                        $menu->menuId, 
+                        $menu->menuTitle, 
+                        0, 
+                        $menu->price, 
+                        0);
+                $billPrintInfo[$indexCounter++] = $billPrintDto;
+            }
+            foreach ($billOrderDetails as $orderDetails){
+                foreach ($billPrintInfo as $pinfo){
+                   if($orderDetails->menuId == $pinfo->id){
+                       $pinfo->qty = $pinfo->qty + $orderDetails->qty;
+                       $pinfo->amt = $pinfo->amt + ($pinfo->rate * $orderDetails->qty);
+                   } 
+                }
+            }
+            var_dump($billPrintInfo);
+        }  else {
+            $rtableController = new RTablesController();
+            $restaurantTables = $rtableController->getRtables($restId);
+            if(isset($restaurantTables)){
+                $this->set('tables', $restaurantTables);
+            }  else {
+                $this->set(['message' => 'ERROR Occured...Table are not found',COLOR => ERROR_COLOR]);
+            }
+        }
     }
 }

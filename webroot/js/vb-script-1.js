@@ -66,4 +66,11 @@ $(document).ready(function(){
    $('.mgmt-box-body').mouseout(function(){
        $(this).css('box-shadow','none');
    });
+   //bill printing
+   
 });
+
+
+function printbill(){
+  window.location.assign('printbill');  
+}

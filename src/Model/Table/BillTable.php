@@ -127,8 +127,35 @@ class BillTable extends Table {
         } catch (Exception $ex) {
             return false;
         }
-        
-        
-        
+    }
+    
+    public function getCustomerBill($tableId) {
+          try{
+            $billDownloadDto = null;
+            $conditions = [
+                'TableId =' => $tableId];
+            $order = ['BillNo' => 'DESC'];
+            $newBill = $this->connect()->find()->where($conditions)->order($order);
+            if($newBill){
+                foreach ($newBill as $bill){
+                    $billDownloadDto = new DownloadDTO\BillDownloadDto(
+                            $bill->BillNo, 
+                            $bill->BillDate, 
+                            $bill->BillTime, 
+                            $bill->NetAmount, 
+                            $bill->TotalTaxAmount, 
+                            $bill->TotalPayAmount, 
+                            $bill->UserId,
+                            $bill->CustId,
+                            $bill->TableId,
+                            $bill->IsPayed,
+                            $bill->PayedBy,
+                            $bill->Discount);
+                }
+            }
+            return $billDownloadDto;
+        } catch (Exception $ex) {
+            echo 'bill table database error'.$ex;
+        }
     }
 }

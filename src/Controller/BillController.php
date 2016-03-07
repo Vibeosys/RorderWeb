@@ -44,6 +44,13 @@ class BillController  extends ApiController{
         return false;
     }
     
+    public function getBill($tableId) {
+        if(isset($tableId)){
+            return $this->getTableObj()->getCustomerBill($tableId);
+        }
+        return null;
+    }
+    
     public function changeBillPaymetStatus($billPaymentRequest, $userInfo) {
         $chagePaymentStatusResult = $this->getTableObj()->changePaymentStatus(
                 $billPaymentRequest, $userInfo->restaurantId);

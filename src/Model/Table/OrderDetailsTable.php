@@ -64,5 +64,21 @@ class OrderDetailsTable extends Table{
         }
     }
     
+    public function getDetails($orders) {
+        $conditions = ['OrderId IN' => $orders];
+        $orderCounter = 0;
+        $billPeintInfo = null;
+        $orderDetails = $this->connect()->find()->where($conditions);
+        if($orderDetails->count()){
+            foreach ($orderDetails as $orderDetail){
+                $billPrintDto = new DownloadDTO\PrintOrderDetailsDto(
+                        $orderDetail->MenuId, 
+                        $orderDetail->OrderQuantity);
+                $billPeintInfo[$orderCounter++] = $billPrintDto;
+            }
+        }
+        return $billPeintInfo;
+    }
+    
     
 }

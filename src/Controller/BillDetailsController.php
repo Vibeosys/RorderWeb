@@ -60,4 +60,11 @@ class BillDetailsController extends ApiController{
          return;
     }
     
+    public function getOrderId($billNo) {
+        if(isset($billNo)){
+            return $this->getTableObj()->getNewDetails($billNo);
+        }
+        return false;
+    }
+    
 }

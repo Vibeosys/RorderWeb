@@ -54,5 +54,12 @@ class OrderDetailsController extends ApiController {
             }
         }
     }
+    
+    public function getbillOrderDetails($orders) {
+        if(is_array($orders)){
+            return $this->getTableObj()->getDetails($orders);
+        }
+        return NULL;
+    }
 
 }

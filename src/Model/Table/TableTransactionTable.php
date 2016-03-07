@@ -164,5 +164,17 @@ class TableTransactionTable extends Table {
         $transactionEntry = $this->connect()->find()->where($conditions);
         return $transactionEntry->count();
     }
+    
+    public function getCustomer($tableId) {
+        $conditions = [
+            'TableId =' => $tableId];
+        $result = $this->connect()->find('all', ['conditions' => $conditions, 'contains' => array('CustId')]);
+        if($result->count()){
+            return $result->first()->CustId ;
+        }  else {
+            return null;
+        }
+        
+    }
 
 }

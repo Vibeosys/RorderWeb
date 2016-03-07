@@ -6,7 +6,6 @@
  * and open the template in the editor.
  */
 
-define('false', false);
 
 define('VB_DATE_TIME_FORMAT', 'Y-m-d H:i:s');
 
@@ -70,3 +69,4 @@ define('BAR_CHART_SETTING', '["caption" => "Monthly sales history for last year"
                     "subcaptionFontBold" => "0",
                     "subcaptionFontSize" => "14"]');
 
+define('DOMAIN', 'localhost');

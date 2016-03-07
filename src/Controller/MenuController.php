@@ -30,7 +30,6 @@ class MenuController extends ApiController {
     }
 
     public function getMenus($restaurantId) {
-
         $result = $this->getTableObj()->getMenu($restaurantId);
         if ($result) {
             return $result;
@@ -38,8 +37,8 @@ class MenuController extends ApiController {
         return false;
     }
     
-    public function getMenuItemList($restaurantId, $menuItemIdList) {
-        $result = $this->getTableObj()->getMenuItemInfoList($restaurantId, $menuItemIdList);
+    public function getMenuItemList($menuItemIdList) {
+        $result = $this->getTableObj()->getMenuItemInfoList($menuItemIdList);
         if (is_array($result)) {
             return $result;
         }

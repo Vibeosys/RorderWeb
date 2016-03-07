@@ -30,7 +30,8 @@ class UploadController extends ApiController {
         'AWC' => 'addWaitingCustomer',
         'DWC' => 'deleteWaitingCustomer',
         'CF' =>'customerFeedback',
-        'CT' =>'closeTable'];
+        'CT' =>'closeTable',
+        'P' =>'print'];
 
     public function index() {
         $this->autoRender = false;
@@ -120,6 +121,10 @@ class UploadController extends ApiController {
                 case $this->operations['CT']:
                     $operationData = $record->operationData;
                     $this->closeTable($operationData, $userData);
+                    break;
+                case $this->operations['P']:
+                    $operationData = $record->operationData;
+                    $this->printBill($operationData, $userData);
                     break;
                 default :
                     $this->response->body(DTO\ErrorDto::prepareError(108));
@@ -460,6 +465,10 @@ class UploadController extends ApiController {
         }
         $this->response->body(DTO\ErrorDto::prepareError(115));
         return;
+    }
+    
+    private function printBill($operationData, $userInfo) {
+        
     }
 
 }

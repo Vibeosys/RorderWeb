@@ -17,12 +17,12 @@ Router::scope('/', function ($routes) {
     $routes->connect('mgmtpanel', ['controller' => 'MgmtPanel', 'action' => 'mgmtPanel']);
     $routes->connect('upload', ['controller' => 'MgmtPanel', 'action' => 'upload']);
     $routes->connect('mgmtpanel/edit/id', ['controller' => 'MgmtPanel', 'action' => 'edit','id']);
+    $routes->connect('mgmtpanel/managedata', ['controller' => 'MgmtPanel', 'action' => 'manageData']);
+    $routes->connect('mgmtpanel/printbill', ['controller' => 'MgmtPanel', 'action' => 'printBill']);
     $routes->connect('logout', ['controller' => 'MgmtPanel', 'action' => 'logout']);
     $routes->connect('salesreport', ['controller' => 'SalesHistory', 'action' => 'getReport']);
     $routes->connect('customervisitreport', ['controller' => 'CustomerVisit', 'action' => 'customerVisitReport']);
     $routes->connect('/', ['controller' => 'MgmtPanel', 'action' => 'login']);
-    $routes->connect('/insertMasterData', ['controller' => 'Pages', 'action' => 'insertMasterData']);
-    $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
     $routes->fallbacks('DashedRoute');
 });
 

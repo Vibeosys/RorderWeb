@@ -8,18 +8,23 @@ use Cake\Network\Exception\NotFoundException;
 use App\Controller;
 
 $this->layout = false;
-
+$page = $this->fetch('page');
+$sec = $this->fetch('sec');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <?php if(isset($page) and isset($sec)){?>
+    <meta http-equiv="refresh" content="<?=$sec?>;URL='<?=$page?>'">
+    <?php }?>
     <title><?= $this->fetch('title')?></title>
      <?= $this->Html->meta ( 'favicon.ico', '/favicon.ico', array ('type' => 'icon' ) )?>
     <?= $this->Html->meta(
     'viewport',
     'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')?>
+    
     <?= $this->Html->css('vb-menu-style.css') ?> 
     <?= $this->Html->css('bootstrap.min.css') ?> 
     <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css') ?>
@@ -97,13 +102,12 @@ $this->layout = false;
                       }
            ?>
         </div><!-- /.content-wrapper -->
-       
     </div><!-- ./wrapper -->
      <footer class="main-footer">
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0.0
             </div>
-            <strong>Copyright &copy; 2015-2016 <a href="#">Application Name</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2015-2016 <a href="mgmtpanel">QuickServe</a>.</strong> All rights reserved.
         </footer>
         <?= $this->Html->script('jQuery-2.1.4.min.js') ?>
         <?= $this->Html->script('bootstrap.min.js') ?> 
