@@ -8,7 +8,7 @@
 
     $this->layout = false;
      $this->layout = 'rorder_layout';
-     $this->assign('title', 'ADD NEW TABLE CATEGORY');
+     $this->assign('title', 'Manage Data');
      //$this->start('content');
 ?>
             <section class="content-header">

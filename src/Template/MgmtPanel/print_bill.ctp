@@ -8,7 +8,7 @@
 
     $this->layout = false;
     $this->layout = 'rorder_layout';
-    $this->assign('title', 'ADD NEW TABLE CATEGORY');
+    $this->assign('title', 'Print Bill');
     $this->assign('page','printbill');
     $this->assign('sec','10');
 ?>

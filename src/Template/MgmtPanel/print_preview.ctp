@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>QuickServe | Print preview</title>
+        <title> Print preview</title>
         <?= $this->Html->css('print-preview-style.css') ?>
         <script>
             function printfunction(id){

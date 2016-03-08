@@ -36,7 +36,7 @@ class MgmtPanelController extends ApiController{
                 parent::writeCookie('pw', $adminCredential->adminUserPass);
                 $this->redirect('mgmtpanel');
             }  else {
-                $this->set([MESSAGE => 'Error Incorrect credentials. please verify',COLOR =>ERROR_COLOR]);    
+                $this->set([MESSAGE => 'Your username or password is incorrect',COLOR =>ERROR_COLOR]);    
             }
         }elseif (!is_null($userName) and !is_null ($password)) {
              $adminCredential = new UploadDTO\AdminUserUploadDto(

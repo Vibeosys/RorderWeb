@@ -19,7 +19,7 @@ $sec = $this->fetch('sec');
     <?php if(isset($page) and isset($sec)){?>
     <meta http-equiv="refresh" content="<?=$sec?>;URL='<?=$page?>'">
     <?php }?>
-    <title><?= $this->fetch('title')?></title>
+    <title>QuickServe | <?= $this->fetch('title')?></title>
      <?= $this->Html->meta ( 'favicon.ico', '/favicon.ico', array ('type' => 'icon' ) )?>
     <?= $this->Html->meta(
     'viewport',

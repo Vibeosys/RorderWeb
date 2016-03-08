@@ -13,7 +13,7 @@ $this->layout = false;
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>QuickServe  | Login</title>
     <?= $this->Html->css('Login.css')?>
 </head>
 <body class="align">

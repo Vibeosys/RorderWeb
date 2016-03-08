@@ -8,17 +8,17 @@
 
     $this->layout = false;
      $this->layout = 'rorder_layout';
-     $this->assign('title', 'RESTAURANT EDIT');
+     $this->assign('title', ' EDIT RESTAURANT');
      //$this->start('content');
 ?>
             <section class="content-header">
                 <h1>
-                    Restaurant Edit
+                    Edit Restaurant 
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="Login.html"><i class="fa fa-dashboard"></i>Home</a></li>
                     <li><a href="../">MgmtPanel</a></li>
-                    <li class="active">Restaurant Edit</li>
+                    <li class="active"> Edit Restaurant</li>
                 </ol>
             </section>
             <section class="content">
