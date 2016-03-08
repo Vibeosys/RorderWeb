@@ -61,7 +61,8 @@ class RestaurantTable extends Table{
                         $row->Active,
                         $row->Area,
                         $row->City,
-                        $row->Country);  
+                        $row->Country,
+                        $row->Phone);  
                 $restaurant[$i] = $entity;$i++;
         }
         }

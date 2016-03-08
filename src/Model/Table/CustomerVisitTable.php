@@ -26,10 +26,10 @@ class CustomerVisitTable extends Table{
     public function getData($restaurantId) {
         $conditions = ['RestaurantId' => $restaurantId,
                         'Month' => date('m'),
-                        'Year' => date('Y'),
-                        'Day' => date('d')-1];
+                        'Year' => date('Y')];
         $rows = $this->connect()->find()->where($conditions);
-        $customerVisitDto = null;
+        $customerVisitInfo = null;
+        $indexCounter = 0;
         foreach ($rows as $row){
             $customerVisitDto = new DownloadDTO\CustomerVisitDwnldDto(
                     $row->RestaurantId, 
@@ -42,8 +42,9 @@ class CustomerVisitTable extends Table{
                     $row->f6to8, 
                     $row->f8to10, 
                     $row->f10to12);
+        $customerVisitInfo[$indexCounter++] = $customerVisitDto;
         }
-        return $customerVisitDto;
+        return $customerVisitInfo;
     }
     
     public function isEntryPresent(UploadDTO\CustomerVisitUpldDto $customerVisitData) {

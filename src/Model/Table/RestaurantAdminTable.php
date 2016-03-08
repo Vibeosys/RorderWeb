@@ -33,6 +33,7 @@ class RestaurantAdminTable extends Table{
                 $result[$counter] = $restaurant->RestaurantId;
                 $counter++;
             }
+            Log::debug('Admin information send');
         }
         return $result;
     }

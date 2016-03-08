@@ -70,3 +70,5 @@ define('BAR_CHART_SETTING', '["caption" => "Monthly sales history for last year"
                     "subcaptionFontSize" => "14"]');
 
 define('DOMAIN', 'localhost');
+
+define('CURRENT_TIME_ZONE','Asia/Kolkata');

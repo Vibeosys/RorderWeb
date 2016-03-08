@@ -44,6 +44,7 @@ class MgmtPanelController extends ApiController{
                     $password);
             $adminUserController = new AdminUserController();
             $validResult = $adminUserController->isAdminUserValid($adminCredential);
+             parent::writeCookie('aui', $validResult);
             $this->redirect('mgmtpanel');
         }
     }
@@ -58,6 +59,7 @@ class MgmtPanelController extends ApiController{
        }
        $adminId = parent::readCookie('aui');
        if(isset($adminId)){
+           Log::debug('Login successfull');
            $restaurantAdminController = new RestaurantAdminController();
            $restaurants = $restaurantAdminController->getAdminsRestaurants($adminId);
            $restaurantController = new RestaurantController();
@@ -156,9 +158,30 @@ class MgmtPanelController extends ApiController{
              $this->redirect('/');
         }
         if($this->request->is('post')){
-            $this->autoRender = false;
+            //$this->autoRender = false;
             $tableId  =  $this->request->data['bi'];
-           
+            $billController = new BillController();
+            $billInfo = $billController->getBill($tableId);
+            if(is_null($billInfo)){
+                $this->set([MESSAGE => 'Bill has been not generated for this table',COLOR => ERROR_COLOR]);
+                return;
+            }
+            parent::writeCookie('cti', $tableId);
+            $this->redirect('mgmtpanel/printpreview');
+        }  else {
+            $rtableController = new RTablesController();
+            $restaurantTables = $rtableController->getRtables($restId);
+            if(isset($restaurantTables)){
+                $this->set('tables', $restaurantTables);
+            }  else {
+                $this->set(['message' => 'ERROR Occured...Table are not found',COLOR => ERROR_COLOR]);
+            }
+        }
+    }
+    
+    public function printPreview() {
+        
+           $tableId = parent::readCookie('cti');
             $billController = new BillController();
             $billInfo = $billController->getBill($tableId);
             if(is_null($billInfo)){
@@ -201,15 +224,19 @@ class MgmtPanelController extends ApiController{
                    } 
                 }
             }
-            var_dump($billPrintInfo);
-        }  else {
-            $rtableController = new RTablesController();
-            $restaurantTables = $rtableController->getRtables($restId);
-            if(isset($restaurantTables)){
-                $this->set('tables', $restaurantTables);
-            }  else {
-                $this->set(['message' => 'ERROR Occured...Table are not found',COLOR => ERROR_COLOR]);
+            $restId = parent::readCookie('cri');
+            $restaurantController = new RestaurantController();
+            $restaurantInfo = $restaurantController->getAdminRestaurants(array($restId));
+            $userController = new UserController();
+            $userInfo = $userController->getUserName($billInfo->userId);
+            if(isset($billInfo) and isset($restaurantInfo) and isset($billPrintInfo)){
+                $this->set([
+                    'bill' => $billInfo,
+                    'restaurants' => $restaurantInfo, 
+                    'printInfo' => $billPrintInfo, 
+                    'user' => $userInfo->userName]);
+            }else{
+                $this->set([MESSAGE => 'Bill has been not generated for this table',COLOR => ERROR_COLOR]);
             }
-        }
     }
 }

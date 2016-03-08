@@ -103,7 +103,7 @@ $sec = $this->fetch('sec');
            ?>
         </div><!-- /.content-wrapper -->
     </div><!-- ./wrapper -->
-     <footer class="main-footer">
+     <footer class="main-footer" >
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0.0
             </div>

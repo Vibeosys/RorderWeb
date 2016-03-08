@@ -29,8 +29,8 @@ class SalesHistoryController extends ApiController{
                       '11' => 'Nov',
                       '12' => 'Dec'];
     
-   private $bar_chart_default_values = ["caption" => "Monthly sales history for last year",
-                    "subCaption" => "Restaurant Name",
+   private $bar_chart_default_values = ["caption" => "",
+                    "subCaption" => "",
                     "xAxisName" => "Month",
                     "yAxisName" => "sales (In Rupee)",
                     "numberPrefix" => "₹",
@@ -74,9 +74,6 @@ class SalesHistoryController extends ApiController{
         foreach ($salesReportData as $resport){
             $data[$ind++] = new DownloadDTO\SalesHistoryDataDto($this->month[$resport->month], $resport->billTotalAmt);
         }
-        $restaurantController = new RestaurantController();
-        $restaurantDetails = $restaurantController->getRestaurant($restaurantId);
-        $this->bar_chart_default_values['subCaption'] = $restaurantDetails->title;
         $stdObj = new \stdClass();
         foreach ($this->bar_chart_default_values as $key => $value){
         $stdObj->$key = $value;    

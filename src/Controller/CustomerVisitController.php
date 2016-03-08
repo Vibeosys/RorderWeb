@@ -17,17 +17,17 @@ use App\DTO\DownloadDTO;
  */
 class CustomerVisitController extends ApiController{
     
-    private $timeSlot = ['f11to2' => '11-2',
-                      'f2to3' => '2-3',
-                      'f4to6' => '4-6',
-                      'f6to8' => '6-8',
-                      'f8to10' => '8-10',
-                      'f10to12' => '10-12'];
+    private $timeSlot = ['f11to2' => '11Am To 2Pm',
+                      'f2to3' => '2Pm to 3Pm',
+                      'f4to6' => '4Pm to 6Pm',
+                      'f6to8' => '6Pm to 8Pm',
+                      'f8to10' => '8Pm to 10Pm',
+                      'f10to12' => '10Pm to 12Pm'];
     private $objKey = ['f11to2','f2to3','f4to6','f6to8','f8to10','f10to12'];
     private $paicahrt_default_data = ["formatnumberscale" => "0",
                               "showborder" => "0",
-                              "caption" => "Daily Customer Visit",
-                              "subCaption" => "Restaurant Name"];
+                              "caption" => "",
+                              "subCaption" => ""];
 
     private function getTableObj() {
         return new Table\CustomerVisitTable();
@@ -54,17 +54,20 @@ class CustomerVisitController extends ApiController{
             return ;
         }
         $intermediate = [];
-        for($i = 0; $i < count($this->timeSlot); $i++){
-            $index = $this->objKey[$i];
-            $intermediate[$index] = $customerVisitReportData->$index; 
+        foreach ($this->objKey as $key => $value){
+             $intermediate[$value] = 0;
+        }
+        foreach ($customerVisitReportData as $reportData){
+            for($i = 0; $i < count($this->timeSlot); $i++){
+                $index = $this->objKey[$i];
+                $intermediate[$index] = $intermediate[$index] + $reportData->$index; 
+                \Cake\Log\Log::debug('intermediate date value : '.$index);
+            }
         }
         $data[] = null; $ind = 0;
         foreach ($intermediate as $key => $value){
             $data[$ind++] = new DownloadDTO\SalesHistoryDataDto($this->timeSlot[$key], $value);
         }
-        $restaurantController = new RestaurantController();
-        $restaurantDetails = $restaurantController->getRestaurant($restaurantId);
-        $this->paicahrt_default_data['subCaption'] = $restaurantDetails->title;
         $stdObj = new \stdClass();
         foreach ($this->paicahrt_default_data as $key => $value){
         $stdObj->$key = $value;    

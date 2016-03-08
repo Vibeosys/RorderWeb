@@ -22,11 +22,12 @@ class RestaurantShowDto {
     public $area;
     public $city;
     public $country;
+    public $phone;
 
 
     public function __construct($restaurantId = null, $title = null, 
             $logoUrl = null,$address = null, $active = null, $area = null, $city = null, 
-            $country = null) {
+            $country = null,$phone = null) {
         $this->restaurantId = $restaurantId;
         $this->title  = $title;
         $this->logoUrl = $logoUrl;
@@ -35,5 +36,6 @@ class RestaurantShowDto {
         $this->area = $area;
         $this->city = $city;
         $this->country  = $country;
+        $this->phone = $phone;
     }
 }

@@ -127,6 +127,5 @@ class UserTable extends Table {
         }
         return $userDto;
     }
-    
 
 }

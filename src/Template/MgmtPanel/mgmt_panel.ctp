@@ -88,7 +88,7 @@ $this->layout = false;
                                             <button name="edit" value="true" type="submit" class="dark-orange view-edit-btn">Edit</button>
                                         </div>
                                         <div class="col-xs-5" style="padding: 0px">
-                                            <button style="" name="mgmt" value="true" type="submit" class="dark-orange add-save-btn">Manage Data</button>
+                                            <button style="" name="mgmt" value="true" type="submit" id="mng-data" class="dark-orange add-save-btn">Manage Data</button>
                                         </div><div class="col-xs-3" style="padding: 0px">
                                             <input type="button" value="view stats" name="<?= $rest->restaurantId ?>" class="dark-orange view-stat-btn">
                                         </div>
@@ -112,8 +112,8 @@ $this->layout = false;
                                     <div class="row">
                                         <!--Destination Form -->
                                         <div class="with-border box-header">
-                                            <h3 class="box-title">Report Statistics of : <b id="restaurant-nm"> </b></h3>
-                                            <h3 class="mgmt-date">As on date : <b><?php echo date('d M Y');?></b></h3>
+                                            <h3 class="box-title">Report Statistics &nbsp;&nbsp;<b id="restaurant-nm"> </b></h3>
+                                            <h3 class="mgmt-date">As on date &nbsp;&nbsp; <b><?php echo date('d M Y');?></b></h3>
                                          <?php $session =  $this->request->session();
                                         $message = $session->read('rest-edit-message');
                                         $session->delete('rest-edit-message');
@@ -124,13 +124,13 @@ $this->layout = false;
                                     </div>
                                     <div class="view-statistics" style="display: none">
                                         <div class="sales-history" style="padding-left:10% ">
-                                            <h5><b>Your Monthly Sales Report</b></h5>
+                                            <h5><b>Monthly Sales Report</b> <span id="report-duration"> </span></h5>
                                             <div id="sales-history-graph">   
                                             </div>   
                                         </div>
                                         <hr>
                                         <div class="customer-visit" style="padding-left:10% ">
-                                            <h5><b>Your Daily Customer Report</b></h5>
+                                            <h5><b>Monthly Rush Hour Report</b> <span id="report-month"> </span></h5>
                                             <div id="customer-visit-graph">   
                                             </div>
                                         </div>                                    

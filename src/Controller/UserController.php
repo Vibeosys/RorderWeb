@@ -99,5 +99,13 @@ class UserController extends ApiController {
         return $result;
     }
     
+    public function getUserName($userId) {
+        $result = $this->getTbaleObj()->getNewUser($userId);
+        if($result){
+            return $result;
+        }
+        return null;
+    }
+    
     
 }
