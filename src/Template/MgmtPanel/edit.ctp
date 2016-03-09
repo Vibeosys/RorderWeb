@@ -32,26 +32,25 @@
                                       
                                     </div><!-- /.box-header -->
                                     <!-- form start -->
-                                    <form class="form-horizontal" method="post" action="mgmtpanel/edit" enctype="multipart/form-data">
+                                    <form class="form-horizontal" method="post" action="edit" enctype="multipart/form-data">
                                         <div class="box-body">
      <?php if(isset($data)){
      foreach ($data as $rest){    
-         ?>                             <div class="restaurant-edit-img col-sm-2">
+         ?>                             <div class="restaurant-edit-img col-sm-1">
                                             <a class="restaurant-logo" href="" rel="theater" id="u_jsonp_6_5">
                                             <?= $this->Html->image($rest->logoUrl, ['class' => 'resturant-logo-img','id' => 'logo','alt' => 'Retsurant Logo'])?>
                                             </a>
+                                            
                                             <div class="restaurant-logo-overline">
-                                           
-                                        </div>
-                                         <a tabindex="0" class="restaurant-logo-overline" href="#" data-ft="" rel="dialog" role="button">
-                                              Choose Logo
-                                               <input type="file" name="file-upload" class="file-control" >
-                                            </a>
+                                                <a id="logo-selector">Choose logo</a>
+                                                <input type="file" name="file-upload" class="file-control" >
+                                                
+                                            </div>
                                         <div class="spinner">
                                             <?= $this->Html->image('loading1.gif', ['class' => 'resturant-upload-loading','id' => 'loading','alt' => 'loading'])?>
                                         </div>
                                         </div>
-                                            <div class="restaurant-edit-field col-sm-10">    
+                                            <div class="restaurant-edit-field col-sm-11">    
                                             <input style="display:none" type="text" name="restaurantId" value="<?=$rest->restaurantId?>">
                                             <div class="form-group">
                                                 <label for="Title" class="col-sm-2 control-label">Restaurant Title</label>
@@ -83,6 +82,12 @@
                                                     <input type="text" value="<?=$rest->country?>" name="country" class="form-control" placeholder="Country" required>
                                                 </div>
                                             </div>
+                                             <div class="form-group">
+                                                <label for="phone" class="col-sm-2 control-label">Phone</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" value="<?=$rest->phone?>" name="phone" class="form-control" placeholder="Phone" required>
+                                                </div>
+                                            </div>
                                             <?php if($rites){?>
                                              <div class="form-group">
                                                 <div class="col-sm-offset-2 col-sm-10">
@@ -96,16 +101,24 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <?php } ?>
+                                        <div class="box-footer col-xs-12" style="margin-left:0px">
+                                            <div class="row">
+                                                <div class="col-xs-4"></div>
+                                                    <div class="col-xs-6">
+                                                        <button name="save" type="submit" class="dark-orange add-save-btn" style="margin-bottom:10px">Submit</button>
+                                                        <button name="cancel" type="submit" class="light-orange add-save-btn">Cancel</button>
+                                                    </div>
+                                                <div class="col-xs-2"></div>
+                                            </div>
+                                        </div><!-- /.box-footer -->
                                         </div>    
-                                        <?php }}}?>
+                                        <?php }}?>
                                              <?php if(isset($message)){?>
                                             <div id="error-div" style="margin-left: 20%;color: <?= $color ?>" ><?=$message?></div>
                                         <?php }?>
                                         </div><!-- /.box-body -->
-                                        <div class="box-footer" style="margin-left:170px">
-                                            <button name="save" type="submit" class="dark-orange add-save-btn">Submit</button>
-                                            <button name="cancel" type="submit" class="light-orange add-save-btn">Cancel</button>
-                                        </div><!-- /.box-footer -->
+                                      
                                     </form>
                                     <!-- /.box -->
                                     <!-- Destination form elements disabled -->

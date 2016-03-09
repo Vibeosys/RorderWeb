@@ -72,15 +72,17 @@ class RestaurantTable extends Table{
     public function update(DownloadDTO\RestaurantShowDto $restaurantInfo) {
         $key = [
                 'Title' => $restaurantInfo->title,
-                'LogoUrl' => $restaurantInfo->logoUrl,
                 'Address' => $restaurantInfo->address,
                 'Area' => $restaurantInfo->area,
                 'City' => $restaurantInfo->city,
-                'Country' => $restaurantInfo->country
+                'Country' => $restaurantInfo->country,
+                'Phone' => $restaurantInfo->phone
                 ];
         $conditions = ['RestaurantId =' => $restaurantInfo->restaurantId];
         if(!is_null($restaurantInfo->active)){
              $key['Active'] = $restaurantInfo->active;
+        }elseif (!is_null($restaurantInfo->logoUrl)) {
+             $key['LogoUrl'] = $restaurantInfo->logoUrl;
         }
         try{
             $tableObj = $this->connect()->query()->update();

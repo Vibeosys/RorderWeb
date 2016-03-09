@@ -11,7 +11,7 @@ use Cake\Network\Request;
 $this->layout = false;
 
 ?>
-<!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="utf-8">
@@ -38,7 +38,7 @@ $this->layout = false;
                     <i class="qs-logo"><?= $this->Html->image('quickserve-logo.PNG', ['class' => 'qs-image','alt' => 'QUICK SERVE'])?></i>
                 </a>
                 <!-- Header Navbar -->
-                <nav class="navbar navbar-static-top" role="navigation">
+                <nav id="mgmt-nav"  class="navbar navbar-static-top" role="navigation">
                     <!-- Sidebar toggle button-->
                     <!--<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                         <span class="sr-only">Toggle navigation</span>
@@ -63,12 +63,12 @@ $this->layout = false;
         <?php if(isset($data)){
                                         foreach ($data as $rest){?>
                 <div class="row">
-                    <div class="mgmt-box-body"  style="">
+                    <div class="mgmt-box-body col-xs-12"  style="">
                         <div class="row">
-                            <div class="restaurant-logo col-lg-4">
+                            <div class="restaurant-logo col-xs-4">
                                                   <?= $this->Html->image($rest->logoUrl, ['class' => 'user-image','alt' => 'User Image'])?>
                             </div>
-                            <div class="restaurant-info col-lg-4">
+                            <div class="restaurant-info col-xs-8">
                                 <div class="restaurant-name">
                                     <b id="T<?=$rest->restaurantId?>"><?= $rest->title ?></b>
                                 </div>
@@ -81,16 +81,19 @@ $this->layout = false;
                         <div class="row">
                             <div class="restaurant-edit">
                                                 <?php if($rest->active){?>
-                                <form action="mgmtpanel" method="post">
+                                <form action="/" method="post">
                                     <input style="display:none" type="text" value="<?=$rest->restaurantId?>" name="restaurantId">
-                                    <div class="row col-xs-12">
-                                        <div class="col-xs-3" style="padding: 0px">
+                                    <div class="col-xs-12" style="padding-left:0px">
+                                        <div class="row">
+                                        <div class="col-xs-3">
                                             <button name="edit" value="true" type="submit" class="dark-orange view-edit-btn">Edit</button>
                                         </div>
-                                        <div class="col-xs-5" style="padding: 0px">
+                                        <div class="col-xs-5">
                                             <button style="" name="mgmt" value="true" type="submit" id="mng-data" class="dark-orange add-save-btn">Manage Data</button>
-                                        </div><div class="col-xs-3" style="padding: 0px">
+                                        </div>
+                                        <div class="col-xs-3">
                                             <input type="button" value="view stats" name="<?= $rest->restaurantId ?>" class="dark-orange view-stat-btn">
+                                        </div>
                                         </div>
                                     </div>  
                                 </form>
@@ -146,7 +149,7 @@ $this->layout = false;
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0.0
             </div>
-            <strong>Copyright &copy; 2015-2016 <a href="mgmtpanel">QuickServe</a>.</strong> All rights reserved.
+            <span>Copyright &copy; 2015-2016 <a href="mgmtpanel">QuickServe</a>.</span> All rights reserved.
         </footer>
         <?= $this->Html->script('jQuery-2.1.4.min.js') ?> 
         <?= $this->Html->script('bootstrap.min.js') ?> 

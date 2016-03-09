@@ -34,7 +34,7 @@ class MgmtPanelController extends ApiController{
                 parent::writeCookie('aui', $validResult);
                 parent::writeCookie('un', $adminCredential->adminUserName);
                 parent::writeCookie('pw', $adminCredential->adminUserPass);
-                $this->redirect('mgmtpanel');
+                $this->redirect('/');
             }  else {
                 $this->set([MESSAGE => 'Your username or password is incorrect',COLOR =>ERROR_COLOR]);    
             }
@@ -45,17 +45,18 @@ class MgmtPanelController extends ApiController{
             $adminUserController = new AdminUserController();
             $validResult = $adminUserController->isAdminUserValid($adminCredential);
              parent::writeCookie('aui', $validResult);
-            $this->redirect('mgmtpanel');
+            $this->redirect('/');
         }
     }
     public function mgmtPanel() {
         if($this->request->is('post') and isset($this->request->data['edit'])){
             $id = $this->request->data['restaurantId'];
-            $this->redirect('mgmtpanel/edit/'.  base64_encode($id));
+            parent::writeCookie('eri', $id);
+            $this->redirect('/edit');
         } elseif ($this->request->is('post') and isset($this->request->data['mgmt'])) {
             $id = $this->request->data['restaurantId'];
             parent::writeCookie('cri', $id);
-            $this->redirect('mgmtpanel/managedata');
+            $this->redirect('/managedata');
        }
        $adminId = parent::readCookie('aui');
        if(isset($adminId)){
@@ -66,15 +67,17 @@ class MgmtPanelController extends ApiController{
            $allRestaurants = $restaurantController->getAdminRestaurants($restaurants);
            $this->set(['data' => $allRestaurants]);
        }  else {
-           $this->redirect('/');
+           $this->redirect('login');
        }
-       
     }
     
-    public function edit($id) {
+    public function edit() {
         if($this->request->is('post') and isset($this->request->data['save'])){
             $data = $this->request->data;
+            if(!$data['file-upload']['error']){
+                
             $fileName = $data['file-upload']['name'];
+            Log::debug($fileName);
             if(!$this->isImage($fileName)){
                 $this->set([
                     MESSAGE => INCORRECT_FILE_MESSAGE.'"png, jpg, jpeg"',
@@ -86,6 +89,10 @@ class MgmtPanelController extends ApiController{
             $fileName = $this->getGUID().$fileName;
             $destination = $imgDir->path.$fileName;
             $uploadResult = move_uploaded_file($uploadedFile, $destination);
+            }  else {
+            $uploadResult = TRUE;    
+            $fileName = null;
+            }
             $activ = null;
             if(isset($data['active'])){
                 $activ = $data['active'];
@@ -99,7 +106,8 @@ class MgmtPanelController extends ApiController{
                         $activ, 
                         $data['area'], 
                         $data['city'], 
-                        $data['country']);
+                        $data['country'],
+                        $data['phone']);
                 $restaurantController = new RestaurantController();
                 $restaurantUpdateResult = $restaurantController->updateRestaurantInfo($restaurantDto);
                 $session = $this->request->session();
@@ -108,12 +116,12 @@ class MgmtPanelController extends ApiController{
                 }  else {
                     parent::writeCookie('rem', 'ERROR...Restaurant Updation Failed!');
                 }
-                $this->redirect('mgmtpanel');
+                $this->redirect('/');
             }
         }elseif ($this->request->is('post') and isset($this->request->data['cancel'])) {
-            $this->redirect('mgmtpanel');
+            $this->redirect('/');
         }
-        $restaurantId = base64_decode($id);
+        $restaurantId = parent::readCookie('eri');
         $restaurantController = new RestaurantController();
         $allRestaurants = $restaurantController->getAdminRestaurants(array($restaurantId));
         $this->set(['data' => $allRestaurants,'rites' => false]);
@@ -128,7 +136,8 @@ class MgmtPanelController extends ApiController{
         parent::deleteCookie('pw');
         parent::deleteCookie('aui');
         parent::deleteCookie('cri');
-        $this->redirect('/');
+        parent::deleteCookie('eri');
+        $this->redirect('login');
     }
     
     public function upload() {
@@ -167,7 +176,7 @@ class MgmtPanelController extends ApiController{
                 return;
             }
             parent::writeCookie('cti', $tableId);
-            $this->redirect('mgmtpanel/printpreview');
+            $this->redirect('printpreview');
         }  else {
             $rtableController = new RTablesController();
             $restaurantTables = $rtableController->getRtables($restId);
@@ -203,7 +212,7 @@ class MgmtPanelController extends ApiController{
                 }
             }
             $menuController = new MenuController();
-            $menuInfo = $menuController->getMenuItemList($menuList);
+            $menuInfo = $menuController->getMenuItemList(null,$menuList);
             $billPrintInfo = array();
             $indexCounter = 0;
             foreach ($menuInfo as $menu){

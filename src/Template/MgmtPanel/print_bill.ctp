@@ -32,12 +32,12 @@
                                  <?php   foreach ($tables as $table){ ?>
                                 
                                  <?php if($table->isOccupied){ ?>   
-                                    <button class="print-table-button" value="<?= $table->tableId ?>" name="bi" style="background-color: red">
+                                    <button class="print-table-button" value="<?= $table->tableId ?>" name="bi" style="background-color: white;color: orangered;border:1px solid gainsboro;">
                                         Table No.<br>
                                         <?= $table->tableNo ?>
                                     </button>
                                  <?php }else { ?>
-                                    <button class="print-table-button" value="<?= $table->tableId ?>" name="bi" style="background-color: green">
+                                    <button class="print-table-button" value="<?= $table->tableId ?>" name="bi" style="background-color: white;color: orangered;border:1px solid gainsboro;">
                                         Table No.<br>
                                         <?= $table->tableNo ?>
                                     </button>

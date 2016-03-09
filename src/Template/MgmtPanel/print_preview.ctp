@@ -4,10 +4,9 @@
         <?= $this->Html->css('print-preview-style.css') ?>
         <script>
             function printfunction(id){
-                alert('button clicked is is :- '+ id);
                  var html="<html>";
                   html+="<head>";
-                html+= "<style>@font-face{font-family:JQuicksand-Light;src:url(Quicksand-Light.otf) format('truetype')}body{width:225px;height:100%;font-family:sans-serif;font-size:15px}.content-wrapper{width:225px}.restaurant-info{text-align:center;font-size:20px}tbody{border-top:2px dotted gray}table.desc-table{font-family:Quicksand-Light;font-size:16px;text-decoration:none}.amount-desc{text-align:right}.amount-desc > span{margin-right:20px}.small{width:40%;position:relative;left:30%}.footer{height:50px}td{text-align:left}hr{border:.1px dashed gray}span.date-time{font-size:14px;padding-top:4px;padding-left:10px}div.print-button{position:relative;top:-350px;left:60%}input{height:100px;width:200px;font-size:29px;background-color:#dcdcdc;border:1px solid gray;border-radius:5px}.small-width{width:10px}</style>";
+                html+= "<style>@font-face{font-family:JQuicksand-Light;src:url(Quicksand-Light.otf) format('truetype')}body{width:225px;height:100%;font-family:sans-serif;font-size:15px}.content-wrapper{width:225px}.restaurant-info{text-align:center;font-size:20px}tbody{border-top:2px dotted gray}table.desc-table{font-family:Quicksand-Light;font-size:16px;text-decoration:none}.amount-desc{text-align:right}.amount-desc > span{margin-right:20px}.small{width:40%;position:relative;left:30%}.footer{height:auto;text-align: center}td{text-align:left}hr{border:.1px dashed gray}span.date-time{font-size:14px;padding-top:4px;padding-left:10px}div.print-button{position:relative;top:-350px;left:60%}input{height:100px;width:200px;font-size:29px;background-color:#dcdcdc;border:1px solid gray;border-radius:5px}.small-width{width:10px}</style>";
                 html+= "</head>";
                 html+= document.getElementById(id).innerHTML;
         
@@ -33,12 +32,12 @@
             </div>
             <?php } ?>
             <br>
-            <span class="date-time">
+            <div class="date-time">
             Bill No. : <?= $bill->billNo ?><br>  
                <?php date_default_timezone_set(CURRENT_TIME_ZONE);?>
-            &nbsp;&nbsp;Bill Date :  <?= date('d M Y h:ia')?><br>
-            &nbsp;&nbsp;Captain : <?= $user ?>
-            </span>
+            Bill Date :  <?= date('d M Y h:ia')?><br>
+            Captain : <?= $user ?>
+            </div>
             <hr>
             <div class="order-desc">
                 <table class="desc-table" border = 0>
@@ -46,7 +45,6 @@
                     <th class="small-width">#</th>
                     <th style="text-align: left">Description</th>
                                     <th  class="small-width">Qty</th>
-                                    <th style="text-align: left">Rt</th>
                                     <th style="text-align: right" >Amt</th>
                     </thead>
                     <tbody>
@@ -56,7 +54,6 @@
                             <td><?= $print->srNo ?></td>
                             <td><?= $print->desc ?></td>
                             <td><?= $print->qty ?></td>
-                            <td style="text-align: left"><?= $print->rate ?></td>
                             <td style="text-align: right"><?= $print->amt ?></td>
                         </tr>
                         <?php } ?>
@@ -65,15 +62,15 @@
             </div>
             <hr>
             <div class="amount-desc">
-                <span>Net Amount</span><?= $bill->netAmt ?><br>
-                <span>Taxes</span>+     <?= $bill->totalTaxAmt ?><br>
-                <span>Discount</span>-     <?= $bill->discount ?>
+                <span>Net Amount</span><?= round($bill->netAmt, 2) ?><br>
+                <span>Taxes</span>     <?= round($bill->totalTaxAmt, 2) ?><br>
+                <span>Discount</span>     <?= round($bill->discount, 2) ?>
                 <hr class="small">
-                <span>Total Amount </span>    <?= $bill->totalPayAmt ?>
+                <span>Total Amount </span> ₹   <?= round($bill->totalPayAmt, 2) ?>
             </div>
             <hr>
             <div class="footer">
-                
+               I/We hereby certify that my/our registration certificate under the Maharashtra Value Added Tax,2002 is in force on the date on which the sales of the goods specified in this tax invoice is made by me/us and that the transaction of sale covered by this tax invoice has been effected by me/us and it shall be accounted for in the turnover of sales while filling of return and the due tax, if any, payable on the sale has been paid or shall be paid 'Subject to Pune Jurisdiction' 
                 
             </div>
             <hr>

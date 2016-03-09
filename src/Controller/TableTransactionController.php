@@ -61,9 +61,10 @@ class TableTransactionController extends ApiController {
     }
     
     public function deleteTransactionEntry(UploadDTO\TableTransactionUploadDto $deleteWaitingCustomer, $userInfo) {
+        $deletedEntry = $this->getTableObj()->getTableTransaction($deleteWaitingCustomer->custId, $userInfo->restaurantId);
         $deleteResult = $this->getTableObj()->deleteEnrty($deleteWaitingCustomer, $userInfo->restaurantId);
         if($deleteResult){
-             $this->makeSyncEntry($userInfo, json_encode($deleteWaitingCustomer), DELETE_OPERATION);
+             $this->makeSyncEntry($userInfo, json_encode($deletedEntry), DELETE_OPERATION);
             return true;
         }
         return false;

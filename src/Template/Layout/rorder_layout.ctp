@@ -11,7 +11,7 @@ $this->layout = false;
 $page = $this->fetch('page');
 $sec = $this->fetch('sec');
 ?>
-<!DOCTYPE html>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -107,7 +107,7 @@ $sec = $this->fetch('sec');
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0.0
             </div>
-            <strong>Copyright &copy; 2015-2016 <a href="mgmtpanel">QuickServe</a>.</strong> All rights reserved.
+         <span>Copyright &copy; 2015-2016 <a href="mgmtpanel">QuickServe</a>.</span> All rights reserved.
         </footer>
         <?= $this->Html->script('jQuery-2.1.4.min.js') ?>
         <?= $this->Html->script('bootstrap.min.js') ?> 

@@ -37,7 +37,7 @@ class MenuController extends ApiController {
         return false;
     }
     
-    public function getMenuItemList($menuItemIdList) {
+    public function getMenuItemList($restaurantId, $menuItemIdList) {
         $result = $this->getTableObj()->getMenuItemInfoList($menuItemIdList);
         if (is_array($result)) {
             return $result;

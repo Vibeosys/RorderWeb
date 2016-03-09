@@ -40,9 +40,15 @@ $(document).ready(function(){
     var nlm = ww-cw;
     //change css according to window size
     if(ww > 767){
-        $('.navbar').css('margin-left',nlm - 30);
+        if(ww < 790){
+            $('#mgmt-nav').css('margin-left', 170);
+        }else if(nlm){
+            $('#mgmt-nav').css('margin-left',nlm - 30);
+        }else{
+            $('#mgmt-nav').css('margin-left', 180);
+        }
      }else{
-        $('.navbar').css('margin-left',0);
+        $('#mgmt-nav').css('margin-left',0);
      }
      if(ww > 1114){
         $('.restaurant-Show').addClass('col-xs-3');
@@ -67,7 +73,12 @@ $(document).ready(function(){
        $(this).css('box-shadow','none');
    });
    //bill printing
-   
+  $('.restaurant-logo-overline').mouseover(function(){
+      $('#logo-selector').css('opacity','1');
+  }); 
+   $('.restaurant-logo-overline').mouseout(function(){
+      $('#logo-selector').css('opacity','0');
+  }); 
 });
 
 

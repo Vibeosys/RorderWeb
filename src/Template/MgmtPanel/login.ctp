@@ -17,7 +17,7 @@
                        <?= $this->Html->image('quickserve-logo.PNG', ['class' => 'quickserve-img','alt' => 'QuickServe'])?>
                     </div>
                 </div>
-                <form action="/" method="post" class="form form--login">
+                <form action="login" method="post" class="form form--login">
                     <div class="form__field">
                         <label class="fontawesome-user" for="login__username"><span class="hidden">Username</span></label>
                         <input id="login__username" type="text" name="userName" class="form__input" placeholder="Username" required>
@@ -29,10 +29,10 @@
         <?php if(isset($message)){?>
                    <div id="error-div" style="margin-left: 20%;color: <?= $color ?>" ><?=$message?></div>
         <?php }?>
-                    <div class="form__field" style="margin-left:190px">
+                    <div class="form__field" style="margin-left:140px">
                         <input name="login" type="submit" value="Sign In">
+                        <a href="forgotpassword">Forgot Password</a>
                     </div>
-                   <a href="forgotpassword">Forgot Password</a>
                 </form>
             </div>
         </div>

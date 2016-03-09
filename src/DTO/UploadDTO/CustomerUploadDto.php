@@ -18,6 +18,8 @@ class CustomerUploadDto extends DTO\JsonDeserializer {
     public $custId;
     public $custName;
     
+
+
     public function __construct($custId = null, $custName = null) {
         
         $this->custId = $custId;

@@ -37,7 +37,8 @@
                 left: 30%;
             }
             .footer{
-                height: 50px;
+                height: auto;
+                text-align: center;
             }
             td{
                 text-align: left;
@@ -45,25 +46,31 @@
             hr{
                 border: 0.1px dashed gray;
             }
-            span.date-time{
+            div.date-time{
                 font-size: 14px;
                 padding-top: 4px;
                 padding-left: 10px;
             }
             div.print-button{
-                position: relative;
-                top: -350px;
-                left: 60%;
+                position: fixed;
+                bottom: 0px;
+                left: 20%;
+                background-color: white;
+                color: orange;
             }
             input{
                 height: 100px;
                 width: 200px;
                 font-size: 29px;
                 background-color: gainsboro;
-                border: 1px solid gray;
+                border: 1px solid gainsboro;
                 border-radius: 5px;
+                background-color: orange;
+                color: white;
+            }
+            input:hover{
+                cursor: pointer;
             }
             .small-width{
                 width: 10px;
-                
             }
