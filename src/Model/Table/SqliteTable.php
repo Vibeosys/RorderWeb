@@ -52,6 +52,7 @@ class SqliteTable extends Table {
                 throw "sqlite database error";
             }
         }
+        \Cake\Log\Log::error('Table insert script is not valid');
         return false;
     }
 

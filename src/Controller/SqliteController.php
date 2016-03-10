@@ -40,6 +40,8 @@ class SqliteController extends ApiController {
             $this->addPaymentMode($tableObject);
             $this->addFeedback($tableObject);
             $this->addMenuNote($tableObject);
+            $this->addTakeawaySource($tableObject);
+            $this->addOrderType($tableObject);
 
             $this->response->type('class');
             $this->response->file($this->sqliteFile, ['download' => true]);
@@ -183,6 +185,24 @@ class SqliteController extends ApiController {
         }
     }
     
+    private function addTakeawaySource($tableObject) {
+        $takeawaySourceController = new TakeawaySourceController();
+        $takeawaySourcePreparedStatement = $takeawaySourceController->prepareInsertStatements();
+        if ($tableObject->excutePreparedStatement($takeawaySourcePreparedStatement)) {
+            Log::debug('Record is inserted into takeaway_source SQLite table for restaurantId ' . $this->RestaurantId);
+        } else {
+            Log::error('Record is not inserted into takeaway_source SQLite table');
+        }
+    }
     
+    private function addOrderType($tableObject) {
+        $orderTypeController = new OrderTypeController();
+        $PreparedStatement = $orderTypeController->prepareInsertStatements();
+        if ($tableObject->excutePreparedStatement($PreparedStatement)) {
+            Log::debug('Record is inserted into Order_Type SQLite table for restaurantId ' . $this->RestaurantId);
+        } else {
+            Log::error('Record is not inserted into Order_Type SQLite table');
+        }
+    }
 
 }

@@ -54,7 +54,10 @@ class MenuCategoryController extends ApiController {
     }
 
     public function addNewMenuCategory() {
-        if ($this->request->is('post')) {
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+        if ($this->request->is('post') and isset($this->request->data['add-menu-category'])) {
             $data = $this->request->data();
             $file = $data['file-upload']['tmp_name'];
             $extenstion = $this->getExtension($data['file-upload']['name']);

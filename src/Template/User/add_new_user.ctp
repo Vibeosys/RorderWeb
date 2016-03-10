@@ -63,9 +63,15 @@
                                             <div id="error-div" style="margin-left: 20%;color: <?= $color ?>" ><?=$message?></div>
                                         <?php }?>
                                         </div><!-- /.box-body -->
-                                        <div class="box-footer" style="margin-left:170px">
-                                            <button name="save" value="true" type="submit" class="dark-orange add-save-btn">Save User</button>
-                                            <button type="submit" class="light-orange add-save-btn">Cancel</button>
+                                        <div class="box-footer col-xs-12" style="margin-left:0px">
+                                            <div class="row">
+                                                <div class="col-xs-4"></div>
+                                                    <div class="col-xs-6">
+                                                        <button name="save" value="true" type="submit" style="margin-bottom:10px" class="dark-orange add-save-btn">Submit</button>
+                                                        <button type="submit" class="light-orange add-save-btn">Cancel</button>
+                                                    </div>
+                                                <div class="col-xs-2"></div>
+                                            </div>
                                         </div><!-- /.box-footer -->
                                     </form>
                                     <!-- /.box -->

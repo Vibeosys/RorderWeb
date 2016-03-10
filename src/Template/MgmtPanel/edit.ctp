@@ -42,7 +42,7 @@
                                             </a>
                                             
                                             <div class="restaurant-logo-overline">
-                                                <a id="logo-selector">Choose logo</a>
+                                                <a id="logo-selector">Change logo</a>
                                                 <input type="file" name="file-upload" class="file-control" >
                                                 
                                             </div>

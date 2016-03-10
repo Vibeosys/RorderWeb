@@ -122,9 +122,13 @@ class MgmtPanelController extends ApiController{
             $this->redirect('/');
         }
         $restaurantId = parent::readCookie('eri');
-        $restaurantController = new RestaurantController();
-        $allRestaurants = $restaurantController->getAdminRestaurants(array($restaurantId));
-        $this->set(['data' => $allRestaurants,'rites' => false]);
+        if(isset($restaurantId)){
+            $restaurantController = new RestaurantController();
+            $allRestaurants = $restaurantController->getAdminRestaurants(array($restaurantId));
+            $this->set(['data' => $allRestaurants,'rites' => false]);
+        }  else {
+            $this->redirect('login');
+        }
     }
     
     public function manageData() {
@@ -164,7 +168,7 @@ class MgmtPanelController extends ApiController{
         $restId = parent::readCookie('cri');
         Log::debug('Current restaurant is : -'.$restId);
         if(empty($restId)){
-             $this->redirect('/');
+             $this->redirect('login');
         }
         if($this->request->is('post')){
             //$this->autoRender = false;
@@ -190,7 +194,10 @@ class MgmtPanelController extends ApiController{
     
     public function printPreview() {
         
-           $tableId = parent::readCookie('cti');
+            $tableId = parent::readCookie('cti');
+             if(empty($tableId)){
+                $this->redirect('login');
+            }
             $billController = new BillController();
             $billInfo = $billController->getBill($tableId);
             if(is_null($billInfo)){

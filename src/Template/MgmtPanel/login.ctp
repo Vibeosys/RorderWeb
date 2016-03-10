@@ -29,9 +29,9 @@
         <?php if(isset($message)){?>
                    <div id="error-div" style="margin-left: 20%;color: <?= $color ?>" ><?=$message?></div>
         <?php }?>
-                    <div class="form__field" style="margin-left:140px">
+                    <div class="form__field" style="margin-left:0px">
                         <input name="login" type="submit" value="Sign In">
-                        <a href="forgotpassword">Forgot Password</a>
+                        <a href="forgotpassword">Forgot Password?</a>
                     </div>
                 </form>
             </div>

@@ -69,7 +69,10 @@ class RTablesController extends ApiController {
     
     
     public function addNewTables() {
-          if ($this->request->is('post')) {
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+          if ($this->request->is('post') and isset($this->request->data['add-table'])) {
             $data = $this->request->data();
             $file = $data['file-upload']['tmp_name'];
             $extenstion = $this->getExtension($data['file-upload']['name']);

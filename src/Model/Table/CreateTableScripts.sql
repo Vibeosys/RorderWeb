@@ -138,7 +138,25 @@ CREATE TABLE [restaurant](
  'LogoUrl'            TEXT
 );
 
+ CREATE TABLE [takeaway_source] (
+  'SourceId'            INTEGER NOT NULL PRIMARY KEY,
+  'SourceName'          TEXT,
+  'SourceImg'           TEXT,
+  'Discount'            DOUBLE,
+  'Active'              BOOLEAN);
 
+CREATE TABLE [order_type](
+ 'OrderTypeId'    INTEGER PRIMARY KEY,
+ 'OrderTypeTitle'    TEXT,
+'Active'              BOOLEAN);
+
+CREATE TABLE [takeaway] (
+  'TakeawayId'            TEXT NOT NULL PRIMARY KEY,
+  'TakeawayNo'          INTEGER,
+  'Discount'            DOUBLE,
+  'DeliveryCharges'     DOUBLE,
+  'CustId'              TEXT,
+  'SourceId'            INTEGER);
 
    
    

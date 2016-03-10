@@ -71,8 +71,11 @@ class MenuController extends ApiController {
     }
     
     public function addNewMenu() {
-       if ($this->request->is('post')) {
-            $restaurantId = 999999;
+        if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+       if ($this->request->is('post') and isset($this->request->data['add-menu'])) {
+            $restaurantId = parent::readCookie('cri');
             $data = $this->request->data();
             $file = $data['file-upload']['tmp_name'];
             $extenstion = $this->getExtension($data['file-upload']['name']);

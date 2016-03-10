@@ -10,20 +10,20 @@ Router::defaultRouteClass('DashedRoute');
 
 Router::scope('/', function ($routes) {
     $routes->connect('menu/addnewmenu', ['controller' => 'Menu', 'action' => 'addNewMenu']);
-    $routes->connect('menu-category/addnewmenucategory', ['controller' => 'MenuCategory', 'action' => 'addNewMenuCategory']);
-    $routes->connect('table-category/addnewtablecategory', ['controller' => 'TableCategory', 'action' => 'addNewTableCategory']);
+    $routes->connect('menucategory/addnewmenucategory', ['controller' => 'MenuCategory', 'action' => 'addNewMenuCategory']);
+    $routes->connect('tablecategory/addnewtablecategory', ['controller' => 'TableCategory', 'action' => 'addNewTableCategory']);
     $routes->connect('rtables/addnewtables', ['controller' => 'RTables', 'action' => 'addNewTables']);
     $routes->connect('user/addnewuser', ['controller' => 'User', 'action' => 'addNewUser']);
-    $routes->connect('mgmtpanel', ['controller' => 'MgmtPanel', 'action' => 'mgmtPanel']);
+    $routes->connect('/', ['controller' => 'MgmtPanel', 'action' => 'mgmtPanel']);
     $routes->connect('upload', ['controller' => 'MgmtPanel', 'action' => 'upload']);
-    $routes->connect('mgmtpanel/edit/id', ['controller' => 'MgmtPanel', 'action' => 'edit','id']);
-    $routes->connect('mgmtpanel/managedata', ['controller' => 'MgmtPanel', 'action' => 'manageData']);
-    $routes->connect('mgmtpanel/printbill', ['controller' => 'MgmtPanel', 'action' => 'printBill']);
-    $routes->connect('mgmtpanel/printpreview', ['controller' => 'MgmtPanel', 'action' => 'printPreview']);
+    $routes->connect('/edit', ['controller' => 'MgmtPanel', 'action' => 'edit']);
+    $routes->connect('managedata', ['controller' => 'MgmtPanel', 'action' => 'manageData']);
+    $routes->connect('printbill', ['controller' => 'MgmtPanel', 'action' => 'printBill']);
+    $routes->connect('printpreview', ['controller' => 'MgmtPanel', 'action' => 'printPreview']);
     $routes->connect('logout', ['controller' => 'MgmtPanel', 'action' => 'logout']);
     $routes->connect('salesreport', ['controller' => 'SalesHistory', 'action' => 'getReport']);
     $routes->connect('customervisitreport', ['controller' => 'CustomerVisit', 'action' => 'customerVisitReport']);
-    $routes->connect('/', ['controller' => 'MgmtPanel', 'action' => 'login']);
+    $routes->connect('login', ['controller' => 'MgmtPanel', 'action' => 'login']);
     $routes->fallbacks('DashedRoute');
 });
 

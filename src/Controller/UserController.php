@@ -62,9 +62,10 @@ class UserController extends ApiController {
     }
     
     public function addNewUser() {
-        $userRoleController =  new UserRoleController();
-         $userRoles = $userRoleController->getUserRole();
-        $restaurantId = 999999;
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+        $restaurantId = parent::readCookie('cri');
         if($this->request->is('post') and isset($this->request->data['save'])){
             $userData = $this->request->data;
             $userId = $this->getTbaleObj()->getUserId() + 1;
@@ -88,7 +89,8 @@ class UserController extends ApiController {
                 $this->set(['message' => 'ERROR Occured...',COLOR => ERROR_COLOR, 'roles' => $userRoles]);
             }
         }  else {
-          
+            $userRoleController =  new UserRoleController();
+            $userRoles = $userRoleController->getUserRole();
            $this->set(['roles' => $userRoles]);
         }
     }

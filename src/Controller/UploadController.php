@@ -31,7 +31,8 @@ class UploadController extends ApiController {
         'DWC' => 'deleteWaitingCustomer',
         'CF' =>'customerFeedback',
         'CT' =>'closeTable',
-        'P' =>'print'];
+        'P' =>'print',
+        'ATA' => 'addTakeaway'];
 
     public function index() {
         $this->autoRender = false;
@@ -125,6 +126,10 @@ class UploadController extends ApiController {
                 case $this->operations['P']:
                     $operationData = $record->operationData;
                     $this->printBill($operationData, $userData);
+                    break;
+                case $this->operations['ATA']:
+                    $operationData = $record->operationData;
+                    $this->addTakeaway($operationData, $userData);
                     break;
                 default :
                     $this->response->body(DTO\ErrorDto::prepareError(108));
@@ -469,6 +474,16 @@ class UploadController extends ApiController {
     
     private function printBill($operationData, $userInfo) {
         
+    }
+    
+    public function addTakeaway($operationData, $userInfo) {
+        $addTakeawayRequest = UploadDTO\TakeawayUploadDto::Deserialize($operationData);
+        $takeawayController = new TakeawayController();
+        $addTakeawayRequest->takeawayNo = $takeawayController->getTakeawayNo($userInfo->restaurantId);
+        $addTakeawayRequest->restaurantId = $userInfo->restaurantId;
+        $addTakeawayRequest->userId = $userInfo->userId;
+        
+        $this->response->body($addTakeawayRequest);
     }
 
 }

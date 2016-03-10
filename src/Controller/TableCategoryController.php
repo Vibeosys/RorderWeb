@@ -51,6 +51,9 @@ class TableCategoryController extends ApiController{
     }
     
     public function addNewTableCategory() {
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
         if($this->request->is('post') and isset($this->request->data['save'])){
             $data = $this->request->data;
             $fileName = $data['file-upload']['name'];

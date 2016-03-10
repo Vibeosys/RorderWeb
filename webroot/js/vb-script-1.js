@@ -79,6 +79,11 @@ $(document).ready(function(){
    $('.restaurant-logo-overline').mouseout(function(){
       $('#logo-selector').css('opacity','0');
   }); 
+  
+  $('div.manage-controls > button').click(function(){
+     $(this).css('border', 'none'); 
+      
+  });
 });
 
 

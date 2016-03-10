@@ -45,25 +45,31 @@ div.restaurant-Show{
 div.manage-controls{
     border: 1px solid gainsboro;
     margin: 10px;
-    padding: 10px;
+    padding: 10px 0px;
     border-radius: 5px;
     cursor: pointer;
-    //text-align: center;
     color: orangered;
-    text-transform: uppercase;
-    padding-left: 8%;
-    font-size:17px;
     margin-left: 60px;
     margin-right: 60px;
     min-width: 200px;
-
-    
 }
-div.manage-controls > img{
+div.manage-controls > button {
+    background: white;
+    width: 100%;
+    height: 10%;
+    border: none;
+    color: orangered;
+    text-transform: uppercase;
+    font-size:17px;
+    text-align: center;
+}
+div.manage-controls > button > img{
     width: 25px;
     height: 25px;
 }
-
+div.manage-controls > button:focus{
+    border: none;
+}
 div.manage-controls:hover{
     box-shadow: 2px 2px 2px gainsboro;
 }

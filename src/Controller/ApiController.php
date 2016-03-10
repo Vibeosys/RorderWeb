@@ -48,7 +48,7 @@ class ApiController extends AppController {
         $conn->commit();
     }
 
-    private function getExtension($fileName) {
+    public function getExtension($fileName) {
         return end((explode('.', $fileName)));
     }
 

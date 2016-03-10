@@ -72,4 +72,14 @@ class AppController extends Controller
     public function deleteCookie($name) {
         $this->Cookie->delete($name);
     }
+    
+    public function isLogin() {
+        $userName = $this->readCookie('un');
+        $password = $this->readCookie('pw');
+        
+        if(isset($userName)and isset($password)){
+            return TRUE;
+        }
+        return FALSE;
+    }
 }

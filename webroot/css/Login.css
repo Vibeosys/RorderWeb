@@ -101,7 +101,10 @@ img{
   text-transform: uppercase;
   cursor:pointer;
   font-size:1em;
-  padding:10px;
+  padding: 10px;
+ width: 240px;
+  
+  
 }
 .form--login input[type="submit"]:focus, .form--login input[type="submit"]:hover {
   background-color: #ff751a;
@@ -161,4 +164,7 @@ img{
 }
 .text--center a{
     margin:0 10px
+}
+.form__field > a{
+    margin-left: 120px;
 }

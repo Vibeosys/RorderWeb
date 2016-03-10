@@ -26,9 +26,9 @@
             <?php foreach ($restaurants as $restaurant){ ?>
             <div class="restaurant-info">
                 <?= $restaurant->title ?><br>
-                <?= $restaurant->area ?>,<?= $restaurant->city ?><br>
-                <span style="font-size: 15px">Phone : <?= $restaurant->phone ?></span><br>
-                Tax Invoice
+                <div style="font-size: 15px;text-align: center"><?= $restaurant->area ?>,<?= $restaurant->city ?></div>
+                <span style="font-size: 15px;text-align: center">Phone : <?= $restaurant->phone ?></span><br>
+                <span style="text-decoration: underline">Tax Invoice</span>
             </div>
             <?php } ?>
             <br>
@@ -62,11 +62,11 @@
             </div>
             <hr>
             <div class="amount-desc">
-                <span>Net Amount</span><?= round($bill->netAmt, 2) ?><br>
-                <span>Taxes</span>     <?= round($bill->totalTaxAmt, 2) ?><br>
-                <span>Discount</span>     <?= round($bill->discount, 2) ?>
+                <span>Net Amount</span><?= number_format((float)$bill->netAmt, 2, '.', '') ?><br>
+                <span>Taxes</span>     <?= number_format((float)$bill->totalTaxAmt, 2, '.', '') ?><br>
+                <span>Discount</span>     <?= number_format((float)$bill->discount, 2, '.', '') ?>
                 <hr class="small">
-                <span>Total Amount </span> ₹   <?= round($bill->totalPayAmt, 2) ?>
+                <span>Total Amount </span> ₹   <?= number_format((float)$bill->totalPayAmt, 2, '.', '') ?>
             </div>
             <hr>
             <div class="footer">

@@ -50,9 +50,16 @@
                                             <div id="error-div" style="margin-left: 20%;color: <?= $color ?>" ><?=$message?></div>
                                         <?php }?>
                                         </div><!-- /.box-body -->
-                                        <div class="box-footer" style="margin-left:170px">
-                                            <button name="add-menu" type="submit" value="1" class="dark-orange add-save-btn">SUBMIT</button>
-                                            <button class="light-orange add-save-btn">Cancel</button>
+                                        <div class="box-footer col-xs-12" style="margin-left:0px">
+                                              <div class="row">
+                                                <div class="col-xs-4"></div>
+                                                    <div class="col-xs-6">
+                                                         <button name="add-menu" type="submit" value="1" style="margin-bottom:10px" class="dark-orange add-save-btn">SUBMIT</button>
+                                                         <button class="light-orange add-save-btn">Cancel</button>
+                                                    </div>
+                                                <div class="col-xs-2"></div>
+                                            </div>
+                                           
                                         </div><!-- /.box-footer -->
                                         </form>
                                         <!-- /.box -->

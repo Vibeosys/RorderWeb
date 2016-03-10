@@ -27,40 +27,48 @@
                         <div class="box">                           
                             <section class="content content-div show-add-section">
                                 <div class="row">
-                                    
+                                    <form action="menu/addnewmenu" method="post"> 
                                     <div class="manage-controls menu col-xs-3">
+                                        <button>
                                     <?= $this->Html->image('quickserve-menu-control.png', ['class' => 'quickserve-menu','alt' => 'MENU'])?>
                                         <b>Menu</b>
+                                        </button>
                                     </div>
-                                    <div class="manage-controls tables col-xs-3">
+                                    </form>  
+                                    <form action="rtables/addnewtables" method="post" > 
+                                    <div class="manage-controls tables col-xs-3"><button>
                                         <?= $this->Html->image('quickserve-table-control.png', ['class' => 'quickserve-menu','alt' => 'TABLE'])?>
                                         <b>Table</b> 
+                                        </button>
                                     </div>
-                                    <div class="manage-controls users col-xs-3">
+                                    </form> 
+                                    <form action="user/addnewuser" method="post" > 
+                                    <div class="manage-controls users col-xs-3"><button>
                                         <?= $this->Html->image('quickserve-user-control.png', ['class' => 'quickserve-menu','alt' => 'USER'])?>
                                          <b>User</b>
+                                         </button>
                                     </div>
+                                    </form> 
                                 </div>
                                 <div class="row">
-                                    <div class="manage-controls table-category col-xs-3">
+                                     <form action="tablecategory/addnewtablecategory" method="post" > 
+                                    <div class="manage-controls table-category col-xs-3"><button>
+                                       <?= $this->Html->image('quickserve-tablecategory.png', ['class' => 'quickserve-menu','alt' => 'TABLE'])?>
                                          <b>Table Category</b>
+                                         </button>
                                     </div>
-                                    <div class="manage-controls menu-category col-xs-3">
+                                     </form>
+                                     <form action="menucategory/addnewmenucategory" method="post" > 
+                                    <div class="manage-controls menu-category col-xs-3"><button>
+                                          <?= $this->Html->image('quickserve-menucategory.png', ['class' => 'quickserve-menu','alt' => 'TABLE'])?>
                                          <b>Menu Category</b>
+                                         </button>
                                     </div>
-                                    <div class="manage-controls payment-mode col-xs-3">
-                                         <b>Payment Mode</b>
-                                    </div>
-                                </div>
-                                 <div class="row">
-                                    <div class="manage-controls feedback-titles col-xs-3">
-                                         <b>Feedback Titles</b>
-                                    </div>
-                                    <div class="manage-controls menu-note col-xs-3">
-                                         <b>Menu Note</b>
-                                    </div>
-                                     <div id="printbll" class="manage-controls print-bill col-xs-3" onclick="printbill()">
+                                     </form>
+                                    <div id="printbll" class="manage-controls print-bill col-xs-3" onclick="printbill()"><button>
+                                        <?= $this->Html->image('quickserve-prinbill.png', ['class' => 'quickserve-menu','alt' => 'TABLE'])?>
                                         <b>Print Bill</b>
+                                        </button>
                                     </div>
                                 </div>
                             </section>
