@@ -31,6 +31,7 @@ class SyncController extends ApiController {
     public $billDetailsTable = "bill_details";
     public $customerTable = "customer";
     public $tableTransactionTable = "table_transaction";
+    public $takeawayTable = "takeaway";
 
 
 
@@ -197,7 +198,23 @@ class SyncController extends ApiController {
             }
         }
     }
-
+    
+    public function takeawayEntry($userId, $json, $operation, $restaurantId) {
+        $UserObj = new UserController;
+        $allUser = $UserObj->getUsers($restaurantId);
+        if ($allUser) {
+            foreach ($allUser as $user) {
+                if ($user->userId != $userId) {
+                    $this->getTableObj()->Insert($user->userId, $json, $this->takeawayTable, $operation, $restaurantId);
+                    \Cake\Log\Log::debug('new Customer waiting entry for restaurantId :- '.$restaurantId);
+                }  else {
+                    \Cake\Log\Log::debug('new Customer waiting entry for restaurantId :- '.$restaurantId);
+                    $this->getTableObj()->Insert($user->userId, $json, $this->takeawayTable, UPDATE_OPERATION, $restaurantId);
+                }
+            }
+        }
+    }
+    
    
 
     public function download($userId, $restaurantId) {

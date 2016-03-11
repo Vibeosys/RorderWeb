@@ -44,6 +44,8 @@ class OrderTable extends Table {
         $newOrder->UserId = $orderEntry->userId;
         $newOrder->TableId = $orderEntry->tableId;
         $newOrder->RestaurantId = $orderEntry->restaurantId;
+        $newOrder->TakeawayNo = $orderEntry->takeawayNo;
+        $newOrder->OrderType = $orderEntry->orderType;
         if ($tableObj->save($newOrder)) {
             Log::debug('order has been placed for OrderId :-' .
                     $orderEntry->orderId);
@@ -102,7 +104,9 @@ class OrderTable extends Table {
                         $order->OrderAmount, 
                         $order->UserId, 
                         $order->TableId,
-                        $order->CustId);
+                        $order->CustId,
+                        $order->TakeawayNo,
+                        $order->OrderType);
             }
         }
         return $orderDto;

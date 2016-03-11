@@ -14,11 +14,10 @@
 ?>
             <section class="content-header">
                 <h1>
-                    Restaurant Bill Printing 
+                    Restaurant Bill Print
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="Login.html"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li><a href="../mgmtpanel">MgmtPanel</a></li>
+                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
                     <li class="active">Print Bill</li>
                 </ol>
             </section>
@@ -28,11 +27,11 @@
                         <div class="box">                           
                             <section class="content content-div show-add-section">
                                 <?php if(isset($tables)){ ?>
-                                    <form action="printbill" method="post">
+                                <form action="printbill" method="post" target="_blank">
                                  <?php   foreach ($tables as $table){ ?>
                                 
                                  <?php if($table->isOccupied){ ?>   
-                                    <button class="print-table-button" value="<?= $table->tableId ?>" name="bi" style="background-color: white;color: orangered;border:1px solid gainsboro;">
+                                    <button class="print-table-button" value="<?= $table->tableId ?>" onclick="popup()" name="bi" style="background-color: white;color: orangered;border:1px solid gainsboro;">
                                         Table No.<br>
                                         <?= $table->tableNo ?>
                                     </button>

@@ -729,7 +729,7 @@ a:focus {
 /*
     Buttons : Common All Over
 */
-button{
+button, input[type="button"]{
       -moz-border-bottom-colors: none;
       -moz-border-left-colors: none;
       -moz-border-right-colors: none;
@@ -737,7 +737,6 @@ button{
       border-image: none;
       border-style: solid;
       border-width: 1px;
-      color: #ffffff;
       cursor: pointer;
       font-size: 12px;
       height: 28px;
@@ -748,29 +747,15 @@ button{
       text-transform:uppercase;
       letter-spacing:1px
 }
+input[value="cancel"]{
+    color: #ffffff;
+}
+
 .add-save-btn{
     width: 130px;
     margin-right: 10px;
 }
-.view-stat-btn{
-   -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-     border-image: none;
-    border-style: solid;
-    border-width: 1px;
-    color: #ffffff;
-    cursor: pointer;
-    font-size: 12px;
-    height: 28px;
-    margin: 0 5px 0 0;  
-    text-align: center;
-    border-radius:2px;  
-    padding:0 15px;
-    text-transform:uppercase;
-    letter-spacing:1px  
-}
+
 .dark-orange{  
     background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #fff 0%, #fff 100%) repeat scroll 0 0;
     border-color:  gainsboro;  

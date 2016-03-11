@@ -39,6 +39,8 @@ class OrderController extends ApiController {
     public function addOrderEntry($orderEntry) {
         $orderNo = $this->getTableObj()->insert($orderEntry);
         if ($orderNo) {
+            $orderEntry->tableId = $this->isNull($orderEntry->tableId);
+            $orderEntry->takeawayNo = $this->isNull($orderEntry->takeawayNo);
             $this->makeSyncEntry($orderEntry);
         }
         return $orderNo;

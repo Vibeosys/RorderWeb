@@ -1,6 +1,7 @@
 CREATE TABLE [customer](
 'CustId'                TEXT NOT NULL PRIMARY KEY, 
 'CustName'          TEXT,
+'CustAddress'       TEXT,
 'CustPhone'         TEXT,
 'CustEmail'          TEXT
 );
@@ -46,7 +47,9 @@ CREATE TABLE [menu_category](
   'OrderTime'           TIME,
   'TableNo'                 INTEGER,
   'UserId'                  TEXT,
-  'OrderAmount'         DOUBLE);
+  'OrderAmount'         DOUBLE,
+  'TakeawayNo'                 INTEGER,
+  'OrderType'                 INTEGER);
   
   CREATE TABLE [order_details] (
   'OrderDetailsId'          INTEGER NOT NULL PRIMARY KEY,
@@ -73,7 +76,8 @@ CREATE TABLE [menu_category](
   'TableId'                 INTEGER,
   'IsPayed'                 BOOLEAN,
   'PayedBy'                 TEXT,
-  'Discount'                INTEGER);
+  'Discount'                INTEGER,
+  'TakeawayNo'                 INTEGER);
   
   CREATE TABLE [bill_details] (
   'AutoId'                  INTEGER NOT NULL PRIMARY KEY,
@@ -156,7 +160,8 @@ CREATE TABLE [takeaway] (
   'Discount'            DOUBLE,
   'DeliveryCharges'     DOUBLE,
   'CustId'              TEXT,
-  'SourceId'            INTEGER);
+  'SourceId'            INTEGER,
+  'UserId'            TEXT);
 
    
    

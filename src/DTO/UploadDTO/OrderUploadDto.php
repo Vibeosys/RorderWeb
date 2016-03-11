@@ -17,13 +17,18 @@ class OrderUploadDto extends DTO\JsonDeserializer{
     public $tableId;
     public $custId;
     public $orderDetails;
+    public $takeawayNo;
+    public $orderType;
 
     public function __construct($orderId = null, $custId = null, 
-           $tableId = null, $orderDetails = null) {
+            $tableId = null, $orderDetails = null, $takeawayNo = null,
+            $orderType = null) {
         
         $this->orderId = $orderId;
         $this->custId = $custId;
         $this->orderDetails = $orderDetails;
         $this->tableId = $tableId;
+        $this->takeawayNo = $takeawayNo;
+        $this->orderType = $orderType;
     }
 }

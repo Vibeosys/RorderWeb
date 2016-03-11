@@ -7,7 +7,7 @@
     use App\Controller;
 
      $this->layout = 'rorder_layout';
-     $this->assign('title', 'ADD NEW USER');
+     $this->assign('title', 'Add New User');
      //$this->start('content');
 ?>
       
@@ -16,8 +16,8 @@
                     Users
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="Login.html"><i class="fa fa-dashboard"></i> Home</a></li>  
-                      <li><a href="../users">Restaurant Users</a></li>
+                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>  
+                    <li><a href="../users">Restaurant Users</a></li>
                     <li class="active">Add New User</li>
                 </ol>
             </section>
@@ -68,7 +68,7 @@
                                                 <div class="col-xs-4"></div>
                                                     <div class="col-xs-6">
                                                         <button name="save" value="true" type="submit" style="margin-bottom:10px" class="dark-orange add-save-btn">Submit</button>
-                                                        <button type="submit" class="light-orange add-save-btn">Cancel</button>
+                                                        <input type="button" value="cancel" class="light-orange button add-save-btn"  onclick="window.history.back();">
                                                     </div>
                                                 <div class="col-xs-2"></div>
                                             </div>

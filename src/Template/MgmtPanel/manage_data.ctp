@@ -8,17 +8,16 @@
 
     $this->layout = false;
      $this->layout = 'rorder_layout';
-     $this->assign('title', 'Manage Data');
+     $this->assign('title', 'Restaurant Data Management');
      //$this->start('content');
 ?>
             <section class="content-header">
                 <h1>
-                    Restaurant Statistics
+                    Restaurant Data Management 
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="Login.html"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li><a href="../mgmtpanel">MgmtPanel</a></li>
-                    <li class="active">Statistics</li>
+                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li class="active">Data  Management</li>
                 </ol>
             </section>
             <section class="content">

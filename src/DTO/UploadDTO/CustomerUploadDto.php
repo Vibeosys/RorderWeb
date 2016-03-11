@@ -17,12 +17,18 @@ class CustomerUploadDto extends DTO\JsonDeserializer {
     
     public $custId;
     public $custName;
-    
+    public $custAddress;
+    public $custPhone;
 
 
-    public function __construct($custId = null, $custName = null) {
+
+
+    public function __construct($custId = null, $custName = null, 
+            $address = null, $phone = null) {
         
         $this->custId = $custId;
         $this->custName = $custName;
+        $this->custAddress = $address;
+        $this->custphone = $phone;
     }
 }

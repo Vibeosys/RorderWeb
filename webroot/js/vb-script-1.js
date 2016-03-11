@@ -90,3 +90,7 @@ $(document).ready(function(){
 function printbill(){
   window.location.assign('printbill');  
 }
+
+function popup() {
+    window.open("printpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
+}

@@ -21,11 +21,27 @@ class TakeawayController extends ApiController{
     }
     
     public function getTakeawayNo($restaurantId) {
-        $maxNo = $this->getTableObj()->getMaxNo($restaurantId);
-        if($maxNo){
-            return $maxNo;
-        }  else {
-            return $maxNo + 1;
-        }
+        return  $this->getTableObj()->getMaxNo($restaurantId) + 1;
+        
     }
+    
+    public function addTakeawayEntry($takeawayRequest, $userInfo) {
+        $takeawayResult = $this->getTableObj()->takeawayInsert($takeawayRequest, $userInfo->restaurantId);
+        if($takeawayResult){
+            $syncController = new SyncController();
+            $syncResult = $syncController->takeawayEntry(
+                    $takeawayRequest->userId, 
+                    json_encode($takeawayRequest), 
+                    INSERT_OPERATION, 
+                    $userInfo->restaurantId);
+        }
+        return $takeawayResult;
+    }
+    
+    
+    public function getBillDiscount($takeawayNo) {
+        return $this->getTableObj()->getDiscount($takeawayNo);
+    }
+    
+    
 }

@@ -45,7 +45,8 @@ class BillTable extends Table {
             $newBill->RestaurantId = $billEntry->restaurantId;
             $newBill->CustId = $billEntry->custId;
             $newBill->TableId = $billEntry->tableId;
-
+            $newBill->TakeawayNo = $billEntry->takeawayNo;
+            $newBill->Discount = $billEntry->discount;
             if ($tableObj->save($newBill)) {
                 Log::debug('Bill has been created for BillNo :-' .
                         $billEntry->billNo);
@@ -97,7 +98,8 @@ class BillTable extends Table {
                             $bill->TableId,
                             $bill->IsPayed,
                             $bill->PayedBy,
-                            $bill->Discount);
+                            $bill->Discount,
+                            $bill->TakeawayNo);
                 }
             }
             return $billDownloadDto;
@@ -150,7 +152,8 @@ class BillTable extends Table {
                             $bill->TableId,
                             $bill->IsPayed,
                             $bill->PayedBy,
-                            $bill->Discount);
+                            $bill->Discount,
+                            $bill->TakeawayNo);
                 }
             }
             return $billDownloadDto;

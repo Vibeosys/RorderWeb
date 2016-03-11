@@ -35,6 +35,8 @@ class BillController  extends ApiController{
         $billEntryResult = $this->getTableObj()->insert($billEntryDto);
         if($billEntryResult){
             Log::debug('you bill is generated');
+             $billEntryDto->tableId = $this->isNull($billEntryDto->tableId);
+            $billEntryDto->takeawayNo = $this->isNull($billEntryDto->takeawayNo);
             $result = $this->makeSyncEntry($billEntryDto);
             if(!$result){
                 $this->transRollback();
@@ -89,6 +91,4 @@ class BillController  extends ApiController{
          Log::error('Error occured in sync entry of new bill');
          return ;
     }
-    
-    
 }

@@ -40,4 +40,45 @@ class TakeawayTable extends Table{
         Log::debug('Order Number generated for new order orderNo is :- ' . $maxTakeawayNo);
         return $maxTakeawayNo;
     }
+    
+    public function takeawayInsert(UploadDTO\TakeawayUploadDto $takeawayRequest, $restaurantId) {
+        
+        try{
+            $tableObj = $this->connect();
+            $newEntity = $tableObj->newEntity();
+            $newEntity->TakeawayId = $takeawayRequest->takeawayId;
+            $newEntity->TakeawayNo = $takeawayRequest->takeawayNo;
+            $newEntity->Discount = $takeawayRequest->discount;
+            $newEntity->DeliveryCharges = $takeawayRequest->deliveryCharges;
+            $newEntity->CustId = $takeawayRequest->custId;
+            $newEntity->RestaurantId = $restaurantId;
+            $newEntity->UserId = $takeawayRequest->userId;
+            $newEntity->SourceId = $takeawayRequest->sourceId;
+            $newEntity->CreatedDate = date(VB_DATE_TIME_FORMAT);
+            $newEntity->UpdatedDate = date(VB_DATE_TIME_FORMAT);
+            if($tableObj->save($newEntity)){
+                Log::debug('Takeaway entry stored for custId :- '.$takeawayRequest->custId);
+                return $takeawayRequest->takeawayNo;
+            }
+            Log::error('Takeaway entry stored for custId :- '.$takeawayRequest->custId);
+            return FALSE;
+        } catch (Exception $ex) {
+            return FALSE;
+        }
+    }
+    
+    public function getDiscount($takeawayNo) {
+        $conditions = ['TakeawayNo =' => $takeawayNo];
+        try{
+            $results = $this->connect()->find()->where($conditions);
+            if($results->count()){
+               foreach ($results as $result){
+                  return $result->Discount;
+                }
+            }
+            return FALSE;
+        } catch (Exception $ex) {
+            return FALSE;
+        }
+    }
 }

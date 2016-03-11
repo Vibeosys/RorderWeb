@@ -21,20 +21,18 @@ class TakeawayUploadDto extends DTO\JsonDeserializer{
     public $deliveryCharges;
     public $custId;
     public $takeawayNo;
-    public $restaurantId;
     public $userId;
     
 
     public function __construct($takeawayId = null, $sourceId = null, 
             $discount = null, $deliveryCharges = null, $custId = null,
-            $takeawayNo = null, $restaurantId = null, $userId = null) {
+            $takeawayNo = null, $userId = null) {
         $this->takeawayId = $takeawayId;
         $this->sourceId = $sourceId;
         $this->discount = $discount;
         $this->deliveryCharges = $deliveryCharges;
         $this->custId = $custId;
         $this->takeawayNo = $takeawayNo;
-        $this->restaurantId = $restaurantId;
         $this->userId = $userId;
     }
 }

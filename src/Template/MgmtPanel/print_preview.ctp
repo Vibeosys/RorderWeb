@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title> Print preview</title>
+        <title> QuickServe | Print preview</title>
         <?= $this->Html->css('print-preview-style.css') ?>
         <script>
             function printfunction(id){
@@ -28,11 +28,21 @@
                 <?= $restaurant->title ?><br>
                 <div style="font-size: 15px;text-align: center"><?= $restaurant->area ?>,<?= $restaurant->city ?></div>
                 <span style="font-size: 15px;text-align: center">Phone : <?= $restaurant->phone ?></span><br>
-                <span style="text-decoration: underline">Tax Invoice</span>
+                <span style="text-decoration: underline">Tax Invoice</span><br>
+                <?php if($table){ ?>   
+                <span style="font-size: 15px;font-weight: bold;text-align: center">Dine-In</span>   
+           <?php }else { ?>
+                <span style="font-size: 15px;font-weight: bold;text-align: center">Takeaway</span> 
+            <?php } ?>
             </div>
             <?php } ?>
             <br>
             <div class="date-time">
+           <?php if($table){ ?>   
+            Table No. :  <?= $table ?><br>   
+           <?php }else { ?>
+            TakeAway No. :  <?= $bill->takeawayNo ?><br>
+            <?php } ?>
             Bill No. : <?= $bill->billNo ?><br>  
                <?php date_default_timezone_set(CURRENT_TIME_ZONE);?>
             Bill Date :  <?= date('d M Y h:ia')?><br>
@@ -48,7 +58,7 @@
                                     <th style="text-align: right" >Amt</th>
                     </thead>
                     <tbody>
-                        <tr><td colspan="5"><hr></td></tr>
+                        <tr><td colspan="6"><hr></td></tr>
                         <?php foreach ($printInfo as $print){ ?>
                         <tr>
                             <td><?= $print->srNo ?></td>

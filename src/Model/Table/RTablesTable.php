@@ -58,6 +58,21 @@ class RTablesTable extends Table{
         }
     }
     
+    public function getTableNo($tableId) {
+          $conditions = ['TableId =' => $tableId];
+        try{
+            $results = $this->connect()->find('all', $conditions);
+            if($results->count()){
+            foreach ($results as $result){
+                return $result->TableNo;
+            }
+            }
+            return FALSE;
+        } catch (Exception $ex) {
+            return FALSE;
+        }
+    }
+    
     public function insert($allTables) {
         $insertCounter = 0;
         foreach ($allTables as $table){

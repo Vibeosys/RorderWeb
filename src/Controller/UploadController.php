@@ -213,9 +213,11 @@ class UploadController extends ApiController {
                 $orderTotalAmt, 
                 $userInfo->restaurantId, 
                 $orderUploadRequest->custId, 
-                $orderUploadRequest->tableId, 
-                1, //order status 1 means placed.
-                $userInfo->userId
+                $this->isZero($orderUploadRequest->tableId), 
+                PLACED_ORDER_STATUS,
+                $userInfo->userId,
+                $this->isZero($orderUploadRequest->takeawayNo),
+                $orderUploadRequest->orderType
         );
         $orderHeaderEntrySucceded = $orderController->addOrderEntry($orderEntryDto);
         if($orderHeaderEntrySucceded == 0)
@@ -292,9 +294,16 @@ class UploadController extends ApiController {
                 $totalBillTaxAmt += $billTax->taxAmt;
             }
         }
-        $totalPayBillAmt = $billNetAmount + $totalBillTaxAmt;
-        $totalPayBillAmt = round($totalPayBillAmt, 2);
         $billController = new BillController();
+        $discountAmt = 0;
+        if($generateBillUploadrequest->takeawayNo){
+            $takeawayController = new TakeawayController();
+            $discountPer = $takeawayController->getBillDiscount($generateBillUploadrequest->takeawayNo);
+            $Value = $discountPer/100;
+            $discountAmt = $billNetAmount * $Value;
+        }
+        $totalPayBillAmt = $billNetAmount + $totalBillTaxAmt - $discountAmt;
+        
          $maxBillNo = $billController->getMaxBillNo($userInfo->restaurantId);
         if($totalPayBillAmt){
             $billEntryDto = new UploadDTO\BillEntryDto(
@@ -305,7 +314,9 @@ class UploadController extends ApiController {
                     $userInfo->userId, 
                     $userInfo->restaurantId, 
                     $generateBillUploadrequest->custId, 
-                    $generateBillUploadrequest->tableId);
+                    $this->isZero($generateBillUploadrequest->tableId),
+                    $this->isZero($generateBillUploadrequest->takeawayNo),
+                    $discountAmt);
             $salesReportDto = new DTO\DownloadDTO\SalesHistoryReportDto(
                     $userInfo->restaurantId, 
                     date('m'), 
@@ -480,10 +491,14 @@ class UploadController extends ApiController {
         $addTakeawayRequest = UploadDTO\TakeawayUploadDto::Deserialize($operationData);
         $takeawayController = new TakeawayController();
         $addTakeawayRequest->takeawayNo = $takeawayController->getTakeawayNo($userInfo->restaurantId);
-        $addTakeawayRequest->restaurantId = $userInfo->restaurantId;
         $addTakeawayRequest->userId = $userInfo->userId;
-        
-        $this->response->body($addTakeawayRequest);
+        $takeawayResult = $takeawayController->addTakeawayEntry($addTakeawayRequest, $userInfo);
+        if($takeawayResult){
+            $this->response->body(DTO\ErrorDto::prepareSuccessMessage($takeawayResult));
+            return ;
+        }
+        $this->response->body(DTO\ErrorDto::prepareError(120));
+        return ;
     }
 
 }

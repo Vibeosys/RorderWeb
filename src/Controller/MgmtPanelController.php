@@ -11,6 +11,7 @@ use App\DTO\UploadDTO;
 use App\DTO\DownloadDTO;
 use App\Controller\Component;
 use Cake\Log\Log;
+use App\DTO;
 use Cake\Filesystem\Folder;
 /**
  * Description of MgmtPanelController
@@ -36,7 +37,7 @@ class MgmtPanelController extends ApiController{
                 parent::writeCookie('pw', $adminCredential->adminUserPass);
                 $this->redirect('/');
             }  else {
-                $this->set([MESSAGE => 'Your username or password is incorrect',COLOR =>ERROR_COLOR]);    
+                $this->set([MESSAGE => DTO\ErrorDto::prepareError(121),COLOR =>ERROR_COLOR]);    
             }
         }elseif (!is_null($userName) and !is_null ($password)) {
              $adminCredential = new UploadDTO\AdminUserUploadDto(
@@ -77,7 +78,7 @@ class MgmtPanelController extends ApiController{
             if(!$data['file-upload']['error']){
                 
             $fileName = $data['file-upload']['name'];
-            Log::debug($fileName);
+            Log::debug('edit restaurant request contain image :- '.$fileName);
             if(!$this->isImage($fileName)){
                 $this->set([
                     MESSAGE => INCORRECT_FILE_MESSAGE.'"png, jpg, jpeg"',
@@ -112,9 +113,9 @@ class MgmtPanelController extends ApiController{
                 $restaurantUpdateResult = $restaurantController->updateRestaurantInfo($restaurantDto);
                 $session = $this->request->session();
                 if($restaurantUpdateResult){
-                    parent::writeCookie('rem', 'Your data updated successfully..!');
+                    parent::writeCookie('rem', DTO\ErrorDto::prepareError(122));
                 }  else {
-                    parent::writeCookie('rem', 'ERROR...Restaurant Updation Failed!');
+                    parent::writeCookie('rem', DTO\ErrorDto::prepareError(123));
                 }
                 $this->redirect('/');
             }
@@ -172,11 +173,11 @@ class MgmtPanelController extends ApiController{
         }
         if($this->request->is('post')){
             //$this->autoRender = false;
-            $tableId  =  $this->request->data['bi'];
+            $tableId  =  $this->request->query;
             $billController = new BillController();
             $billInfo = $billController->getBill($tableId);
             if(is_null($billInfo)){
-                $this->set([MESSAGE => 'Bill has been not generated for this table',COLOR => ERROR_COLOR]);
+                $this->set([MESSAGE => DTO\ErrorDto::prepareError(124),COLOR => ERROR_COLOR]);
                 return;
             }
             parent::writeCookie('cti', $tableId);
@@ -187,7 +188,7 @@ class MgmtPanelController extends ApiController{
             if(isset($restaurantTables)){
                 $this->set('tables', $restaurantTables);
             }  else {
-                $this->set(['message' => 'ERROR Occured...Table are not found',COLOR => ERROR_COLOR]);
+                $this->set(['message' => DTO\ErrorDto::prepareError(125),COLOR => ERROR_COLOR]);
             }
         }
     }
@@ -201,7 +202,7 @@ class MgmtPanelController extends ApiController{
             $billController = new BillController();
             $billInfo = $billController->getBill($tableId);
             if(is_null($billInfo)){
-                $this->set([MESSAGE => 'Bill has been not generated for this table',COLOR => ERROR_COLOR]);
+                $this->set([MESSAGE => DTO\ErrorDto::prepareError(124),COLOR => ERROR_COLOR]);
                 return;
             }
             $billDetailsController = new BillDetailsController();
@@ -245,14 +246,16 @@ class MgmtPanelController extends ApiController{
             $restaurantInfo = $restaurantController->getAdminRestaurants(array($restId));
             $userController = new UserController();
             $userInfo = $userController->getUserName($billInfo->userId);
+            $rtableController = new RTablesController();
+            $tableNo = $rtableController->getBillTableNo($tableId);
             if(isset($billInfo) and isset($restaurantInfo) and isset($billPrintInfo)){
-                $this->set([
+                $this->set(['table' => $tableNo,
                     'bill' => $billInfo,
                     'restaurants' => $restaurantInfo, 
                     'printInfo' => $billPrintInfo, 
                     'user' => $userInfo->userName]);
             }else{
-                $this->set([MESSAGE => 'Bill has been not generated for this table',COLOR => ERROR_COLOR]);
+                $this->set([MESSAGE => DTO\ErrorDto::prepareError(124),COLOR => ERROR_COLOR]);
             }
     }
 }

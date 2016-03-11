@@ -59,7 +59,12 @@ class ErrorDto {
         117 => 'Menu quantity should be greater than zaro(0)',
         118 => 'Cant generate bill twise',
         119 => 'Error in customer remove',
-        120 => 'Answer Not Saved'
+        120 => 'We cant process takeaway request',
+        121 => 'Your username or password is incorrect',
+        122 => 'Restaurant data updated successfully',
+        123 => 'Oops ! Could not update',
+        124 => 'Oops ! No bill generated for this table',
+        123 => 'Oops ! Could not found table for this resaurant',
        ];
     
     

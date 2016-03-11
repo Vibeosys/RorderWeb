@@ -104,5 +104,21 @@ class ApiController extends AppController {
         }
         return false;
     }
+    
+    public function isZero($value) {
+        if($value){
+            return $value;
+        }else{
+            return null;
+        }
+    }
+    
+    public function isNull($value) {
+        if(is_null($value)){
+            return 0;
+        }else{
+            return $value;
+        }
+    }
 
 }

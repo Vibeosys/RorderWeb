@@ -32,6 +32,8 @@ class CustomerTable extends Table {
             $newCustomer = $tableObj->newEntity();
             $newCustomer->CustId = $customer->custId;
             $newCustomer->CustName = $customer->custName;
+            $newCustomer->CustAddress = $customer->custAddress;
+            $newCustomer->CustPhone = $customer->custPhone;
             $newCustomer->Active = ACTIVE;
             $newCustomer->RestaurantId = $userInfo->restaurantId;
             if ($tableObj->save($newCustomer)) {

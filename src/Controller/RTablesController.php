@@ -39,6 +39,10 @@ class RTablesController extends ApiController {
         return $occupyResult;
     }
     
+    public function getBillTableNo($tableId) {
+        return $this->getTableObj()->getTableNo($tableId);
+    }
+    
      public function prepareInsertStatements($restaurantId) {
         $allRtables = $this->getRtables($restaurantId);
         if (!$allRtables) {

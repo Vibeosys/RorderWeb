@@ -89,6 +89,7 @@ class MenuCategoryController extends ApiController {
                 }
             }
         }
+        Log::debug('Cancel button pressed from menu category');
     }
 
 }

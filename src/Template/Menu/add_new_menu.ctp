@@ -8,7 +8,7 @@
 
     $this->layout = false;
      $this->layout = 'rorder_layout';
-     $this->assign('title', 'ADD NEW MENU');
+     $this->assign('title', 'Add New Menu');
      //$this->start('content');
 ?>
             <section class="content-header">
@@ -16,8 +16,8 @@
                     Restaurant Menu
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="Login.html"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li><a href="../menu-category">Menu</a></li>
+                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a href="../menu">Menu</a></li>
                     <li class="active">Add New Menu</li>
                 </ol>
             </section>
@@ -55,7 +55,7 @@
                                                 <div class="col-xs-4"></div>
                                                     <div class="col-xs-6">
                                                          <button name="add-menu" type="submit" value="1" style="margin-bottom:10px" class="dark-orange add-save-btn">SUBMIT</button>
-                                                         <button class="light-orange add-save-btn">Cancel</button>
+                                                         <input type="button" value="cancel" class="light-orange button add-save-btn"  onclick="window.history.back();">
                                                     </div>
                                                 <div class="col-xs-2"></div>
                                             </div>

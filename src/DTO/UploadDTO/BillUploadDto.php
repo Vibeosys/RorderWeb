@@ -14,14 +14,12 @@ use App\DTO;
 class BillUploadDto extends DTO\JsonDeserializer{
     
     public $tableId;
+    public $takeawayNo;
     public $custId;
-    
-    
-    
-    public function __construct($tableId = null, $custId = null) {
 
+    public function __construct($tableId = null, $custId = null, $takeawayNo  = null) {
         $this->tableId = $tableId;
+        $this->takeawayNo = $takeawayNo;
         $this->custId = $custId;
-       
     }
 }
