@@ -61,7 +61,7 @@ class RTablesTable extends Table{
     public function getTableNo($tableId) {
           $conditions = ['TableId =' => $tableId];
         try{
-            $results = $this->connect()->find('all', $conditions);
+            $results = $this->connect()->find()->where($conditions);
             if($results->count()){
             foreach ($results as $result){
                 return $result->TableNo;

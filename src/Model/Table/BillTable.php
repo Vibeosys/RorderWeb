@@ -46,7 +46,6 @@ class BillTable extends Table {
             $newBill->CustId = $billEntry->custId;
             $newBill->TableId = $billEntry->tableId;
             $newBill->TakeawayNo = $billEntry->takeawayNo;
-            $newBill->Discount = $billEntry->discount;
             if ($tableObj->save($newBill)) {
                 Log::debug('Bill has been created for BillNo :-' .
                         $billEntry->billNo);
@@ -137,8 +136,8 @@ class BillTable extends Table {
             $conditions = [
                 'TableId =' => $tableId];
             $order = ['BillNo' => 'DESC'];
-            $newBill = $this->connect()->find()->where($conditions)->order($order);
-            if($newBill){
+            $newBill = $this->connect()->find()->where($conditions);
+            if($newBill->count()){
                 foreach ($newBill as $bill){
                     $billDownloadDto = new DownloadDTO\BillDownloadDto(
                             $bill->BillNo, 
@@ -155,6 +154,7 @@ class BillTable extends Table {
                             $bill->Discount,
                             $bill->TakeawayNo);
                 }
+                Log::debug('Bill found for tableId :- '.$tableId.' BillNO :- '.$billDownloadDto->billNo);
             }
             return $billDownloadDto;
         } catch (Exception $ex) {

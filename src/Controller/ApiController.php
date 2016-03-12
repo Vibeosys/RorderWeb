@@ -114,10 +114,10 @@ class ApiController extends AppController {
     }
     
     public function isNull($value) {
-        if(is_null($value)){
-            return 0;
-        }else{
+        if($value){
             return $value;
+        }else{
+            return 0;
         }
     }
 

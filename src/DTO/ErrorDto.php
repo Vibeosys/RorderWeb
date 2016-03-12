@@ -36,6 +36,11 @@ class ErrorDto {
         return json_encode($errorDto);
     }
     
+    public static function prepareMessage($mesgCode) {
+         $errorDto = new ErrorDto();
+        return $errorDto->errorDictionary[$mesgCode]; 
+    }
+    
     
     protected $errorDictionary = [
         100 => 'Restaurant not found in a database',

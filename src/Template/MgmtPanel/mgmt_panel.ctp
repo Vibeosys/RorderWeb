@@ -211,6 +211,7 @@ $this->layout = false;
                 });
             });
         </script>
+         <?= $this->Html->script('jQuery-cookie.js') ?>
         <?= $this->Html->script('vb-script-1.js') ?>
         <?= $this->Html->script('bootstrap-tagsinput.js') ?>
         <?= $this->Html->script('jquery.dataTables.js') ?> 

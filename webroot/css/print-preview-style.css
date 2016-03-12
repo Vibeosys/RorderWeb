@@ -54,7 +54,7 @@
             div.print-button{
                 position: fixed;
                 bottom: 0px;
-                left: 20%;
+                right: 0px;
                 background-color: white;
                 color: orange;
             }
@@ -73,4 +73,25 @@
             }
             .small-width{
                 width: 10px;
+            }
+            .error-message{
+                border: 1px solid gainsboro;
+                padding: 10px;
+                margin-left: 50px;
+                margin-top: 50px;
+                
+                width: 300px;
+                //height: 200px;
+            }
+            .error-message > span{
+                position: relative;
+                top: -25px;
+                left: 40px;
+                color: orangered;
+            }
+            .error-message .error-img{
+                background-repeat: no-repeat;
+                background-image: url('../img/quickserve-error.png'); 
+                width: 30px;
+                height: 30px;
             }

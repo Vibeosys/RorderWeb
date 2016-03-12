@@ -295,15 +295,7 @@ class UploadController extends ApiController {
             }
         }
         $billController = new BillController();
-        $discountAmt = 0;
-        if($generateBillUploadrequest->takeawayNo){
-            $takeawayController = new TakeawayController();
-            $discountPer = $takeawayController->getBillDiscount($generateBillUploadrequest->takeawayNo);
-            $Value = $discountPer/100;
-            $discountAmt = $billNetAmount * $Value;
-        }
-        $totalPayBillAmt = $billNetAmount + $totalBillTaxAmt - $discountAmt;
-        
+        $totalPayBillAmt = $billNetAmount + $totalBillTaxAmt;
          $maxBillNo = $billController->getMaxBillNo($userInfo->restaurantId);
         if($totalPayBillAmt){
             $billEntryDto = new UploadDTO\BillEntryDto(
@@ -315,8 +307,7 @@ class UploadController extends ApiController {
                     $userInfo->restaurantId, 
                     $generateBillUploadrequest->custId, 
                     $this->isZero($generateBillUploadrequest->tableId),
-                    $this->isZero($generateBillUploadrequest->takeawayNo),
-                    $discountAmt);
+                    $this->isZero($generateBillUploadrequest->takeawayNo));
             $salesReportDto = new DTO\DownloadDTO\SalesHistoryReportDto(
                     $userInfo->restaurantId, 
                     date('m'), 

@@ -37,11 +37,4 @@ class TakeawayController extends ApiController{
         }
         return $takeawayResult;
     }
-    
-    
-    public function getBillDiscount($takeawayNo) {
-        return $this->getTableObj()->getDiscount($takeawayNo);
-    }
-    
-    
 }

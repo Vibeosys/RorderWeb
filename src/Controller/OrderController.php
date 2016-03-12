@@ -62,11 +62,13 @@ class OrderController extends ApiController {
     public function getCustomerOrders($custId, $restaurantId) {
         if($this->orderCheck($custId, $restaurantId, PLACED_ORDER_STATUS)){
             $this->response->body(DTO\ErrorDto::prepareError(106));
+            $this->response->send();
             return null;
         }
         $result =  $this->getTableObj()->getCustomerOrderList($custId, $restaurantId);
         if(is_null($result)){
             $this->response->body(DTO\ErrorDto::prepareError(118));
+             $this->response->send();
         }
         return $result;
     }

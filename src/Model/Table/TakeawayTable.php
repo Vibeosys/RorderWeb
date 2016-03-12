@@ -66,19 +66,4 @@ class TakeawayTable extends Table{
             return FALSE;
         }
     }
-    
-    public function getDiscount($takeawayNo) {
-        $conditions = ['TakeawayNo =' => $takeawayNo];
-        try{
-            $results = $this->connect()->find()->where($conditions);
-            if($results->count()){
-               foreach ($results as $result){
-                  return $result->Discount;
-                }
-            }
-            return FALSE;
-        } catch (Exception $ex) {
-            return FALSE;
-        }
-    }
 }

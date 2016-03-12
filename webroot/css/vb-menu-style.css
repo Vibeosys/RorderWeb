@@ -61,7 +61,9 @@ div.manage-controls > button {
     color: orangered;
     text-transform: uppercase;
     font-size:17px;
-    text-align: center;
+    padding-left: 25%;
+    padding-right: 20%;
+    text-align: left;
 }
 div.manage-controls > button > img{
     width: 25px;
@@ -81,8 +83,47 @@ div.manage-controls:hover{
     height: 130px;
     border-radius: 10px;
     font-weight: bolder;
+    text-align: center;
+    padding-top: 3%;
 }
 .print-table-button:hover{
      box-shadow: 2px 2px 2px gainsboro;
      cursor: pointer;
 }
+ .error-message{
+    border: 1px solid gainsboro;
+    padding: 10px;
+    margin-left: 50px;
+    margin-top: 50px;
+    width: 300px;
+}
+.error-message > span{
+    position: relative;
+    top: -25px;
+    left: 40px;
+    color: orangered;
+}
+.error-message .error-img{
+    background-repeat: no-repeat;
+    background-image: url('../img/quickserve-error.png'); 
+    width: 30px;
+    height: 30px;
+}
+.tab-container >ul{
+    padding-left: 30%;
+}
+.tab-container > ul> li{
+    width: 120px;
+    min-width: 50px;
+    color: black;
+}
+.tab-container > ul> li > a{
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+}
+.tab-container > ul > li.active >a{
+    color: orangered;
+}
+            
+ 

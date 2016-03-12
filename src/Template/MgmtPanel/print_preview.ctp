@@ -21,6 +21,9 @@
         </script>
     </head>
     <body>
+        <?php if(isset($message)){?>
+        <div class="error-message"><div class="error-img"></div><span class="error-text"><?= $message?></span></div>
+        <?php }?>
         <div id="print-div" class="content-wrapper">
             <?php if(isset($bill) and isset($restaurants) and isset($printInfo)){ ?>
             <?php foreach ($restaurants as $restaurant){ ?>

@@ -47,6 +47,7 @@ class BillController  extends ApiController{
     }
     
     public function getBill($tableId) {
+        Log::debug('Bill request arrived for tableId :- '.$tableId);
         if(isset($tableId)){
             return $this->getTableObj()->getCustomerBill($tableId);
         }

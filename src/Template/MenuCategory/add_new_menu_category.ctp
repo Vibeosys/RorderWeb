@@ -44,7 +44,7 @@
                                                         <i> <?= $this->Html->image('upload.png', ['width' => '25','alt' => 'Upload File'])?></i> Upload Your .csv file here
                                                     </label>
                                                    <!-- <input type="file" name="file-upload" class="form-control" id="Title" placeholder="Title">-->
-                                                    <?= $this->form->file('file-upload',array('multiple','class'=>'form-control'))?>
+                                                    <?= $this->Form->file('file-upload',array('multiple','class'=>'form-control'))?>
                                                 </div>
                                             </div>
                                             <?php if(isset($message)){?>

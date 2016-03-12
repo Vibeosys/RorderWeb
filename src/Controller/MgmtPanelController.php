@@ -37,7 +37,7 @@ class MgmtPanelController extends ApiController{
                 parent::writeCookie('pw', $adminCredential->adminUserPass);
                 $this->redirect('/');
             }  else {
-                $this->set([MESSAGE => DTO\ErrorDto::prepareError(121),COLOR =>ERROR_COLOR]);    
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(121),COLOR =>ERROR_COLOR]);    
             }
         }elseif (!is_null($userName) and !is_null ($password)) {
              $adminCredential = new UploadDTO\AdminUserUploadDto(
@@ -113,9 +113,9 @@ class MgmtPanelController extends ApiController{
                 $restaurantUpdateResult = $restaurantController->updateRestaurantInfo($restaurantDto);
                 $session = $this->request->session();
                 if($restaurantUpdateResult){
-                    parent::writeCookie('rem', DTO\ErrorDto::prepareError(122));
+                    parent::writeCookie('rem', DTO\ErrorDto::prepareMessage(122));
                 }  else {
-                    parent::writeCookie('rem', DTO\ErrorDto::prepareError(123));
+                    parent::writeCookie('rem', DTO\ErrorDto::prepareMessage(123));
                 }
                 $this->redirect('/');
             }
@@ -171,40 +171,42 @@ class MgmtPanelController extends ApiController{
         if(empty($restId)){
              $this->redirect('login');
         }
-        if($this->request->is('post')){
-            //$this->autoRender = false;
-            $tableId  =  $this->request->query;
-            $billController = new BillController();
-            $billInfo = $billController->getBill($tableId);
-            if(is_null($billInfo)){
-                $this->set([MESSAGE => DTO\ErrorDto::prepareError(124),COLOR => ERROR_COLOR]);
-                return;
-            }
-            parent::writeCookie('cti', $tableId);
-            $this->redirect('printpreview');
-        }  else {
             $rtableController = new RTablesController();
             $restaurantTables = $rtableController->getRtables($restId);
+            
             if(isset($restaurantTables)){
                 $this->set('tables', $restaurantTables);
             }  else {
-                $this->set(['message' => DTO\ErrorDto::prepareError(125),COLOR => ERROR_COLOR]);
+                $this->set(['message' => DTO\ErrorDto::prepareMessage(125),COLOR => ERROR_COLOR]);
             }
+        
+    }
+    
+    public function getTables() {
+        $this->autoRender = FALSE;
+        $restId = parent::readCookie('cri');
+        if(isset($restId) and $this->request->is('ajax') ){
+            Log::debug('Ajax request hited for tables');
+            $rtableController = new RTablesController();
+            $restaurantTables = $rtableController->getRtables($restId);
+            // $this->response->type('text/plain');
+            $this->response->body("{'niteen':'veer'}");
         }
     }
     
     public function printPreview() {
-        
-            $tableId = parent::readCookie('cti');
+            $tableId = $_COOKIE['cti'];
              if(empty($tableId)){
                 $this->redirect('login');
             }
             $billController = new BillController();
             $billInfo = $billController->getBill($tableId);
             if(is_null($billInfo)){
-                $this->set([MESSAGE => DTO\ErrorDto::prepareError(124),COLOR => ERROR_COLOR]);
+                Log::error('Bill has not generated for this table');
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(124),COLOR => ERROR_COLOR]);
                 return;
             }
+            Log::debug('Bill has generated for this table');
             $billDetailsController = new BillDetailsController();
             $billDeatilsInfo = $billDetailsController->getOrderId($billInfo->billNo);
              $orders = array();
@@ -255,7 +257,7 @@ class MgmtPanelController extends ApiController{
                     'printInfo' => $billPrintInfo, 
                     'user' => $userInfo->userName]);
             }else{
-                $this->set([MESSAGE => DTO\ErrorDto::prepareError(124),COLOR => ERROR_COLOR]);
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(124),COLOR => ERROR_COLOR]);
             }
     }
 }
