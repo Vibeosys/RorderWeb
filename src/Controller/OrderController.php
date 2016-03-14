@@ -91,5 +91,9 @@ class OrderController extends ApiController {
     public function orderCheck($custId, $restaurantId, $orderStatus) {
         return $this->getTableObj()->IsOrderPresent($custId, $restaurantId, $orderStatus);
     }
+    
+    public function getLatestOrders($tableId, $restaurantId) {
+        return $this->getTableObj()->getTableOrders($tableId, $restaurantId);
+    }
 
 }

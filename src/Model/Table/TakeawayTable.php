@@ -23,7 +23,31 @@ class TakeawayTable extends Table{
         return TableRegistry::get('takeaway');
     }
     
-    public function addTakeawayEntry() {
+    public function getTakeaway($restaurantId) {
+        $previousDate = date(VB_DATE_TIME_FORMAT, strtotime('-2 hour', strtotime(date(VB_DATE_TIME_FORMAT))));
+        $conditions = ['RestaurantId =' => $restaurantId,
+                        'CreatedDate >' => $previousDate];
+        $order = 'TakeawayNo';
+        $takeawayCounter = 0;
+        $allTakeaway = null;
+        try{
+            $results = $this->connect()
+                    ->find()
+                    ->where($conditions)
+                    ->orderDesc($order);
+            if($results->count()){
+                foreach ($results as $result){
+                    $allTakeaway[$takeawayCounter++] = 
+                            new DownloadDTO\TakeawayDownloadDto(
+                                    $result->TakeawayNo, 
+                                    $result->DeliveryCharges, 
+                                    $result->SourceId);
+                }
+            }
+            return $allTakeaway;    
+        } catch (Exception $ex) {
+            return false;
+        }
         
     }
     public function getMaxNo($restaurantId) {
@@ -64,6 +88,33 @@ class TakeawayTable extends Table{
             return FALSE;
         } catch (Exception $ex) {
             return FALSE;
+        }
+    }
+    
+    public function getSingleTakeaway($takeawayNo , $restaurantId) {
+        $conditions = ['RestaurantId =' => $restaurantId,
+                        'takeawayNo =' => $takeawayNo];
+        $takeaway = null;
+        try{
+            $results = $this->connect()
+                    ->find()
+                    ->where($conditions);
+            if($results->count()){
+                foreach ($results as $result){
+                    $takeaway = new UploadDTO\TakeawayUploadDto(
+                                    $result->TakeawayId,
+                                    $result->SourceId,
+                                    $result->Discount,
+                                    $result->DeliveryCharges,
+                                    $result->CustId,
+                                    $result->TakeawayNo,
+                                    $result->UserId,
+                                    $result->CreatedDate);
+                }
+            }
+            return $takeaway;    
+        } catch (Exception $ex) {
+            return false;
         }
     }
 }

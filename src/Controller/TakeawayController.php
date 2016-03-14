@@ -26,15 +26,23 @@ class TakeawayController extends ApiController{
     }
     
     public function addTakeawayEntry($takeawayRequest, $userInfo) {
-        $takeawayResult = $this->getTableObj()->takeawayInsert($takeawayRequest, $userInfo->restaurantId);
+        $takeawayResult = $this->getTableObj()->takeawayInsert(
+                $takeawayRequest, 
+                $userInfo->restaurantId);
         if($takeawayResult){
+            $takeawayEntry = $this->getTableObj()->getSingleTakeaway(
+                    $takeawayResult, $userInfo->restaurantId);
             $syncController = new SyncController();
             $syncResult = $syncController->takeawayEntry(
                     $takeawayRequest->userId, 
-                    json_encode($takeawayRequest), 
+                    json_encode($takeawayEntry), 
                     INSERT_OPERATION, 
                     $userInfo->restaurantId);
         }
         return $takeawayResult;
+    }
+    
+    public function getLatestTakeaway($restaurantId) {
+        return $this->getTableObj()->getTakeaway($restaurantId);
     }
 }

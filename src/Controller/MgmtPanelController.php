@@ -189,18 +189,98 @@ class MgmtPanelController extends ApiController{
             Log::debug('Ajax request hited for tables');
             $rtableController = new RTablesController();
             $restaurantTables = $rtableController->getRtables($restId);
-            // $this->response->type('text/plain');
-            $this->response->body("{'niteen':'veer'}");
+            //$this->response->type('text/plain');
+            $this->response->body(json_encode($restaurantTables));
+        }
+    }
+    
+    public function getTakeaway() {
+        $this->autoRender = FALSE;
+        $restId = parent::readCookie('cri');
+        if(isset($restId) and $this->request->is('ajax') ){
+            Log::debug('Ajax request hited for takeaway');
+            $takeawayController = new TakeawayController();
+            $latestTakeaway = $takeawayController->getLatestTakeaway($restId);
+            Log::debug('letest takeaway :-'.json_encode($latestTakeaway));
+            $this->response->body(json_encode($latestTakeaway));
+        }
+    }
+    
+    public function getOrders() {
+        $this->autoRender = FALSE;
+        $restId = parent::readCookie('cri');
+        $tableId = $_COOKIE['cti'];
+        if(isset($restId) and $this->request->is('ajax') ){
+            Log::debug('Ajax request hited for takeaway');
+            $orderController = new OrderController();
+            $latestOrders = $orderController->getLatestOrders($tableId, $restId);
+            
+            if(is_null($latestOrders)){
+                $this->response->body(json_encode($latestOrders));
+                return;
+            }
+            $userController = new UserController();
+            $rtableController = new RTablesController();
+            foreach ($latestOrders as $order){
+                $user = $userController->getUserName($order->user);
+                $order->user = $user->userName;
+                $order->tableId = $rtableController->getBillTableNo($order->tableId);
+                $order->orderTime = date('H:i',strtotime('+330 minutes',strtotime($order->orderTime)));  
+            }
+            Log::debug('letest table orders :-'.json_encode($latestOrders));
+            $this->response->body(json_encode($latestOrders));
+        }
+    }
+    public function getOrderDeatils() {
+        $this->autoRender = FALSE;
+        $orderId = $_COOKIE['coi'];
+        if(isset($orderIdId) and $this->request->is('ajax') ){
+            Log::debug('Ajax request hited for order details');
+            $orders = array($orderId);
+            $orderDetailsController = new OrderDetailsController();
+            $orderDetails = $orderDetailsController->getbillOrderDetails($orders);
+              $menuList = array();
+            foreach ($orderDetails as $details){
+                if(!in_array($details->menuId, $menuList)){
+                    array_push($menuList, $details->menuId);
+                }
+            }
+            $menuController = new MenuController();
+            $menuInfo = $menuController->getMenuItemList(null,$menuList);
+            $orderDetailsShow = array();
+            $indexCounter = 0;
+            foreach ($menuInfo as $menu){
+                $billPrintDto = new DownloadDTO\BillPrintDwnldDto(
+                        $indexCounter + 1,
+                        $menu->menuId, 
+                        $menu->menuTitle, 
+                        0, 
+                        $menu->price, 
+                        0);
+                $orderDetailsShow[$indexCounter++] = $billPrintDto;
+            }
+            foreach ($billOrderDetails as $orderDetails){
+                foreach ($orderDetailsShow as $pinfo){
+                   if($orderDetails->menuId == $pinfo->id){
+                       $pinfo->qty = $pinfo->qty + $orderDetails->qty;
+                   } 
+                }
+            }
+            Log::debug('letest takeaway :-'.json_encode($latestTakeaway));
+            $this->response->body(json_encode($orderDetailsShow));
         }
     }
     
     public function printPreview() {
             $tableId = $_COOKIE['cti'];
-             if(empty($tableId)){
+            $takeawayNo = $_COOKIE['ctn'];
+            Log::debug('Current tableId :-'.$tableId);
+            Log::debug('Current takeawayNo :- '.$takeawayNo);
+             if(empty($tableId) and empty($takeawayNo)){
                 $this->redirect('login');
             }
             $billController = new BillController();
-            $billInfo = $billController->getBill($tableId);
+            $billInfo = $billController->getBill($tableId, $takeawayNo);
             if(is_null($billInfo)){
                 Log::error('Bill has not generated for this table');
                 $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(124),COLOR => ERROR_COLOR]);

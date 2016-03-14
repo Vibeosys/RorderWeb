@@ -46,10 +46,10 @@ class BillController  extends ApiController{
         return false;
     }
     
-    public function getBill($tableId) {
+    public function getBill($tableId, $takeawayNo) {
         Log::debug('Bill request arrived for tableId :- '.$tableId);
         if(isset($tableId)){
-            return $this->getTableObj()->getCustomerBill($tableId);
+            return $this->getTableObj()->getCustomerBill($tableId, $takeawayNo);
         }
         return null;
     }

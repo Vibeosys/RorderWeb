@@ -21,6 +21,9 @@ Router::scope('/', function ($routes) {
     $routes->connect('printbill', ['controller' => 'MgmtPanel', 'action' => 'printBill']);
     $routes->connect('printpreview', ['controller' => 'MgmtPanel', 'action' => 'printPreview']);
     $routes->connect('logout', ['controller' => 'MgmtPanel', 'action' => 'logout']);
+    $routes->connect('getorders', ['controller' => 'MgmtPanel', 'action' => 'getOrders']);
+    $routes->connect('gettables', ['controller' => 'MgmtPanel', 'action' => 'getTables']);
+    $routes->connect('gettakeaway', ['controller' => 'MgmtPanel', 'action' => 'getTakeaway']);
     $routes->connect('salesreport', ['controller' => 'SalesHistory', 'action' => 'getReport']);
     $routes->connect('customervisitreport', ['controller' => 'CustomerVisit', 'action' => 'customerVisitReport']);
     $routes->connect('login', ['controller' => 'MgmtPanel', 'action' => 'login']);

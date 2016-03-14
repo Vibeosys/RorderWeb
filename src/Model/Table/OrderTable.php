@@ -166,5 +166,31 @@ class OrderTable extends Table {
             return false;
         }
     }
+    
+    public function getTableOrders($tableId, $restaurantId) {
+          $allOrders = NULL;
+        $condition = ['TableId =' => $tableId, 
+            'RestaurantId =' => $restaurantId];
+        $orders = $this->connect()->find()
+                ->where($condition)->orderDesc('OrderNo');
+        if ($orders->count()) {
+            $allOrders = array();
+            $counter = 0;
+            foreach ($orders as $order) {
+                $orderDto = new DownloadDTO\OrderShowDownloadDto(
+                        $order->OrderId, 
+                        $order->OrderNo, 
+                        $order->OrderTime, 
+                        $order->UserId, 
+                        $order->TableId,
+                        $order->TakeawayNo,
+                        $order->OrderType);
+
+                $allOrders[$counter++] = $orderDto;
+            }
+            Log::debug('Orders are retrived for customer ID : ' . $tableId);
+        }
+        return $allOrders;
+    }
 
 }

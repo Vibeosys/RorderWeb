@@ -161,7 +161,8 @@ CREATE TABLE [takeaway] (
   'DeliveryCharges'     DOUBLE,
   'CustId'              TEXT,
   'SourceId'            INTEGER,
-  'UserId'            TEXT);
+  'UserId'            TEXT,
+  'CreatedDate'       DATE);
 
    
    

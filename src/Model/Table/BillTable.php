@@ -130,13 +130,18 @@ class BillTable extends Table {
         }
     }
     
-    public function getCustomerBill($tableId) {
-          try{
-            $billDownloadDto = null;
+    public function getCustomerBill($tableId, $takeawayNo) {
+         $billDownloadDto = null;
+         if($tableId){
             $conditions = [
                 'TableId =' => $tableId];
-            $order = ['BillNo' => 'DESC'];
-            $newBill = $this->connect()->find()->where($conditions);
+         }  else {
+             $conditions = [
+                'TakeawayNo =' => $takeawayNo];
+         }
+              $order = 'BillNo';
+            try{
+            $newBill = $this->connect()->find()->where($conditions)->orderDesc($order);
             if($newBill->count()){
                 foreach ($newBill as $bill){
                     $billDownloadDto = new DownloadDTO\BillDownloadDto(

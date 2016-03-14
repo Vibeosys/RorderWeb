@@ -76,15 +76,25 @@ div.manage-controls:hover{
     box-shadow: 2px 2px 2px gainsboro;
 }
 
-.print-table-button{
+div.print-table-button{
+    background-color: white;
+    color: orangered;
+    border:1px solid gainsboro;
     margin: 10px;
-    padding: 10px;
-    width: 180px;
-    height: 130px;
+    width: auto;
+    height: auto;
+    font-size: xx-large;
+    padding-left:5px;
+    padding-right:5px;
     border-radius: 10px;
     font-weight: bolder;
     text-align: center;
     padding-top: 3%;
+}
+div.print-table-button > button{
+    background-color: #fff;
+    color: orangered;
+    margin-bottom: 5px;
 }
 .print-table-button:hover{
      box-shadow: 2px 2px 2px gainsboro;
@@ -123,6 +133,59 @@ div.manage-controls:hover{
     font-size: 16px;
 }
 .tab-container > ul > li.active >a{
+    color: orangered;
+}
+
+#loading-image{
+    margin-top: 10px;
+    margin-left: 50px;
+}
+div.popup-background{
+    //border: 1px solid red;
+    background: rgba(0, 0, 0, 0.52);;
+    position: fixed;
+    top: 50px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    padding: 10% 20%;
+    display: none;
+}
+
+div.popup-background > div.popup-list{
+    border: 2px solid gainsboro;
+    background: #fff;
+    opacity: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 500px;
+    min-height: 100px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+div.order-show{
+    background-color: white;
+    color: orangered;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    z-index: 1000;
+    cursor: pointer;
+}
+div.popup-background > div.close-button{
+    background-color: #fff;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
     color: orangered;
 }
             
