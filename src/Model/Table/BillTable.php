@@ -158,10 +158,34 @@ class BillTable extends Table {
                             $bill->PayedBy,
                             $bill->Discount,
                             $bill->TakeawayNo);
+                    //return $billDownloadDto;
                 }
                 Log::debug('Bill found for tableId :- '.$tableId.' BillNO :- '.$billDownloadDto->billNo);
             }
             return $billDownloadDto;
+        } catch (Exception $ex) {
+            echo 'bill table database error'.$ex;
+        }
+    }      
+    public function getTableBill($tableId, $restaurantId) {
+        $allTableBills = null;
+        $tableBillCounter = 0;
+           $conditions = [ 'RestaurantId =' => $restaurantId,
+                'TableId =' => $tableId];
+              $order = 'BillNo';
+            try{
+            $newBill = $this->connect()->find()->where($conditions)->orderDesc($order);
+            if($newBill->count()){
+                foreach ($newBill as $bill){
+                    $allTableBills[$tableBillCounter++] = new DownloadDTO\TableBillDownloadDto(
+                            $bill->BillNo, 
+                            $bill->TableId,
+                            $bill->UserId,
+                            $bill->CreatedDate);
+                }
+                Log::debug('Bill found for tableId :- '.$tableId);
+            }
+            return $allTableBills;
         } catch (Exception $ex) {
             echo 'bill table database error'.$ex;
         }

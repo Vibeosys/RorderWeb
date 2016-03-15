@@ -69,7 +69,8 @@ class ErrorDto {
         122 => 'Restaurant data updated successfully',
         123 => 'Oops ! Could not update',
         124 => 'Oops ! No bill generated for this table',
-        123 => 'Oops ! Could not found table for this resaurant',
+        125 => 'Oops ! Tables could not found for this resaurant',
+        126 => 'Oops ! Orders not found for this table',
        ];
     
     

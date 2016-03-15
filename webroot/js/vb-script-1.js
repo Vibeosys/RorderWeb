@@ -120,11 +120,11 @@ function printtable(){
                                $.each(result, function(idx, obj){
                                    if(obj.isOccupied){
                                     printhtml = printhtml + '<div class="print-table-button col-xs-2"  style="border-bottom: 8px solid rgba(247, 0, 0, 0.48);">'
-                                                        +  obj.tableNo +'<br><button onclick="orderpopup(' + obj.tableId + ')">Orders</button><button onclick="billpopup(' + obj.tableId + ')">Bills</button><button onclick="tablepopup(' + obj.tableId + ')">Print</button> </div>'; 
+                                                        +  obj.tableNo +'<br><div class="order-button col-xs-5" onclick="orderpopup(' + obj.tableId + ')">Orders</div><div class="bill-button col-xs-5" onclick="billpopup(' + obj.tableId + ')">Bills</div> </div>'; 
                                    }else{
                                   
                                     printhtml = printhtml + '<div class="print-table-button col-xs-2"  style="border-bottom: 8px solid rgba(0, 128, 0, 0.55);">'
-                                                      +  obj.tableNo +'<br><button onclick="orderpopup(' + obj.tableId + ')">Orders</button><button onclick="billpopup(' + obj.tableId + ')">Bills</button><button onclick="tablepopup(' + obj.tableId + ')">print</button> </div>';    
+                                                      +  obj.tableNo +'<br><div class="order-button col-xs-5" onclick="orderpopup(' + obj.tableId + ')">Orders</div><div class="bill-button col-xs-5" onclick="billpopup(' + obj.tableId + ')">Bills</div> </div>';    
                                    }
                                $('.table-list').html(printhtml);
                                });
@@ -169,95 +169,36 @@ function printtakeaway(){
                         }});
 }
 
-function printbill(){
-  window.location.assign('printbill');  
-}
 
 function orderpopup(id){
-    $('.popup-background').css('display','block');
-     var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>';
-      $('.popup-list').html(loading);
     $.cookie("cti", id, { expires : 1 });
-     $.ajax({
-                        url: "/getorders",
-                        type: "POST",
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        success: function (result, jqXHR, textStatus) {
-                            if (result) {
-                                  var printhtml = '';
-                               $.each(result, function(idx, obj){
-                                   
-                                    printhtml = printhtml + '<div id="'+ obj.orderId +'" class="order-show" onclick="orderdeatilspopup(' + obj.orderId + ')">'
-                                                           + '<div class="row">' + 
-                                                           '<div class="col-xs-6"> Order #' +  obj.orderNo +' </div>' +
-                                                           //'<div class="col-xs-2"></div>'+
-                                                           '<div class="col-xs-6"> Table #' +  obj.tableId +' </div>' +
-                                                           //'<div class="col-xs-2"></div>'+
-                                                           '</div><div class="row">' +
-                                                           '<div class="col-xs-6"> Served By ' +  obj.user +' </div>' +
-                                                           '<div class="col-xs-6"> Time ' +  obj.orderTime +' </div>' +
-                                                           //'<div class="col-xs-2"></div>'+
-                                                           '</div></div>';
-                               });
-                               $('.popup-list').html(printhtml);
-                               
-                            } else {
-                                var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
-                            $('.popup-list').html(printhtml);
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Tables not found</span></div>';
-                            $('.popup-list').html(printhtml);
-                        }});
-    
-    
+    window.location.assign("tableorders");
 }
 
-function orderdetailspopup(orderid){
-$.cookie("coi", orderid, { expires : 1 });
-     $.ajax({
-                        url: "/getorderdetails",
-                        type: "POST",
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        success: function (result, jqXHR, textStatus) {
-                            if (result) {
-                                  var printhtml = '';
-                                   printhtml = printhtml + '<div class="order-details-show">'
-                                                           + '<div class="row">' + 
-                                                           '<table> <tr><td>Desc</td><td>Qty</td></tr>' +
-                               $.each(result, function(idx, obj){
-                                   
-                                          printhtml = printhtml + '<tr><td>'+ obj.desc +'</td><td>'+ obj.qty +'</td></tr>';
-                               });
-                               printhtml = printhtml + 
-                               $('.popup-list').html(printhtml);
-                               
-                            } else {
-                                var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
-                            $('.popup-list').html(printhtml);
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Tables not found</span></div>';
-                            $('.popup-list').html(printhtml);
-                        }});
+function billpopup(id){
+    $.cookie("cti", id, { expires : 1 });
+    window.location.assign("tablebills");
 }
 
 function tablepopup(id) {
         $.cookie("cti", id, { expires : 1 });
         $.cookie("ctn", 0, { expires : 1 });
-    window.open("printpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
+    window.open("billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
 }
 
 function takeawaypopup(id) {
         $.cookie("cti", 0, { expires : 1 });
         $.cookie("ctn", id, { expires : 1 });
-    window.open("printpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
+    window.open("billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
+}
+
+function kotprint(id,cono,ctno,csb,cot) {
+    $.cookie("coi", id, { expires : 1 });
+    $.cookie("cono", cono, { expires : 1 });
+    $.cookie("ctno", ctno, { expires : 1 });
+    $.cookie("csb", csb, { expires : 1 });
+    $.cookie("cot", cot, { expires : 1 });
+    window.open("orderprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
 }
 
 

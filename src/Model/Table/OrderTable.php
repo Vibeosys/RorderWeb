@@ -170,7 +170,8 @@ class OrderTable extends Table {
     public function getTableOrders($tableId, $restaurantId) {
           $allOrders = NULL;
         $condition = ['TableId =' => $tableId, 
-            'RestaurantId =' => $restaurantId];
+            'RestaurantId =' => $restaurantId,
+            'OrderStatus =' => PLACED_ORDER_STATUS];
         $orders = $this->connect()->find()
                 ->where($condition)->orderDesc('OrderNo');
         if ($orders->count()) {

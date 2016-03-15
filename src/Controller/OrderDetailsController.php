@@ -11,6 +11,8 @@ namespace App\Controller;
 use App\Model\Table;
 use Cake\Log\Log;
 use App\DTO\UploadDTO;
+use App\DTO\DownloadDTO;
+use App\DTO;
 
 /**
  * Description of OrderDetailsController
@@ -60,6 +62,29 @@ class OrderDetailsController extends ApiController {
             return $this->getTableObj()->getDetails($orders);
         }
         return NULL;
+    }
+    
+    public function orderPrintPreview() {
+        $result = isset($_COOKIE['coi']);
+        if(1){
+            $orderId = $_COOKIE['coi'];
+            $orderNo = $_COOKIE['cono'];
+            $tableNo = $_COOKIE['ctno'];
+            $userName = $_COOKIE['csb'];
+            $orderTime = $_COOKIE['cot'];
+            $orderDetails = $this->getTableObj()->getKotDetails($orderId);
+            Log::debug('letest order details :-'.json_encode($orderDetails));
+            $this->set([
+                'orderNo' => $orderNo,
+                'tableNo' => $tableNo,
+                'user' => $userName,
+                'time' => $orderTime,
+                'menus' => $orderDetails
+                ]);
+        }else{
+          $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
+        }
+    
     }
 
 }

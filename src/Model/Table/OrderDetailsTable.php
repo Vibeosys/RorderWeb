@@ -80,5 +80,22 @@ class OrderDetailsTable extends Table{
         return $billPeintInfo;
     }
     
+    public function getKotDetails($orderId) {
+         $conditions = ['OrderId =' => $orderId];
+        $orderCounter = 0;
+        $kotInfo = null;
+        $orderDetails = $this->connect()->find()->where($conditions);
+        if($orderDetails->count()){
+            foreach ($orderDetails as $orderDetail){
+                $kotInfo[$orderCounter++] = new DownloadDTO\OrderKotPrintDto(
+                        $orderDetail->MenuId, 
+                        $orderDetail->MenuTitle,
+                        $orderDetail->OrderQuantity,
+                        $orderDetail->Note);
+            }
+        }
+        return $kotInfo;
+    }
+    
     
 }

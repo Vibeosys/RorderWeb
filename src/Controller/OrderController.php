@@ -95,5 +95,32 @@ class OrderController extends ApiController {
     public function getLatestOrders($tableId, $restaurantId) {
         return $this->getTableObj()->getTableOrders($tableId, $restaurantId);
     }
+    
+    public function tableOrders() {
+        $restId = parent::readCookie('cri');
+        $result = key_exists('cti', $_COOKIE);
+        Log::debug('Current restaurantId in order controller :- '.$restId);
+        Log::debug('Current orderId is present in order controller :- '.$result);
+        if(isset($restId) and $result){
+            $tableId = $_COOKIE['cti'];
+            Log::debug('Now order list shows for table :-'.$tableId);
+            $latestOrders = $this->getLatestOrders($tableId, $restId);
+            if(is_null($latestOrders)){
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
+                return;
+            }
+            $userController = new UserController();
+            $rtableController = new RTablesController();
+            foreach ($latestOrders as $order){
+                $user = $userController->getUserName($order->user);
+                $order->user = $user->userName;
+                $order->tableId = $rtableController->getBillTableNo($order->tableId);
+                $order->orderTime = date('H:i',strtotime('+330 minutes',strtotime($order->orderTime)));  
+            }
+            Log::debug('letest table orders :-'.json_encode($latestOrders));
+            $this->set(['orders' => $latestOrders]);
+        }
+        $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
+    }
 
 }

@@ -49,15 +49,15 @@ class MgmtPanelController extends ApiController{
             $this->redirect('/');
         }
     }
-    public function mgmtPanel() {
+    public function consol() {
         if($this->request->is('post') and isset($this->request->data['edit'])){
             $id = $this->request->data['restaurantId'];
             parent::writeCookie('eri', $id);
-            $this->redirect('/edit');
+            $this->redirect('edit');
         } elseif ($this->request->is('post') and isset($this->request->data['mgmt'])) {
             $id = $this->request->data['restaurantId'];
             parent::writeCookie('cri', $id);
-            $this->redirect('/managedata');
+            $this->redirect('managedata');
        }
        $adminId = parent::readCookie('aui');
        if(isset($adminId)){
@@ -166,19 +166,7 @@ class MgmtPanelController extends ApiController{
     }
     
     public function printBill() {
-        $restId = parent::readCookie('cri');
-        Log::debug('Current restaurant is : -'.$restId);
-        if(empty($restId)){
-             $this->redirect('login');
-        }
-            $rtableController = new RTablesController();
-            $restaurantTables = $rtableController->getRtables($restId);
-            
-            if(isset($restaurantTables)){
-                $this->set('tables', $restaurantTables);
-            }  else {
-                $this->set(['message' => DTO\ErrorDto::prepareMessage(125),COLOR => ERROR_COLOR]);
-            }
+       
         
     }
     
@@ -203,71 +191,6 @@ class MgmtPanelController extends ApiController{
             $latestTakeaway = $takeawayController->getLatestTakeaway($restId);
             Log::debug('letest takeaway :-'.json_encode($latestTakeaway));
             $this->response->body(json_encode($latestTakeaway));
-        }
-    }
-    
-    public function getOrders() {
-        $this->autoRender = FALSE;
-        $restId = parent::readCookie('cri');
-        $tableId = $_COOKIE['cti'];
-        if(isset($restId) and $this->request->is('ajax') ){
-            Log::debug('Ajax request hited for takeaway');
-            $orderController = new OrderController();
-            $latestOrders = $orderController->getLatestOrders($tableId, $restId);
-            
-            if(is_null($latestOrders)){
-                $this->response->body(json_encode($latestOrders));
-                return;
-            }
-            $userController = new UserController();
-            $rtableController = new RTablesController();
-            foreach ($latestOrders as $order){
-                $user = $userController->getUserName($order->user);
-                $order->user = $user->userName;
-                $order->tableId = $rtableController->getBillTableNo($order->tableId);
-                $order->orderTime = date('H:i',strtotime('+330 minutes',strtotime($order->orderTime)));  
-            }
-            Log::debug('letest table orders :-'.json_encode($latestOrders));
-            $this->response->body(json_encode($latestOrders));
-        }
-    }
-    public function getOrderDeatils() {
-        $this->autoRender = FALSE;
-        $orderId = $_COOKIE['coi'];
-        if(isset($orderIdId) and $this->request->is('ajax') ){
-            Log::debug('Ajax request hited for order details');
-            $orders = array($orderId);
-            $orderDetailsController = new OrderDetailsController();
-            $orderDetails = $orderDetailsController->getbillOrderDetails($orders);
-              $menuList = array();
-            foreach ($orderDetails as $details){
-                if(!in_array($details->menuId, $menuList)){
-                    array_push($menuList, $details->menuId);
-                }
-            }
-            $menuController = new MenuController();
-            $menuInfo = $menuController->getMenuItemList(null,$menuList);
-            $orderDetailsShow = array();
-            $indexCounter = 0;
-            foreach ($menuInfo as $menu){
-                $billPrintDto = new DownloadDTO\BillPrintDwnldDto(
-                        $indexCounter + 1,
-                        $menu->menuId, 
-                        $menu->menuTitle, 
-                        0, 
-                        $menu->price, 
-                        0);
-                $orderDetailsShow[$indexCounter++] = $billPrintDto;
-            }
-            foreach ($billOrderDetails as $orderDetails){
-                foreach ($orderDetailsShow as $pinfo){
-                   if($orderDetails->menuId == $pinfo->id){
-                       $pinfo->qty = $pinfo->qty + $orderDetails->qty;
-                   } 
-                }
-            }
-            Log::debug('letest takeaway :-'.json_encode($latestTakeaway));
-            $this->response->body(json_encode($orderDetailsShow));
         }
     }
     

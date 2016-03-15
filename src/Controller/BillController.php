@@ -8,6 +8,8 @@ namespace App\Controller;
 use App\Model\Table;
 use Cake\Log\Log;
 use App\DTO\UploadDTO;
+use App\DTO\DownloadDTO;
+use App\DTO;
 /**
  * Description of BillController
  *
@@ -91,5 +93,34 @@ class BillController  extends ApiController{
          }
          Log::error('Error occured in sync entry of new bill');
          return ;
+    }
+    
+    public function tableBill() {
+        $restId = parent::readCookie('cri');
+        $result = key_exists('cti', $_COOKIE);
+        Log::debug('Current restaurantId in order controller :- '.$restId);
+        Log::debug('Current orderId is present in order controller :- '.$result);
+        if(isset($restId) and $result){
+            $tableId = $_COOKIE['cti'];
+            Log::debug('Now bill list shows for table :-'.$tableId);
+            $latestBill = $this->getTableObj()->getTableBill($tableId, $restId);
+            
+            if(is_null($latestBill)){
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
+                return;
+            }
+            $userController = new UserController();
+            $rtableController = new RTablesController();
+            foreach ($latestBill as $bill){
+                $user = $userController->getUserName($bill->user);
+                $bill->user = $user->userName;
+                $bill->tableNo = $rtableController->getBillTableNo($bill->tableNo);
+                $bill->date = date('d-m-Y H:i',strtotime('+330 minutes',strtotime($bill->date)));  
+            }
+            Log::debug('letest table orders :-'.json_encode($latestBill));
+            $this->set(['bills' => $latestBill,
+                        'tableId' => $tableId]);
+        }
+        $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
     }
 }

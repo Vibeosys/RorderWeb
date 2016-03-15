@@ -42,12 +42,6 @@ use Cake\Cache\Cache;
                                    
                         </div>
                     </div>
-                     <div class="row popup-background">
-                         <div id="close" class="close-button"> Close</div>
-                        <div class="popup-list">    
-                                   
-                        </div>
-                    </div>
                 </section>
             </div><!-- /.box -->                       
         </div><!-- /.col -->
