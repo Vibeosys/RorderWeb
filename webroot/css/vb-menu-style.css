@@ -53,7 +53,7 @@ div.manage-controls{
     margin-right: 60px;
     min-width: 200px;
 }
-div.manage-controls > button {
+div.manage-controls > button,div.manage-controls > a > button {
     background: white;
     width: 100%;
     height: 10%;
@@ -129,14 +129,18 @@ div.print-table-button > button{
     color: black;
     font-weight: bold;
     font-size: 16px;
+    background-color: rgba(158, 158, 158, 0.09);
 }
-.tab-container > ul > li.active >a{
+ul.nav > li.active >a{
     color: orangered;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
 }
-
 #loading-image{
-    margin-top: 10px;
-    margin-left: 50px;
+    margin-top: 10%;
+    margin-left: 40%;
 }
 div.order-button , div.bill-button{
     
@@ -172,5 +176,10 @@ div.order-show{
 div.order-show:hover{
   box-shadow: 2px 2px 2px gainsboro;
   cursor: pointer;  
+}
+
+div.table-list > div.error-message,div.table-order-list > div.error-message{
+    margin-top: 5%;
+    margin-left: 35%;
 }
  
