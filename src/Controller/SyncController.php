@@ -142,14 +142,17 @@ class SyncController extends ApiController {
     }
     
     public function billEntry($userId, $json, $operation, $restaurantId) {
-            
-                if ($userId) {
-                    try {
-                        return $this->getTableObj()->Insert($userId, $json, $this->billTable, $operation, $restaurantId);
-                    } catch (Excption $ex) {
-                        throw new Exception($ex);
-                    }
+        $UserObj = new UserController;
+        $allUser = $UserObj->getUsers($restaurantId);
+            if ($allUser) {
+                foreach ($allUser as $user) {    
+                    if ($user->userId != $userId) {
+                         $this->getTableObj()->Insert($user->userId, $json, $this->billTable, $operation, $restaurantId);
+                    } else {
+                         $this->getTableObj()->Insert($user->userId, $json, $this->billTable, $operation, $restaurantId); 
+                       }
                 }
+            }
     }
     
     public function billDetailsEntry($userId, $json, $operation, $restaurantId) {

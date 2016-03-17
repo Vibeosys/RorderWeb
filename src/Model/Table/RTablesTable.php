@@ -67,9 +67,9 @@ class RTablesTable extends Table{
                 return $result->TableNo;
             }
             }
-            return FALSE;
+            return null;
         } catch (Exception $ex) {
-            return FALSE;
+            return null;
         }
     }
     

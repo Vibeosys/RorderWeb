@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title> QuickServe | Print preview</title>
+        <title> QuickServe | Kot Print preview</title>
         <?= $this->Html->css('print-preview-style.css') ?>
         <script>
             function printfunction(id){
@@ -27,8 +27,12 @@
         <div id="print-div" class="content-wrapper">
             <?php if(isset($menus) and isset($orderNo) and isset($tableNo)){ ?>
             <div class="date-time" style="padding-left: 0px">
-                <span style="position:relative;left: 0">Order  #<?= $orderNo ?></span>
-             <span style="position:absolute;right: 0">Table  #<?= $tableNo ?></span><br>  
+             <span style="position:relative;left: 0">Order  #<?= $orderNo ?></span>
+             <?php if($tableNo){?>
+              <span style="position:absolute;right: 0">Table  #<?= $tableNo ?></span><br>  
+             <?php }else{ ?>
+             <span style="position:absolute;right: 0">Takeaway  #<?= $takeawayNo ?></span><br>  
+            <?php } ?>
              <span style="position:relative;left: 0">Served By  <?= $user ?></span>
             <span style="position:absolute;right: 0">Time <?= $time ?></span>
             </div>
@@ -47,12 +51,11 @@
                         <?php foreach ($menus as $menu){ ?>
                         <tr>
                             <td></td>
-                            <td><?= $menu->desc ?></td>
+                            <td><?= $menu->desc ?><br><span style="margin-left: 20px;font-size: 14px;font-style: italic;"><?= $menu->note ?></span></td>
                             <td style="width:18px"></td>
                             <td><?= $menu->qty ?></td>
-                            <td style="width:14px"></td>
+                            <td style="width:6%"></td>
                         </tr>
-                        <tr><td></td><td style="padding-left: 26px;font-style: italic;"><?= $menu->note ?></td></tr>
                         <?php } ?>
                     </tbody>
                 </table>

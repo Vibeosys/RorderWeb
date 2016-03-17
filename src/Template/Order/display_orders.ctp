@@ -29,10 +29,14 @@ use Cake\Cache\Cache;
                         <div class="table-order-list"> 
                           <?php if(isset($orders)){
                           foreach ($orders as $order){ ?>
-                            <div class="order-show col-xs-5" onclick="kotprint('<?= $order->orderId ?>',<?= $order->orderNo ?>,<?= $order->tableId ?>,'<?= $order->user ?>','<?= $order->orderTime ?>')">
+                            <div class="order-show col-xs-5" onclick="kotprint('<?= $order->orderId ?>',<?= $order->orderNo ?>,<?= $order->tableId ?>,<?= $order->takeawayNo ?>,'<?= $order->user ?>','<?= $order->orderTime ?>')">
                                 <div class="row">
                                     <div class="order-no col-xs-5"><label>Order #</label> <?= $order->orderNo ?></div>
+                                 <?php if($order->tableId){ ?>
                                     <div class="table-no col-xs-5"><label>Table #</label> <?= $order->tableId ?></div>
+                                 <?php }else{ ?>
+                                    <div class="table-no col-xs-5"><label>Takeaway #</label> <?= $order->takeawayNo ?></div>
+                                 <?php } ?>
                                 </div>
                                 <div class="row">
                                     <div class="user-name col-xs-5"><label>Served By </label> <?= $order->user ?></div>

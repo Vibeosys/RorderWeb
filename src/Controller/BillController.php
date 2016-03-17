@@ -40,9 +40,6 @@ class BillController  extends ApiController{
              $billEntryDto->tableId = $this->isNull($billEntryDto->tableId);
             $billEntryDto->takeawayNo = $this->isNull($billEntryDto->takeawayNo);
             $result = $this->makeSyncEntry($billEntryDto);
-            if(!$result){
-                $this->transRollback();
-            }
             return $billEntryResult;
         }
         return false;
@@ -95,16 +92,15 @@ class BillController  extends ApiController{
          return ;
     }
     
-    public function tableBill() {
+    public function displayBill() {
         $restId = parent::readCookie('cri');
         $result = key_exists('cti', $_COOKIE);
         Log::debug('Current restaurantId in order controller :- '.$restId);
-        Log::debug('Current orderId is present in order controller :- '.$result);
         if(isset($restId) and $result){
             $tableId = $_COOKIE['cti'];
-            Log::debug('Now bill list shows for table :-'.$tableId);
-            $latestBill = $this->getTableObj()->getTableBill($tableId, $restId);
-            
+            $takeawayNo = $_COOKIE['ctn'];
+            Log::debug('Now bill list shows for table :-'.$tableId .'or for takeawayNo :- '.$takeawayNo);
+            $latestBill = $this->getTableObj()->getTableBill($tableId, $takeawayNo, $restId);
             if(is_null($latestBill)){
                 $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
                 return;
@@ -117,9 +113,9 @@ class BillController  extends ApiController{
                 $bill->tableNo = $rtableController->getBillTableNo($bill->tableNo);
                 $bill->date = date('d-m-Y H:i',strtotime('+330 minutes',strtotime($bill->date)));  
             }
-            Log::debug('letest table orders :-'.json_encode($latestBill));
             $this->set(['bills' => $latestBill,
-                        'tableId' => $tableId]);
+                        'tableId' => $tableId,
+                        'takeawayNo' => $takeawayNo]);
         }
         $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
     }

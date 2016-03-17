@@ -8,18 +8,17 @@ $(document).ready(function(){
       $('.table-list').html(loading);
       printtable();
   }
+  
+  //onclick on dine-in tab to retrive table
   $('#dinein').on('click', function(){
       $('.table-list').html(loading);
         printtable();
-});           
+});
+//onclick on takeaway tab to retrive takeaway
   $('#takeaway').on('click', function(){
       $('.table-list').html(loading);
         printtakeaway();
 });  
- $('#close').on('click', function(){
-      $('.popup-background').hide();
-}); 
-    
     
  $('show-edit-section').hide();
  
@@ -120,22 +119,21 @@ function printtable(){
                                $.each(result, function(idx, obj){
                                    if(obj.isOccupied){
                                     printhtml = printhtml + '<div class="print-table-button col-xs-2"  style="border-bottom: 8px solid rgba(247, 0, 0, 0.48);">'
-                                                        +  obj.tableNo +'<br><div class="order-button col-xs-5" onclick="orderpopup(' + obj.tableId + ')">Orders</div><div class="bill-button col-xs-5" onclick="billpopup(' + obj.tableId + ')">Bills</div> </div>'; 
+                                                        +  obj.tableNo +'<br><div class="order-button col-xs-5" onclick="tableorder(' + obj.tableId + ')">Orders</div><div class="bill-button col-xs-5" onclick="tablebill(' + obj.tableId + ')">Bills</div> </div>'; 
                                    }else{
                                   
                                     printhtml = printhtml + '<div class="print-table-button col-xs-2"  style="border-bottom: 8px solid rgba(0, 128, 0, 0.55);">'
-                                                      +  obj.tableNo +'<br><div class="order-button col-xs-5" onclick="orderpopup(' + obj.tableId + ')">Orders</div><div class="bill-button col-xs-5" onclick="billpopup(' + obj.tableId + ')">Bills</div> </div>';    
+                                                      +  obj.tableNo +'<br><div class="order-button col-xs-5" onclick="tableorder(' + obj.tableId + ')">Orders</div><div class="bill-button col-xs-5" onclick="tablebill(' + obj.tableId + ')">Bills</div> </div>';    
                                    }
                                $('.table-list').html(printhtml);
                                });
-                               
                             } else {
                                 var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
                             $('.table-list').html(printhtml);
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Tables not found</span></div>';
+                            var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
                             $('.table-list').html(printhtml);
                         }});
 }
@@ -151,10 +149,8 @@ function printtakeaway(){
                                   var printhtml = '';
                                $.each(result, function(idx, obj){
                                    
-                                    printhtml = printhtml + '<div class="print-table-button col-xs-2" onclick="takeawaypopup(' + obj.tno + ')" style="background-color: white;color: orangered;border:1px solid gainsboro;font-size: xx-large;">'
-                                                     + '#' +  obj.tno +' </div>'; 
-                                   
-                               
+                                    printhtml = printhtml + '<div class="print-table-button col-xs-2">'
+                                                     + '#' +  obj.tno +' <br><div class="order-button col-xs-5" onclick="takeawayorder(' + obj.tno + ')">Orders</div><div class="bill-button col-xs-5" onclick="takeawaybill(' + obj.tno + ')">Bills</div></div>'; 
                                });
                                $('.table-list').html(printhtml);
                                
@@ -164,20 +160,32 @@ function printtakeaway(){
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Tables not found</span></div>';
+                            var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
                             $('.table-list').html(printhtml);
                         }});
 }
 
-
-function orderpopup(id){
+function tableorder(id){
     $.cookie("cti", id, { expires : 1 });
+    $.cookie("ctn", 0, { expires : 1 });
     window.location.assign("tableorders");
 }
 
-function billpopup(id){
+function tablebill(id){
     $.cookie("cti", id, { expires : 1 });
+    $.cookie("ctn", 0, { expires : 1 });
     window.location.assign("tablebills");
+}
+function takeawayorder(id){
+    $.cookie("ctn", id, { expires : 1 });
+    $.cookie("cti", 0, { expires : 1 });
+    window.location.assign("takeawayorders");
+}
+
+function takeawaybill(id){
+    $.cookie("ctkno", id, { expires : 1 });
+    $.cookie("cti", 0, { expires : 1 });
+    window.location.assign("takeawaybills");
 }
 
 function tablepopup(id) {
@@ -192,10 +200,11 @@ function takeawaypopup(id) {
     window.open("billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
 }
 
-function kotprint(id,cono,ctno,csb,cot) {
+function kotprint(id,cono,ctno,ctkno,csb,cot) {
     $.cookie("coi", id, { expires : 1 });
     $.cookie("cono", cono, { expires : 1 });
     $.cookie("ctno", ctno, { expires : 1 });
+    $.cookie("ctkno", ctkno, { expires : 1 });
     $.cookie("csb", csb, { expires : 1 });
     $.cookie("cot", cot, { expires : 1 });
     window.open("orderprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");

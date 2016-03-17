@@ -29,10 +29,19 @@ use Cake\Cache\Cache;
                         <div class="table-order-list"> 
                           <?php if(isset($bills)){
                           foreach ($bills as $bill){ ?>
+                            <?php if($tableId){?>
                             <div class="order-show col-xs-5" onclick="tablepopup(<?= $tableId ?>)">
+                               <?php }else{ ?>
+                                <div class="order-show col-xs-5" onclick="takeawaypopup(<?= $takeawayNo ?>)">
+                               <?php } ?>
                                 <div class="row">
                                     <div class="order-no col-xs-5"><label>Bill #</label> <?= $bill->billNo ?></div>
-                                    <div class="table-no col-xs-5"><label>Table #</label> <?= $bill->tableNo ?></div>
+                               <?php if($tableId){?>
+                                      <div class="table-no col-xs-5"><label>Table #</label> <?= $bill->tableNo ?></div>
+                               <?php }else{ ?>
+                                      <div class="table-no col-xs-5"><label>Takeaway #</label> <?= $takeawayNo ?></div>
+                               <?php } ?>
+                                    
                                 </div>
                                 <div class="row">
                                     <div class="user-name col-xs-5"><label>Served By </label> <?= $bill->user ?></div>

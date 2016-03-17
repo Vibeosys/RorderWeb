@@ -167,12 +167,16 @@ class OrderTable extends Table {
         }
     }
     
-    public function getTableOrders($tableId, $restaurantId) {
+    public function getTableOrders($tableId, $takeawayNo, $restaurantId) {
           $allOrders = NULL;
-        $condition = ['TableId =' => $tableId, 
-            'RestaurantId =' => $restaurantId,
-            'OrderStatus =' => PLACED_ORDER_STATUS];
-        $orders = $this->connect()->find()
+           $condition = ['RestaurantId =' => $restaurantId,
+                    'OrderStatus =' => PLACED_ORDER_STATUS];
+                if($tableId){
+                    $condition['TableId ='] = $tableId;
+                }  else {
+                    $condition['TakeawayNo ='] = $takeawayNo;
+                }
+           $orders = $this->connect()->find()
                 ->where($condition)->orderDesc('OrderNo');
         if ($orders->count()) {
             $allOrders = array();

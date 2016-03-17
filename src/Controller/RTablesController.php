@@ -40,7 +40,6 @@ class RTablesController extends ApiController {
     }
     
     public function getBillTableNo($tableId) {
-         Log::debug('request arrived in rtable for tableId :- '.$tableId);
         return $this->getTableObj()->getTableNo($tableId);
     }
     

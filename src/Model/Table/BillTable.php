@@ -167,11 +167,15 @@ class BillTable extends Table {
             echo 'bill table database error'.$ex;
         }
     }      
-    public function getTableBill($tableId, $restaurantId) {
+    public function getTableBill($tableId, $takeawayNo, $restaurantId) {
         $allTableBills = null;
         $tableBillCounter = 0;
-           $conditions = [ 'RestaurantId =' => $restaurantId,
-                'TableId =' => $tableId];
+           $conditions = [ 'RestaurantId =' => $restaurantId];
+            if($tableId){
+                    $conditions['TableId ='] = $tableId;
+                }  else {
+                    $conditions['TakeawayNo ='] = $takeawayNo;
+                }
               $order = 'BillNo';
             try{
             $newBill = $this->connect()->find()->where($conditions)->orderDesc($order);
@@ -180,6 +184,7 @@ class BillTable extends Table {
                     $allTableBills[$tableBillCounter++] = new DownloadDTO\TableBillDownloadDto(
                             $bill->BillNo, 
                             $bill->TableId,
+                            $bill->TakeawayNo,
                             $bill->UserId,
                             $bill->CreatedDate);
                 }

@@ -64,10 +64,10 @@
                                          </button>
                                     </div>
                                      </form>
-                                    <div id="printbll" class="manage-controls print-bill col-xs-3" onclick="printbill()"><button>
+                                    <div id="printbll" class="manage-controls print-bill col-xs-3" onclick="printbill()"><a href="printbill"><button>
                                         <?= $this->Html->image('quickserve-prinbill.png', ['class' => 'quickserve-menu','alt' => 'TABLE'])?>
                                         <b>Print Bill</b>
-                                        </button>
+                                            </button></a>
                                     </div>
                                 </div>
                             </section>

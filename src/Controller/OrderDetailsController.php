@@ -70,6 +70,7 @@ class OrderDetailsController extends ApiController {
             $orderId = $_COOKIE['coi'];
             $orderNo = $_COOKIE['cono'];
             $tableNo = $_COOKIE['ctno'];
+            $takeawayNo = $_COOKIE['ctkno'];
             $userName = $_COOKIE['csb'];
             $orderTime = $_COOKIE['cot'];
             $orderDetails = $this->getTableObj()->getKotDetails($orderId);
@@ -77,6 +78,7 @@ class OrderDetailsController extends ApiController {
             $this->set([
                 'orderNo' => $orderNo,
                 'tableNo' => $tableNo,
+                'takeawayNo' => $takeawayNo,
                 'user' => $userName,
                 'time' => $orderTime,
                 'menus' => $orderDetails

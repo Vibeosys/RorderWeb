@@ -68,9 +68,11 @@ class ErrorDto {
         121 => 'Your username or password is incorrect',
         122 => 'Restaurant data updated successfully',
         123 => 'Oops ! Could not update',
-        124 => 'Oops ! No bill generated for this table',
-        125 => 'Oops ! Tables could not found for this resaurant',
+        124 => 'Oops ! bill not generated for this table',
+        125 => 'Oops ! Tables not found for this resaurant',
         126 => 'Oops ! Orders not found for this table',
+        127 => 'Oops ! Takeway not found for this resaurant',                
+        128 => 'Oops ! Orders not found for this takeaway',
        ];
     
     

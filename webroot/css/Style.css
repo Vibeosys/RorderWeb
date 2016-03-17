@@ -125,10 +125,7 @@ body {
   background: #fff;
   padding: 15px;
   color: #444;
-  border-top: 1px solid red;
-  //position: fixed;
-  //position: relative;
-  //top: 90%;
+  border-top: 1px solid rgba(158, 158, 158, 0.2);
 }
 /* Fixed layout */
 .fixed .main-header,

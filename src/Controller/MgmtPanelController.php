@@ -56,10 +56,12 @@ class MgmtPanelController extends ApiController{
             $this->redirect('edit');
         } elseif ($this->request->is('post') and isset($this->request->data['mgmt'])) {
             $id = $this->request->data['restaurantId'];
+            Log::debug('current restaurantId set to :- '.$id);
             parent::writeCookie('cri', $id);
             $this->redirect('managedata');
        }
        $adminId = parent::readCookie('aui');
+       Log::debug('current admin user id :-'.$adminId);
        if(isset($adminId)){
            Log::debug('Login successfull');
            $restaurantAdminController = new RestaurantAdminController();
@@ -142,6 +144,13 @@ class MgmtPanelController extends ApiController{
         parent::deleteCookie('aui');
         parent::deleteCookie('cri');
         parent::deleteCookie('eri');
+        parent::deleteCookie('coi');//current order id
+        parent::deleteCookie('cot');//current order time
+        parent::deleteCookie('csb');//current served by
+        parent::deleteCookie('cono');//current order number
+        parent::deleteCookie('ctno');//current tableno
+        parent::deleteCookie('ctkno');//current takeaway no
+        parent::deleteCookie('cti');//current tableId
         $this->redirect('login');
     }
     
@@ -174,10 +183,9 @@ class MgmtPanelController extends ApiController{
         $this->autoRender = FALSE;
         $restId = parent::readCookie('cri');
         if(isset($restId) and $this->request->is('ajax') ){
-            Log::debug('Ajax request hited for tables');
+            Log::debug('Ajax request hited for tables of restaurantId :-'.$restId);
             $rtableController = new RTablesController();
             $restaurantTables = $rtableController->getRtables($restId);
-            //$this->response->type('text/plain');
             $this->response->body(json_encode($restaurantTables));
         }
     }
@@ -189,14 +197,13 @@ class MgmtPanelController extends ApiController{
             Log::debug('Ajax request hited for takeaway');
             $takeawayController = new TakeawayController();
             $latestTakeaway = $takeawayController->getLatestTakeaway($restId);
-            Log::debug('letest takeaway :-'.json_encode($latestTakeaway));
             $this->response->body(json_encode($latestTakeaway));
         }
     }
     
     public function printPreview() {
             $tableId = $_COOKIE['cti'];
-            $takeawayNo = $_COOKIE['ctn'];
+            $takeawayNo = $_COOKIE['ctkno'];
             Log::debug('Current tableId :-'.$tableId);
             Log::debug('Current takeawayNo :- '.$takeawayNo);
              if(empty($tableId) and empty($takeawayNo)){

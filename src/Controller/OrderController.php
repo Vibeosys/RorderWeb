@@ -92,19 +92,19 @@ class OrderController extends ApiController {
         return $this->getTableObj()->IsOrderPresent($custId, $restaurantId, $orderStatus);
     }
     
-    public function getLatestOrders($tableId, $restaurantId) {
-        return $this->getTableObj()->getTableOrders($tableId, $restaurantId);
+    public function getLatestOrders($tableId, $takeawayNo, $restaurantId) {
+        return $this->getTableObj()->getTableOrders($tableId, $takeawayNo, $restaurantId);
     }
     
-    public function tableOrders() {
+    public function displayOrders() {
         $restId = parent::readCookie('cri');
         $result = key_exists('cti', $_COOKIE);
         Log::debug('Current restaurantId in order controller :- '.$restId);
-        Log::debug('Current orderId is present in order controller :- '.$result);
         if(isset($restId) and $result){
             $tableId = $_COOKIE['cti'];
+            $takeawayNo = $_COOKIE['ctn'];
             Log::debug('Now order list shows for table :-'.$tableId);
-            $latestOrders = $this->getLatestOrders($tableId, $restId);
+            $latestOrders = $this->getLatestOrders($tableId,$takeawayNo, $restId);
             if(is_null($latestOrders)){
                 $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
                 return;
@@ -115,9 +115,10 @@ class OrderController extends ApiController {
                 $user = $userController->getUserName($order->user);
                 $order->user = $user->userName;
                 $order->tableId = $rtableController->getBillTableNo($order->tableId);
-                $order->orderTime = date('H:i',strtotime('+330 minutes',strtotime($order->orderTime)));  
+                $order->orderTime = date('H:i',strtotime('+330 minutes',strtotime($order->orderTime)));
+                $order->tableId = $this->isNull($order->tableId);
+                $order->takeawayNo = $this->isNull($order->takeawayNo);
             }
-            Log::debug('letest table orders :-'.json_encode($latestOrders));
             $this->set(['orders' => $latestOrders]);
         }
         $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
