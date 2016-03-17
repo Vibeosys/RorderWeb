@@ -168,7 +168,7 @@ CREATE TABLE [takeaway] (
 
 CREATE TABLE [r_rooms](
  'RoomId'    INTEGER PRIMARY KEY,
- 'Discription'    TEXT,
+ 'Description'    TEXT,
 'Active'              BOOLEAN);
 
 CREATE TABLE [r_printers](
@@ -189,7 +189,7 @@ CREATE TABLE [r_room_printer](
  'RoomId'    INTEGER PRIMARY KEY,
  'RoomTypeId'    INTEGER,
  'PrinterId'    INTEGER,
- 'Discription'    TEXT,
+ 'Description'    TEXT,
  'Active'         BOOLEAN);
 
 CREATE TABLE [r_config_settings](
@@ -199,7 +199,7 @@ CREATE TABLE [r_config_settings](
 CREATE TABLE [permission_set](
  'PermissionId'    INTEGER PRIMARY KEY,
  'PermissionKey'    TEXT,
- 'Discription'    TEXT,
+ 'Description'    TEXT,
  'Active'         BOOLEAN);
 
 

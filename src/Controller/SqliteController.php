@@ -42,6 +42,11 @@ class SqliteController extends ApiController {
             $this->addMenuNote($tableObject);
             $this->addTakeawaySource($tableObject);
             $this->addOrderType($tableObject);
+            $this->addPermissionSet($tableObject);
+            $this->addRoomType($tableObject);
+            $this->addRrooms($tableObject);
+            $this->addPrinters($tableObject);
+            $this->addRoomPrinters($tableObject);
 
             $this->response->type('class');
             $this->response->file($this->sqliteFile, ['download' => true]);
@@ -204,5 +209,54 @@ class SqliteController extends ApiController {
             Log::error('Record is not inserted into Order_Type SQLite table');
         }
     }
+    
+    private function addPermissionSet($tableObject) {
+        $permissionSetController = new PermissionSetController();
+        $PreparedStatement = $permissionSetController->prepareInsertStatement();
+        if ($tableObject->excutePreparedStatement($PreparedStatement)) {
+            Log::debug('Record is inserted into Permission_Set SQLite table for restaurantId ' . $this->RestaurantId);
+        } else {
+            Log::error('Record is not inserted into Permission_Set SQLite table');
+        }
+    }
 
+    private function addRoomType($tableObject) {
+        $roomTypetController = new RoomTypeController();
+        $PreparedStatement = $roomTypetController->prepareInsertStatement();
+        if ($tableObject->excutePreparedStatement($PreparedStatement)) {
+            Log::debug('Record is inserted into Room_Type SQLite table for restaurantId ' . $this->RestaurantId);
+        } else {
+            Log::error('Record is not inserted into Room_Type SQLite table');
+        }
+    }
+    
+    private function addRrooms($tableObject) {
+        $rRoomController = new RRoomsController();
+        $PreparedStatement = $rRoomController->prepareInsertStatement($this->RestaurantId);
+        if ($tableObject->excutePreparedStatement($PreparedStatement)) {
+            Log::debug('Record is inserted into R_Rooms SQLite table for restaurantId ' . $this->RestaurantId);
+        } else {
+            Log::error('Record is not inserted into R_Rooms SQLite table');
+        }
+    }
+    
+    private function addPrinters($tableObject) {
+        $rPrinterController = new RPrinterController();
+        $PreparedStatement = $rPrinterController->prepareInsertStatement($this->RestaurantId);
+        if ($tableObject->excutePreparedStatement($PreparedStatement)) {
+            Log::debug('Record is inserted into R_Printers SQLite table for restaurantId ' . $this->RestaurantId);
+        } else {
+            Log::error('Record is not inserted into R_Printers SQLite table');
+        }
+    }
+    
+    private function addRoomPrinters($tableObject) {
+        $rRoomPrinterController = new RRoomPrinterController();
+        $PreparedStatement = $rRoomPrinterController->prepareInsertStatement($this->RestaurantId);
+        if ($tableObject->excutePreparedStatement($PreparedStatement)) {
+            Log::debug('Record is inserted into R_Room_Printers SQLite table for restaurantId ' . $this->RestaurantId);
+        } else {
+            Log::error('Record is not inserted into R_Room_Printers SQLite table');
+        }
+    }
 }
