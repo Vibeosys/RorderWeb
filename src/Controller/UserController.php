@@ -18,8 +18,8 @@ use App\DTO\DownloadDTO;
  * @author niteen
  */
 define('USER_INS_QRY', "INSERT INTO users (UserId,UserName,Password,Active,"
-        . "RoleId,RestaurantId) VALUES (@UserId,\"@UserName\",\"@Password\","
-        . "@Active,@RoleId,@RestaurantId);");
+        . "RoleId,RestaurantId,Permissions) VALUES (@UserId,\"@UserName\",\"@Password\","
+        . "@Active,@RoleId,@RestaurantId,@Permissions);");
 
 class UserController extends ApiController {
 
@@ -57,6 +57,7 @@ class UserController extends ApiController {
             $preparedStatements = str_replace('@Active', $user->active, $preparedStatements);
             $preparedStatements = str_replace('@RoleId', $user->roleId, $preparedStatements);
             $preparedStatements = str_replace('@RestaurantId', $user->restaurantId, $preparedStatements);
+            $preparedStatements = str_replace('@Permissions', $this->isNull($user->permissions), $preparedStatements);
         }
         return $preparedStatements;
     }

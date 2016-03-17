@@ -24,7 +24,8 @@ CREATE TABLE [menu_category](
   'Active'                      BOOLEAN,
   'FoodType'                BOOLEAN,
   'IsSpicy'                     BOOLEAN,
-  'CategoryId'              INTEGER);
+  'CategoryId'              INTEGER,
+  'RoomId'              INTEGER);
   
   CREATE TABLE [table_category] (
   'TableCategoryId'       INTEGER NOT NULL PRIMARY KEY,
@@ -90,7 +91,8 @@ CREATE TABLE [menu_category](
   'Password'            TEXT,
   'Active'                  BOOLEAN,
   'RoleId'                  INTEGER,
-  'RestaurantId'        INTEGER);
+  'RestaurantId'        INTEGER,
+  'Permissions'            TEXT);
 
   CREATE TABLE [sync](
  'SyncAutoNo'           INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -163,6 +165,45 @@ CREATE TABLE [takeaway] (
   'SourceId'            INTEGER,
   'UserId'            TEXT,
   'CreatedDate'       DATE);
+
+CREATE TABLE [r_rooms](
+ 'RoomId'    INTEGER PRIMARY KEY,
+ 'Discription'    TEXT,
+'Active'              BOOLEAN);
+
+CREATE TABLE [r_printers](
+ 'PrinterId'    INTEGER PRIMARY KEY,
+ 'IpAddress'    TEXT,
+ 'PrinterName'    TEXT,
+ 'ModelName'    TEXT,
+ 'Company'    TEXT,
+ 'MacAddress'    TEXT,
+ 'Active'       BOOLEAN);
+
+CREATE TABLE [room_type](
+ 'RoomTypeId'    INTEGER PRIMARY KEY,
+ 'RoomType'    TEXT,
+ 'Active'              BOOLEAN);
+
+CREATE TABLE [r_room_printer](
+ 'RoomId'    INTEGER PRIMARY KEY,
+ 'RoomTypeId'    INTEGER,
+ 'PrinterId'    INTEGER,
+ 'Discription'    TEXT,
+ 'Active'         BOOLEAN);
+
+CREATE TABLE [r_config_settings](
+ 'ConfigKey'    TEXT PRIMARY KEY,
+ 'ConfigValue'  TEXT);
+
+CREATE TABLE [permission_set](
+ 'PermissionId'    INTEGER PRIMARY KEY,
+ 'PermissionKey'    TEXT,
+ 'Discription'    TEXT,
+ 'Active'         BOOLEAN);
+
+
+
 
    
    

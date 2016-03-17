@@ -19,16 +19,20 @@ class UserDownloadDto {
     public $active;
     public $roleId;
     public $restaurantId;
-    
-    
-     public function __construct($userId =null, $userName=null, $password=null, 
-            $active=null, $roleId=null, $restaurantId=null) {
+    public $permissions;
+
+
+
+
+    public function __construct($userId =null, $userName=null, $password=null, 
+            $active=null, $roleId=null, $restaurantId=null, $permissions = null) {
         $this->userId = $userId;
         $this->userName = $userName;
         $this->password = $password;
         $this->active = $active;
         $this->roleId = $roleId;
         $this->restaurantId = $restaurantId;
+        $this->permissions = $permissions;
     }
     
     

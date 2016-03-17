@@ -42,7 +42,8 @@ class UserTable extends Table {
                     $user->Password, 
                     $user->Active, 
                     $user->RoleId, 
-                    $user->RestaurantId);
+                    $user->RestaurantId,
+                    $user->Permissions);
             $result[$i] = $userDto;
             $i++;
         }

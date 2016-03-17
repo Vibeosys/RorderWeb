@@ -19,9 +19,9 @@ use App\DTO\DownloadDTO;
  * @author niteen
  */
 define('MENU_INS_QRY', "INSERT INTO menu (MenuId,MenuTitle,Image,Price,Ingredients,"
-        . "Tags,AvailabilityStatus,Active,FoodType,IsSpicy,CategoryId) "
+        . "Tags,AvailabilityStatus,Active,FoodType,IsSpicy,CategoryId,RoomId) "
         . "VALUES (@MenuId,\"@MenuTitle\",\"@Image\",@Price,\"@Ingredients\",\"@Tags\","
-        . "@AvailabilityStatus,@Active,@FoodType,@IsSpicy,@CategoryId);");
+        . "@AvailabilityStatus,@Active,@FoodType,@IsSpicy,@CategoryId,@RoomId);");
 
 class MenuController extends ApiController {
 
@@ -66,6 +66,7 @@ class MenuController extends ApiController {
             $preparedStatements = str_replace('@FoodType', $menu->foodType, $preparedStatements);
             $preparedStatements = str_replace('@IsSpicy', $menu->isSpicy, $preparedStatements);
             $preparedStatements = str_replace('@CategoryId', $menu->categoryId, $preparedStatements);
+            $preparedStatements = str_replace('@RoomId', $this->isNull($menu->roomId), $preparedStatements);
         }
         return $preparedStatements;
     }

@@ -46,7 +46,8 @@ class MenuTable extends Table {
                     $menu->Active, 
                     $menu->FoodType, 
                     $menu->IsSpicy, 
-                    $menu->CategoryId);
+                    $menu->CategoryId,
+                    $menu->RoomId);
             $allMenus[$i] = $menuDto;
             $i++;
         }
