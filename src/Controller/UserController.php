@@ -66,6 +66,8 @@ class UserController extends ApiController {
          if(!$this->isLogin()){
             $this->redirect('login');
         }
+         $userRoleController =  new UserRoleController();
+            $userRoles = $userRoleController->getUserRole();
         $restaurantId = parent::readCookie('cri');
         if($this->request->is('post') and isset($this->request->data['save'])){
             $userData = $this->request->data;
@@ -76,7 +78,8 @@ class UserController extends ApiController {
                     $userData['password'],
                     ACTIVE,
                     $userData['userRole'], 
-                    $restaurantId);
+                    $restaurantId,
+                    $this->createUserPermision($userData));
             $insertResult = $this->getTbaleObj()->insert($userUploadDto);
             if ($insertResult) {
                 $newUser = $this->getTbaleObj()->getNewUser($userId);
@@ -90,9 +93,10 @@ class UserController extends ApiController {
                 $this->set(['message' => 'ERROR Occured...',COLOR => ERROR_COLOR, 'roles' => $userRoles]);
             }
         }  else {
-            $userRoleController =  new UserRoleController();
-            $userRoles = $userRoleController->getUserRole();
-           $this->set(['roles' => $userRoles]);
+           
+            $permissionSetController = new PermissionSetController();
+            $permission = $permissionSetController->getPermissionSet();
+           $this->set(['roles' => $userRoles,'permissions' => $permission]);
         }
     }
     
@@ -108,6 +112,19 @@ class UserController extends ApiController {
             return $result;
         }
         return null;
+    }
+    
+    private function createUserPermision($data) {
+         $permissionSetController = new PermissionSetController();
+         $permissions = $permissionSetController->getPermissionSet();
+         $userPermission = null;
+         $saparator = '|';
+         foreach ($permissions as $permission){
+             if(in_array($permission->permissionId, $data)){
+                 $userPermission = $userPermission.$permission->permissionId.$saparator;
+             }
+         }
+         return substr($userPermission, 0, -1);
     }
     
     

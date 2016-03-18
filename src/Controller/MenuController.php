@@ -101,7 +101,8 @@ class MenuController extends ApiController {
                                     $filesop[3], 
                                     $filesop[4], 
                                     $filesop[5], 
-                                    $restaurantId);
+                                    $restaurantId,
+                                    $filesop[6]);
                            $allMenus[$counter] = $menuDto;
                            $counter++;
                     }

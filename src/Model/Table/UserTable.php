@@ -86,6 +86,7 @@ class UserTable extends Table {
             $newUser->UpdatedDate = date(VB_DATE_TIME_FORMAT);
             $newUser->RoleId = $user->roleId;
             $newUser->RestaurantId = $user->restaurantId;
+            $newUser->Permissions = $user->permissions;
             if($tableObj->save($newUser)){
                 return TRUE;
             }

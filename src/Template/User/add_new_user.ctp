@@ -44,9 +44,19 @@
                                             <div class="form-group">
                                                 <label for="latitude" class="col-sm-2 control-label">Password</label>
                                                 <div class="col-sm-8">
-                                                    <input name="password" type="text" class="form-control" placeholder="Password" required>
+                                                    <input name="password" type="password" class="form-control" placeholder="Password" required>
                                                 </div>
                                             </div>
+                                          <?php if(isset($permissions)){ ?>
+                                             <div class="form-group">
+                                                <label for="permissions" class="col-sm-2 control-label">Set Permissions</label>
+                                                <div class="col-sm-8">
+                                            <?php  foreach ($permissions as $permission){    ?>
+                                                    <input name="<?= $permission->permissionKey?>" type="checkbox" value="<?= $permission->permissionId?>"> <?= $permission->permissionKey?>&nbsp;&nbsp;&nbsp;
+                                            <?php } ?>    
+                                                </div>
+                                            </div>
+                                          <?php } ?>
                                             <div class="form-group">
                                                 <label for="longitude" class="col-sm-2 control-label">Select Role</label>
                                                 <div class="col-sm-8">

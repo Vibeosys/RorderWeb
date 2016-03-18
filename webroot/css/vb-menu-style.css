@@ -65,7 +65,7 @@ div.manage-controls > button,div.manage-controls > a > button {
     padding-right: 20%;
     text-align: left;
 }
-div.manage-controls > button > img{
+div.manage-controls > button > img,div.manage-controls > a > button > img{
     width: 25px;
     height: 25px;
 }

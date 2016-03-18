@@ -95,6 +95,7 @@ class MenuTable extends Table {
             $newMenu->UpdatedDate = date(VB_DATE_TIME_FORMAT);
             $newMenu->CategoryId = $menu->categoryId+22;
             $newMenu->RestaurantId = $menu->restaurantId;
+            $newMenu->RoomId = $menu->roomId;
             if($tableObj->save($newMenu)){
                 $insertCounter++;
             }

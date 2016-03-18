@@ -39,4 +39,8 @@ class PermissionSetController extends ApiController{
         }
         return $preparedStatements;
     }
+    
+    public function getPermissionSet() {
+        return $this->getTableObj()->getSets();
+    }
 }
