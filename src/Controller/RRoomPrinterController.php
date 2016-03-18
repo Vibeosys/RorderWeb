@@ -13,13 +13,17 @@ use App\Model\Table;
  *
  * @author niteen
  */
+
+define('RRPTR_INS_QRY', "INSERT INTO r_room_printer (RoomId,RoomTypeId,"
+        . "PrinterId,Description,Active) VALUES (@RoomId,@RoomTypeId,"
+        . "@PrinterId,\"@Description\",@Active);");
 class RRoomPrinterController extends ApiController{
     
     public function getTableObj() {
         return new Table\RRoomPrinterTable();
     }
     
-     public function prepareInsertStatement($restaurantId) {
+    public function prepareInsertStatement($restaurantId) {
         $allPrinters = $this->getTableObj()->getRoomPrinter($restaurantId);
         if (!$allPrinters) {
             return false;
@@ -27,13 +31,11 @@ class RRoomPrinterController extends ApiController{
         $preparedStatements = '';
 
         foreach ($allPrinters as $printer) {
-            $preparedStatements .= RPTR_INS_QRY;
+            $preparedStatements .= RRPTR_INS_QRY;
+            $preparedStatements = str_replace('@RoomId', $printer->roomId, $preparedStatements);
+            $preparedStatements = str_replace('@RoomTypeId', $printer->roomTypeId, $preparedStatements);
             $preparedStatements = str_replace('@PrinterId', $printer->printerId, $preparedStatements);
-            $preparedStatements = str_replace('@IpAddress', $printer->ipAddress, $preparedStatements);
-            $preparedStatements = str_replace('@PrinterName', $printer->name, $preparedStatements);
-            $preparedStatements = str_replace('@ModelName', $printer->model, $preparedStatements);
-            $preparedStatements = str_replace('@Company', $printer->company, $preparedStatements);
-            $preparedStatements = str_replace('@MacAddress', $printer->macAddress, $preparedStatements);
+            $preparedStatements = str_replace('@Description', $printer->description, $preparedStatements);
             $preparedStatements = str_replace('@Active', $printer->active, $preparedStatements);
         }
         return $preparedStatements;

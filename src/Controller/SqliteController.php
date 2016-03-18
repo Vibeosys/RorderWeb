@@ -47,6 +47,7 @@ class SqliteController extends ApiController {
             $this->addRrooms($tableObject);
             $this->addPrinters($tableObject);
             $this->addRoomPrinters($tableObject);
+            $this->addConfigSetting($tableObject);
 
             $this->response->type('class');
             $this->response->file($this->sqliteFile, ['download' => true]);
@@ -257,6 +258,16 @@ class SqliteController extends ApiController {
             Log::debug('Record is inserted into R_Room_Printers SQLite table for restaurantId ' . $this->RestaurantId);
         } else {
             Log::error('Record is not inserted into R_Room_Printers SQLite table');
+        }
+    }
+    
+    private function addConfigSetting($tableObject) {
+        $rConfigSettingController = new RConfigSettingsController();
+        $PreparedStatement = $rConfigSettingController->prepareInsertStatement($this->RestaurantId);
+        if ($tableObject->excutePreparedStatement($PreparedStatement)) {
+            Log::debug('Record is inserted into R_Config_settings SQLite table for restaurantId ' . $this->RestaurantId);
+        } else {
+            Log::error('Record is not inserted into R_Config_settings SQLite table');
         }
     }
 }

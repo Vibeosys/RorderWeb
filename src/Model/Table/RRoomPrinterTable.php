@@ -21,23 +21,35 @@ class RRoomPrinterTable extends Table{
     public function connect() {
         return TableRegistry::get('r_room_printer');
     }
-    public function initialize(array $config) {
-        $this->belongsTo('r_printers', [
-            'foreignKey' => 'PrinterId',
-            'joinType' => 'INNER',
-            
-            ]);
-    }
     
     public function getRoomPrinter($restaurantId) {
         $allRoomPrinter = null;
         $roomprinterCounter = 0;
-        $condtion1 = ['RestaurantId =' => $restaurantId];
+        $joins = [
+                     'a' => 
+                        [
+                            'table' => 'r_printers', 
+                            'type' => 'INNER', 
+                            'conditions' => 'a.PrinterId = '
+                            . 'r_room_printer.PrinterId and a.RestaurantId = '.$restaurantId
+                        ]
+                ];
+        $field = array('RoomId' => 'r_room_printer.RoomId',
+            'RoomTypeId' => 'r_room_printer.RoomTypeId',
+            'PrinterId' => 'r_room_printer.PrinterId' ,
+            'Description' => 'r_room_printer.Description',
+            'Active' => 'r_room_printer.Active' );
         try{
-            $roomPrinters = $this->connect()->find('all')
-                    ->join(['a' => [ 'table' => 'r_printers', 'type' => 'INNER', 'conditions' => 'a.PrinterId = r_room_printer.PrinterId and a.RestaurantId = '.$restaurantId]]);
+            $roomPrinters = $this->connect()->find('all',array('fields' => $field))
+                    ->join($joins);
             foreach ($roomPrinters as $printer){
-                Log::debug('printer info :-'.$printer->RoomPrinterid);
+               $allRoomPrinter[$roomprinterCounter++] = 
+                       new DownloadDTO\RRoomPrinterDownloadDto(
+                               $printer->RoomId, 
+                               $printer->RoomTypeId, 
+                               $printer->PrinterId, 
+                               $printer->Description, 
+                               $printer->Active);
             } 
             return $allRoomPrinter;
         } catch (Exception $ex) {
