@@ -14,6 +14,9 @@ $this->layout = false;
 <head>
     <meta charset="UTF-8">
     <title>QuickServe  | Login</title>
+     <?= $this->Html->meta(
+    'keyword',
+    'Popular Restaurant Billing Software,Popular Wireless Restaurant Ordering Software,Popular Pos for Restaurant, Popular Hotel Management System')?>
     <?= $this->Html->css('Login.css')?>
 </head>
 <body class="align">

@@ -16,14 +16,14 @@ $sec = $this->fetch('sec');
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <?php if(isset($page) and isset($sec)){?>
-    <meta http-equiv="refresh" content="<?=$sec?>;URL='<?=$page?>'">
-    <?php }?>
     <title>QuickServe | <?= $this->fetch('title')?></title>
      <?= $this->Html->meta ( 'favicon.ico', '/favicon.ico', array ('type' => 'icon' ) )?>
     <?= $this->Html->meta(
     'viewport',
     'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')?>
+ <?= $this->Html->meta(
+    'keyword',
+    'Popular Restaurant Billing Software,Popular Wireless Restaurant Ordering Software,Popular Pos for Restaurant, Popular Hotel Management System')?>
     
     <?= $this->Html->css('vb-menu-style.css') ?> 
     <?= $this->Html->css('bootstrap.min.css') ?> 
@@ -38,7 +38,7 @@ $sec = $this->fetch('sec');
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
-          <a href="mgmtpanel" class="logo">
+          <a href="/" class="logo">
                     <i class="qs-logo"><?= $this->Html->image('quickserve-logo.PNG', ['class' => 'qs-image','alt' => 'QUICK SERVE'])?></i>
                 </a>
             <!-- Header Navbar -->

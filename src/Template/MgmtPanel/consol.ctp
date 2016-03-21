@@ -21,6 +21,9 @@ $this->layout = false;
     <?= $this->Html->meta(
     'viewport',
     'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')?>
+    <?= $this->Html->meta(
+    'keyword',
+    'Popular Restaurant Billing Software,Popular Wireless Restaurant Ordering Software,Popular Pos for Restaurant,Popular Hotel Management System')?>
     <?= $this->Html->css('vb-menu-style.css') ?> 
     <?= $this->Html->css('bootstrap.min.css') ?> 
     <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css') ?>
@@ -34,7 +37,7 @@ $this->layout = false;
         <div class="wrapper col-xs-12" style="padding: 0px">
             <header class="main-header">
                 <!-- Logo -->
-                <a href="mgmtpanel" class="logo">
+                <a href="/" class="logo">
                     <i class="qs-logo"><?= $this->Html->image('quickserve-logo.PNG', ['class' => 'qs-image','alt' => 'QUICK SERVE'])?></i>
                 </a>
                 <!-- Header Navbar -->
