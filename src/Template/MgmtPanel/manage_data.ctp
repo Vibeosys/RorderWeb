@@ -26,7 +26,7 @@
                         <div class="box">                           
                             <section class="content content-div show-add-section">
                                 <div class="row">
-                                    <form action="menu/addnewmenu" method="post"> 
+                                    <form action="menu" method="post"> 
                                     <div class="manage-controls menu col-xs-3">
                                         <button>
                                     <?= $this->Html->image('quickserve-menu-control.png', ['class' => 'quickserve-menu','alt' => 'MENU'])?>

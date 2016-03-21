@@ -10,6 +10,8 @@ Router::defaultRouteClass('DashedRoute');
 
 Router::scope('/', function ($routes) {
     $routes->connect('menu/addnewmenu', ['controller' => 'Menu', 'action' => 'addNewMenu']);
+    $routes->connect('menu', ['controller' => 'Menu', 'action' => 'menuList']);
+    $routes->connect('menu/editmenu', ['controller' => 'Menu', 'action' => 'editMenu']);
     $routes->connect('menucategory/addnewmenucategory', ['controller' => 'MenuCategory', 'action' => 'addNewMenuCategory']);
     $routes->connect('tablecategory/addnewtablecategory', ['controller' => 'TableCategory', 'action' => 'addNewTableCategory']);
     $routes->connect('rtables/addnewtables', ['controller' => 'RTables', 'action' => 'addNewTables']);

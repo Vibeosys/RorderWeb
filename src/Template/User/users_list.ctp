@@ -24,7 +24,10 @@
             <section class="content">
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="box">                           
+                        <div class="box">  
+                            <div class="box-header">
+                                <a href="user/addnewuser"><button class="dark-orange add-edit-btn"><span>Add New User</span></button></a>
+                            </div>
                             <div class="box-body show-grid-section">
                                <?php if(isset($users)){ ?>
                                 <table id="destination" class="table table-bordered table-hover">
@@ -73,7 +76,8 @@
                                     </tbody>
                                 </table>
                                <?php }else{ ?>
-                                 <div id="error-div" style="margin-left: 20%;color: red" >Users not found for current restaurant.</div>
+                                 <div id="error-div" style="margin-left: 20%;color: red" >Users not found for current restaurant.<br>
+                                     <a style="margin-left: 20px;padding: 5px;border:1px solid gainsboro" href="../users"> <- Back</a></div>
                                <?php } ?>
                             </div><!-- /.box-body -->
                         </div><!-- /.box -->                       

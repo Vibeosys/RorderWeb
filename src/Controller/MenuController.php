@@ -117,5 +117,31 @@ class MenuController extends ApiController {
             }
         }
     }
+    
+    public function menuList() {
+        $restaurantId = parent::readCookie('cri');
+        $menuList = $this->getMenus($restaurantId);
+        $this->set([
+                    'menus' => $menuList
+                ]);
+    }
+    
+    public function editMenu() {
+        $data = $this->request->data;
+        if($this->request->is('post') and isset($data['edit'])){
+            $stdMenu = new \stdClass();
+            foreach ($data as $k => $v){
+                $stdMenu->$k = $v;
+            }
+             $this->set([
+                    'menuInfo' => $stdMenu
+                ]);
+        }elseif ($this->request->is('post') and isset($data['save'])) {
+            $this->autoRender = FALSE;
+            print_r($data);
+            
+            
+        }
+    }
 
 }
