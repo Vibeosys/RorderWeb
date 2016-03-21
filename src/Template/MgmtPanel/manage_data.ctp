@@ -41,7 +41,7 @@
                                         </button>
                                     </div>
                                     </form> 
-                                    <form action="user/addnewuser" method="post" > 
+                                    <form action="users" method="post" > 
                                     <div class="manage-controls users col-xs-3"><button>
                                         <?= $this->Html->image('quickserve-user-control.png', ['class' => 'quickserve-menu','alt' => 'USER'])?>
                                          <b>User</b>

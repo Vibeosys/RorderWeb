@@ -43,4 +43,14 @@ class PermissionSetController extends ApiController{
     public function getPermissionSet() {
         return $this->getTableObj()->getSets();
     }
+    
+    public function getPermissionsStdObj() {
+        $permissions = $this->getPermissionSet();
+        $userPermissions = new \stdClass();
+        foreach ($permissions as $permission){
+            $key = $permission->permissionId;
+            $userPermissions->$key = $permission->permissionKey;
+        } 
+        return $userPermissions;
+    }
 }

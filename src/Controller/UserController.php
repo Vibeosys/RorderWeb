@@ -11,6 +11,7 @@ namespace App\Controller;
 use App\Model\Table;
 use Cake\Log\Log;
 use App\DTO\DownloadDTO;
+use App\DTO;
 
 /**
  * Description of UserController
@@ -28,9 +29,7 @@ class UserController extends ApiController {
     }
 
     public function getUsers($restaurantId) {
-        $this->autoRender = false;
         $userResult = $this->getTbaleObj()->getUser($restaurantId);
-      
         return $userResult;
     }
 
@@ -66,8 +65,10 @@ class UserController extends ApiController {
          if(!$this->isLogin()){
             $this->redirect('login');
         }
-         $userRoleController =  new UserRoleController();
-            $userRoles = $userRoleController->getUserRole();
+        $permissionSetController = new PermissionSetController();
+        $permission = $permissionSetController->getPermissionSet();
+        $userRoleController =  new UserRoleController();
+        $userRoles = $userRoleController->getUserRole();
         $restaurantId = parent::readCookie('cri');
         if($this->request->is('post') and isset($this->request->data['save'])){
             $userData = $this->request->data;
@@ -88,14 +89,11 @@ class UserController extends ApiController {
                         json_encode($newUser), 
                         INSERT_OPERATION, 
                         $restaurantId);
-                $this->set(['message' => 'User added successfully',COLOR => SUCCESS_COLOR, 'roles' => $userRoles]);
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(130),COLOR => SUCCESS_COLOR,'permissions' => $permission,'roles' => $userRoles]);
             } else {
-                $this->set(['message' => 'ERROR Occured...',COLOR => ERROR_COLOR, 'roles' => $userRoles]);
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(132),COLOR => ERROR_COLOR,'permissions' => $permission,'roles' => $userRoles]);
             }
         }  else {
-           
-            $permissionSetController = new PermissionSetController();
-            $permission = $permissionSetController->getPermissionSet();
            $this->set(['roles' => $userRoles,'permissions' => $permission]);
         }
     }
@@ -125,6 +123,57 @@ class UserController extends ApiController {
              }
          }
          return substr($userPermission, 0, -1);
+    }
+    
+    public function usersList() {
+        if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+        $userRoleController = new UserRoleController();
+        $roles = $userRoleController->getUserRoleStdObj();
+        $permissionController = new PermissionSetController();
+        $permissions = $permissionController->getPermissionsStdObj();
+        $restaurantId = $this->readCookie('cri');
+        $userList = $this->getUsers($restaurantId);
+        $this->set(['users' => $userList, 'roles' => $roles, 'permissions' => $permissions]);
+    }
+    
+    public function editUser() {
+        $restaurantId = parent::readCookie('cri');;
+        $requestData = $this->request->data;
+        $userRoleController =  new UserRoleController();
+            $userRoles = $userRoleController->getUserRole();
+            $permissionSetController = new PermissionSetController();
+            $permission = $permissionSetController->getPermissionSet();
+        if($this->request->is('post') and isset($requestData['edit'])){
+            $stdUser = new \stdClass();
+            foreach ($requestData as $key => $value){
+                $stdUser->$key = $value;
+            }
+            
+            $this->set(['userInfo' => $stdUser, 'roles' => $userRoles,'permissions' => $permission]);
+        }elseif ($this->request->is('post') and isset($requestData['save'])) {
+             $userUploadDto  = new DownloadDTO\UserDownloadDto(
+                    $requestData['uid'],
+                    $requestData['userName'], 
+                    $requestData['password'],
+                    ACTIVE,
+                    $requestData['userRole'], 
+                    $restaurantId,
+                    $this->createUserPermision($requestData));
+            $insertResult = $this->getTbaleObj()->insert($userUploadDto);
+            if ($insertResult) {
+                $newUser = $this->getTbaleObj()->getNewUser($userUploadDto->userId);
+                $this->makeSyncEntry(
+                        $userUploadDto->userId, 
+                        json_encode($newUser), 
+                        UPDATE_OPERATION, 
+                        $restaurantId);
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(131),COLOR => SUCCESS_COLOR,'permissions' => $permission, 'roles' => $userRoles]);
+            } else {
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(133),COLOR => ERROR_COLOR,'permissions' => $permission, 'roles' => $userRoles]);
+            }
+        }
     }
     
     

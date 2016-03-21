@@ -43,9 +43,9 @@ class CustomerTable extends Table {
         }
         Log::error('error ocurred in New customer for CustId :-' .
                 $customer->custId);
-        return 0;
+        return null;
         } catch (Exception $ex) {
-            return 0;
+            return null;
         }
     }
 

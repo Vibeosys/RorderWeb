@@ -53,7 +53,7 @@ class ErrorDto {
         106 => 'Orders Not FulFilled for requested customer',
         107 => 'Bill generation has been failed',
         108 => 'Operation name didnt match',
-        109 => 'Request data not deserialized correctly',
+        109 => 'Request data incorrect',
         110 => 'Table not occupied for cuurent request',
         111 => 'Problem in bill payment for current request',
         112 => 'Error occured in customer addition',
@@ -73,7 +73,11 @@ class ErrorDto {
         126 => 'Oops ! Orders not found for this table',
         127 => 'Oops ! Takeway not found for this resaurant',                
         128 => 'Oops ! Orders not found for this takeaway',
+        129 => 'Oops ! Orders not placed',
+        130 => 'New user has added',
+        131 => 'User information updated',
+        132 => 'Oops ! User not added',
+        133 => 'Oops ! User information not updated'
        ];
-    
     
 }

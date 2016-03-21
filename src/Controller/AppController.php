@@ -78,8 +78,9 @@ class AppController extends Controller
     public function isLogin() {
         $userName = $this->readCookie('un');
         $password = $this->readCookie('pw');
-        
-        if(isset($userName)and isset($password)){
+         $restaurantId = $this->readCookie('cri');
+         \Cake\Log\Log::debug('request come to check login');
+        if(isset($userName) and isset($password) and isset($restaurantId)){
             return TRUE;
         }
         return FALSE;

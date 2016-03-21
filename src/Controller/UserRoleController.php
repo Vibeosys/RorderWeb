@@ -22,4 +22,14 @@ class UserRoleController {
     public function getUserRole() {
         return $this->getTableObj()->getRole();
     }
+    
+    public function getUserRoleStdObj() {
+       $roles = $this->getUserRole();
+        $userRole = new \stdClass();
+        foreach ($roles as $role){
+            $key = $role->roleId;
+            $userRole->$key = $role->roleTitle;
+        } 
+        return $userRole;
+    }
 }

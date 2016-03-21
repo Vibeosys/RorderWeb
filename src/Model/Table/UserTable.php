@@ -26,7 +26,7 @@ class UserTable extends Table {
     }
 
     public function getUser($restaurantId) {
-        $conditions = ['RestaurantId =' => $restaurantId];
+        $conditions = ['RestaurantId =' => $restaurantId,'Active' => ACTIVE];
         $users = $this->connect()->find()->where($conditions);
         $count = $users->count();
         Log::debug('number of user present in database : ' . $count);

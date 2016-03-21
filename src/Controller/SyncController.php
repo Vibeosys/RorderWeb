@@ -150,7 +150,7 @@ class SyncController extends ApiController {
                          $this->getTableObj()->Insert($user->userId, $json, $this->billTable, $operation, $restaurantId);
                     } else {
                          $this->getTableObj()->Insert($user->userId, $json, $this->billTable, $operation, $restaurantId); 
-                       }
+                    }
                 }
             }
     }

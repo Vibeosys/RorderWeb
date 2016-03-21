@@ -24,7 +24,7 @@ class PermissionSetTable extends Table {
     }
     
     public function getSets() {
-        $conditions = ['Active = ' => ACTIVE];
+       $conditions = ['Active = ' => ACTIVE];
        $allPermissionSet = null;
        $permissionCounter = 0;
         try{
