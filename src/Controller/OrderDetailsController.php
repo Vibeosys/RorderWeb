@@ -49,11 +49,6 @@ class OrderDetailsController extends ApiController {
                     json_encode($newOrderDetails), 
                     $this->insert, 
                     $userInfo->restaurantId);
-            if ($orderDetailsEntry) {
-                $this->transCommit();
-            } else {
-                $this->transRollback();
-            }
         }
     }
     

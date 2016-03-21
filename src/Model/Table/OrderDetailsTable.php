@@ -22,7 +22,6 @@ class OrderDetailsTable extends Table{
         return TableRegistry::get('order_details');
     }
     public function insert(UploadDTO\OrderDetailEntryDto $orderDetailsEntryDto){
-        $conn = ConnectionManager::get('default');       
         $tableObj = $this->connect();
         $newOrder = $tableObj->newEntity();
         $newOrder->OrderPrice = $orderDetailsEntryDto->orderPrice;
@@ -38,7 +37,6 @@ class OrderDetailsTable extends Table{
                     $newOrder->OrderDetailsId);
             return $newOrder->OrderDetailsId;
         }
-        $conn->rollback();
         Log::error('error ocurred in order Details for OrderId :-'.
                 $orderDetailsEntryDto->orderId);
         return 0;

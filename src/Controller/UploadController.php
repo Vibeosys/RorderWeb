@@ -78,9 +78,12 @@ class UploadController extends ApiController {
 
                 case $this->operations['PO']:
                     $operationData = $record->operationData;
-                    $orderNo = $this->placeOrder($operationData, $userData);
-                    if($orderNo)
-                    $this->response->body(DTO\ErrorDto::prepareSuccessMessage($orderNo));
+                    $orderResponse = $this->placeOrder($operationData, $userData);
+                    if($orderResponse){
+                        $this->response->body(DTO\ErrorDto::prepareSuccessMessage($orderResponse));
+                    }  else {
+                        $this->response->body(DTO\ErrorDto::prepareError(129));
+                    }
                     break;
                  case $this->operations['TO']:
                      $operationData = $record->operationData;
@@ -205,7 +208,7 @@ class UploadController extends ApiController {
             $orderDetailList[$orderLoopCounter] = $orderDetailEntryDto;
             $orderLoopCounter++;
         }
-        
+        $obj = $this->transBegin();
         $maxOrderNo = $orderController->getMaxOrderNo($userInfo->restaurantId);
         $orderEntryDto = new UploadDTO\OrderEntryDto(
                 $orderUploadRequest->orderId, 
@@ -222,6 +225,7 @@ class UploadController extends ApiController {
         $orderHeaderEntrySucceded = $orderController->addOrderEntry($orderEntryDto);
         if($orderHeaderEntrySucceded == 0)
         {
+            $obj->Rollback();
             Log::error('No order entry was inserted into db');
             return;        
         }
@@ -229,10 +233,12 @@ class UploadController extends ApiController {
         $orderDetailEntrySucceeded = $orderDetailController->addOrderEntries($orderDetailList,$userInfo);
         if($orderDetailEntrySucceeded == 0)
          {
+            $obj->Rollback();
             Log::error('No order entry was inserted for order details into db');
             return;        
         }
-        return $maxOrderNo;
+        $obj->Commit();
+        return $orderHeaderEntrySucceded;
     }
     
     
@@ -472,10 +478,6 @@ class UploadController extends ApiController {
         }
         $this->response->body(DTO\ErrorDto::prepareError(115));
         return;
-    }
-    
-    private function printBill($operationData, $userInfo) {
-        
     }
     
     public function addTakeaway($operationData, $userInfo) {

@@ -29,21 +29,17 @@ class OrderController extends ApiController {
 
     public function getMaxOrderNo($restaurantId) {
         $orderNo = $this->getTableObj()->getOrderNo($restaurantId);
-        if ($orderNo) {
-            return $orderNo + 1;
-        } else {
-            return 1;
-        }
+        return $orderNo;
     }
 
     public function addOrderEntry($orderEntry) {
-        $orderNo = $this->getTableObj()->insert($orderEntry);
-        if ($orderNo) {
+        $orderResponse = $this->getTableObj()->insert($orderEntry);
+        if ($orderResponse) {
             $orderEntry->tableId = $this->isNull($orderEntry->tableId);
             $orderEntry->takeawayNo = $this->isNull($orderEntry->takeawayNo);
             $this->makeSyncEntry($orderEntry);
         }
-        return $orderNo;
+        return $orderResponse;
     }
 
 

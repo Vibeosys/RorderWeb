@@ -27,9 +27,6 @@ class OrderTable extends Table {
     }
 
     public function insert($orderEntry) {
-        $conn = ConnectionManager::get('default');
-        $conn->begin();
-        //$orderEntryCounter = 0;
         $tableObj = $this->connect();
         $newOrder = $tableObj->newEntity();
         $newOrder->OrderId = $orderEntry->orderId;
@@ -49,9 +46,8 @@ class OrderTable extends Table {
         if ($tableObj->save($newOrder)) {
             Log::debug('order has been placed for OrderId :-' .
                     $orderEntry->orderId);
-            return $newOrder->OrderNo;
+            return array('orderId' => $orderEntry->orderId,'orderNo' => $orderEntry->orderNo);
         }
-        $conn->rollback();
         Log::error('error ocurred in order placing for OrderId :-' .
                 $orderEntry->orderId);
         return 0;
@@ -78,16 +74,14 @@ class OrderTable extends Table {
 //    }
 
     public function getOrderNo($restaurantId) {
-        $conditions = array(
-            'conditions' => array('orders.RestaurantId =' => $restaurantId),
-            'fields' => array('maxOrderNo' => 'MAX(orders.OrderNo)'));
-        $orderTableEntry = $this->connect()->find('all', $conditions)->toArray();
-        $maxOrderNo = 0;
-        if ($orderTableEntry) {
-            $maxOrderNo = $orderTableEntry[0]['maxOrderNo'];
-        }
-        Log::debug('Order Number generated for new order orderNo is :- ' . $maxOrderNo);
-        return $maxOrderNo;
+        $datasource = ConnectionManager::config('default');
+        $connection = mysql_connect($datasource['host'], $datasource['username'], $datasource['password']);
+        mysql_select_db($datasource['database'], $connection);
+        $query = "call RestaurantDB.getMaxOrderNo(".$restaurantId.", @ordermaxno);";
+        $result =  mysql_query($query);
+        $data = mysql_fetch_assoc($result);
+        mysql_close($connection);
+        return  $data['maxId'];
     }
 
     public function getOrder($orderId) {
