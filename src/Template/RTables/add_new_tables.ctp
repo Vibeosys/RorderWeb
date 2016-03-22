@@ -30,7 +30,7 @@
                                 <div class="row">
                                     <!--Destination Form -->
                                     <div class="with-border box-header">
-                                        <h3 class="box-title">Add New Menu</h3>
+                                        <h3 class="box-title">Add New Table</h3>
                                     </div><!-- /.box-header -->
                                     <!-- form start -->
                                     <div class="form-horizontal">

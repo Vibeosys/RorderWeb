@@ -21,7 +21,7 @@ use Cake\ORM\TableRegistry;
  */
 class MenuTable extends Table {
 
-    private function connect() {
+    public function connect() {
         return TableRegistry::get('menu');
     }
 
@@ -101,6 +101,61 @@ class MenuTable extends Table {
             }
         }
         return $insertCounter;
+    }
+    
+    public function update(UploadDTO\MenuInsertDto $request) {
+        $conditions = ['MenuId =' => $request->menuId];
+        $key = [
+            'MenuTitle' => $request->menuTitle,
+            'Image' => $request->image,
+            'Price' => $request->price,
+            'Ingredients' => $request->ingredients,
+            'Tags' => $request->tags,
+            'AvailabilityStatus' => $request->availabilityStatus,
+            'Active' => $request->active,
+            'FoodType' => $request->foodType,
+            'IsSpicy' => $request->isSpicy,
+            'UpdatedDate' => date(VB_DATE_TIME_FORMAT),
+            'CategoryId' => $request->categoryId,
+            'RoomId' => $request->roomId
+               ];
+        try{
+            $update = $this->connect()->query()->update();
+            $update->set($key);
+            $update->where($conditions);
+            if($update->execute()){
+                return true;
+            }  else {
+                return FALSE;
+            }
+        } catch (Exception $ex) {
+           return FALSE;
+        }
+    }
+    
+    public function getUpdateMenu($menuId) {
+        $conditions = ['MenuId = ' => $menuId];
+        $menus = $this->connect()->find()->where($conditions);
+        $count = $menus->count();
+        if (!$count) {
+            return false;
+        }
+        foreach ($menus as $menu) {
+            $menuDto = new DownloadDTO\MenuDownloadDto(
+                    $menu->MenuId, 
+                    $menu->MenuTitle, 
+                    $menu->Image, 
+                    $menu->Price, 
+                    $menu->Ingredients, 
+                    $menu->Tags, 
+                    $menu->AvailabilityStatus, 
+                    $menu->Active, 
+                    $menu->FoodType, 
+                    $menu->IsSpicy, 
+                    $menu->CategoryId,
+                    $menu->RoomId);
+        }
+        return $menuDto;
     }
 
 }

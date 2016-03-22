@@ -9,6 +9,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use Cake\ORM\Table;
 use App\DTO\DownloadDTO;
+use App\DTO\UploadDTO;
 /**
  * Description of RTablesTable
  *
@@ -16,12 +17,12 @@ use App\DTO\DownloadDTO;
  */
 class RTablesTable extends Table{
  
-    private function connect() {
+    public function connect() {
         return TableRegistry::get('r_tables');
     }
     
     public function getRtable($restaurantId) {
-        $rTables = $this->connect()->find()->where(['RestaurantId' => $restaurantId]);
+        $rTables = $this->connect()->find()->where(['RestaurantId = ' => $restaurantId]);
         $count = $rTables->count();
         if(!$count){
            return false;
@@ -97,5 +98,46 @@ class RTablesTable extends Table{
         $tables = $this->connect()->find()->where($conditions);
         $occupancyCheck = $tables->count();
         return $occupancyCheck;
+    }
+    
+    public function update(UploadDTO\RTablesInsertDto $request) {
+        $conditions = ['tableId =' => $request->tableId];
+        $key = [
+            'TableNo' => $request->tableNo,
+            'TableCategoryId' => $request->tableCategoryId,
+            'Capacity' => $request->capacity,
+            'UpdatedDate' => date(VB_DATE_TIME_FORMAT),
+            'IsOccupied'  => $request->isOccupied
+        ];
+        try{
+            $update = $this->connect()->query()->update();
+            $update->set($key);
+            $update->where($conditions);
+            if($update->execute()){
+                return true; 
+            }
+            return FALSE;
+        } catch (Exception $ex) {
+            return FALSE;
+        }
+    }
+    
+    public function getUpdatedTable($tableId) {
+        $conditions = ['TableId = ' => $tableId];
+        $rTables = $this->connect()->find()->where($conditions);
+        $count = $rTables->count();
+        if(!$count){
+           return false;
+        }
+        foreach ($rTables as $rTable){
+            
+            $rTablesDto = new DownloadDTO\RTableDownloadDto($rTable->TableId, 
+                    $rTable->TableNo, 
+                    $rTable->TableCategoryId, 
+                    $rTable->Capacity, 
+                    $rTable->IsOccupied);
+        }
+        Log::debug('Updated table successfully return');
+        return $rTablesDto;
     }
 }

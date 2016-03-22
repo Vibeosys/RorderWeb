@@ -102,7 +102,33 @@ $(document).ready(function(){
      $(this).css('border', 'none'); 
       
   });
-  
+  //pagination button validation
+  $('.previous').mouseover(function(){
+     
+      var value = $('#prev-page').val();
+      if(!value){
+          $('.previous').css('cursor','not-allowed');
+          $('.previous > li > a').css('cursor','not-allowed');
+      }else{
+           $('.previous > li > a').css('color','#fff');
+      }
+  });
+   $('.next').mouseover(function(){
+   
+      var value = $('#next-page').val();
+      if(!value){
+          $(this).css('cursor','not-allowed');
+          $('.next > li > a').css('cursor','not-allowed');
+      }else{
+          $('.next > li > a').css('color','#fff');
+      }
+  });
+   $('.previous').mouseout(function(){
+      $('.previous > li > a').css('color','orangered');
+  });
+  $('.next').mouseout(function(){
+      $('.next > li > a').css('color','orangered');
+  });
   
 });
 
@@ -210,4 +236,7 @@ function kotprint(id,cono,ctno,ctkno,csb,cot) {
     window.open("orderprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
 }
 
-
+function errorpopup(){
+    alert('Invalid option');
+    return false;
+}

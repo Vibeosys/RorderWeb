@@ -20,13 +20,16 @@ class RTablesInsertDto {
     public $capacity;
     public $isOccupied;
     public $restaurantId;
-    
+    public $tableId;
+
+
     public function __construct($tableNo = null, $tableCategoryId = null, 
-            $capacity = null, $isOccupied = null, $restaurantId = null) {
+            $capacity = null, $isOccupied = null, $restaurantId = null,$tableId = null) {
         $this->tableNo = $tableNo;
         $this->tableCategoryId = $tableCategoryId;
         $this->capacity = $capacity;
         $this->isOccupied = $isOccupied;
         $this->restaurantId = $restaurantId;
+        $this->tableId = $tableId;
     }
 }

@@ -4,6 +4,8 @@ namespace App\Controller;
 use App\Model\Table;
 use Cake\Log\Log;
 use App\DTO\UploadDTO;
+use App\DTO\DownloadDTO;
+use App\DTO;
 /**
  * Description of RTablesController
  *
@@ -34,7 +36,7 @@ class RTablesController extends ApiController {
                 $tableOccupyRequest->tableId, 
                 $tableOccupyRequest->isOccupied);
         if($occupyResult){
-            $this->makeSyncEntry(json_encode($tableOccupyRequest), $restaurantId);
+            $this->makeSyncEntry(json_encode($tableOccupyRequest),UPDATE_OPERATION, $restaurantId);
         }
         return $occupyResult;
     }
@@ -66,9 +68,9 @@ class RTablesController extends ApiController {
         return $preparedStatements;
     }
     
-    private function makeSyncEntry($json , $restaurantId) {
+    private function makeSyncEntry($json ,$operation, $restaurantId) {
         $syncController = new SyncController();
-        $syncController->rtableEntry($json, UPDATE_OPERATION, $restaurantId);
+        $syncController->rtableEntry($json, $operation, $restaurantId);
     }
     
     
@@ -107,6 +109,94 @@ class RTablesController extends ApiController {
                 } else {
                     $this->set([MESSAGE => DB_FILE_ERROR, 'color' => 'red']);
                 }
+            }
+        }
+    }
+    
+    public function tableList() {
+        if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+        $parameter = $this->request->param('page');
+        $page = 1;
+        if($parameter){
+            $page = $parameter;
+        }
+        $tableCategoryController = new TableCategoryController();
+        $tCategory = $tableCategoryController->getStdTableCategory();
+        $tables = $this->tablePaginator($page);
+        $this->set([
+            'tables' => $tables,
+            'category' => $tCategory
+        ]);
+    }
+    
+    private function tablePaginator($page = 1) {
+        $limit = PAGE_LIMIT;
+        $restaurantId = parent::readCookie('cri');
+        $conditions = array('RestaurantId =' => $restaurantId);
+         $rTable = new Table\RTablesTable();
+        $rResult = $rTable->connect()->find()->where($conditions); 
+        $count = $rResult->count();
+        Log::debug('Number of Tables available in list is :- '.$count);
+        if(!$count){
+            return Null;
+        }
+        
+        $paginatedRecord = $this->paginate($rResult,['limit' => $limit,'page' => $page]);
+        
+        $allRTables = null;
+        $i = 0;
+        foreach ($paginatedRecord as $record){
+            
+            $rTablesDto = new DownloadDTO\RTableDownloadDto($record->TableId, 
+                    $record->TableNo, 
+                    $record->TableCategoryId, 
+                    $record->Capacity, 
+                    $record->IsOccupied);
+            
+            $allRTables[$i] = $rTablesDto;
+            $i++;
+        }
+        return $allRTables;
+        
+    }
+    
+    public function editTable() {
+        if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+        $restaurantId = parent::readCookie('cri');
+        $data = $this->request->data;
+        if($this->request->is('post') and isset($data['edit'])){
+            $tableInfo = new \stdClass();
+            foreach ($data as $k => $v){
+                $tableInfo->$k = $v;
+            }
+           $tableCategoryController = new TableCategoryController();
+           $category = json_decode(json_encode($tableCategoryController->getStdTableCategory()));
+           $this->set([
+            'tableInfo' => $tableInfo,
+            'category' => $category
+        ]);
+        }elseif ($this->request->is('post') and isset($data['save'])) {
+          $updateRequest = new UploadDTO\RTablesInsertDto(
+                  $data['tno'], 
+                  $data['category'], 
+                  $data['cpty'], 
+                  $this->getValue('iopd', $data), 
+                  $restaurantId, 
+                  $data['tid']);
+          $updateResult = $this->getTableObj()->update($updateRequest);
+           if ($updateResult) {
+                $tableUpdate = $this->getTableObj()->getUpdatedTable($updateRequest->tableId);
+                $this->makeSyncEntry(
+                        json_encode($tableUpdate), 
+                        UPDATE_OPERATION, 
+                        $restaurantId);
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(135),COLOR => SUCCESS_COLOR]);
+            } else {
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(137),COLOR => ERROR_COLOR]);
             }
         }
     }

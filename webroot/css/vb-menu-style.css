@@ -182,4 +182,14 @@ div.table-list > div.error-message,div.table-order-list > div.error-message{
     margin-top: 5%;
     margin-left: 35%;
 }
+
+#pagination{
+    position: relative;
+    float:left;
+    margin-top: 10px;
+    padding-left: 10%;
+}
+#pagination > span > button > li >a{
+    color: orangered;
+}
  

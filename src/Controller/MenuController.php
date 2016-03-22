@@ -12,6 +12,8 @@ use App\Model\Table;
 use Cake\Log\Log;
 use Cake\Filesystem\File;
 use App\DTO\DownloadDTO;
+use App\DTO\UploadDTO;
+use App\DTO;
 
 /**
  * Description of MenuController
@@ -90,7 +92,7 @@ class MenuController extends ApiController {
                     $allMenus= null;
                     fgetcsv($handle);
                     while (($filesop = fgetcsv($handle, 1000, ",")) !== false) {
-                            $menuDto = new \App\DTO\UploadDTO\MenuInsertDto(
+                            $menuDto = new UploadDTO\MenuInsertDto(
                                     $filesop[0], 
                                     null, 
                                     $filesop[1], 
@@ -118,30 +120,106 @@ class MenuController extends ApiController {
         }
     }
     
-    public function menuList() {
+    public function menuList(){
         $restaurantId = parent::readCookie('cri');
-        $menuList = $this->getMenus($restaurantId);
+        if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+        $parameter = $this->request->param('page');
+        $menuList = $this->paginatedMenu($restaurantId,$parameter);
+        $menuCategoryController = new MenuCategoryController();
+        $category = $menuCategoryController->getStdMenuCategory();
+        $roomCategoryController = new RRoomsController();
+        $rooms = $roomCategoryController->getStdRooms();
+       
         $this->set([
-                    'menus' => $menuList
+                    'menus' => $menuList,
+                    'categories' => $category,
+                    'room' => $rooms
                 ]);
     }
     
     public function editMenu() {
+        $restaurantId = parent::readCookie('cri');
         $data = $this->request->data;
         if($this->request->is('post') and isset($data['edit'])){
             $stdMenu = new \stdClass();
             foreach ($data as $k => $v){
                 $stdMenu->$k = $v;
             }
+            $menuCategoryController = new MenuCategoryController();
+            $category = json_decode(json_encode($menuCategoryController->getStdMenuCategory(),true));
+            $roomCategoryController = new RRoomsController();
+            $rooms = json_decode(json_encode($roomCategoryController->getStdRooms(),true));
              $this->set([
-                    'menuInfo' => $stdMenu
+                    'menuInfo' => $stdMenu,
+                    'category' => $category,
+                    'room' => $rooms
                 ]);
         }elseif ($this->request->is('post') and isset($data['save'])) {
-            $this->autoRender = FALSE;
-            print_r($data);
-            
-            
+           $updateRequest = new UploadDTO\MenuInsertDto(
+                   $data['ttl'], 
+                   $data['img'], 
+                   $data['prc'], 
+                   $data['igt'], 
+                   $data['tags'], 
+                   $this->getValue('avl', $data), 
+                   $this->getValue('act', $data), 
+                   $this->getValue('veg', $data), 
+                   $this->getValue('spy', $data), 
+                   $data['category'], 
+                   $restaurantId, 
+                   $data['room'], 
+                   $data['mid']);
+           $updateResult = $this->getTableObj()->update($updateRequest);
+          if ($updateResult) {
+                $menuUpdate = $this->getTableObj()->getUpdateMenu($updateRequest->menuId);
+                $this->makeSyncEntry(
+                        json_encode($menuUpdate), 
+                        UPDATE_OPERATION, 
+                        $restaurantId);
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(134),COLOR => SUCCESS_COLOR]);
+            } else {
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(136),COLOR => ERROR_COLOR]);
+            }
         }
+    }
+    
+    public function paginatedMenu($restaurantId,$page = 1) {
+        $menuTable = $this->getTableObj();
+        $count = $menuTable->connect()->find()->count(); 
+        Log::debug('Number of menu available in list is :- '.$count);
+        if(!$count){
+            return Null;
+        }
+        $conditions = array('RestaurantId =' => $restaurantId);
+        $limit = PAGE_LIMIT;
+        $menus = $this->paginate($menuTable->connect()->find()->where($conditions),['limit' => $limit, 'page' => $page]);
+         $allMenus = null;
+        $i = 0;
+        foreach ($menus as $menu) {
+            $menuDto = new DownloadDTO\MenuDownloadDto(
+                    $menu->MenuId, 
+                    $menu->MenuTitle, 
+                    $menu->Image, 
+                    $menu->Price, 
+                    $menu->Ingredients, 
+                    $menu->Tags, 
+                    $menu->AvailabilityStatus, 
+                    $menu->Active, 
+                    $menu->FoodType, 
+                    $menu->IsSpicy, 
+                    $menu->CategoryId,
+                    $menu->RoomId);
+            $allMenus[$i] = $menuDto;
+            $i++;
+        }
+        return $allMenus;
+    }
+
+    private function makeSyncEntry($update, $operation, $restaurantId) {
+        $synController = new SyncController();
+        $synController->MenuEntry($update, $operation, $restaurantId);
     }
 
 }

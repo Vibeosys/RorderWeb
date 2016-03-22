@@ -33,7 +33,7 @@
                                 <table id="destination" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
+                                        
                                             <th class="title-width">Title</th>
                                             <th>Image</th>
                                             <th class="lat-width">Price</th>
@@ -42,6 +42,9 @@
                                             <th>Available</th>
                                             <th>Active</th>
                                             <th>Food Type</th>
+                                             <th>Spicy</th>
+                                            <th>Category</th>
+                                            <th>Room</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -50,9 +53,9 @@
                                     
                                         <tr>
                                         <form action="menu/editmenu" method="post">
-                                            <td>
-                                                <?= $menu->menuId ?><input style="display:none" type="text" name="mid" value="<?= $menu->menuId ?>">
-                                            </td>
+                                           
+                                               <input style="display:none" type="text" name="mid" value="<?= $menu->menuId ?>">
+                                           
                                             <td class="title-width">
                                                 <?= $menu->menuTitle ?><input style="display:none" type="text" name="ttl" value="<?= $menu->menuTitle ?>">
                                             </td>
@@ -76,7 +79,20 @@
                                             </td>
                                             <td class="lat-width">
                                                 <input class="roleId" style="display:none" type="text" name="ft" value="<?= $menu->foodType ?>">
-                                                <?= $menu->foodType ?>
+                                                <?php if($menu->foodType){echo 'Veg';}else{ echo 'Non-Veg';} ?>
+                                            </td>
+                                             <td class="lat-width">
+                                                <input class="roleId" style="display:none" type="text" name="spy" value="<?= $menu->isSpicy ?>">
+                                                <?= $menu->isSpicy ?>
+                                            </td>
+                                             <td class="lat-width">
+                                                <input class="roleId" style="display:none" type="text" name="ctgy" value="<?= $menu->categoryId ?>">
+                                                <?php if($menu->categoryId){ $key = $menu->categoryId; echo $categories->$key;} ?>
+                                                
+                                            </td>
+                                             <td class="lat-width">
+                                                <input class="roleId" style="display:none" type="text" name="rm" value="<?= $menu->roomId ?>">
+                                                <?php if($menu->roomId){ $key = $menu->roomId; echo $room->$key;} ?>
                                             </td>
                                             <td> <button name="edit" type="submit" class="dark-orange user-edit-btn"><span> Edit</span></button></td>
                                            </form>
@@ -85,8 +101,18 @@
                                    <?php } ?>   
                                     </tbody>
                                 </table>
+                                <div class="col-xs-3"></div>
+                                <div class="col-xs-3"></div>
+                                                                <div class="col-xs-3"></div>
+                                 <div class="col-xs-3" id="pagination">
+                                     
+                                    <span id="prev-btn" ><button class="previous dark-orange" ><?=  $this->Paginator->prev(' << ' . __('previous')) ?></button></span>
+                                    <span id="next-btn" ><button class="next dark-orange" ><?= $this->Paginator->next('next »') ?></button></span>
+                                </div>
+                                <textarea id="next-page" style="display: none"><?= $this->Paginator->hasNext()?></textarea>
+                                <textarea id="prev-page" style="display: none"><?= $this->Paginator->hasPrev()?></textarea>
                                <?php }else{ ?>
-                                 <div id="error-div" style="margin-left: 20%;color: red" >Menu not found for current restaurant.<br><br>
+                                 <div id="error-div" style="margin-left: 20%;color: red" >Menu not found for current restaurant.<br><br><br>
                                      <a style="margin-left: 90px;padding: 5px;border:1px solid gainsboro" href="../managedata"> << Back</a>
                                  </div>
                                <?php } ?>

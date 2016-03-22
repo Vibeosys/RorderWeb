@@ -34,7 +34,7 @@
                                         </button>
                                     </div>
                                     </form>  
-                                    <form action="rtables/addnewtables" method="post" > 
+                                    <form action="rtables" method="post" > 
                                     <div class="manage-controls tables col-xs-3"><button>
                                         <?= $this->Html->image('quickserve-table-control.png', ['class' => 'quickserve-menu','alt' => 'TABLE'])?>
                                         <b>Table</b> 

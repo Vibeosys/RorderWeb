@@ -38,4 +38,18 @@ class RRoomsController extends ApiController{
         return $preparedStatements;
     }
     
+    public function getStdRooms() {
+        $restaurantId = parent::readCookie('cri');
+        $allRooms = $this->getTableObj()->getRooms(123456);
+        if($allRooms){
+            $mRoom = new \stdClass();
+            foreach ($allRooms as $room){
+                $key = $room->roomId;
+                $mRoom->$key = $room->description;
+            }
+            return $mRoom;  
+        }
+        return FALSE;
+    }
+    
 }

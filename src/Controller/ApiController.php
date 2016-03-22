@@ -120,5 +120,14 @@ class ApiController extends AppController {
             return 0;
         }
     }
+    
+        
+    public function getValue($index, $array) {
+        if(key_exists($index, $array)){
+            return 1;
+        }  else {
+            return 0;    
+        }
+    }
 
 }

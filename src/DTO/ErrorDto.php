@@ -77,7 +77,11 @@ class ErrorDto {
         130 => 'New user has added',
         131 => 'User information updated',
         132 => 'Oops ! User not added',
-        133 => 'Oops ! User information not updated'
+        133 => 'Oops ! User information not updated',
+        134 => 'Menu information updated',
+        135 => 'Table information updated',
+        136 => 'Oops ! Menu information not updated',
+        137 => 'Oops ! Table information not updated'
        ];
     
 }

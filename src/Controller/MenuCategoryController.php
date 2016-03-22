@@ -91,5 +91,18 @@ class MenuCategoryController extends ApiController {
         }
         Log::debug('Cancel button pressed from menu category');
     }
+    
+    public function getStdMenuCategory() {
+        $allMenuCategory = $this->getMenuCategories();
+        if($allMenuCategory){
+             $mCategory = new \stdClass();
+            foreach ($allMenuCategory as $category){
+                $key = $category->categoryId;
+                $mCategory->$key = $category->categoryTitle;
+            }
+            return $mCategory;  
+        }
+        return FALSE;
+    }
 
 }

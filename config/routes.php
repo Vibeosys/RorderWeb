@@ -15,6 +15,8 @@ Router::scope('/', function ($routes) {
     $routes->connect('menucategory/addnewmenucategory', ['controller' => 'MenuCategory', 'action' => 'addNewMenuCategory']);
     $routes->connect('tablecategory/addnewtablecategory', ['controller' => 'TableCategory', 'action' => 'addNewTableCategory']);
     $routes->connect('rtables/addnewtables', ['controller' => 'RTables', 'action' => 'addNewTables']);
+    $routes->connect('rtables', ['controller' => 'RTables', 'action' => 'tableList']);
+    $routes->connect('rtables/edittable', ['controller' => 'RTables', 'action' => 'editTable']);
     $routes->connect('users', ['controller' => 'User', 'action' => 'usersList']);
     $routes->connect('user/addnewuser', ['controller' => 'User', 'action' => 'addNewUser']);
     $routes->connect('user/edituser', ['controller' => 'User', 'action' => 'editUser']);

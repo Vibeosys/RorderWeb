@@ -150,7 +150,6 @@ class UserController extends ApiController {
             foreach ($requestData as $key => $value){
                 $stdUser->$key = $value;
             }
-            
             $this->set(['userInfo' => $stdUser, 'roles' => $userRoles,'permissions' => $permission]);
         }elseif ($this->request->is('post') and isset($requestData['save'])) {
              $userUploadDto  = new DownloadDTO\UserDownloadDto(

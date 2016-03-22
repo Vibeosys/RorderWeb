@@ -76,8 +76,8 @@
                                     </tbody>
                                 </table>
                                <?php }else{ ?>
-                                 <div id="error-div" style="margin-left: 20%;color: red" >Users not found for current restaurant.<br>
-                                     <a style="margin-left: 20px;padding: 5px;border:1px solid gainsboro" href="../users"> <- Back</a></div>
+                                 <div id="error-div" style="margin-left: 20%;color: red" >Users not found for current restaurant.<br><br>
+                                     <a style="margin-left: 90px;padding: 5px;border:1px solid gainsboro" href="../managedata"> <- Back</a></div>
                                <?php } ?>
                             </div><!-- /.box-body -->
                         </div><!-- /.box -->                       

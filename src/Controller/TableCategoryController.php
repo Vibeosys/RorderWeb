@@ -83,6 +83,19 @@ class TableCategoryController extends ApiController{
         }
     }
     
+    public function getStdTableCategory() {
+        $tableCategories = $this->getTableCategories();
+        if($tableCategories){
+            $tcategory = new \stdClass();
+            foreach ($tableCategories as $category){
+                $k = $category->tableCategoryId;
+                $tcategory->$k = $category->categoryTitle;
+            }
+            return $tcategory;
+        }
+        return null;
+    }
+    
     
     
 }

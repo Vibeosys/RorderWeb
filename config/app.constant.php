@@ -72,3 +72,10 @@ define('BAR_CHART_SETTING', '["caption" => "Monthly sales history for last year"
 define('DOMAIN', 'localhost');
 
 define('CURRENT_TIME_ZONE','Asia/Kolkata');
+
+define('DINE_IN_ORDER','Dine-In');
+
+define('TAKEAWAY_ORDER','Takeaway');
+
+//this page limit is for pagination
+define('PAGE_LIMIT','20');
