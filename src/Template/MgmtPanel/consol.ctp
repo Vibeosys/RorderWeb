@@ -200,6 +200,7 @@ $this->layout = false;
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
                         }});
+                    //
                     $.ajax({
                         url: "/customervisitreport?id=" + restId,
                         type: "POST",
@@ -222,7 +223,31 @@ $this->layout = false;
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
                         }});
-        //graph for transaction report
+                    //graph for transaction report
+                     $.ajax({
+                        url: "/transactionreport?id=" + restId,
+                        type: "POST",
+                        // data: {id: restId},
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (result, jqXHR, textStatus) {
+                            if (result) {
+                                var revenueChart = new FusionCharts({
+                                    type: 'column2d',
+                                    renderAt: 'transaction-graph',
+                                    width: '750',
+                                    height: '350',
+                                    dataFormat: 'json',
+                                    dataSource: result}).render();
+                            } else {
+                                alert('Error..!Please contact on info@vibeosys.com');
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                        }});
+        /*graph for transaction report
         
          var revenueChart = new FusionCharts({
         type: 'column2d',
@@ -277,7 +302,7 @@ $this->layout = false;
         }
     }).render();
         
-        
+       */ 
         //graph for inventory
         var topStores = new FusionCharts({
         type: 'bar2d',

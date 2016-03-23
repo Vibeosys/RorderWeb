@@ -120,7 +120,7 @@ class BillTable extends Table {
           if($tableObj->save($oldBill)){
                 Log::debug('Bill Payment Status has been changed for BillNo : '
                         .$billPaymentRequest->billNo);
-                return $billPaymentRequest->billNo;
+                return $oldBill->TotalPayAmount;
             }
             Log::error('Error occured in changing bill Payment for BillNo : '
                     .$billPaymentRequest->billNo);

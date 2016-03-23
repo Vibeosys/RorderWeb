@@ -26,6 +26,8 @@ class CustomerVisitController extends ApiController{
     private $objKey = ['f11to2','f2to3','f4to6','f6to8','f8to10','f10to12'];
     private $paicahrt_default_data = ["formatnumberscale" => "0",
                               "showborder" => "0",
+                            "bgColor" => "#ffffff",
+                            "borderAlpha" => "20",
                               "caption" => "",
                               "subCaption" => ""];
 
@@ -61,7 +63,6 @@ class CustomerVisitController extends ApiController{
             for($i = 0; $i < count($this->timeSlot); $i++){
                 $index = $this->objKey[$i];
                 $intermediate[$index] = $intermediate[$index] + $reportData->$index; 
-                \Cake\Log\Log::debug('intermediate date value : '.$index);
             }
         }
         $data[] = null; $ind = 0;

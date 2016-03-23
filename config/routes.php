@@ -35,6 +35,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('gettakeaway', ['controller' => 'MgmtPanel', 'action' => 'getTakeaway']);
     $routes->connect('orderprintpreview', ['controller' => 'OrderDetails', 'action' => 'orderPrintPreview']);
     $routes->connect('salesreport', ['controller' => 'SalesHistory', 'action' => 'getReport']);
+    $routes->connect('transactionreport', ['controller' => 'TransactionMaster', 'action' => 'getTransactionReport']);
     $routes->connect('customervisitreport', ['controller' => 'CustomerVisit', 'action' => 'customerVisitReport']);
     $routes->connect('login', ['controller' => 'MgmtPanel', 'action' => 'login']);
     $routes->fallbacks('DashedRoute');

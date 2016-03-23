@@ -47,7 +47,7 @@ class SalesHistoryController extends ApiController{
                     "xAxisLineColor" =>"#999999",
                     "divlineColor" => "#999999",               
                     "divLineIsDashed" => "1",
-                    "showAlternateHGridColor" => "0",
+                    "showAlternateHGridColor" => "1",
                     "subcaptionFontBold" => "0",
                     "subcaptionFontSize" => "14"];
     private function getTableObj() {

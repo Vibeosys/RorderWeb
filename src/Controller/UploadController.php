@@ -208,7 +208,7 @@ class UploadController extends ApiController {
             $orderDetailList[$orderLoopCounter] = $orderDetailEntryDto;
             $orderLoopCounter++;
         }
-        $obj = $this->transBegin();
+        $this->transBegin();
         $maxOrderNo = $orderController->getMaxOrderNo($userInfo->restaurantId);
         $orderEntryDto = new UploadDTO\OrderEntryDto(
                 $orderUploadRequest->orderId, 
@@ -225,7 +225,7 @@ class UploadController extends ApiController {
         $orderHeaderEntrySucceded = $orderController->addOrderEntry($orderEntryDto);
         if($orderHeaderEntrySucceded == 0)
         {
-            $obj->Rollback();
+            $this->transRollback();
             Log::error('No order entry was inserted into db');
             return;        
         }
@@ -233,11 +233,11 @@ class UploadController extends ApiController {
         $orderDetailEntrySucceeded = $orderDetailController->addOrderEntries($orderDetailList,$userInfo);
         if($orderDetailEntrySucceeded == 0)
          {
-            $obj->Rollback();
+            $this->transRollback();
             Log::error('No order entry was inserted for order details into db');
             return;        
         }
-        $obj->Commit();
+        $this->transCommit();
         return $orderHeaderEntrySucceded;
     }
     
@@ -397,11 +397,24 @@ class UploadController extends ApiController {
     private function payedBill($operationData, $userInfo) {
         $payedBillRequest = UploadDTO\BillPaymentUploadDto::Deserialize($operationData);
         $billController = new BillController();
-        $payedBillResult = $billController->changeBillPaymetStatus($payedBillRequest, $userInfo);
+        $this->transBegin();
+        $payedBillResult = $billController->changeBillPaymetStatus(
+                $payedBillRequest, $userInfo);
         if($payedBillResult){
             $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Bill payment has been done'));
+            $transactionController = new TransactionMasterController();
+            $reportResult = $transactionController->createTransactionReport(
+                    $payedBillRequest->payedBy, 
+                    $payedBillResult, 
+                    $userInfo->restaurantId);
+            if($reportResult){
+                $this->transCommit();
+            }  else {
+                $this->transRollback();
+            }
             return ;
         }
+        $this->transRollback();
         $this->response->body(DTO\ErrorDto::prepareError(111));
         return;
     }
