@@ -101,10 +101,11 @@ class MenuController extends ApiController {
                                     null, 
                                     ACTIVE, 
                                     ACTIVE, 
+                                    Null, 
                                     $filesop[3], 
                                     $filesop[4], 
-                                    $filesop[5], 
                                     $restaurantId,
+                                    $filesop[5],
                                     $filesop[6]);
                            $allMenus[$counter] = $menuDto;
                            $counter++;
@@ -171,7 +172,7 @@ class MenuController extends ApiController {
                    $data['tags'], 
                    $this->getValue('avl', $data), 
                    $this->getValue('act', $data), 
-                   $this->getValue('veg', $data), 
+                   null, 
                    $this->getValue('spy', $data), 
                    $data['category'], 
                    $restaurantId, 

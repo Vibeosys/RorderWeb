@@ -89,18 +89,6 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="latitude" class="col-sm-2 control-label">Food Type</label>
-                                                <div class="col-sm-8">
-                                                      <?php if($menuInfo->ft){ ?>
-                                                    <input name="veg" type="checkbox" checked> Veg
-                                                    <input name="non-veg" type="checkbox"> Non Veg
-                                                <?php }else {?>   
-                                                   <input name="veg" type="checkbox" > Veg
-                                                    <input name="non-veg" type="checkbox" checked> Non Veg
-                                                <?php }?>  
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
                                                 <label for="latitude" class="col-sm-2 control-label"></label>
                                                 <div class="col-sm-8">
                                                    <?php if($menuInfo->spy){ ?>

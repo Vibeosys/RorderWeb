@@ -94,7 +94,7 @@ class MenuTable extends Table {
             $newMenu->IsSpicy = $menu->isSpicy; 
             $newMenu->CreatedDate = date(VB_DATE_TIME_FORMAT);
             $newMenu->UpdatedDate = date(VB_DATE_TIME_FORMAT);
-            $newMenu->CategoryId = $menu->categoryId+22;
+            $newMenu->CategoryId = $menu->categoryId;
             $newMenu->RestaurantId = $menu->restaurantId;
             $newMenu->RoomId = $menu->roomId;
             $newMenu->FbTypeId = $menu->fbTypeId;

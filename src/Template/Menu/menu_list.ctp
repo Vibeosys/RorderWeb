@@ -38,14 +38,10 @@
                                             <th>Image</th>
                                             <th class="lat-width">Price</th>
                                             <th>Ingredients</th>
-                                            <th>Tags</th>
-                                            <th>Available</th>
-                                            <th>Active</th>
-                                            <th>Food Type</th>
-                                             <th>Spicy</th>
+                                            <th>Spicy</th>
                                             <th>Category</th>
-                                            <th>Room</th>
-                                            <th>Fb Type</th>
+                                            <th>Kitchen</th>
+                                            <th>Type</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -61,7 +57,7 @@
                                                 <?= $menu->menuTitle ?><input style="display:none" type="text" name="ttl" value="<?= $menu->menuTitle ?>">
                                             </td>
                                             <td>
-                                                 <?= $menu->image ?><input style="display:none" type="text" name="img" value="<?= $menu->image ?>">
+                                                <img src="<?= $menu->image ?>" title="<?= $menu->menuTitle ?>" alt="<?= $menu->menuTitle ?>" width="70" height="70"><input style="display:none" type="text" name="img" value="<?= $menu->image ?>">
                                             </td>
                                             <td class="lat-width"><input class="roleId" style="display:none" type="text" name="prc" value="<?= $menu->price ?>">
                                                 <?= $menu->price ?>
@@ -69,22 +65,14 @@
                                             <td>
                                                 <?= $menu->ingredients ?><input style="display:none" type="text" name="igt" value="<?= $menu->ingredients ?>">
                                             </td>
-                                             <td>
-                                                <?= $menu->tags ?><input style="display:none" type="text" name="tags" value="<?= $menu->tags ?>">
-                                            </td>
-                                            <td class="title-width">
-                                                <?= $menu->availabilityStatus ?><input style="display:none" type="text" name="avl" value="<?= $menu->availabilityStatus ?>">
-                                            </td>
-                                            <td class="lat-width">
-                                                 <?= $menu->active ?><input style="display:none" type="text" name="act" value="<?= $menu->active ?>">
-                                            </td>
-                                            <td class="lat-width">
-                                                <input class="roleId" style="display:none" type="text" name="ft" value="<?= $menu->foodType ?>">
-                                                <?php if($menu->foodType){echo 'Veg';}else{ echo 'Non-Veg';} ?>
-                                            </td>
+                                             
+                                               <input style="display:none" type="text" name="tags" value="<?= $menu->tags ?>">
+                                                <input style="display:none" type="text" name="avl" value="<?= $menu->availabilityStatus ?>">
+                                               <input style="display:none" type="text" name="act" value="<?= $menu->active ?>">
+                                           
                                              <td class="lat-width">
                                                 <input class="roleId" style="display:none" type="text" name="spy" value="<?= $menu->isSpicy ?>">
-                                                <?= $menu->isSpicy ?>
+                                                <?php if($menu->isSpicy){ echo 'Yes';}else{ echo 'No';} ?>
                                             </td>
                                              <td class="lat-width">
                                                 <input class="roleId" style="display:none" type="text" name="ctgy" value="<?= $menu->categoryId ?>">
