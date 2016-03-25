@@ -25,7 +25,8 @@ CREATE TABLE [menu_category](
   'FoodType'                BOOLEAN,
   'IsSpicy'                     BOOLEAN,
   'CategoryId'              INTEGER,
-  'RoomId'              INTEGER);
+  'RoomId'              INTEGER,
+  'FbTypeId'              INTEGER);
   
   CREATE TABLE [table_category] (
   'TableCategoryId'       INTEGER NOT NULL PRIMARY KEY,
@@ -201,6 +202,10 @@ CREATE TABLE [permission_set](
  'PermissionKey'    TEXT,
  'Description'    TEXT,
  'Active'         BOOLEAN);
+
+ CREATE TABLE [fb_types] (
+  'FbTypeId'                       INTEGER NOT NULL PRIMARY KEY,
+  'FbTypeName'                    TEXT);
 
 
 

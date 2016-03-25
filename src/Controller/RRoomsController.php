@@ -38,9 +38,9 @@ class RRoomsController extends ApiController{
         return $preparedStatements;
     }
     
-    public function getStdRooms() {
-        $restaurantId = parent::readCookie('cri');
-        $allRooms = $this->getTableObj()->getRooms(123456);
+    public function getStdRooms($restaurantId) {
+        \Cake\Log\Log::debug('current restaurantId is :-'.$restaurantId);
+        $allRooms = $this->getTableObj()->getRooms($restaurantId);
         if($allRooms){
             $mRoom = new \stdClass();
             foreach ($allRooms as $room){

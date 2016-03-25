@@ -146,6 +146,24 @@
                                                     </select>
                                             </div>
                                             </div>
+                                             <div class="form-group">
+                                            <label for="longitude" class="col-sm-2 control-label">Food Beverages Type </label>
+                                            <div class="col-sm-8">
+                                                    <select name="fbType" class="form-control-select" required>
+                                                        <option value="null">Select Type</option>
+                                                    <?php  if(isset($fbType)){
+                                                                foreach ($fbType as $key => $value){
+                                                                    if($key == $menuInfo->fbtp){
+                                                                       echo '<option value="'.$key.'" selected>'.$value.'</option>';
+                                                                     }else {
+                                                                        echo '<option value="'.$key.'">'.$value.'</option>';
+                                                                     }
+                                                                }
+                                                            }
+                                                    ?>
+                                                    </select>
+                                            </div>
+                                            </div>
                                         </div><!-- /.box-body -->
                                         <div class="box-footer col-xs-12" style="margin-left:0px">
                                             <div class="row">

@@ -21,9 +21,9 @@ use App\DTO;
  * @author niteen
  */
 define('MENU_INS_QRY', "INSERT INTO menu (MenuId,MenuTitle,Image,Price,Ingredients,"
-        . "Tags,AvailabilityStatus,Active,FoodType,IsSpicy,CategoryId,RoomId) "
+        . "Tags,AvailabilityStatus,Active,FoodType,IsSpicy,CategoryId,RoomId,FbTypeId) "
         . "VALUES (@MenuId,\"@MenuTitle\",\"@Image\",@Price,\"@Ingredients\",\"@Tags\","
-        . "@AvailabilityStatus,@Active,@FoodType,@IsSpicy,@CategoryId,@RoomId);");
+        . "@AvailabilityStatus,@Active,@FoodType,@IsSpicy,@CategoryId,@RoomId,@FbTypeId);");
 
 class MenuController extends ApiController {
 
@@ -69,6 +69,7 @@ class MenuController extends ApiController {
             $preparedStatements = str_replace('@IsSpicy', $menu->isSpicy, $preparedStatements);
             $preparedStatements = str_replace('@CategoryId', $menu->categoryId, $preparedStatements);
             $preparedStatements = str_replace('@RoomId', $this->isNull($menu->roomId), $preparedStatements);
+            $preparedStatements = str_replace('@FbTypeId', $this->isNull($menu->fbTypeId), $preparedStatements);
         }
         return $preparedStatements;
     }
@@ -130,12 +131,14 @@ class MenuController extends ApiController {
         $menuCategoryController = new MenuCategoryController();
         $category = $menuCategoryController->getStdMenuCategory();
         $roomCategoryController = new RRoomsController();
-        $rooms = $roomCategoryController->getStdRooms();
-       
+        $rooms = $roomCategoryController->getStdRooms($restaurantId);
+        $fbTypeController = new FbTypeController();
+        $fbType = $fbTypeController->getStdFbTypes();
         $this->set([
                     'menus' => $menuList,
                     'categories' => $category,
-                    'room' => $rooms
+                    'room' => $rooms,
+                    'fbType' => $fbType
                 ]);
     }
     
@@ -150,11 +153,14 @@ class MenuController extends ApiController {
             $menuCategoryController = new MenuCategoryController();
             $category = json_decode(json_encode($menuCategoryController->getStdMenuCategory(),true));
             $roomCategoryController = new RRoomsController();
-            $rooms = json_decode(json_encode($roomCategoryController->getStdRooms(),true));
+            $rooms = json_decode(json_encode($roomCategoryController->getStdRooms($restaurantId),true));
+            $fbTypeController = new FbTypeController();
+            $fbType = json_decode(json_encode($fbTypeController->getStdFbTypes()));
              $this->set([
                     'menuInfo' => $stdMenu,
                     'category' => $category,
-                    'room' => $rooms
+                    'room' => $rooms,
+                    'fbType' => $fbType
                 ]);
         }elseif ($this->request->is('post') and isset($data['save'])) {
            $updateRequest = new UploadDTO\MenuInsertDto(
@@ -170,7 +176,8 @@ class MenuController extends ApiController {
                    $data['category'], 
                    $restaurantId, 
                    $data['room'], 
-                   $data['mid']);
+                   $data['mid'],
+                   $data['fbType']);
            $updateResult = $this->getTableObj()->update($updateRequest);
           if ($updateResult) {
                 $menuUpdate = $this->getTableObj()->getUpdateMenu($updateRequest->menuId);
@@ -210,7 +217,8 @@ class MenuController extends ApiController {
                     $menu->FoodType, 
                     $menu->IsSpicy, 
                     $menu->CategoryId,
-                    $menu->RoomId);
+                    $menu->RoomId,
+                    $menu->FbTypeId);
             $allMenus[$i] = $menuDto;
             $i++;
         }

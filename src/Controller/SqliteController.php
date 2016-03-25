@@ -48,6 +48,7 @@ class SqliteController extends ApiController {
             $this->addPrinters($tableObject);
             $this->addRoomPrinters($tableObject);
             $this->addConfigSetting($tableObject);
+            $this->addFbTypes($tableObject);
 
             $this->response->type('class');
             $this->response->file($this->sqliteFile, ['download' => true]);
@@ -268,6 +269,16 @@ class SqliteController extends ApiController {
             Log::debug('Record is inserted into R_Config_settings SQLite table for restaurantId ' . $this->RestaurantId);
         } else {
             Log::error('Record is not inserted into R_Config_settings SQLite table');
+        }
+    }
+    
+     private function addFbTypes($tableObject) {
+        $fbTypeCOntroller = new FbTypeController();
+        $PreparedStatement = $fbTypeCOntroller->prepareInsertStatements();
+        if ($tableObject->excutePreparedStatement($PreparedStatement)) {
+            Log::debug('Record is inserted into Fb_Types SQLite table for restaurantId ' . $this->RestaurantId);
+        } else {
+            Log::error('Record is not inserted into Fb_Types SQLite table');
         }
     }
 }

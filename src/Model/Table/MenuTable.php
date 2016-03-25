@@ -47,7 +47,8 @@ class MenuTable extends Table {
                     $menu->FoodType, 
                     $menu->IsSpicy, 
                     $menu->CategoryId,
-                    $menu->RoomId);
+                    $menu->RoomId,
+                    $menu->FbTypeId);
             $allMenus[$i] = $menuDto;
             $i++;
         }
@@ -96,6 +97,7 @@ class MenuTable extends Table {
             $newMenu->CategoryId = $menu->categoryId+22;
             $newMenu->RestaurantId = $menu->restaurantId;
             $newMenu->RoomId = $menu->roomId;
+            $newMenu->FbTypeId = $menu->fbTypeId;
             if($tableObj->save($newMenu)){
                 $insertCounter++;
             }
@@ -117,7 +119,8 @@ class MenuTable extends Table {
             'IsSpicy' => $request->isSpicy,
             'UpdatedDate' => date(VB_DATE_TIME_FORMAT),
             'CategoryId' => $request->categoryId,
-            'RoomId' => $request->roomId
+            'RoomId' => $request->roomId,
+            'FbTypeId' => $request->fbTypeId
                ];
         try{
             $update = $this->connect()->query()->update();

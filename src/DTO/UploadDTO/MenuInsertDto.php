@@ -28,11 +28,12 @@ class MenuInsertDto {
     public $restaurantId;
     public $roomId;
     public $menuId;
+    public $fbTypeId;
 
 
     public function __construct($menuTitle, $image, $price, $ingredients, $tags, 
             $availabilityStatus, $active, $foodType, $isSpicy, $categoryId, 
-            $restaurantId,$roomId, $menuId = null) {
+            $restaurantId,$roomId, $menuId = null, $fbTypeId = null) {
         $this->menuTitle = $menuTitle;
         $this->image = $image;
         $this->price = $price;
@@ -46,5 +47,6 @@ class MenuInsertDto {
         $this->restaurantId = $restaurantId;
         $this->roomId = $roomId;
         $this->menuId = $menuId;
+        $this->fbTypeId = $fbTypeId;
     }
 }

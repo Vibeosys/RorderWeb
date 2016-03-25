@@ -45,6 +45,7 @@
                                              <th>Spicy</th>
                                             <th>Category</th>
                                             <th>Room</th>
+                                            <th>Fb Type</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -92,7 +93,11 @@
                                             </td>
                                              <td class="lat-width">
                                                 <input class="roleId" style="display:none" type="text" name="rm" value="<?= $menu->roomId ?>">
-                                                <?php if($menu->roomId){ $key = $menu->roomId; echo $room->$key;} ?>
+                                                <?php if($menu->roomId and $room){ $key = $menu->roomId; echo $room->$key;} ?>
+                                            </td>
+                                            <td class="lat-width">
+                                                <input class="roleId" style="display:none" type="text" name="fbtp" value="<?= $menu->fbTypeId ?>">
+                                                <?php if($menu->fbTypeId and $fbType){ $key = $menu->fbTypeId; echo $fbType->$key;} ?>
                                             </td>
                                             <td> <button name="edit" type="submit" class="dark-orange user-edit-btn"><span> Edit</span></button></td>
                                            </form>

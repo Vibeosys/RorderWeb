@@ -11,6 +11,7 @@ use App\Model\Table;
 use App\DTO\UploadDTO;
 use App\DTO\DownloadDTO;
 use App\DTO;
+use Cake\Log\Log;
 /**
  * Description of TransactionMasterController
  *
@@ -67,6 +68,9 @@ class TransactionMasterController extends ApiController{
     public function getTransactionReport() {
         $this->autoRender = FALSE;
         $restaurantId = $this->request->query('id');
+        if($this->request->is('post')){
+            Log::debug('Thiis request is post');
+        }
         $transactionDetailsController = new TransactionDetailsController();
         $reportData = $transactionDetailsController->generateReport($restaurantId);
         $stdObj = new \stdClass();
@@ -75,7 +79,7 @@ class TransactionMasterController extends ApiController{
         }
         $salesMainDto = new DownloadDTO\SalesMainDto($stdObj, $reportData);
         $chartData = json_encode($salesMainDto);
-        \Cake\Log\Log::debug('Transaction data :-'.$chartData);
+        Log::debug('Transaction data :-'.$chartData);
         $this->response->type('text/plain');
         $this->response->body($chartData);
     }
