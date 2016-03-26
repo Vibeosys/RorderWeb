@@ -21,21 +21,6 @@ class RestaurantTable extends Table{
         return TableRegistry::get('restaurant');
     }
     
-    public function getData($restaurantId) {
-        $conditions = ['RestaurantId =' => $restaurantId];
-        $rows = $this->connect()->find()->where($conditions);
-         $restaurant = null;
-        foreach ($rows as $row) {
-                $entity = new DownloadDTO\RestaurantDownloadDto(
-                        $row->RestaurantId, 
-                        $row->Title, 
-                        $row->LogoUrl);  
-                $restaurant = $entity;
-        }
-        return $restaurant;
-    }
-    
-    
     public function check($restaurantId) {
         $conditions = ['RestaurantId =' => $restaurantId,'Active =' => ACTIVE];
         $result = $this->connect()->find()->where($conditions);
@@ -62,8 +47,9 @@ class RestaurantTable extends Table{
                         $row->Area,
                         $row->City,
                         $row->Country,
-                        $row->Phone);  
-                $restaurant[$i] = $entity;$i++;
+                        $row->Phone,
+                        $row->Footer);  
+                $restaurant[$i++] = $entity;
         }
         }
         return $restaurant;

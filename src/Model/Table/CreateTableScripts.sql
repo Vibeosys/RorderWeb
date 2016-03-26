@@ -142,7 +142,13 @@ CREATE TABLE [menu_note_master](
 CREATE TABLE [restaurant](
  'RestaurantId'    INTEGER PRIMARY KEY,
  'RestaurantTitle'    TEXT,
- 'LogoUrl'            TEXT
+ 'LogoUrl'            TEXT,
+ 'Address'            TEXT,
+ 'Area'               TEXT,
+ 'City'               TEXT,
+ 'Country'               TEXT,
+ 'Phone'               TEXT,
+ 'Footer'               TEXT
 );
 
  CREATE TABLE [takeaway_source] (
