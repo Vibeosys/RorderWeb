@@ -20,7 +20,7 @@ use App\DTO;
  */
 define('USER_INS_QRY', "INSERT INTO users (UserId,UserName,Password,Active,"
         . "RoleId,RestaurantId,Permissions) VALUES (@UserId,\"@UserName\",\"@Password\","
-        . "@Active,@RoleId,@RestaurantId,@Permissions);");
+        . "@Active,@RoleId,@RestaurantId,\"@Permissions\");");
 
 class UserController extends ApiController {
 
