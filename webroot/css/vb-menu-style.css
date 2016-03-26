@@ -192,4 +192,9 @@ div.table-list > div.error-message,div.table-order-list > div.error-message{
 #pagination > span > button > li >a{
     color: orangered;
 }
+
+button.inventry-btn{
+    margin-top: 3%;
+    float: contour;
+}
  

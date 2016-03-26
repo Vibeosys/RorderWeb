@@ -85,4 +85,18 @@ class AppController extends Controller
         }
         return FALSE;
     }
+    
+    public function isAuthorised($permissonSet, $permissionKey) {
+        if($permissonSet){
+            $userPermissions = explode('|', $permissonSet);
+            $permissionSetController = new PermissionSetController();
+            $permissions = $permissionSetController->getPermissionsStdObj();
+            foreach ($userPermissions as $key => $value){
+                if($permissions->$value == $permissionKey){
+                    return true;
+                }
+            }
+        }
+        return FALSE;
+    }
 }

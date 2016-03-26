@@ -11,6 +11,7 @@ use Cake\ORM\TableRegistry;
 use Cake\ORM\Table;
 use Cake\Log\Log;
 use App\DTO\UploadDTO;
+use App\DTO\DownloadDTO;
 /**
  * Description of AdminUserTable
  *
@@ -33,5 +34,23 @@ class AdminUserTable extends Table{
             }
         }
         return false;
+    }
+    
+    public function getAdminDetails($adminId) {
+        $conditions = ['AdminUserId =' => $adminId];
+        $adminDto  = null;
+        $adminInfo = $this->connect()->find()->where($conditions);
+        if($adminInfo->count()){
+            foreach ($adminInfo as $admin){
+                $adminDto = new DownloadDTO\AdminUserDto(
+                        $admin->AdminUserId, 
+                        $admin->AdminUserName, 
+                        $admin->Password, 
+                        $admin->Phone, 
+                        $admin->Email, 
+                        $admin->Permissions);
+            }
+        }
+        return $adminDto;
     }
 }

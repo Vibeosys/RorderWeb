@@ -83,10 +83,17 @@ body {
         margin: 0px;
         letter-spacing: 0px;
     }
+    button.inventry-btn{
+        margin-top: 3%;
+    }
 }
 @media(max-width: 1199px){
    div.restaurant-info{
         padding-left:  0px;
+    }
+    
+    button.inventry-btn{
+        margin-top: 3%;
     }
 }
 
@@ -95,6 +102,10 @@ body {
         padding: 0 15px;
         margin: 0px;
         letter-spacing: 1px;
+    }
+    
+    button.inventry-btn{
+        margin-top: 3%;
     }
 }
 @media (min-width: 768px) {

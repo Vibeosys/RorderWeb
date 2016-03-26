@@ -68,7 +68,13 @@ class MgmtPanelController extends ApiController{
            $restaurants = $restaurantAdminController->getAdminsRestaurants($adminId);
            $restaurantController = new RestaurantController();
            $allRestaurants = $restaurantController->getAdminRestaurants($restaurants);
-           $this->set(['data' => $allRestaurants]);
+           $adminUserController = new AdminUserController();
+           $adminInfo = $adminUserController->getAdminPermissionSet($adminId);
+           $permitted = $this->isAuthorised($adminInfo->permissions, 'INVENTORY');
+           $this->set([
+               'data' => $allRestaurants,
+                'permitted' => $permitted   
+                   ]);
        }  else {
            $this->redirect('login');
        }

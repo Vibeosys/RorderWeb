@@ -26,4 +26,8 @@ class AdminUserController extends ApiController{
         }
         return false;
     }
+    
+    public function getAdminPermissionSet($adminId) {
+        return $this->getTableObj()->getAdminDetails($adminId);
+    }
 }
