@@ -217,7 +217,7 @@ class UploadController extends ApiController {
                 $userInfo->restaurantId, 
                 $orderUploadRequest->custId, 
                 $this->isZero($orderUploadRequest->tableId), 
-                PLACED_ORDER_STATUS,
+                FULFILLED_ORDER_STATUS,
                 $userInfo->userId,
                 $this->isZero($orderUploadRequest->takeawayNo),
                 $orderUploadRequest->orderType

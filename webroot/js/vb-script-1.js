@@ -130,6 +130,18 @@ $(document).ready(function(){
       $('.next > li > a').css('color','orangered');
   });
   
+  //stock upload menu management
+  $('#mbsu').hide();
+  $('#mbsm').hide();
+  $('#msm').hide();
+  
+  $('ul.nav > li > a').on('click', function(){
+      var id = $(this).attr('href');
+      $('.stock-section').hide();
+      $(''+id).show();
+  });
+  
+  
 });
 
 function printtable(){

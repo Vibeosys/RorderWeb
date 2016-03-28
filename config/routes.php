@@ -12,6 +12,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('menu/addnewmenu', ['controller' => 'Menu', 'action' => 'addNewMenu']);
     $routes->connect('menu', ['controller' => 'Menu', 'action' => 'menuList']);
     $routes->connect('menu/editmenu', ['controller' => 'Menu', 'action' => 'editMenu']);
+    $routes->connect('menu/editrecipe', ['controller' => 'Menu', 'action' => 'editRecipe']);
     $routes->connect('menucategory/addnewmenucategory', ['controller' => 'MenuCategory', 'action' => 'addNewMenuCategory']);
     $routes->connect('tablecategory/addnewtablecategory', ['controller' => 'TableCategory', 'action' => 'addNewTableCategory']);
     $routes->connect('rtables/addnewtables', ['controller' => 'RTables', 'action' => 'addNewTables']);
@@ -23,6 +24,8 @@ Router::scope('/', function ($routes) {
     $routes->connect('recipeitems/addnewrecipeitems', ['controller' => 'RecipeItemMaster', 'action' => 'addNewRecipeItem']);
     $routes->connect('inventory', ['controller' => 'RecipeItemMaster', 'action' => 'recipeItemList']); 
     $routes->connect('inventory/stockupload', ['controller' => 'RecipeItemMaster', 'action' => 'stockUpload']); 
+    $routes->connect('inventory/stockupload/material', ['controller' => 'RecipeItemMaster', 'action' => 'stockUpload']);
+    $routes->connect('inventory/stockupload/materialbrand', ['controller' => 'RecipeItemMaster', 'action' => 'stockUpload']);
     $routes->connect('/', ['controller' => 'MgmtPanel', 'action' => 'consol']);
     $routes->connect('upload', ['controller' => 'MgmtPanel', 'action' => 'upload']);
     $routes->connect('/edit', ['controller' => 'MgmtPanel', 'action' => 'edit']);

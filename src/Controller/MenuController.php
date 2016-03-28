@@ -21,9 +21,9 @@ use App\DTO;
  * @author niteen
  */
 define('MENU_INS_QRY', "INSERT INTO menu (MenuId,MenuTitle,Image,Price,Ingredients,"
-        . "Tags,AvailabilityStatus,Active,FoodType,IsSpicy,CategoryId,RoomId,FbTypeId) "
+        . "Tags,AvailabilityStatus,Active,IsSpicy,CategoryId,RoomId,FbTypeId) "
         . "VALUES (@MenuId,\"@MenuTitle\",\"@Image\",@Price,\"@Ingredients\",\"@Tags\","
-        . "@AvailabilityStatus,@Active,@FoodType,@IsSpicy,@CategoryId,@RoomId,@FbTypeId);");
+        . "@AvailabilityStatus,@Active,@IsSpicy,@CategoryId,@RoomId,@FbTypeId);");
 
 class MenuController extends ApiController {
 
@@ -65,7 +65,7 @@ class MenuController extends ApiController {
             $preparedStatements = str_replace('@Tags', $menu->tags, $preparedStatements);
             $preparedStatements = str_replace('@AvailabilityStatus', $menu->availabilityStatus, $preparedStatements);
             $preparedStatements = str_replace('@Active', $menu->active, $preparedStatements);
-            $preparedStatements = str_replace('@FoodType', $menu->foodType, $preparedStatements);
+            //$preparedStatements = str_replace('@FoodType', $menu->foodType, $preparedStatements);
             $preparedStatements = str_replace('@IsSpicy', $menu->isSpicy, $preparedStatements);
             $preparedStatements = str_replace('@CategoryId', $menu->categoryId, $preparedStatements);
             $preparedStatements = str_replace('@RoomId', $this->isNull($menu->roomId), $preparedStatements);
@@ -190,6 +190,9 @@ class MenuController extends ApiController {
             } else {
                 $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(136),COLOR => ERROR_COLOR]);
             }
+        }elseif ($this->request->is('post') and isset($data['edit-recipe'])) {
+            parent::writeCookie('current-mid',  $data['mid']);
+            $this->redirect('menu/editrecipe');
         }
     }
     
@@ -229,6 +232,10 @@ class MenuController extends ApiController {
     private function makeSyncEntry($update, $operation, $restaurantId) {
         $synController = new SyncController();
         $synController->MenuEntry($update, $operation, $restaurantId);
+    }
+    
+    public function editRecipe() {
+        
     }
 
 }

@@ -197,4 +197,35 @@ button.inventry-btn{
     margin-top: 3%;
     float: contour;
 }
+
+div.inven-header{
+    
+    
+}
+
+div.inven-header > h2 {
+    margin-top: 0px;
+    text-transform: uppercase;
+    text-align: center;
+}
+div.box-header > div.col-xs-4{
+    min-width: 450px;
+}
+div.inven-date{
+    font-size: 18px;
+}
+div.inven-date > span {
+   float: right;
+}
+div.inven-btn-div > button{
+    margin-top: 2%;
+    width: 130px;
+}
+div.inven-btn-div > button.close-stock-btn{
+   // float: right;
+}
+section.stock-section{
+    position: relative;
+    margin-top: 50px;
+}
  
