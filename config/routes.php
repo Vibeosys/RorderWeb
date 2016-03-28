@@ -20,6 +20,9 @@ Router::scope('/', function ($routes) {
     $routes->connect('users', ['controller' => 'User', 'action' => 'usersList']);
     $routes->connect('user/addnewuser', ['controller' => 'User', 'action' => 'addNewUser']);
     $routes->connect('user/edituser', ['controller' => 'User', 'action' => 'editUser']);
+    $routes->connect('recipeitems/addnewrecipeitems', ['controller' => 'RecipeItemMaster', 'action' => 'addNewRecipeItem']);
+    $routes->connect('inventory', ['controller' => 'RecipeItemMaster', 'action' => 'recipeItemList']); 
+    $routes->connect('inventory/stockupload', ['controller' => 'RecipeItemMaster', 'action' => 'stockUpload']); 
     $routes->connect('/', ['controller' => 'MgmtPanel', 'action' => 'consol']);
     $routes->connect('upload', ['controller' => 'MgmtPanel', 'action' => 'upload']);
     $routes->connect('/edit', ['controller' => 'MgmtPanel', 'action' => 'edit']);
@@ -35,7 +38,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('gettakeaway', ['controller' => 'MgmtPanel', 'action' => 'getTakeaway']);
     $routes->connect('orderprintpreview', ['controller' => 'OrderDetails', 'action' => 'orderPrintPreview']);
     $routes->connect('salesreport', ['controller' => 'SalesHistory', 'action' => 'getReport']);
-    $routes->connect('transactionreport', ['controller' => 'TransactionMaster', 'action' => 'getTransactionReport']);
+    $routes->connect('transactionMaster/getTransactionReport', ['controller' => 'TransactionMaster', 'action' => 'getTransactionReport']);
     $routes->connect('customervisitreport', ['controller' => 'CustomerVisit', 'action' => 'customerVisitReport']);
     $routes->connect('login', ['controller' => 'MgmtPanel', 'action' => 'login']);
     $routes->fallbacks('DashedRoute');

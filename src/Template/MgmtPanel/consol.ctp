@@ -234,7 +234,7 @@ $this->layout = false;
                         }});
                     //graph for transaction report
                      $.ajax({
-                        url: "/transactionreport?id=" + restId,
+                        url: "/transactionMaster/getTransactionReport?id=" + restId,
                         type: "POST",
                         // data: {id: restId},
                         contentType: false,
