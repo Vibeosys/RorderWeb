@@ -152,15 +152,6 @@ class MgmtPanelController extends ApiController{
         parent::deleteCookie('un');
         parent::deleteCookie('pw');
         parent::deleteCookie('aui');
-        parent::deleteCookie('cri');
-        parent::deleteCookie('eri');
-        parent::deleteCookie('coi');//current order id
-        parent::deleteCookie('cot');//current order time
-        parent::deleteCookie('csb');//current served by
-        parent::deleteCookie('cono');//current order number
-        parent::deleteCookie('ctno');//current tableno
-        parent::deleteCookie('ctkno');//current takeaway no
-        parent::deleteCookie('cti');//current tableId
         $this->redirect('login');
     }
     
@@ -213,7 +204,10 @@ class MgmtPanelController extends ApiController{
     
     public function printPreview() {
             $tableId = $_COOKIE['cti'];
-            $takeawayNo = $_COOKIE['ctkno'];
+            $takeawayNo = 0;
+            if(key_exists('ctkno', $_COOKIE)){
+                $takeawayNo = $_COOKIE['ctkno'];
+            }
             Log::debug('Current tableId :-'.$tableId);
             Log::debug('Current takeawayNo :- '.$takeawayNo);
              if(empty($tableId) and empty($takeawayNo)){

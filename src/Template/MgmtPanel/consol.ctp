@@ -100,9 +100,8 @@ $this->layout = false;
                                         </div>
                                         <?php if($permitted){ ?>
                                         <div class="row"> 
-                                            <div class="col-xs-2"></div>
                                             <div class="col-xs-8">
-                                            <button style="" name="inventory" value="true" type="submit" id="mng-data" class="dark-orange inventry-btn">inventory Management</button>
+                                                <button style="" name="inventory" value="true" type="submit" id="mng-data" class="dark-orange inventry-btn">inventory Management</button>
                                             </div>
                                             <div class="col-xs-2"></div>
                                         </div>

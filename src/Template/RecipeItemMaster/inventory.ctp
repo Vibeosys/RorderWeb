@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="col-xs-4">
                                     <form action="inventory" method="post" style="float: right;padding-top: 10px;padding-right: 10px">  
-                                    <button name="os" value="true" class="dark-orange "> Save</button>
+                                    <button name="os" value="true" class="dark-orange stock-save"> Save</button>
                                     <a href="">Cancel</a>
                                    </form>
                                     

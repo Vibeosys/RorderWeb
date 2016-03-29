@@ -59,6 +59,9 @@ class RecipeItemMasterController extends ApiController{
     }
     
     public function inventory() {
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
         $data = $this->request->data;
         if($this->request->is('post') and isset($data['os'])){
               $this->redirect('inventory');
@@ -104,17 +107,29 @@ class RecipeItemMasterController extends ApiController{
     }
     
     public function materialStockUpload() {
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
         
     }
     public function materialBrandStockUpload() {
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
         
     }
     
     public function materialStockModification() {
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
         
     }
     
     public function materialBrandStockModification() {
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
         
     }
 }

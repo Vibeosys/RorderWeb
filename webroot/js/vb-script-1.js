@@ -133,10 +133,10 @@ $(document).ready(function(){
   //stock upload menu management
   
   // change the button text 
+  
   $('.open-stock-btn').on('click',function(){
        $('.stock-value').addClass('hidden')   
       $('.stock').removeClass('hidden');
-         
   });
   $('.stock-save').on('click',function(){
       $('.stock').addClass('hidden')    
