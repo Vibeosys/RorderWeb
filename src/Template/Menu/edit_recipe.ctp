@@ -26,7 +26,9 @@
                     <div class="col-xs-12">
                         <div class="box">                           
                             <section class="content content-div show-add-section">
-                              
+                                <div class="box-header">
+                                <a href="editrecipe/addnewitem"><button class="dark-orange add-edit-btn"><span>Add New Item</span></button></a>
+                            </div>
                                 <section class="stock-section">
                                       <div class="box-body show-grid-section">
                                 <table id="destination" class="table table-bordered table-hover">

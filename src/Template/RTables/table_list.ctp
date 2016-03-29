@@ -59,9 +59,9 @@
                                             <td>
                                               <?php 
                                               if($table->isOccupied){
-                                                  echo 'Ocuupied';
+                                                  echo 'Occupied';
                                                  }else{
-                                                    echo 'Unocuupied';
+                                                    echo 'Unoccupied';
                                                 }
                                                 ?>
                                                 <input style="display:none" type="text" name="iopd" value="<?= $table->isOccupied ?>">

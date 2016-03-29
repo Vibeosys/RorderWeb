@@ -237,5 +237,9 @@ class MenuController extends ApiController {
     public function editRecipe() {
         
     }
+    
+    public function addNewItem() {
+        
+    }
 
 }

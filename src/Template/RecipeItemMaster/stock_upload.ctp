@@ -43,7 +43,7 @@
 
                                      </ul>
                                 </div>  
-                                <section class="stock-section" id="msu">
+                                <section class="stock-section" id="msu" style="margin-top:50px">
                                     <div class="form-horizontal">
                                         <form method="post" action="stockupload/material" enctype="multipart/form-data">
                                         <div class="box-body">
@@ -74,7 +74,7 @@
                                     </div>
                                     
                                 </section>
-                                <section class="stock-section" id="mbsu" >
+                                <section class="stock-section" id="mbsu" style="margin-top:50px">
                                     <div class="form-horizontal">
                                         <form method="post" action="stockupload/materialbrand" enctype="multipart/form-data">
                                         <div class="box-body">
@@ -107,7 +107,7 @@
                                         <!-- Destination form elements disabled -->
                                     </div>
                                 </section>
-                                <section class="stock-section" id="msm" >
+                                <section class="stock-section" id="msm" style="margin-top:50px">
                                       <div class="box-body show-grid-section">
                                 <table id="destination" class="table table-bordered table-hover">
                                     <thead>
@@ -234,7 +234,7 @@
                             </div>                              
 
                                 </section>
-                                <section class="stock-section" id="mbsm" >
+                                <section class="stock-section" id="mbsm" style="margin-top:50px">
                                       <div class="box-body show-grid-section">
                                 <table id="destination" class="table table-bordered table-hover">
                                     <thead>
