@@ -27,7 +27,7 @@ class TransactionMasterController extends ApiController{
                     "bgColor" => "#ffffff",
                     "borderAlpha" => "20",
                     "canvasBorderAlpha" => "0",
-                    "usePlotGradientColor" => "1",
+                    "usePlotGradientColor" => "0",
                     "plotBorderAlpha" => "10",
                     "placevaluesInside" => "1",
                     "rotatevalues" => "1",
@@ -73,6 +73,11 @@ class TransactionMasterController extends ApiController{
         }
         $transactionDetailsController = new TransactionDetailsController();
         $reportData = $transactionDetailsController->generateReport($restaurantId);
+        $count = 0;
+        if(isset($reportData)){
+        foreach ($reportData as $report){
+            $report->color = $this->colors[$count++];
+        }}
         $stdObj = new \stdClass();
         foreach ($this->bar_chart_default_values as $key => $value){
         $stdObj->$key = $value;    

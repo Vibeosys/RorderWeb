@@ -28,6 +28,10 @@ use Cake\Event\Event;
 class AppController extends Controller
 {
    public $components = array('Cookie');
+   
+   public $colors = [
+       '#ff0066','#9900cc','#86b300','#009999'
+   ];
     /**
      * Initialization hook method.
      *

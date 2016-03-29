@@ -25,6 +25,9 @@
                     <div class="col-xs-12">
                         <div class="box">                           
                             <section class="content content-div show-add-section">
+                                <div class="back-btn" style="margin-top: 10px"> 
+                                <button  class="dark-orange button add-save-btn"  onclick="window.history.back();"> << Back </button>
+                                </div>
                                 <div class="row">
                                     <form action="menu" method="post"> 
                                     <div class="manage-controls menu col-xs-3">

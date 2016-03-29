@@ -6,41 +6,38 @@
     use Cake\Network\Exception\NotFoundException;
     use App\Controller;
 
-     $this->layout = 'rorder_layout';
+     $this->layout = 'rorder_inventory_layout';
      $this->assign('title', 'Inventory');
-     //$this->start('content');
-?>
-      
-<section class="content-header">
-                <h1>
-                  Restaurant Inventory
-                </h1>
-                <ol class="breadcrumb">
+     $this->assign('breadcrum', '<ol class="breadcrumb">
                     <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>  
                     <li><a>Inventory</a></li>
-                </ol>
-            </section>
-            <!-- Main content -->
+                </ol>');
+     //$this->start('content');
+?>
             <section class="content">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box">  
                             <div class="box-header" style="border: 0px solid blue">
                                 <div class="row">
-                                <div class="col-xs-4"></div>
-                                <div class="col-xs-4 inven-header"><h2>Stock Taking</h2></div>
+                                    <div class="col-xs-4"> <a href="#" onclick="window.history.back();"> << Back </a></div>
+                                <div class="col-xs-4 inven-header"></div>
                                 <div class="col-xs-4 inven-date"><span class="date-title">Date :<?php date_default_timezone_set(CURRENT_TIME_ZONE);?><?php echo date('d M Y h:ia');?></span></div>
                                 </div>
                                 <div class="row">
-                                <div class="col-xs-4"></div>
-                                <div class="col-xs-4 inven-btn-div">
-                                    <form action="inventory" method="post">  
-                                    <button name="os" value="true" class="dark-orange open-stock-btn"> Open Stock</button>
-                                    <button name="cs" value="true" class="dark-orange close-stock-btn"> Close Stock</button>
-                                    <button name="su" value="true" class="dark-orange stock-upload-btn"> Stock Upload</button>
-                                    </form>
+                                <div class="col-xs-6"><button name="os" value="true" class="dark-orange open-stock-btn">Open Stock</button>
+                                    <button name="os" value="true" class="dark-orange open-stock-btn">Close Stock</button>
                                 </div>
-                                <div class="col-xs-4"></div>
+                                <div class="col-xs-2 inven-btn-div">
+                                  
+                                </div>
+                                <div class="col-xs-4">
+                                    <form action="inventory" method="post" style="float: right;padding-top: 10px;padding-right: 10px">  
+                                    <button name="os" value="true" class="dark-orange "> Save</button>
+                                    <a href="">Cancel</a>
+                                   </form>
+                                    
+                                </div>
                                 </div>
                                 
                             </div>
@@ -50,10 +47,9 @@
                                     <thead>
                                         <tr>
                                             <th>Item Code</th>
-                                            <th class="title-width">Title</th>
-                                            <th>Stock</th>
+                                            <th class="title-width">Material</th>
+                                            <th>Stock In Hand</th>
                                             <th>Unit</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -63,21 +59,19 @@
                                         <form action="recipeitems/editrecipeitem" method="post">
                                            
                                             <td class="title-width">
-                                                <?= $item->itemId ?><input style="display:none" type="text" name="ttl" value="<?= $item->itemId ?>">
+                                                <?= $item->itemId ?><input style="display:none" type="text" name="ItemId" value="<?= $item->itemId ?>">
                                             </td>
                                  
-                                            <td class="lat-width"><input class="roleId" style="display:none" type="text" name="prc" value="<?= $item->itemName ?>">
+                                            <td class="lat-width"><input class="roleId" style="display:none" type="text" name="itemName" value="<?= $item->itemName ?>">
                                                 <?= $item->itemName ?>
                                             </td>
                                             <td class="lat-width">
-                                                <input class="roleId" style="display:none" type="text" name="rm" value="<?= $item->qty ?>">
-                                                <?= $item->qty ?>
+                                                <input class="stock hidden" type="text" name="srock" value="<?= $item->qty ?>">
+                                                <i class="stock-value"><?= $item->qty ?></i>
                                             </td>
                                             <td>
-                                                <?= $item->unit ?><input style="display:none" type="text" name="igt" value="<?= $item->unitId ?>">
+                                                <?= $item->unit ?><input style="display:none" type="text" name="unit" value="<?= $item->unitId ?>">
                                             </td>
-                                             
-                                            <td> <button name="edit" type="submit" class="dark-orange user-edit-btn"><span> Edit</span></button></td>
                                            </form>
                                         </tr>
                                    

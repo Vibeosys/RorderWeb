@@ -26,7 +26,8 @@
                     <div class="col-xs-12">
                         <div class="box">  
                              <div class="box-header">
-                                <a href="menu/addnewmenu"><button class="dark-orange add-edit-btn"><span>Add New Menu</span></button></a>
+                                 <button  class="dark-orange button add-save-btn"  onclick="window.history.back();"> << Back </button> 
+                                 <a style="float: right" href="menu/addnewmenu"><button class="dark-orange add-edit-btn"><span>Add New Menu</span></button></a>
                             </div>
                             <div class="box-body show-grid-section">
                                <?php if(isset($menus)){ ?>

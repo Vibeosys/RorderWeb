@@ -221,8 +221,10 @@ div.inven-btn-div > button{
     margin-top: 2%;
     width: 130px;
 }
-div.inven-btn-div > button.close-stock-btn{
+ button.open-stock-btn{
    // float: right;
+  width: 250px;
+  margin: 10px;
 }
 section.stock-section{
     position: relative;

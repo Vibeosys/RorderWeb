@@ -23,10 +23,11 @@ Router::scope('/', function ($routes) {
     $routes->connect('user/addnewuser', ['controller' => 'User', 'action' => 'addNewUser']);
     $routes->connect('user/edituser', ['controller' => 'User', 'action' => 'editUser']);
     $routes->connect('recipeitems/addnewrecipeitems', ['controller' => 'RecipeItemMaster', 'action' => 'addNewRecipeItem']);
-    $routes->connect('inventory', ['controller' => 'RecipeItemMaster', 'action' => 'recipeItemList']); 
-    $routes->connect('inventory/stockupload', ['controller' => 'RecipeItemMaster', 'action' => 'stockUpload']); 
-    $routes->connect('inventory/stockupload/material', ['controller' => 'RecipeItemMaster', 'action' => 'stockUpload']);
-    $routes->connect('inventory/stockupload/materialbrand', ['controller' => 'RecipeItemMaster', 'action' => 'stockUpload']);
+    $routes->connect('inventory', ['controller' => 'RecipeItemMaster', 'action' => 'inventory']); 
+    $routes->connect('inventory/materialstockupload', ['controller' => 'RecipeItemMaster', 'action' => 'materialStockUpload']); 
+    $routes->connect('inventory/materialbrandstockupload', ['controller' => 'RecipeItemMaster', 'action' => 'materialBrandStockUpload']);
+    $routes->connect('inventory/materialstockmodification', ['controller' => 'RecipeItemMaster', 'action' => 'materialStockModification']); 
+    $routes->connect('inventory/materialbrandstockmodification', ['controller' => 'RecipeItemMaster', 'action' => 'materialBrandStockModification']);
     $routes->connect('/', ['controller' => 'MgmtPanel', 'action' => 'consol']);
     $routes->connect('upload', ['controller' => 'MgmtPanel', 'action' => 'upload']);
     $routes->connect('/edit', ['controller' => 'MgmtPanel', 'action' => 'edit']);

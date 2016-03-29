@@ -58,7 +58,7 @@ class RecipeItemMasterController extends ApiController{
         }
     }
     
-    public function recipeItemList() {
+    public function inventory() {
         $data = $this->request->data;
         if($this->request->is('post') and isset($data['os'])){
               $this->redirect('inventory');
@@ -101,5 +101,20 @@ class RecipeItemMasterController extends ApiController{
             \Cake\Log\Log::debug('message:- '.$message1);
             $this->set(['message',$message1]);
         }
+    }
+    
+    public function materialStockUpload() {
+        
+    }
+    public function materialBrandStockUpload() {
+        
+    }
+    
+    public function materialStockModification() {
+        
+    }
+    
+    public function materialBrandStockModification() {
+        
     }
 }

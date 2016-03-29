@@ -7,26 +7,24 @@
     use App\Controller;
 
     $this->layout = false;
-     $this->layout = 'rorder_layout';
+     $this->layout = 'rorder_inventory_layout';
      $this->assign('title', 'Restaurant Stock Upload');
-     //$this->start('content');
-?>
-            <section class="content-header">
-                <h1>
-                    Restaurant Stock Upload 
-                </h1>
-                <ol class="breadcrumb">
+     $this->assign('breadcrum', ' <ol class="breadcrumb">
                     <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
                     <li class="active">Stock Upload</li>
-                </ol>
-            </section>
+                </ol>');
+     //$this->start('content');
+?>
             <section class="content">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box">                           
                             <section class="content content-div show-add-section">
+                                <div class="back-btn" style="margin-top: 10px"> 
+                                <button  class="dark-orange button add-save-btn"  onclick="window.history.back();"> << Back </button>
+                                </div>
                                 <div class="stock-upload-menu">
-                                     <ul class="nav nav-tabs">
+                                    <ul class="nav nav-tabs" style="padding-left: 20%">
                                          <li></li>
                                         <li class="active">
                                             <a data-toggle="tab" href="#msu">Material Stock Upload</a>

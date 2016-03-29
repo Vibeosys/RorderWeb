@@ -19,6 +19,7 @@ use App\DTO\DownloadDTO;
  */
 class TransactionDetailsTable extends Table{
     
+   
     private function connect() {
         return TableRegistry::get('transaction_details');
     }
@@ -75,6 +76,7 @@ class TransactionDetailsTable extends Table{
         $reportData = null;
         $counter = 0;
         $day = date('d');
+        $day = --$day;
         $month = date('m');
         $year = date('Y');
         $joins = [
@@ -102,7 +104,7 @@ class TransactionDetailsTable extends Table{
             $records = $this->connect()->find('all',array('fields' => $field))
                     ->join($joins);
             foreach ($records as $record){
-               $reportData[$counter++] = new DownloadDTO\SalesHistoryDataDto(
+               $reportData[$counter++] = new DownloadDTO\transactionReportDto(
                        $record->title, $record->amount);
             }
             return $reportData;
