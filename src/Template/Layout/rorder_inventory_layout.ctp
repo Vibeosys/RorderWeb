@@ -34,6 +34,8 @@ $sec = $this->fetch('sec');
     <?= $this->Html->css('Style.css') ?>
     <?= $this->Html->css('menu-styles.css') ?>
     <?= $this->Html->css('All-skins.css') ?>
+      <?= $this->Html->script('fusioncharts.js') ?> 
+        <?= $this->Html->script('fusioncharts.theme.fint.js') ?> 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -75,9 +77,9 @@ $sec = $this->fetch('sec');
                     </li>
                     <li class='has-sub'><a href='#'><span>Reports</span></a>
                     <ul>
-                        <li><a onclick="alert('Work In Progress')" href=''><span>Stock Inventory</span></a></li>
-                    <li><a onclick="alert('Work In Progress')" href=''><span>Material Requisition</span></a></li>
-                    <li><a onclick="alert('Work In Progress')" href=''><span>Material Brandwise Requisition</span></a></li>
+                        <li><a  href='../inventory/stockinventoryreport'><span>Stock Inventory</span></a></li>
+                    <li><a  href='../inventory/materialrequisitionreport'><span>Material Requisition</span></a></li>
+                    <li><a  href='../inventory/materialbrandwiserequisitionreport'><span>Material Brandwise Requisition</span></a></li>
                     </ul>
                  </li>
                 </ul>

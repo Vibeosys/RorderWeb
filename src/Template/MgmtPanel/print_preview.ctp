@@ -6,7 +6,7 @@
             function printfunction(id){
                  var html="<html>";
                   html+="<head>";
-                html+= "<style>@font-face{font-family:JQuicksand-Light;src:url(Quicksand-Light.otf) format('truetype')}body{width:225px;height:100%;font-family:sans-serif;font-size:15px}.content-wrapper{width:225px}.restaurant-info{text-align:center;font-size:20px}tbody{border-top:2px dotted gray}table.desc-table{font-family:Quicksand-Light;font-size:16px;text-decoration:none}.amount-desc{text-align:right}.amount-desc > span{margin-right:20px}.small{width:40%;position:relative;left:30%}.footer{height:auto;text-align: center}td{text-align:left}hr{border:.1px dashed gray}span.date-time{font-size:14px;padding-top:4px;padding-left:10px}div.print-button{position:relative;top:-350px;left:60%}input{height:100px;width:200px;font-size:29px;background-color:#dcdcdc;border:1px solid gray;border-radius:5px}.small-width{width:10px}</style>";
+                html+= "<style>body{width:270px;height:100%;font-size:12px}.content-wrapper{width:270px}.restaurant-info{text-align:center;font-size:20px}tbody{border-top:1px solid black}table.desc-table{font-size:12px;text-decoration:none}.amount-desc{text-align:right}.amount-desc > span{margin-right:20px}.small{width:40%;position:relative;left:30%}.footer{height:auto;text-align: justify}td{text-align:left}span.date-time{font-size:12px;padding-top:4px;padding-left:10px}div.print-button{position:relative;top:-350px;left:60%}.small-width{width:10px}.column-spacing{width: 15%;}</style>";
                 html+= "</head>";
                 html+= document.getElementById(id).innerHTML;
         
@@ -29,17 +29,17 @@
             <?php foreach ($restaurants as $restaurant){ ?>
             <div class="restaurant-info">
                 <?= $restaurant->title ?><br>
-                <div style="font-size: 15px;text-align: center"><?= $restaurant->area ?>,<?= $restaurant->city ?></div>
-                <span style="font-size: 15px;text-align: center">Phone : <?= $restaurant->phone ?></span><br>
-                <span style="text-decoration: underline">Tax Invoice</span><br>
+                <div style="font-size: 12px;text-align: center"><?= $restaurant->address ?>,<?= $restaurant->area ?><br><?= $restaurant->city ?></div>
+                <span style="font-size: 12px;text-align: center">Phone : <?= $restaurant->phone ?></span><br>
+                <span style="font-size: 13px;text-decoration: underline">Tax Invoice</span><br>
                 <?php if($table){ ?>   
-                <span style="font-size: 15px;font-weight: bold;text-align: center">Dine-In</span>   
+                <span style="font-size: 12px;text-align: center">Dine-In</span>   
            <?php }else { ?>
-                <span style="font-size: 15px;font-weight: bold;text-align: center">Takeaway</span> 
+                <span style="font-size: 12px;font-weight: bold;text-align: center">Takeaway</span> 
             <?php } ?>
             </div>
             <?php } ?>
-            <br>
+            
             <div class="date-time">
            <?php if($table){ ?>   
             Table No. :  <?= $table ?><br>   
@@ -48,7 +48,7 @@
             <?php } ?>
             Bill No. : <?= $bill->billNo ?><br>  
                <?php date_default_timezone_set(CURRENT_TIME_ZONE);?>
-            Bill Date :  <?= date('d M Y h:ia')?><br>
+            Bill Date :  <?= date('d M Y h:i a')?><br>
             Captain : <?= $user ?>
             </div>
             <hr>
@@ -57,7 +57,9 @@
                     <thead>
                     <th class="small-width">#</th>
                     <th style="text-align: left">Description</th>
+                                    <th class="column-spacing"></th>
                                     <th  class="small-width">Qty</th>
+                                        <th class="column-spacing"></th>
                                     <th style="text-align: right" >Amt</th>
                     </thead>
                     <tbody>
@@ -66,8 +68,10 @@
                         <tr>
                             <td><?= $print->srNo ?></td>
                             <td><?= $print->desc ?></td>
+                            <td class="column-spacing"></td>
                             <td><?= $print->qty ?></td>
-                            <td style="text-align: right"><?= $print->amt ?></td>
+                            <td class="column-spacing"></td>
+                            <td style="text-align: right"><?= number_format((float)$print->amt, 2, '.', '') ?></td>
                         </tr>
                         <?php } ?>
                     </tbody>

@@ -26,7 +26,9 @@
                     <div class="col-xs-12">
                         <div class="box">  
                              <div class="box-header">
-                                 <button  class="dark-orange button add-save-btn"  onclick="window.history.back();"> << Back </button> 
+                                <div class="back-btn" style="margin-top: 10px"> 
+                                   <a href="#" onclick="window.history.back();"> << Back </a>
+                                </div>
                                  <a style="float: right" href="menu/addnewmenu"><button class="dark-orange add-edit-btn"><span>Add New Menu</span></button></a>
                             </div>
                             <div class="box-body show-grid-section">

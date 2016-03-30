@@ -6,10 +6,10 @@
                 width: 600px;
                 height: 100%;
                 font-family: sans-serif;
-                font-size: 15px;
+                font-size: 12px;
             }
             .content-wrapper{
-                width: 230px;
+                width: 270px;
             }
             .restaurant-info{
                 text-align: center;
@@ -17,11 +17,11 @@
                 font-size: 20px;
             }
             tbody{
-                border-top: 2px dotted gray;
+                border-top: 1px solid black;
             }
             table.desc-table{
                 font-family: Times New Roman;//Microsoft YaHei UI Light;
-                font-size: 16px;
+                font-size: 12px;
                 text-decoration: none;
                 //font-weight: lighter;
             }
@@ -38,16 +38,14 @@
             }
             .footer{
                 height: auto;
-                text-align: center;
+                text-align: justify;
             }
             td{
                 text-align: left;
             }
-            hr{
-                border: 0.1px dashed gray;
-            }
+         
             div.date-time{
-                font-size: 14px;
+                font-size: 12px;
                 padding-top: 4px;
                 padding-left: 10px;
             }
@@ -95,3 +93,4 @@
                 width: 30px;
                 height: 30px;
             }
+            .column-spacing{width: 15px;}

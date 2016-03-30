@@ -132,4 +132,26 @@ class RecipeItemMasterController extends ApiController{
         }
         
     }
+    
+    public function stockInventoryReport() {
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+        
+    }
+    
+    public function materialRequisitionReport() {
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+        
+    }
+    
+    public function materialBrandwiseRequisitionReport() {
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+        
+    }
+    
 }

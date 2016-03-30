@@ -29,7 +29,9 @@
                                     <div class="with-border box-header">
                                         <h3 class="box-title">Edit Recipe for<span style="color: orangered"> Paneer Tiranga</span> </h3>
                                     </div>
-                                <button  class="dark-orange button add-save-btn"  onclick="window.history.back();"> << Back </button>
+                                 <div class="back-btn" style="margin-top: 10px"> 
+                                   <a href="#" onclick="window.history.back();"> << Back </a>
+                                </div>
                                 <div class="form-div">  
                                <form class="form-horizontal" method="post" action="../editrecipe">
                                           <div class="box-body" style="margin-top:50px">

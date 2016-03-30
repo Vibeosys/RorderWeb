@@ -230,4 +230,26 @@ section.stock-section{
     position: relative;
     //margin-top: 50px;
 }
+
+div.graph-outer{
+    //border: 1px solid black;
+}
+
+div.graph-head{
+    border: 1px solid blue;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: blue;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+div.graph-inner{
+    border: 1px solid gainsboro;
+}
+div.graph-head > a {
+    float: right;
+    color: #ffffff;
+    text-decoration: underline;
+    cursor: pointer;
+}
  

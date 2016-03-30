@@ -144,6 +144,9 @@ $(document).ready(function(){
           
   });
   
+  //stock report printing
+  
+  
 });
 
 function printtable(){
