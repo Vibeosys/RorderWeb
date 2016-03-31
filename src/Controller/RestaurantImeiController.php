@@ -19,7 +19,7 @@ class RestaurantImeiController extends ApiController{
         return new Table\RestaurantImeiTable();
     }
     
-    public function isPresent($restaurantId, $imei) {
-        return $this->getTableObj()->check($restaurantId, $imei);
+    public function isPresent($restaurantId, $imei, $macAddress) {
+        return $this->getTableObj()->check($restaurantId, $imei, $macAddress);
     }
 }

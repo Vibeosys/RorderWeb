@@ -21,9 +21,11 @@ class RestaurantImeiTable extends Table{
         return TableRegistry::get('restaurant_imei');
     }
     
-    public function check($restaurantId, $imei) {
-        $conditions = ['RestaurantId =' => $restaurantId, 'IMEI =' => $imei];
-        $queryResult = $this->connect()->find()->where($conditions);
+    public function check($restaurantId, $imei, $macAddress) {
+        $conditions1 = ['RestaurantId =' => $restaurantId];
+        $conditions2 = ['IMEI =' => $imei];
+        $conditions3 = ['MacAddress =' => $macAddress];
+        $queryResult = $this->connect()->find()->where($conditions2)->orWhere($conditions3)->andWhere($conditions1);
         $check = $queryResult->count();
         return $check;
     }

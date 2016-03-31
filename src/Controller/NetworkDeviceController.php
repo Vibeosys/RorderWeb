@@ -22,11 +22,11 @@ class NetworkDeviceController extends ApiController{
     
     public function addNetworkDeviceInfo(
             UploadDTO\NetworkDeviceInfoDto $networkDeviceInfoDto, 
-            $restaurantId) {
+            $restaurantId, $macId) {
         $restaurantIMEIController = new RestaurantImeiController();
         if($restaurantIMEIController->isPresent(
                 $restaurantId, 
-                $networkDeviceInfoDto->imei)){
+                $networkDeviceInfoDto->imei,$macId)){
             return $this->getTableObj()->insert($networkDeviceInfoDto);
         }
         return false;

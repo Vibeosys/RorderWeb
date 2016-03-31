@@ -24,10 +24,11 @@ class DownloadDbController extends ApiController {
 
         $restaurantId = $this->request->query('restaurantId');
         $imei = $this->request->query('imei');
+        $macAddress = $this->isNull($this->request->query('macId'));
         $info = base64_decode($this->request->query('info'));
         $ipAddress =  $this->request->clientIp();
          $restaurantIMEIController = new RestaurantImeiController();
-        if(!$restaurantIMEIController->isPresent($restaurantId, $imei)){
+        if(!$restaurantIMEIController->isPresent($restaurantId, $imei, $macAddress)){
             $this->response->body(DTO\ErrorDto::prepareError(116));
             \Cake\Log\Log::error("request with incorrect restaurantId :- ".$restaurantId);
             return;
@@ -39,7 +40,7 @@ class DownloadDbController extends ApiController {
             $ipInfo = new Component\Ipinfo();
             $ipDetails = $ipInfo->getFullIpDetails($imei, $networkDeviceDto, $ipAddress);
             $networkDeviceController = new NetworkDeviceController();
-            $addNetworkDeviceInfo = $networkDeviceController->addNetworkDeviceInfo($ipDetails, $restaurantId);
+            $addNetworkDeviceInfo = $networkDeviceController->addNetworkDeviceInfo($ipDetails, $restaurantId, $macAddress);
             $sqliteController = new SqliteController();
             $sqliteController->getDB($restaurantId);
         } else {
