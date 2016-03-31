@@ -213,7 +213,11 @@ CREATE TABLE [permission_set](
   'FbTypeId'                       INTEGER NOT NULL PRIMARY KEY,
   'FbTypeName'                    TEXT);
 
-
+CREATE TABLE [application_error](
+ 'ErrorId'     INTEGER PRIMARY KEY,
+ 'Source'      TEXT,
+ 'Method'      TEXT,
+ 'Description' TEXT);
 
 
    
