@@ -198,12 +198,12 @@ function printtakeaway(){
                                $('.table-list').html(printhtml);
                                
                             } else {
-                                var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
+                                var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span><a href="../managedata" > << Back </a></div>';
                             $('.table-list').html(printhtml);
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
+                            var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span><a href="../managedata" > << Back </a></div>';
                             $('.table-list').html(printhtml);
                         }});
 }

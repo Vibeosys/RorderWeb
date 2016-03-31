@@ -26,7 +26,7 @@
                         <div class="box">                           
                             <section class="content content-div show-add-section">
                                 <div class="back-btn" style="margin-top: 10px"> 
-                                   <a href="#" onclick="window.history.back();"> << Back </a>
+                                   <a href="/" > << Back </a>
                                 </div>
                                 <div class="row">
                                     <form action="menu" method="post"> 

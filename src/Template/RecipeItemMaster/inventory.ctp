@@ -20,7 +20,7 @@
                         <div class="box">  
                             <div class="box-header" style="border: 0px solid blue">
                                 <div class="row">
-                                    <div class="col-xs-4"> <a href="#" onclick="window.history.back();"> << Back </a></div>
+                                    <div class="col-xs-4"> <a href="/" > << Back </a></div>
                                 <div class="col-xs-4 inven-header"></div>
                                 <div class="col-xs-4 inven-date"><span class="date-title">Date :<?php date_default_timezone_set(CURRENT_TIME_ZONE);?><?php echo date('d M Y h:ia');?></span></div>
                                 </div>
@@ -67,7 +67,7 @@
                                             </td>
                                             <td class="lat-width">
                                                 <input class="stock hidden" type="text" name="srock" value="<?= $item->qty ?>">
-                                                <i class="stock-value"><?= $item->qty ?></i>
+                                                <span class="stock-value"><?= $item->qty ?></span>
                                             </td>
                                             <td>
                                                 <?= $item->unit ?><input style="display:none" type="text" name="unit" value="<?= $item->unitId ?>">

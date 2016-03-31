@@ -21,7 +21,7 @@
                         <div class="box">                           
                             <section class="content content-div show-add-section">
                                 <div class="back-btn" style="margin-top: 10px"> 
-                                   <a href="#" onclick="window.history.back();"> << Back </a>
+                                   <a href="../inventory" > << Back </a>
                                 </div>
                               
                                 <section class="stock-section" id="msu" style="margin-top:50px">
@@ -100,7 +100,7 @@
                                             </td>
                                             <td class="lat-width">50</td>
                                             <td class="lat-width">80</td>
-                                            <td class="lat-width">Units</td>
+                                            <td class="lat-width">Unit</td>
                                         </tr>
                                         <tr style="color: red">
                                             <td>1008</td>

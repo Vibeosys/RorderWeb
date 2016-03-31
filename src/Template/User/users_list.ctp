@@ -26,7 +26,8 @@
                     <div class="col-xs-12">
                         <div class="box">  
                             <div class="box-header">
-                                <a href="user/addnewuser"><button class="dark-orange add-edit-btn"><span>Add New User</span></button></a>
+                                <a href="../managedata" > << Back </a>
+                                <a style="float: right" href="user/addnewuser"><button class="dark-orange add-edit-btn"><span>Add New User</span></button></a>
                             </div>
                             <div class="box-body show-grid-section">
                                <?php if(isset($users)){ ?>

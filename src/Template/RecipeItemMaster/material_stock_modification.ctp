@@ -21,7 +21,7 @@
                         <div class="box">                           
                             <section class="content content-div show-add-section">
                                 <div class="back-btn" style="margin-top: 10px"> 
-                                   <a href="#" onclick="window.history.back();"> << Back </a>
+                                   <a href="../inventory" > << Back </a>
                                 </div>
                                   <section class="stock-section" id="msm" style="margin-top:50px">
                                       <div class="box-body show-grid-section">

@@ -27,7 +27,7 @@
                         <div class="box">  
                              <div class="box-header">
                                 <div class="back-btn" style="margin-top: 10px"> 
-                                   <a href="#" onclick="window.history.back();"> << Back </a>
+                                   <a href="../managedata" > << Back </a>
                                 </div>
                                  <a style="float: right" href="menu/addnewmenu"><button class="dark-orange add-edit-btn"><span>Add New Menu</span></button></a>
                             </div>

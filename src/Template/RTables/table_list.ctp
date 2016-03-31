@@ -26,7 +26,10 @@
                     <div class="col-xs-12">
                         <div class="box">  
                             <div class="box-header">
-                                <a href="rtables/addnewtables"><button class="dark-orange add-edit-btn"><span>Add New Tables</span></button></a>
+                                
+                                   <a href="../managedata" > << Back </a>
+                                
+                                   <a style="float: right" href="rtables/addnewtables"><button class="dark-orange add-edit-btn"><span>Add New Tables</span></button></a>
                             </div>
                             <div class="box-body show-grid-section">
                                <?php if(isset($tables)){ ?>
