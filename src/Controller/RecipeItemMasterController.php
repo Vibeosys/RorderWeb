@@ -9,6 +9,7 @@
 namespace App\Controller;
 use App\Model\Table;
 use App\DTO\UploadDTO;
+use Cake\Log\Log;
 /**
  * Description of RecipeItemMasterController
  *
@@ -62,7 +63,9 @@ class RecipeItemMasterController extends ApiController{
          if(!$this->isLogin()){
             $this->redirect('login');
         }
+        $page = $this->request->param('page');
         $data = $this->request->data;
+        $restaurantId = $this->readCookie('cri');
         if($this->request->is('post') and isset($data['os'])){
               $this->redirect('inventory');
         }elseif ($this->request->is('post') and isset($data['cs'])) {
@@ -72,8 +75,7 @@ class RecipeItemMasterController extends ApiController{
               $this->redirect('inventory/stockupload');
         }
         
-       $allRecipeitems = $this->getTableObj()->getRecipeItems();
-       
+        $allRecipeitems = $this->paginatedItem($restaurantId, $page);
        $this->set([
                 'items' => $allRecipeitems
        ]);
@@ -152,6 +154,51 @@ class RecipeItemMasterController extends ApiController{
             $this->redirect('login');
         }
         
+    }
+    
+    private function paginatedItem($restaurantId, $page = 1) {
+        $recipeItemTable = $this->getTableObj();
+        $count = $recipeItemTable->connect()->find()->count(); 
+        Log::debug('Number of menu available in list is :- '.$count);
+        if(!$count){
+            return Null;
+        }
+        $conditions = array('RestaurantId =' => $restaurantId);
+        $limit = PAGE_LIMIT;
+         $joins = [
+                    'a' => [
+                            'table' => 'unit_master', 
+                            'type' => 'INNER', 
+                            'conditions' => 'a.UnitId = recipe_item_master.UnitId '
+                        ]
+            
+                 ];
+        
+        $fields = [
+            'ItemId' => 'recipe_item_master.ItemId',
+            'ItemName' => 'recipe_item_master.ItemName',
+            'UnitId' => 'recipe_item_master.UnitId',
+            'SLevel' => 'recipe_item_master.SafetyLevel',
+            'RLevel' => 'recipe_item_master.RorderLevel',
+            'Qty' => 'recipe_item_master.QtyInHand',
+            'Unit' => 'a.UnitTitle',
+        ];
+        $allRecipItems = $this->paginate($recipeItemTable->connect()->find('all',array('fields' => $fields,'condition' => $conditions))
+                    ->join($joins),['limit' => $limit, 'page' => $page]);
+        $allItems = null;
+        $itemCounter = 0;
+        
+        foreach ($allRecipItems as $recipeItems){
+                $allItems[$itemCounter++] = new UploadDTO\RecipeItemMaterInsertDto(
+                        $recipeItems->ItemName, 
+                        $recipeItems->UnitId, 
+                        $recipeItems->SLevel, 
+                        $recipeItems->RLevel, 
+                        $recipeItems->Qty, 
+                        $recipeItems->ItemId, 
+                        $recipeItems->Unit);
+            }
+            return $allItems;     
     }
     
 }
