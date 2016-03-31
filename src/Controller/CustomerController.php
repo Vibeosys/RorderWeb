@@ -58,7 +58,9 @@ class CustomerController extends ApiController{
         }
         return $deleteResult;
     }
-    
+    public function updateCustomer($updateRequest) {
+        return $this->getTableObj()->update($updateRequest);
+    }
     
     public function prepareInsertStatements($restaurantId) {
     

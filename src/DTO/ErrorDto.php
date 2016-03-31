@@ -81,7 +81,10 @@ class ErrorDto {
         134 => 'Menu information updated',
         135 => 'Table information updated',
         136 => 'Oops ! Menu information not updated',
-        137 => 'Oops ! Table information not updated'
+        137 => 'Oops ! Table information not updated',
+        138 => 'Oops ! Request with empty customer information',
+        139 => 'Oops ! Customer details can not added',
+        140 => 'Oops ! Error not added'
        ];
     
 }

@@ -26,11 +26,13 @@ class UploadController extends ApiController {
         'GB' => 'generateBill', 
         'OFF' => 'orderFulfilled',
         'AC' => 'addCustomer',
+        'UC' => 'updateCustomer',
         'PB' => 'payedBill',
         'AWC' => 'addWaitingCustomer',
         'DWC' => 'deleteWaitingCustomer',
         'CF' =>'customerFeedback',
         'CT' =>'closeTable',
+        'AAE' => 'addApplicationError',
         'P' =>'print',
         'ATA' => 'addTakeaway'];
 
@@ -133,6 +135,14 @@ class UploadController extends ApiController {
                 case $this->operations['ATA']:
                     $operationData = $record->operationData;
                     $this->addTakeaway($operationData, $userData);
+                    break;
+                case $this->operations['UC']:
+                    $operationData = $record->operationData; 
+                    $this->updateCustomer($operationData, $userData);
+                    break;
+                case $this->operations['AAE']:
+                    $operationData = $record->operationData; 
+                    $this->addApplicationError($operationData, $userData);
                     break;
                 default :
                     $this->response->body(DTO\ErrorDto::prepareError(108));
@@ -505,6 +515,30 @@ class UploadController extends ApiController {
         }
         $this->response->body(DTO\ErrorDto::prepareError(120));
         return ;
+    }
+    
+    private function updateCustomer($operationData, $userInfo) {
+        $customerUpdateRequest = UploadDTO\CustomerUpdateDto::Deserialize($operationData);
+        $customerControllr = new CustomerController();
+        $customerUpdateResult = $customerControllr->updateCustomer($customerUpdateRequest);
+        if(is_null($customerUpdateResult)){
+            $this->response->body(DTO\ErrorDto::prepareError(138));
+        }elseif ($customerUpdateResult) {
+            $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Customer information added.'));
+        }  else {
+            $this->response->body(DTO\ErrorDto::prepareError(139));
+        }
+    }
+    
+    private function addApplicationError($operationData, $userInfo) {
+        $addErrorRequest = UploadDTO\ApplicationErrorUploadDto::Deserialize($operationData);
+        $applicationErrorControllr = new ApplicationErrorController();
+        $addErrorResult = $applicationErrorControllr->AddError($addErrorRequest, $userInfo);
+        if ($addErrorResult) {
+            $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Error catched cleanly'));
+        }  else {
+            $this->response->body(DTO\ErrorDto::prepareError(140));
+        }
     }
 
 }

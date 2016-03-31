@@ -89,5 +89,28 @@ class CustomerTable extends Table {
             return false;
         }
     }
+    
+    public function update(UploadDTO\CustomerUpdateDto $request) {
+        if(is_null($request->custEmail) or is_null($request->custPhone)){
+            return null;
+        }elseif (is_null($request->custEmail) ) {
+           $key = ['CustPhone' => $request->custPhone]; 
+        }  else {
+           $key = ['CustEmail' => $request->custEmail]; 
+        }
+        $conditions = ['CustId =' => $request->custId];
+        try{
+            $updateEntry = $this->connect()->query()->update();
+            $updateEntry->set($key);
+            $updateEntry->where($conditions);
+            if($updateEntry->execute()){
+                return TRUE;
+            }
+            return FALSE;
+        } catch (Exception $ex) {
+            return FALSE;
+        }
+        
+    }
 
 }
