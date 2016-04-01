@@ -21,7 +21,7 @@
                         <div class="box">                           
                             <section class="content content-div show-add-section">
                                 <div class="back-btn" style="margin-top: 10px"> 
-                                   <a href="../inventory" > << Back </a>
+                                   <a href="../inventory/stockinventoryreport" > << Back </a>
                                 </div>
                               
                                 <section class="stock-section" id="msu" style="margin-top:50px">
