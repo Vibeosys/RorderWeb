@@ -59,6 +59,7 @@ CREATE TABLE [menu_category](
   'OrderQuantity'               INTEGER,
   'OrderId'                         TEXT,
   'MenuId'                          INTEGER,
+  'SubMenuId'                          INTEGER,
   'MenuTitle'                       TEXT,
   'Note'                 TEXT);
   
@@ -107,6 +108,7 @@ CREATE TABLE [temp_order](
  'TableId'                      INTEGER NOT NULL,
  'TableNo'                  INTEGER NOT NULL,
  'MenuId'                   INTEGER NOT NULL,
+ 'SubMenuId'                   INTEGER NOT NULL,
  'Quantity'                 INTEGER NOT NULL,
  'Note'                 TEXT,
  'OrderDate'                INTEGER NOT NULL,
@@ -213,11 +215,11 @@ CREATE TABLE [permission_set](
   'FbTypeId'                       INTEGER NOT NULL PRIMARY KEY,
   'FbTypeName'                    TEXT);
 
-CREATE TABLE [application_error](
- 'ErrorId'     INTEGER PRIMARY KEY,
- 'Source'      TEXT,
- 'Method'      TEXT,
- 'Description' TEXT);
+CREATE TABLE [sub_menu](
+ 'SubMenuId'    INTEGER PRIMARY KEY,
+ 'MenuId'    INTEGER,
+ 'SubMenuTitle'    TEXT,
+ 'Price'         DOUBLE);
 
 
    

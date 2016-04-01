@@ -30,6 +30,7 @@ class OrderDetailsTable extends Table{
         $newOrder->UpdatedDate = date(VB_DATE_TIME_FORMAT);
         $newOrder->OrderId = $orderDetailsEntryDto->orderId;
         $newOrder->MenuId = $orderDetailsEntryDto->menuId;
+        $newOrder->SubMenuId = $orderDetailsEntryDto->subMenuId;
         $newOrder->MenuTitle = $orderDetailsEntryDto->menuTitle;
         $newOrder->Note = $orderDetailsEntryDto->note;
         if($tableObj->save($newOrder)){
@@ -53,6 +54,7 @@ class OrderDetailsTable extends Table{
                         $orderDetail->OrderQuantity, 
                         $orderDetail->OrderId, 
                         $orderDetail->MenuId, 
+                        $orderDetail->SubMenuId, 
                         $orderDetail->MenuTitle, 
                         $orderDetail->Note);
                  Log::debug('OrderDetails goes in sync Table : Id -> '.
@@ -71,7 +73,10 @@ class OrderDetailsTable extends Table{
             foreach ($orderDetails as $orderDetail){
                 $billPrintDto = new DownloadDTO\PrintOrderDetailsDto(
                         $orderDetail->MenuId, 
-                        $orderDetail->OrderQuantity);
+                        $orderDetail->OrderQuantity,
+                        $orderDetail->OrderPrice,
+                        $orderDetail->SubMenuId,
+                        $orderDetail->MenuTitle);
                 $billPeintInfo[$orderCounter++] = $billPrintDto;
             }
         }

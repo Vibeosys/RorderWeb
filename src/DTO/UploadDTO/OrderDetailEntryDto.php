@@ -19,13 +19,15 @@ class OrderDetailEntryDto {
     public $orderQty;
     public $orderPrice;
     public $menuId;
+    public $subMenuId;
     public $menuTitle;
     public $menuUnitPrice;
     public $note;
 
 
-    public function __construct($orderId = NULL, $orderQty = NULL, $orderPrice = NULL, 
-            $menuId = NULL, $menuTitle = NULL, $menuUnitPrice = null, $note = null) {
+    public function __construct($orderId = NULL, $orderQty = NULL, 
+            $orderPrice = NULL,$menuId = NULL, $subMenuId = null, 
+            $menuTitle = NULL, $menuUnitPrice = null, $note = null) {
         $this->orderId = $orderId;
         $this->orderQty = $orderQty;
         $this->orderPrice = $orderPrice;
@@ -33,7 +35,7 @@ class OrderDetailEntryDto {
         $this->menuTitle = $menuTitle;
         $this->menuUnitPrice = $menuUnitPrice;
         $this->note = $note;
-    
+        $this->subMenuId = $subMenuId;
     }
 
 }

@@ -229,34 +229,40 @@ class MgmtPanelController extends ApiController{
             }
             $orderDetailsController = new OrderDetailsController();
             $billOrderDetails = $orderDetailsController->getbillOrderDetails($orders);
-             $menuList = array();
-            foreach ($billOrderDetails as $printinfo){
-                if(!in_array($printinfo->menuId, $menuList)){
-                    array_push($menuList, $printinfo->menuId);
-                }
-            }
-            $menuController = new MenuController();
-            $menuInfo = $menuController->getMenuItemList(null,$menuList);
             $billPrintInfo = array();
             $indexCounter = 0;
-            foreach ($menuInfo as $menu){
+            $menuIdList[] = null;
+            foreach ($billOrderDetails as $menu){
                 $billPrintDto = new DownloadDTO\BillPrintDwnldDto(
                         $indexCounter + 1,
                         $menu->menuId, 
                         $menu->menuTitle, 
-                        0, 
-                        $menu->price, 
-                        0);
+                        $menu->qty, 
+                        $menu->orderPrice/$menu->qty, 
+                        $menu->orderPrice);
+                    if(!in_array($menu->menuId, $menuIdList)){
+                        array_push($menuIdList, $menu->menuId);
+                    }    
                 $billPrintInfo[$indexCounter++] = $billPrintDto;
             }
+            $billPrinting = (json_decode(json_encode($billPrintInfo)));
+            foreach ($billPrinting as $printing){
+                print_r($printing);
+                echo '<br><br>';
+            } 
+            print_r($menuIdList);
+            $this->autoRender = FALSE;
+            /*
             foreach ($billOrderDetails as $orderDetails){
                 foreach ($billPrintInfo as $pinfo){
-                   if($orderDetails->menuId == $pinfo->id){
+                   if($orderDetails->menuId == $pinfo->id and !){
                        $pinfo->qty = $pinfo->qty + $orderDetails->qty;
                        $pinfo->amt = $pinfo->amt + ($pinfo->rate * $orderDetails->qty);
                    } 
                 }
             }
+             * 
+             */
             $restId = parent::readCookie('cri');
             $restaurantController = new RestaurantController();
             $restaurantInfo = $restaurantController->getAdminRestaurants(array($restId));

@@ -32,6 +32,9 @@ class ApplicationErrorTable extends Table{
             $newEntity->Description = $request->description;
             $newEntity->UserId = $userInfo->userId;
             $newEntity->RestaurantId = $userInfo->restaurantId;
+            $newEntity->ErrorDate = $request->errorDate;
+            $newEntity->ErrorTime = $request->errorTime;
+            $newEntity->CreatedDate = date(VB_DATE_TIME_FORMAT);
             if($tableObj->save($newEntity)){
                 return true;
             }

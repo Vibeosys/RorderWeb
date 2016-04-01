@@ -7,7 +7,7 @@
     use App\Controller;
 
      $this->layout = 'rorder_inventory_layout';
-     $this->assign('title', 'Inventory');
+     $this->assign('title', 'Stock Taking');
      $this->assign('breadcrum', '<ol class="breadcrumb">
                     <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>  
                     <li><a>Inventory</a></li>

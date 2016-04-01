@@ -18,18 +18,20 @@ class OrderDetailsDownloadDto {
     public $orderQuantity;
     public $orderId;
     public $menuId;
+    public $subMenuId;
     public $menuTitle;
     public $note;
 
     public function __construct($orderDetailsId = null, $orderPrice = null, 
-            $orderQuantity = null,$orderId = null, 
-            $menuId = null, $menuTitle = null, $note = null) {
+            $orderQuantity = null,$orderId = null,$menuId = null, 
+            $subMenuId = null, $menuTitle = null, $note = null) {
      
         $this->orderDetailsId = $orderDetailsId;
         $this->orderPrice = $orderPrice;
         $this->orderQuantity = $orderQuantity;
         $this->orderId = $orderId;
         $this->menuId = $menuId;
+        $this->subMenuId = $subMenuId;
         $this->menuTitle = $menuTitle;
         $this->note = $note;
     }

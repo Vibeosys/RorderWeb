@@ -18,10 +18,16 @@ class ApplicationErrorUploadDto extends DTO\JsonDeserializer{
     public $source;
     public $method;
     public $description;
-    
-    public function __construct($source = null, $method = null, $desc = null) {
+    public $errorDate;
+    public $errorTime;
+
+
+    public function __construct($source = null, $method = null, $desc = null,
+            $errorDate = null, $errorTime = null) {
         $this->source = $source;
         $this->method = $method;
         $this->description = $desc;
+        $this->errorDate = $errorDate;
+        $this->errorTime = $errorTime;
     }
 }

@@ -175,9 +175,14 @@ class UploadController extends ApiController {
         }
         $menuIdList = null;
         $menuIdLoopCounter = 0;
+        $subMenuIdLoopCounter = 0;
         foreach ($orderUploadRequest->orderDetails as $menuItemIndex => $menuItemRecord) {
             if($menuItemRecord->orderQty)
-            $menuIdList[$menuIdLoopCounter] = $menuItemRecord->menuId;
+                if($menuItemRecord->subMenuId){
+                    $subMenuList[$subMenuIdLoopCounter++] = $menuItemRecord->subMenuId;
+                }  else {
+                    $menuIdList[$menuIdLoopCounter] = $menuItemRecord->menuId;
+                }
             if(isset($menuItemRecord->note)){
                 $note = $menuItemRecord->note;
             }  else {
@@ -195,15 +200,19 @@ class UploadController extends ApiController {
         $orderLoopCounter = 0;
         $orderDetailList[] = NULL;
         $menuController = new MenuController();
-        $resultMenuInfoList = $menuController->getMenuItemList(
+        $MenuInfoList = $menuController->getMenuItemList(
                 $userInfo->restaurantId, 
                 $menuIdList);
-        if(is_null($resultMenuInfoList)){
+        if(is_null($MenuInfoList)){
               $this->response->body(DTO\ErrorDto::prepareError(117));
             \Cake\Log\Log::error("request with zero menu quantity");
             return;
         }
-        foreach ($resultMenuInfoList as $menuInfo) {
+        if(count($subMenuList)){
+           $subMenuController = new SubMenuController(); 
+           $SubMenuInfo = $subMenuController->getSubMenu($subMenuList);
+        }
+        foreach ($MenuInfoList as $menuInfo) {
             $resultArray = $this->search($orderUploadRequest->orderDetails, 
                     "menuId", $menuInfo->menuId);
             $menuQty = $resultArray->orderQty;
@@ -211,12 +220,31 @@ class UploadController extends ApiController {
             $orderDetailEntryDto = new UploadDTO\OrderDetailEntryDto(
                     $orderUploadRequest->orderId, $menuQty, 
                     $menuQty * $menuInfo->price, 
-                    $menuInfo->menuId, 
+                    $menuInfo->menuId,
+                    $menuInfo->subMenuId,
                     $menuInfo->menuTitle, 
                     $menuInfo->price, 
                     $orderNote[$menuInfo->menuId]);
             $orderDetailList[$orderLoopCounter] = $orderDetailEntryDto;
             $orderLoopCounter++;
+        }
+        if($SubMenuInfo){
+            foreach ($SubMenuInfo as $menuInfo) {
+            $resultArray = $this->search($orderUploadRequest->orderDetails, 
+                    "menuId", $menuInfo->menuId);
+            $menuQty = $resultArray->orderQty;
+            $orderTotalAmt += $menuQty * $menuInfo->price;
+            $orderDetailEntryDto = new UploadDTO\OrderDetailEntryDto(
+                    $orderUploadRequest->orderId, $menuQty, 
+                    $menuQty * $menuInfo->price, 
+                    $menuInfo->menuId,
+                    $menuInfo->subMenuId,
+                    $menuInfo->menuTitle.'|'.$menuInfo->subMenuTitle, 
+                    $menuInfo->price, 
+                    $orderNote[$menuInfo->menuId]);
+            $orderDetailList[$orderLoopCounter] = $orderDetailEntryDto;
+            $orderLoopCounter++;
+        }
         }
         $this->transBegin();
         $maxOrderNo = $orderController->getMaxOrderNo($userInfo->restaurantId);

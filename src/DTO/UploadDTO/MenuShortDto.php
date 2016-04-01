@@ -17,11 +17,17 @@ class MenuShortDto {
     
     public $menuId;
     public $menuTitle;
-    public $price;    
-    
-    public function __construct($menuId = NULL, $menuTitle = NULL, $price = NULL) {
+    public $price;
+    public $subMenuId;
+    public $subMenuTitle;
+
+
+    public function __construct($menuId = NULL, $menuTitle = NULL, $price = NULL,
+            $subMenuId = null, $subMenuTitle = null) {
         $this->menuId = $menuId;
         $this->menuTitle = $menuTitle;
         $this->price = $price;
+        $this->subMenuId = $subMenuId;
+        $this->subMenuTitle = $subMenuTitle;
     }
 }

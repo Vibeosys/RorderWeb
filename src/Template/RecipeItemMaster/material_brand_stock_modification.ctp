@@ -8,7 +8,7 @@
 
     $this->layout = false;
      $this->layout = 'rorder_inventory_layout';
-     $this->assign('title', 'Restaurant Stock Upload');
+     $this->assign('title', 'Restaurant Brand Stock Modification');
      $this->assign('breadcrum', ' <ol class="breadcrumb">
                     <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
                     <li class="active">Material Brand Stock Modification</li>
@@ -21,7 +21,7 @@
                         <div class="box">                           
                             <section class="content content-div show-add-section">
                                 <div class="back-btn" style="margin-top: 1%"> 
-                                    <a href="../inventory"> << Back </a>
+                                    <a href="../inventory/stockinventoryreport"> << Back </a>
                                 </div>
                                 <section class="stock-section" id="mbsm" style="margin-top:1%">
                                       <div class="box-body show-grid-section">

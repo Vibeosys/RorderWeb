@@ -17,9 +17,18 @@ class PrintOrderDetailsDto {
 
     public $menuId;
     public $qty;
-    
-    public function __construct($menuId = null, $qty = null) {
+    public $orderPrice;
+    public $subMenuId;
+    public $menuTitle;
+
+
+    public function __construct($menuId = null, $qty = null, $orderPrice = null, 
+            $subMenuId = null, $menuTitle = null) {
         $this->menuId = $menuId;
         $this->qty = $qty;
+        $this->orderPrice = $orderPrice;
+        $this->subMenuId = $subMenuId;
+        $this->menuTitle = $menuTitle;
+        
     }
 }

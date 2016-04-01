@@ -49,6 +49,7 @@ class SqliteController extends ApiController {
             $this->addRoomPrinters($tableObject);
             $this->addConfigSetting($tableObject);
             $this->addFbTypes($tableObject);
+            $this->addSubMenu($tableObject);
 
             $this->response->type('class');
             $this->response->file($this->sqliteFile, ['download' => true]);
@@ -279,6 +280,16 @@ class SqliteController extends ApiController {
             Log::debug('Record is inserted into Fb_Types SQLite table for restaurantId ' . $this->RestaurantId);
         } else {
             Log::error('Record is not inserted into Fb_Types SQLite table');
+        }
+    }
+    
+    private function addSubMenu($tableObject) {
+        $subMenuController = new SubMenuController();
+        $PreparedStatement = $subMenuController->prepareInsertStatements($this->RestaurantId);
+        if ($tableObject->excutePreparedStatement($PreparedStatement)) {
+            Log::debug('Record is inserted into Sub_Menu SQLite table for restaurantId ' . $this->RestaurantId);
+        } else {
+            Log::error('Record is not inserted into Sub_Menu SQLite table');
         }
     }
 }
