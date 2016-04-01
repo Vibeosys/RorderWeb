@@ -62,7 +62,7 @@ class MgmtPanelController extends ApiController{
        } elseif($this->request->is('post') and isset($this->request->data['inventory'])){
             $id = $this->request->data['restaurantId'];
             parent::writeCookie('cri', $id);
-            $this->redirect('inventory');
+            $this->redirect('inventory/stockinventoryreport');
        }
        $adminId = parent::readCookie('aui');
        Log::debug('current admin user id :-'.$adminId);
