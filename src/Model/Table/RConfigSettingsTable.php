@@ -40,4 +40,16 @@ class RConfigSettingsTable extends Table{
             return null;
         }
     }
+    
+    public function settingAllowed($restaurantId , $configKey) {
+        $conditions = ['RestaurantId =' => $restaurantId, 'ConfigKey =' => $configKey];
+        $result = $this->connect()->find('all',array('fields' => array('ConfigValue'),'conditions' => $conditions))->toArray();
+        if(!count($result)){
+            return FALSE;
+        }elseif ($result[0]->ConfigValue) {
+            return TRUE;
+        }  else {
+            return FALSE;
+        }
+    }
 }

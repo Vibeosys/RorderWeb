@@ -79,3 +79,5 @@ define('TAKEAWAY_ORDER','Takeaway');
 
 //this page limit is for pagination
 define('PAGE_LIMIT','20');
+
+define('KOT_CONFIG_KEY', 'KOT');

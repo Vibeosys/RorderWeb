@@ -36,4 +36,8 @@ class RConfigSettingsController extends ApiController{
         return $preparedStatements;
     }
     
+    public function allow($restaurantId, $configKey) {
+        return $this->getTableObj()->settingAllowed($restaurantId, $configKey); 
+    }
+    
 }

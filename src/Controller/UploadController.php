@@ -192,7 +192,7 @@ class UploadController extends ApiController {
             $orderNote[$menuItemRecord->menuId] = $note;
             $menuIdLoopCounter++;
         }
-        if(!count($menuIdList)){
+        if(!count($menuIdList) and !  count($subMenuList)){
               $this->response->body(DTO\ErrorDto::prepareError(117));
             \Cake\Log\Log::error("request with zero menu quantity");
             return;
@@ -200,26 +200,30 @@ class UploadController extends ApiController {
         $orderTotalAmt = 0;
         $orderLoopCounter = 0;
         $orderDetailList[] = NULL;
+        $MenuInfoList = null;
         $menuController = new MenuController();
-        $MenuInfoList = $menuController->getMenuItemList(
+        if(count($menuIdList)){
+            $MenuInfoList = $menuController->getMenuItemList(
                 $userInfo->restaurantId, 
                 $menuIdList);
-        if(is_null($MenuInfoList)){
-              $this->response->body(DTO\ErrorDto::prepareError(117));
-            \Cake\Log\Log::error("request with zero menu quantity");
-            return;
         }
         $SubMenuInfo = null;
         if(count($subMenuList)){
            $subMenuController = new SubMenuController(); 
            $SubMenuInfo = $subMenuController->getSubMenu($subMenuList);
         }
-        foreach ($MenuInfoList as $menuInfo) {
-            $resultArray = $this->search($orderUploadRequest->orderDetails, 
-                    "menuId", $menuInfo->menuId);
-            $menuQty = $resultArray->orderQty;
-            $orderTotalAmt += $menuQty * $menuInfo->price;
-            $orderDetailEntryDto = new UploadDTO\OrderDetailEntryDto(
+        if(is_null($MenuInfoList) and is_null($SubMenuInfo)){
+              $this->response->body(DTO\ErrorDto::prepareError(117));
+            \Cake\Log\Log::error("request with zero menu quantity");
+            return;
+        }
+        if($MenuInfoList){
+            foreach ($MenuInfoList as $menuInfo) {
+                $resultArray = $this->search($orderUploadRequest->orderDetails, 
+                        "menuId", $menuInfo->menuId);
+                $menuQty = $resultArray->orderQty;
+                $orderTotalAmt += $menuQty * $menuInfo->price;
+                $orderDetailEntryDto = new UploadDTO\OrderDetailEntryDto(
                     $orderUploadRequest->orderId, $menuQty, 
                     $menuQty * $menuInfo->price, 
                     $menuInfo->menuId,
@@ -227,13 +231,14 @@ class UploadController extends ApiController {
                     $menuInfo->menuTitle, 
                     $menuInfo->price, 
                     $orderNote[$menuInfo->menuId]);
-            $orderDetailList[$orderLoopCounter] = $orderDetailEntryDto;
-            $orderLoopCounter++;
+                $orderDetailList[$orderLoopCounter] = $orderDetailEntryDto;
+                $orderLoopCounter++;
+        }
         }
         if($SubMenuInfo){
             foreach ($SubMenuInfo as $menuInfo) {
-            $resultArray = $this->search($orderUploadRequest->orderDetails, 
-                    "menuId", $menuInfo->menuId);
+            $resultArray = $this->subMenuSearch($orderUploadRequest->orderDetails, 
+                    "menuId", $menuInfo->menuId, "subMenuId",$menuInfo->subMenuId);
             $menuQty = $resultArray->orderQty;
             $orderTotalAmt += $menuQty * $menuInfo->price;
             $orderDetailEntryDto = new UploadDTO\OrderDetailEntryDto(
@@ -248,6 +253,10 @@ class UploadController extends ApiController {
             $orderLoopCounter++;
         }
         }
+        $orderStatus = PLACED_ORDER_STATUS;
+        $rConfigSettingController = new RConfigSettingsController();
+        if($rConfigSettingController->allow($userInfo->restaurantId, KOT_CONFIG_KEY))
+                $orderStatus = FULFILLED_ORDER_STATUS;
         $this->transBegin();
         $maxOrderNo = $orderController->getMaxOrderNo($userInfo->restaurantId);
         $orderEntryDto = new UploadDTO\OrderEntryDto(
@@ -257,7 +266,7 @@ class UploadController extends ApiController {
                 $userInfo->restaurantId, 
                 $orderUploadRequest->custId, 
                 $this->isZero($orderUploadRequest->tableId), 
-                FULFILLED_ORDER_STATUS,
+                $orderStatus,
                 $userInfo->userId,
                 $this->isZero($orderUploadRequest->takeawayNo),
                 $orderUploadRequest->orderType
@@ -289,6 +298,19 @@ class UploadController extends ApiController {
         $arrayCounter = 0;
         foreach ($arrayToSearch as $item => $record) {
             if($record->$key == $value)
+            {
+                $resultObject = $record;
+            }
+        }
+        return $resultObject;
+    }
+    
+    public function subMenuSearch($arrayToSearch, $key, $value, $subKey, $subValue) {
+        $resultObject = NULL;
+
+        $arrayCounter = 0;
+        foreach ($arrayToSearch as $item => $record) {
+            if($record->$key == $value and $record->$subKey == $subValue)
             {
                 $resultObject = $record;
             }
