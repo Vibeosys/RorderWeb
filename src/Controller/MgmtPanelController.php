@@ -231,38 +231,29 @@ class MgmtPanelController extends ApiController{
             $billOrderDetails = $orderDetailsController->getbillOrderDetails($orders);
             $billPrintInfo = array();
             $indexCounter = 0;
-            $menuIdList[] = null;
+            $menuTitleList = array();
             foreach ($billOrderDetails as $menu){
-                $billPrintDto = new DownloadDTO\BillPrintDwnldDto(
-                        $indexCounter + 1,
-                        $menu->menuId, 
-                        $menu->menuTitle, 
-                        $menu->qty, 
-                        $menu->orderPrice/$menu->qty, 
-                        $menu->orderPrice);
-                    if(!in_array($menu->menuId, $menuIdList)){
-                        array_push($menuIdList, $menu->menuId);
-                    }    
-                $billPrintInfo[$indexCounter++] = $billPrintDto;
-            }
-            $billPrinting = (json_decode(json_encode($billPrintInfo)));
-            foreach ($billPrinting as $printing){
-                print_r($printing);
-                echo '<br><br>';
-            } 
-            print_r($menuIdList);
-            $this->autoRender = FALSE;
-            /*
-            foreach ($billOrderDetails as $orderDetails){
-                foreach ($billPrintInfo as $pinfo){
-                   if($orderDetails->menuId == $pinfo->id and !){
-                       $pinfo->qty = $pinfo->qty + $orderDetails->qty;
-                       $pinfo->amt = $pinfo->amt + ($pinfo->rate * $orderDetails->qty);
-                   } 
+                if(!key_exists($menu->menuTitle, $menuTitleList)){
+                    $menuTitleList[$menu->menuTitle] = $menu;       
+                }else{
+                    foreach ($menuTitleList as $key => $value){
+                        if($value->menuId == $menu->menuId and $value->subMenuId == $menu->subMenuId){
+                        $value->qty += $menu->qty;
+                        $value->orderPrice += $menu->orderPrice;
+                        }
+                    }
                 }
             }
-             * 
-             */
+            foreach ($menuTitleList as $key => $value){
+                $billPrintDto = new DownloadDTO\BillPrintDwnldDto(
+                        $indexCounter + 1,
+                        $value->menuId, 
+                        $value->menuTitle,        
+                        $value->qty, 
+                        $value->orderPrice/$menu->qty, 
+                        $value->orderPrice);
+                $billPrintInfo[$indexCounter++] = $billPrintDto;
+            }
             $restId = parent::readCookie('cri');
             $restaurantController = new RestaurantController();
             $restaurantInfo = $restaurantController->getAdminRestaurants(array($restId));

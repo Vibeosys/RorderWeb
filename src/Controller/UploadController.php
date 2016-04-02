@@ -176,6 +176,7 @@ class UploadController extends ApiController {
         $menuIdList = null;
         $menuIdLoopCounter = 0;
         $subMenuIdLoopCounter = 0;
+        $subMenuList = null;
         foreach ($orderUploadRequest->orderDetails as $menuItemIndex => $menuItemRecord) {
             if($menuItemRecord->orderQty)
                 if($menuItemRecord->subMenuId){
@@ -208,6 +209,7 @@ class UploadController extends ApiController {
             \Cake\Log\Log::error("request with zero menu quantity");
             return;
         }
+        $SubMenuInfo = null;
         if(count($subMenuList)){
            $subMenuController = new SubMenuController(); 
            $SubMenuInfo = $subMenuController->getSubMenu($subMenuList);
@@ -239,7 +241,7 @@ class UploadController extends ApiController {
                     $menuQty * $menuInfo->price, 
                     $menuInfo->menuId,
                     $menuInfo->subMenuId,
-                    $menuInfo->menuTitle.'|'.$menuInfo->subMenuTitle, 
+                    $menuInfo->menuTitle.'  '.$menuInfo->subMenuTitle, 
                     $menuInfo->price, 
                     $orderNote[$menuInfo->menuId]);
             $orderDetailList[$orderLoopCounter] = $orderDetailEntryDto;
