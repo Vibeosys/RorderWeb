@@ -44,7 +44,7 @@ class RecipeItemMasterTable extends Table{
         }
     }
     
-    public function getRecipeItems() {
+    public function getRecipeItems($restaurantId) {
         $joins = [
                     'a' => [
                             'table' => 'unit_master', 
@@ -65,7 +65,8 @@ class RecipeItemMasterTable extends Table{
         ];
         $response = FALSE;
         $counter = 0;
-        $allRecipItems =  $this->connect()->find('all',array('fields' => $fields))
+        $conditions = array('RestaurantId =' => $restaurantId);
+        $allRecipItems =  $this->connect()->find('all',array('fields' => $fields, 'condition' => $conditions))
                     ->join($joins);
         if($allRecipItems->count()){
             foreach ($allRecipItems as $recipeItems){

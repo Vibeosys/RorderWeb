@@ -58,13 +58,13 @@
   display: block;
 }
 #cssmenu > ul li.has-sub > a {
-  background-image: url('images/caret.png');
+  background-image: url('../img/caret.png');
   background-repeat: no-repeat;
   background-position: 90% -95%;
 }
 #cssmenu > ul li.has-sub > a.active,
 #cssmenu > ul li.has-sub > a:hover {
-  background: orangered url('images/caret.png') no-repeat;
+  background: orangered url('../img/caret.png') no-repeat;
   background-position: 90% 195%;
 }
 #cssmenu > ul li a {

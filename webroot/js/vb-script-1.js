@@ -135,13 +135,81 @@ $(document).ready(function(){
   // change the button text 
   
   $('.open-stock-btn').on('click',function(){
-       $('.stock-value').addClass('hidden')   
-      $('.stock').removeClass('hidden');
+      var value = $.cookie("stocko");
+      if(value){
+        alert('Please save before perform any operation' + value);
+      }else{
+       openstockCheck();
+   }
+  });
+  $('.close-stock-btn').on('click',function(){
+      var value = $.cookie("stockc");
+      if(value){
+        alert('Please save before perform any operation');
+      }else{
+      closestockCheck();
+      
+   }
   });
   $('.stock-save').on('click',function(){
-      $('.stock').addClass('hidden')    
-      $('.stock-value').removeClass('hidden');
-          
+      $(this).text('PLEASE WAIT..');
+      var os = $.cookie("stocko");
+      var cs = $.cookie("stockc");
+      var count = $('#count').val();
+      var saveResult = false;
+      if(os || cs){  
+          if(os){
+             var i = 0;
+             var itemIdList = [];
+             var stockList  = [];
+             var unitList  = [];
+             while(i < count){
+              itemIdList.push($('.ItemId'+i).val());
+              stockList.push($('.qty'+i).val());
+              unitList.push($('.unit'+i).val());
+              i++;
+            }
+            $.post("saveopenstock", {item: itemIdList, stock: stockList, unit: unitList}, function(result){
+                if(result === 1){
+                    $('.stock-save').text('SAVE');
+                    $.cookie("stocko", null, { expires : -1 });
+                    $('.stock').addClass('hidden')    
+                    $('.stock-value').removeClass('hidden');
+                }else{
+                        $(this).text('SAVE');
+                        alert('Error in stock operation please try again');
+                }
+            });
+          }else{
+             var i = 0;
+             var itemIdList = [];
+             var stockList  = [];
+                var unitList  = [];
+             while(i < count){
+              itemIdList.push($('.ItemId'+i).val());
+              stockList.push($('.qty'+i).val());
+              unitList.push($('.unit'+i).val());
+              i++;
+             }
+             $.post("saveclosestock", {item: itemIdList, stock: stockList,unit: unitList}, function(result){
+               
+                 if(result === 1){
+                    $('.stock-save').text('SAVE');
+                    $.cookie("stockc", null, { expires : -1 });
+                    $('.stock').addClass('hidden')    
+                    $('.stock-value').removeClass('hidden');
+                }else{
+                        $(this).text('SAVE');
+                        alert('Error in stock operation please try again');
+                }
+            });
+         }
+    }else {
+        $(this).text('SAVE');
+        alert('Please open or close stock before save.');
+        
+    }
+    return false;
   });
   
   //stock report printing
@@ -256,4 +324,47 @@ function kotprint(id,cono,ctno,ctkno,csb,cot) {
 function errorpopup(){
     alert('Invalid option');
     return false;
+}
+
+
+function openstockCheck(){
+      $.ajax({
+                        url: "/stockopencheck",
+                        type: "POST",
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (result, jqXHR, textStatus) {
+                            if (result) {
+                                alert('Stock Already Open'); 
+                            }else{
+                                $.cookie("stocko", true, { expires : 1 });
+                                 $('.stock-value').addClass('hidden')   
+                                 $('.stock').removeClass('hidden');
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert('Error :' + textStatus);
+                        }});
+}
+
+function closestockCheck(){
+      $.ajax({
+                        url: "/stockclosecheck",
+                        type: "POST",
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (result, jqXHR, textStatus) {
+                            if (result) {
+                                alert('Stock Already Closed'); 
+                            }else{
+                                 $.cookie("stockc", true, { expires : 1 });
+                                 $('.stock-value').addClass('hidden')   
+                                 $('.stock').removeClass('hidden');
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert('Error :' + textStatus);
+                        }});
 }

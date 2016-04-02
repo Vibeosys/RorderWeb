@@ -221,7 +221,7 @@ div.inven-btn-div > button{
     margin-top: 2%;
     width: 130px;
 }
- button.open-stock-btn{
+ button.open-stock-btn, button.close-stock-btn{
    // float: right;
   width: 250px;
   margin: 10px;
@@ -251,5 +251,9 @@ div.graph-head > a {
     color: #ffffff;
     text-decoration: underline;
     cursor: pointer;
+}
+
+th.action-width{
+    width: 30%;
 }
  

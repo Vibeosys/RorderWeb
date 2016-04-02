@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="row">
                                 <div class="col-xs-6"><button name="os" value="true" class="dark-orange open-stock-btn">Open Stock</button>
-                                    <button name="os" value="true" class="dark-orange open-stock-btn">Close Stock</button>
+                                    <button name="os" value="true" class="dark-orange close-stock-btn">Close Stock</button>
                                 </div>
                                 <div class="col-xs-2 inven-btn-div">
                                   
@@ -53,24 +53,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                   <?php foreach($items as $item){ ?>
+                                   <?php $i =0; foreach($items as $item){ ?>
                                     
                                         <tr>
                                         <form action="recipeitems/editrecipeitem" method="post">
                                            
                                             <td class="title-width">
-                                                <?= $item->itemId ?><input style="display:none" type="text" name="ItemId" value="<?= $item->itemId ?>">
+                                                <?= $item->itemId ?><input class="ItemId<?= $i ?>" style="display:none" type="text" name="ItemId" value="<?= $item->itemId ?>">
                                             </td>
                                  
                                             <td class="lat-width"><input class="roleId" style="display:none" type="text" name="itemName" value="<?= $item->itemName ?>">
                                                 <?= $item->itemName ?>
                                             </td>
                                             <td class="lat-width">
-                                                <input class="stock hidden" type="text" name="srock" value="<?= $item->qty ?>">
+                                                <input class="stock hidden qty<?= $i ?>" type="text" name="srock" value="<?= $item->qty ?>">
                                                 <span class="stock-value"><?= $item->qty ?></span>
                                             </td>
                                             <td>
-                                                <?= $item->unit ?><input style="display:none" type="text" name="unit" value="<?= $item->unitId ?>">
+                                                <?= $item->unit ?><input class="unit<?php echo $i++; ?>" style="display:none" type="text" name="unit" value="<?= $item->unitId ?>">
                                             </td>
                                            </form>
                                         </tr>
@@ -78,6 +78,7 @@
                                    <?php } ?>   
                                     </tbody>
                                 </table>
+                                <input id="count" style="display:none" type="text" name="count" value="<?= $i ?>">
                                 <div class="col-xs-3"></div>
                                 <div class="col-xs-3"></div>
                                                                 <div class="col-xs-3"></div>

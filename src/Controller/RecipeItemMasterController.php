@@ -75,7 +75,7 @@ class RecipeItemMasterController extends ApiController{
               $this->redirect('inventory/stockupload');
         }
         
-        $allRecipeitems = $this->paginatedItem($restaurantId, $page);
+       $allRecipeitems = $this->getTableObj()->getRecipeItems($restaurantId);
        $this->set([
                 'items' => $allRecipeitems
        ]);
@@ -155,7 +155,7 @@ class RecipeItemMasterController extends ApiController{
         }
         
     }
-    
+   /* 
     private function paginatedItem($restaurantId, $page = 1) {
         $recipeItemTable = $this->getTableObj();
         $count = $recipeItemTable->connect()->find()->count(); 
@@ -200,5 +200,7 @@ class RecipeItemMasterController extends ApiController{
             }
             return $allItems;     
     }
+    * 
+    */
     
 }

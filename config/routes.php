@@ -49,6 +49,10 @@ Router::scope('/', function ($routes) {
     $routes->connect('transactionMaster/getTransactionReport', ['controller' => 'TransactionMaster', 'action' => 'getTransactionReport']);
     $routes->connect('customervisitreport', ['controller' => 'CustomerVisit', 'action' => 'customerVisitReport']);
     $routes->connect('login', ['controller' => 'MgmtPanel', 'action' => 'login']);
+    $routes->connect('stockopencheck', ['controller' => 'ItemStockLevel', 'action' => 'stockOpenCheck']);
+    $routes->connect('stockclosecheck', ['controller' => 'ItemStockLevel', 'action' => 'stockCloseCheck']);
+    $routes->connect('saveopenstock', ['controller' => 'ItemStockLevel', 'action' => 'saveOpenStock']);
+    $routes->connect('saveclosestock', ['controller' => 'ItemStockLevel', 'action' => 'saveCloseStock']);
     $routes->fallbacks('DashedRoute');
 });
 
