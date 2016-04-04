@@ -21,7 +21,11 @@
                             <div class="box-header" style="border: 0px solid blue">
                                 <div class="row">
                                     <div class="col-xs-4"> <a href="../inventory/stockinventoryreport" > << Back </a></div>
-                                <div class="col-xs-4 inven-header"></div>
+                                    <div class="col-xs-4 inven-header">
+                                        <div class="operation-status">
+                                            <span class="status-message"></span>
+                                            <span><?php date_default_timezone_set(CURRENT_TIME_ZONE);echo date('d M Y');?></span></div>
+                                    </div>
                                 <div class="col-xs-4 inven-date"><span class="date-title">Date :<?php date_default_timezone_set(CURRENT_TIME_ZONE);?><?php echo date('d M Y h:ia');?></span></div>
                                 </div>
                                 <div class="row">
@@ -94,6 +98,16 @@
                                      <a style="margin-left: 90px;padding: 5px;border:1px solid gainsboro" href="../managedata"> << Back</a>
                                  </div>
                                <?php } ?>
+                                <div class="notification">
+                                    <div class="notice alert alert-warning fade in">
+                                        <span class="notice-message"></span>
+                                        <a >Close</a>
+                                    </div>
+                                    <div class="success alert alert-success fade in">
+                                        <span class="success-message"></span>
+                                        <a >Close</a>
+                                    </div>
+                                </div>
                             </div><!-- /.box-body -->
                         </div><!-- /.box -->                       
                     </div><!-- /.col -->

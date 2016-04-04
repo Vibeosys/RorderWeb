@@ -252,8 +252,36 @@ div.graph-head > a {
     text-decoration: underline;
     cursor: pointer;
 }
-
 th.action-width{
     width: 30%;
 }
- 
+div.notification{
+    width: 100%;
+    height: 100%;
+    padding: 18% 38%;
+    position: absolute;
+    top: 0px;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.03);
+}
+div.notice > a,div.success > a{
+    cursor: pointer;
+    float: right;
+}
+div.notice,div.success{
+    display: none;
+}
+div.operation-status{
+    //background-color: orangered;
+    //color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: orange;
+    display: none;
+}
+.blink {
+    color: #FFF !important;
+    background: orange;
+    
+}

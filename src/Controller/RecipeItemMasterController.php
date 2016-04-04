@@ -59,6 +59,9 @@ class RecipeItemMasterController extends ApiController{
         }
     }
     
+    public function stockUpdate(UploadDTO\OpenStockUploadDto $updateRequest) {
+        return $this->getTableObj()->update($updateRequest->itemId, $updateRequest->restaurantId, $updateRequest->stock);
+    }
     public function inventory() {
          if(!$this->isLogin()){
             $this->redirect('login');
@@ -106,6 +109,20 @@ class RecipeItemMasterController extends ApiController{
             \Cake\Log\Log::debug('message:- '.$message1);
             $this->set(['message',$message1]);
         }
+    }
+    
+    public function getItemInfo() {
+        $this->autoRender = FALSE;
+        Log::debug('Ajax request hitted to get items');
+        if($this->request->is('get') and $this->isLogin()){
+            $restaurantId = parent::readCookie('cri');
+            $response =  $this->getTableObj()->getItems($restaurantId);
+            Log::debug($response);
+            $this->response->body(json_encode($response));
+        }else{
+            $this->response->body(FALSE);
+        }
+        
     }
     
     public function materialStockUpload() {

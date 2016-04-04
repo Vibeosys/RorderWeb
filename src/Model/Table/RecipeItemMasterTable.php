@@ -44,6 +44,25 @@ class RecipeItemMasterTable extends Table{
         }
     }
     
+    public function update($itemId, $restaurantId, $stock) {
+        $conditions = [
+            'ItemId =' => $itemId,
+            'RestaurantId =' => $restaurantId
+        ];
+        $key = ['QtyInHand' => $stock];
+        try{
+            $update = $this->connect()->query()->update();
+            $update->set($key);
+            $update->where($conditions);
+            if($update->execute()){
+                return true;
+            }
+            return FALSE;
+        } catch (Exception $ex) {
+            return FALSE;
+        }
+    }
+    
     public function getRecipeItems($restaurantId) {
         $joins = [
                     'a' => [
@@ -81,6 +100,25 @@ class RecipeItemMasterTable extends Table{
             }
         }
         return $response;
+    }
+    
+    public function getItems($restaurantId) {
+        $response = FALSE;
+        $counter = 0;
+        $conditions = array('RestaurantId =' => $restaurantId);
+        try{
+            $allItems = $this->connect()->find()->where($conditions);
+            if($allItems->count()){
+                foreach ($allItems as $item){
+                    $response[$counter++] = 
+                            new DownloadDTO\RecipeItemMasterShortDto(
+                                    $item->ItemId, $item->ItemName);
+                }
+            }
+            return $response;    
+        } catch (Exception $ex) {
+            return FALSE;
+        }
     }
     
 }

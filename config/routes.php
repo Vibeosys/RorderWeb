@@ -31,6 +31,8 @@ Router::scope('/', function ($routes) {
     $routes->connect('inventory/stockinventoryreport', ['controller' => 'RecipeItemMaster', 'action' => 'stockInventoryReport']);
     $routes->connect('inventory/materialrequisitionreport', ['controller' => 'RecipeItemMaster', 'action' => 'materialRequisitionReport']);
     $routes->connect('inventory/materialbrandwiserequisitionreport', ['controller' => 'RecipeItemMaster', 'action' => 'materialBrandwiseRequisitionReport']);
+    $routes->connect('getrecipeitem', ['controller' => 'RecipeItemMaster', 'action' => 'getItemInfo']); 
+    $routes->connect('getunits', ['controller' => 'UnitMaster', 'action' => 'getUnits']); 
     $routes->connect('/', ['controller' => 'MgmtPanel', 'action' => 'consol']);
     $routes->connect('upload', ['controller' => 'MgmtPanel', 'action' => 'upload']);
     $routes->connect('/edit', ['controller' => 'MgmtPanel', 'action' => 'edit']);

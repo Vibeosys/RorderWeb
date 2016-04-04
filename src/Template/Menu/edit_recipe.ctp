@@ -27,10 +27,12 @@
                         <div class="box">                           
                             <section class="content content-div show-add-section">
                                     <div class="with-border box-header">
-                                        <h3 class="box-title">Edit Recipe for<span style="color: orangered"> Paneer Tiranga</span> </h3>
+                                       <?php if(isset($menu)){?>
+                                        <h3 class="box-title">Edit Recipe for<span style="color: orangered"> <?php echo $menu->menuTitle; ?></span> </h3>
+                                       <?php } ?>
                                     </div>
                                  <div class="back-btn" style="margin-top: 10px"> 
-                                   <a href="#" onclick="window.history.back();"> << Back </a>
+                                   <a href="../menu" > << Back </a>
                                 </div>
                                 <div class="form-div">  
                                <form class="form-horizontal" method="post" action="../editrecipe">
@@ -38,33 +40,24 @@
                                             <div class="form-group">
                                                 <label for="Title" class="col-sm-2 control-label">Item Description</label>
                                                 <div class="col-sm-8">
-                                                   <select name="userRole" class="form-control-select" required>
+                                                   <select name="recipeItem" class="form-control-select recipe-item-select" required>
                                                         <option value="null">Select Item</option>
-                                                        <option value="null">Paneer</option>
-                                                        <option value="null">Cottage Cheese</option>
-                                                        <option value="null">Ginger</option>
-                                                        <option value="null">Oil</option>
-                                                        <option value="null">Cashew</option>
-                                                        <option value="null">Tomato</option>
+                                                        
                                                     </select>
                                                 </div>
                                             </div>
                                              <div class="form-group">
-                                                <label for="permissions" class="col-sm-2 control-label">Quantity</label>
+                                                <label for="Quantity" class="col-sm-2 control-label">Quantity</label>
                                                 <div class="col-sm-8">
                                                     <input name="qty" type="number" > 
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="longitude" class="col-sm-2 control-label">Unit</label>
+                                                <label for="Unit" class="col-sm-2 control-label">Unit</label>
                                                 <div class="col-sm-8">
-                                                    <select name="userRole" class="form-control-select" required>
+                                                    <select name="itemUnit" class="form-control-select item-unit-select" required>
                                                         <option value="null">Select Unit</option>
-                                                        <option value="null">Kg</option>
-                                                        <option value="null">Grams</option>
-                                                        <option value="null">Litre</option>
-                                                        <option value="null">ml</option>
-                                                        <option value="null">Units</option>
+                                                        
                                                     </select>
                                                 </div>
                                             </div>
@@ -83,6 +76,7 @@
                                 </div>    
                                 <section class="stock-section" style="margin-top:50px">
                                       <div class="box-body show-grid-section">
+                                <?php if(isset($menurecipe) and !is_null($menurecipe)){ ?>          
                                 <table id="destination" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -93,49 +87,31 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                       <?php foreach ($menurecipe as $recipe){?>
                                         <tr>
+                                            <input type="text" class="itemId hidden" value="<?= $recipe->itemId ?>">
                                             <td class="title-width">
-                                                Paneer
+                                                <?= $recipe->itemName ?>
                                             </td>
-                                            <td class="lat-width">250</td>
-                                            <td class="lat-width">Grams</td>
+                                            <td class="lat-width">
+                                                <?= $recipe->qty ?>
+                                            </td>
+                                            <td class="lat-width">
+                                                <input type="text" class="unitId hidden" value="<?= $recipe->unitId ?>">
+                                                <?= $recipe->unitTitle ?>
+                                            </td>
                                             <td> <button class="dark-orange add-edit-btn"><span> Edit</span></button> <button class="light-orange"><span>Delete</span></button></td>
                                         </tr>
-                                        <tr>
-                                            <td class="title-width">
-                                               Oil
-                                            </td>
-                                            <td class="lat-width">50</td>
-                                            <td class="lat-width">ml</td>
-                                            <td> <button class="dark-orange add-edit-btn"><span> Edit</span></button> <button class="light-orange"><span>Delete</span></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="title-width">
-                                              	Tomato
-                                            </td>
-                                            <td class="lat-width">200</td>
-                                            <td class="lat-width">Grams</td>
-                                            <td> <button class="dark-orange add-edit-btn"><span> Edit</span></button> <button class="light-orange"><span>Delete</span></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="title-width">
-                                                Onion
-                                            </td>
-                                            <td class="lat-width">250</td>
-                                            <td class="lat-width">Grams</td>
-                                            <td> <button class="dark-orange add-edit-btn"><span> Edit</span></button> <button class="light-orange"><span>Delete</span></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="title-width">
-                                               Ginger
-                                            </td>
-                                            <td class="lat-width">15</td>
-                                            <td class="lat-width">Grams</td>
-                                            <td> <button class="dark-orange add-edit-btn"><span> Edit</span></button> <button class="light-orange"><span>Delete</span></button></td>
-                                        </tr>
+                                        
+                                       <?php } ?>
                                        
                                     </tbody>
                                 </table>
+                                <?php }else {?>
+                                           <div class=" alert alert-error">
+                                            Please Add recipe item for <span> <?php echo $menu->menuTitle; ?></span>
+                                        </div>
+                                       <?php } ?>
                                 </div>                              
                                 </section>
                             </section>

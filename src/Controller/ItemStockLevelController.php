@@ -56,6 +56,9 @@ class ItemStockLevelController extends ApiController{
                         $itemId[$i], $stock[$i], date('d'), date('m'), 
                         date('Y'), $unit[$i],$restaurantId);
                 $this->getTableObj()->openStock($openStockDto);
+                $recipeItemMaster = new RecipeItemMasterController();
+                $updateResult = $recipeItemMaster->stockUpdate($openStockDto);
+                \Cake\Log\Log::debug($updateResult);
             }
             if($i){
             $this->response->body(1);
@@ -75,6 +78,9 @@ class ItemStockLevelController extends ApiController{
                         $itemId[$i], $stock[$i], date('d'), date('m'), 
                         date('Y'), $unit[$i],$restaurantId);
                 $this->getTableObj()->closeStock($openStockDto);
+                $recipeItemMaster = new RecipeItemMasterController();
+                $updateResult = $recipeItemMaster->stockUpdate($openStockDto);
+                \Cake\Log\Log::debug($updateResult);
             }
             if($i){
             $this->response->body(1);

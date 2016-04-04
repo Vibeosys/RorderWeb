@@ -193,6 +193,7 @@ class MenuController extends ApiController {
             }
         }elseif ($this->request->is('post') and isset($data['edit-recipe'])) {
             parent::writeCookie('current-mid',  $data['mid']);
+           
             $this->redirect('menu/editrecipe');
         }
     }
@@ -236,7 +237,21 @@ class MenuController extends ApiController {
     }
     
     public function editRecipe() {
-        
+        $menuId = parent::readCookie('current-mid');
+         $menuRecipeController = new MenuRecipeController();
+            $recipe = $menuRecipeController->getMenuRecipe($menuId);
+            $menuInfo = $this->getMenuItemList(null, array($menuId));
+            $menu = null;
+            foreach ($menuInfo as $menui){
+                if(is_null($menu)){
+                    $menu = $menui;
+                }
+            }
+            Log::debug($recipe);
+            $this->set([
+                'menurecipe' => $recipe,
+                'menu' => $menu
+            ]);
     }
     
     public function addNewItem() {

@@ -50,7 +50,8 @@ class ItemStockLevelTable extends Table{
         ];
         $fields = ['Closing'];
         try{
-            $result = $this->connect()->find('all',array('fields' => $fields, 'condition' => $condtions))->orderAsc('StockLevelId')->first()->toArray();
+            $result = $this->connect()->find('all',array('fields' => $fields, 'conditions' => $condtions))->orderAsc('StockLevelId')->first()->toArray();
+            Log::debug($result);
             if(!is_null($result['Closing'])){
                 return True;
             }

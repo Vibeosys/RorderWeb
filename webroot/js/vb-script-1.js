@@ -137,7 +137,9 @@ $(document).ready(function(){
   $('.open-stock-btn').on('click',function(){
       var value = $.cookie("stocko");
       if(value){
-        alert('Please save before perform any operation' + value);
+            $('.notice-message').text('Please save before perform any operation');
+            $('.notification').css('display','block');
+             $('.notice').css('display','block');
       }else{
        openstockCheck();
    }
@@ -145,10 +147,11 @@ $(document).ready(function(){
   $('.close-stock-btn').on('click',function(){
       var value = $.cookie("stockc");
       if(value){
-        alert('Please save before perform any operation');
+          $('.notice-message').text('Please save before perform any operation');
+            $('.notification').css('display','block');
+             $('.notice').css('display','block');
       }else{
       closestockCheck();
-      
    }
   });
   $('.stock-save').on('click',function(){
@@ -175,10 +178,18 @@ $(document).ready(function(){
                     $.cookie("stocko", null, { expires : -1 });
                     $('.stock').addClass('hidden')    
                     $('.stock-value').removeClass('hidden');
+                    
+                    $('.status-message').text('Stock was open for ');
+                    $('.success-message').text('Stock opened for current day');
+                    $('.notification').css('display','block');
+                    $('.success').css('display','block');
                 }else{
-                        $(this).text('SAVE');
-                        alert('Error in stock operation please try again');
+                        $('.stock-save').text('SAVE');
+                         $('.notice-message').text('Error in stock operation please try again');
+                         $('.notification').css('display','block');
+                          $('.notice').css('display','block');
                 }
+               
             });
           }else{
              var i = 0;
@@ -198,24 +209,92 @@ $(document).ready(function(){
                     $.cookie("stockc", null, { expires : -1 });
                     $('.stock').addClass('hidden')    
                     $('.stock-value').removeClass('hidden');
+                    $('.status-message').text('Stock was close for ');
+                    $('.success-message').text('Stock closed for current day');
+                    $('.notification').css('display','block');
+                    $('.success').css('display','block');
                 }else{
-                        $(this).text('SAVE');
-                        alert('Error in stock operation please try again');
+                        $('.stock-save').text('SAVE');
+                        $('.notice-message').text('Error in stock operation please try again');
+                        $('.notification').css('display','block');
+                        $('.notice').css('display','block');
+                        
                 }
+                
             });
          }
     }else {
         $(this).text('SAVE');
-        alert('Please open or close stock before save.');
-        
+        $('.notice-message').text('Please open or close stock before save.');
+        $('.notification').css('display','block');
+         $('.notice').css('display','block');
     }
     return false;
   });
   
-  //stock report printing
+ //notice message hide on click
+  $('.notice > a').on('click',function(){
+      $('.notification').css('display','none');
+       $('.notice').css('display','none');
+  });
+  $('.success > a').on('click',function(){
+      $('.notification').css('display','none');
+       $('.success').css('display','none');
+       window.location.reload(); 
+  });
   
+   blink(".operation-status", -1, 1000); 
   
+    //get recipe items 
+    var itemcheck = true
+  $('.recipe-item-select').on('click', function(){
+      if(itemcheck){
+      $.get('/getrecipeitem',{},function(result){
+          var html = '';
+          itemcheck = false;
+         $.each(result,function(index,obj){
+             html = html + '<option value="'+ obj.itemId + '">'+ obj.itemName + '</option>';
+         });
+         $('.recipe-item-select').append(html);
+      });
+  }
+  });
+  
+  //get units
+  var fullcheck = true;
+  $('.item-unit-select').on('click', function(){
+      if(fullcheck){
+      $.get('/getunits',{},function(result){
+          var html = '';
+          fullcheck = false;
+         $.each(result,function(index,obj){
+             html = html + '<option value="'+ obj.unitId + '">'+ obj.unitTitle + '</option>';
+         });
+         $('.item-unit-select').append(html);
+      });
+  }
+  });
 });
+//blink effect
+function blink(elem, times, speed) {
+    if (times > 0 || times < 0) {
+        if ($(elem).hasClass("blink")) 
+            $(elem).removeClass("blink");
+        else
+            $(elem).addClass("blink");
+    }
+
+    clearTimeout(function () {
+        blink(elem, times, speed);
+    });
+
+    if (times > 0 || times < 0) {
+        setTimeout(function () {
+            blink(elem, times, speed);
+        }, speed);
+        times -= .5;
+    }
+}
 
 function printtable(){
      $.ajax({
@@ -336,7 +415,9 @@ function openstockCheck(){
                         processData: false,
                         success: function (result, jqXHR, textStatus) {
                             if (result) {
-                                alert('Stock Already Open'); 
+                                $('.notice-message').text('Stock Already Open');
+                                $('.notification').css('display','block');
+                                 $('.notice').css('display','block');
                             }else{
                                 $.cookie("stocko", true, { expires : 1 });
                                  $('.stock-value').addClass('hidden')   
@@ -344,7 +425,9 @@ function openstockCheck(){
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            alert('Error :' + textStatus);
+                            $('.notice-message').text(textStatus);
+                                $('.notification').css('display','block');
+                                 $('.notice').css('display','block');
                         }});
 }
 
@@ -357,7 +440,9 @@ function closestockCheck(){
                         processData: false,
                         success: function (result, jqXHR, textStatus) {
                             if (result) {
-                                alert('Stock Already Closed'); 
+                                 $('.notice-message').text('Stock Already Closed');
+                                $('.notification').css('display','block');
+                                 $('.notice').css('display','block');
                             }else{
                                  $.cookie("stockc", true, { expires : 1 });
                                  $('.stock-value').addClass('hidden')   
@@ -365,6 +450,9 @@ function closestockCheck(){
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            alert('Error :' + textStatus);
+                             $('.notice-message').text(textStatus);
+                             $('.notification').css('display','block');
+                              $('.notice').css('display','block');
+                            
                         }});
 }
