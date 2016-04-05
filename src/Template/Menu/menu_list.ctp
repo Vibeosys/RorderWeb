@@ -59,8 +59,12 @@
                                             <td class="title-width">
                                                 <?= $menu->menuTitle ?><input style="display:none" type="text" name="ttl" value="<?= $menu->menuTitle ?>">
                                             </td>
-                                            <td>
-                                                <img src="<?= $menu->image ?>" title="<?= $menu->menuTitle ?>" alt="<?= $menu->menuTitle ?>" width="70" height="70"><input style="display:none" type="text" name="img" value="<?= $menu->image ?>">
+                                            <td><input style="display:none" type="text" name="img" value="<?= $menu->image ?>">
+                                                <?php if(!is_null($menu->image)) {  ?>
+                                                <img src="<?= $menu->image ?>" title="<?= $menu->menuTitle ?>" alt="<?= $menu->menuTitle ?>" width="70" height="70">
+                                                <?php }else{ ?>
+                                                <?= $this->Html->image('Quickserve-menu-default.gif', ['width' => '70','height' => '70','alt' => 'MENU'])?>
+                                                <?php } ?>
                                             </td>
                                             <td class="lat-width"><input class="roleId" style="display:none" type="text" name="prc" value="<?= $menu->price ?>">
                                                 <?= $menu->price ?>

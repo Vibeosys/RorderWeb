@@ -46,7 +46,12 @@
                                             <div class="form-group">
                                                 <label for="latitude" class="col-sm-2 control-label">Image</label>
                                                 <div class="col-sm-8">
-                                                    <img  src="<?= $menuInfo->img ?>" alt ="<?= $menuInfo->ttl ?>" width="100" height="100">
+                                                    <?php if(strlen($menuInfo->img)) { ?>
+                                                 <img  src="<?= $menuInfo->img ?>" alt ="<?= $menuInfo->ttl ?>" width="100" height="100">
+                                                <?php }else{ ?>
+                                                <?= $this->Html->image('Quickserve-menu-default.gif', ['width' => '100','height' => '100','alt' => 'MENU'])?>
+                                                <?php } ?>
+                                                   
                                                     <input style="display:none" name="img" type="text" class="form-control" value="<?= $menuInfo->img ?>">
                                                 </div>
                                             </div>
