@@ -22,11 +22,8 @@
                                 <div class="row">
                                     <div class="col-xs-4"> <a href="../inventory/stockinventoryreport" > << Back </a></div>
                                     <div class="col-xs-4 inven-header">
-                                        <div class="operation-status">
-                                            <span class="status-message"></span>
-                                            <span><?php date_default_timezone_set(CURRENT_TIME_ZONE);echo date('d M Y');?></span></div>
                                     </div>
-                                <div class="col-xs-4 inven-date"><span class="date-title">Date :<?php date_default_timezone_set(CURRENT_TIME_ZONE);?><?php echo date('d M Y h:ia');?></span></div>
+                                    <div class="col-xs-4 inven-date"><span class="date-title"> <?= $this->Html->image('quickserve-calendar-day.png', ['width' => '40','class' => 'calender-icon','height' => '40','alt' => 'Time'])?><?php date_default_timezone_set(CURRENT_TIME_ZONE);?><?php echo date('d M Y h:ia');?></span></div>
                                 </div>
                                 <div class="row">
                                 <div class="col-xs-6"><button name="os" value="true" class="dark-orange open-stock-btn">Open Stock</button>

@@ -283,5 +283,7 @@ div.operation-status{
 .blink {
     color: #FFF !important;
     background: orange;
-    
+}
+.calender-icon{
+    margin-right:  10px;
 }
