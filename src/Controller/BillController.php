@@ -39,6 +39,7 @@ class BillController  extends ApiController{
             Log::debug('you bill is generated');
              $billEntryDto->tableId = $this->isNull($billEntryDto->tableId);
             $billEntryDto->takeawayNo = $this->isNull($billEntryDto->takeawayNo);
+            $billEntryDto->deliveryNo = $this->isNull($billEntryDto->deliveryNo);
             $result = $this->makeSyncEntry($billEntryDto);
             return $billEntryResult;
         }

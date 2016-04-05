@@ -46,6 +46,7 @@ class BillTable extends Table {
             $newBill->CustId = $billEntry->custId;
             $newBill->TableId = $billEntry->tableId;
             $newBill->TakeawayNo = $billEntry->takeawayNo;
+            $newBill->DeliveryNo = $billEntry->deliveryNo;
             if ($tableObj->save($newBill)) {
                 Log::debug('Bill has been created for BillNo :-' .
                         $billEntry->billNo);

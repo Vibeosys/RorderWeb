@@ -15,11 +15,14 @@ class BillUploadDto extends DTO\JsonDeserializer{
     
     public $tableId;
     public $takeawayNo;
+    public $deliveryNo;
     public $custId;
 
-    public function __construct($tableId = null, $custId = null, $takeawayNo  = null) {
+    public function __construct($tableId = null, $custId = null, 
+            $takeawayNo  = null, $deliveryNo = null) {
         $this->tableId = $tableId;
         $this->takeawayNo = $takeawayNo;
+        $this->deliveryNo = $deliveryNo;
         $this->custId = $custId;
     }
 }

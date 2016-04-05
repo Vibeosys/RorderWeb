@@ -25,11 +25,12 @@ class OrderEntryDto {
     public $orderStatus;
     public $userId;
     public $takeawayNo;
+    public $deliveryNo;
     public $orderType;
 
     public function __construct($orderId = NULL, $orderNo= NULL, $orderAmt = NULL, 
             $restaurantId = NULL, $custId = NULL, $tableId = NULL, 
-            $orderStatus = NULL, $userId = NULL, $takeawayNo = null, 
+            $orderStatus = NULL, $userId = NULL, $takeawayNo = null,$deliveryNo = null, 
             $orderType = null) {
         $this->orderId = $orderId;
         $this->orderNo = $orderNo;
@@ -42,6 +43,7 @@ class OrderEntryDto {
         $this->orderTm = date('H:i:s');        
         $this->userId = $userId;
         $this->takeawayNo = $takeawayNo;
+        $this->deliveryNo = $deliveryNo;
         $this->orderType = $orderType;
     }
 }

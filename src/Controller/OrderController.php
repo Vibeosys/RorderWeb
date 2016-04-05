@@ -37,6 +37,7 @@ class OrderController extends ApiController {
         if ($orderResponse) {
             $orderEntry->tableId = $this->isNull($orderEntry->tableId);
             $orderEntry->takeawayNo = $this->isNull($orderEntry->takeawayNo);
+            $orderEntry->deliveryNo = $this->isNull($orderEntry->deliveryNo);
             $this->makeSyncEntry($orderEntry);
         }
         return $orderResponse;

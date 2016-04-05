@@ -51,6 +51,7 @@ CREATE TABLE [menu_category](
   'UserId'                  TEXT,
   'OrderAmount'         DOUBLE,
   'TakeawayNo'                 INTEGER,
+  'DeliveryNo'                 INTEGER,
   'OrderType'                 INTEGER);
   
   CREATE TABLE [order_details] (
@@ -80,7 +81,8 @@ CREATE TABLE [menu_category](
   'IsPayed'                 BOOLEAN,
   'PayedBy'                 TEXT,
   'Discount'                INTEGER,
-  'TakeawayNo'                 INTEGER);
+  'TakeawayNo'                 INTEGER,
+  'DeliveryNo'                 INTEGER);
   
   CREATE TABLE [bill_details] (
   'AutoId'                  INTEGER NOT NULL PRIMARY KEY,
@@ -174,6 +176,16 @@ CREATE TABLE [takeaway] (
   'SourceId'            INTEGER,
   'UserId'            TEXT,
   'CreatedDate'       DATE);
+
+CREATE TABLE [delivery] (
+  'DeliveryId'          TEXT NOT NULL PRIMARY KEY,
+  'DeliveryNo'          INTEGER,
+  'Discount'            DOUBLE,
+  'DeliveryCharges'     DOUBLE,
+  'CustId'              TEXT,
+  'SourceId'            INTEGER,
+  'UserId'              TEXT,
+  'CreatedDate'         DATE);
 
 CREATE TABLE [r_rooms](
  'RoomId'    INTEGER PRIMARY KEY,

@@ -23,11 +23,12 @@ class BillEntryDto {
     public $custId;
     public $tableId;
     public $takeawayNo;
+    public $deliveryNo;
 
 
     public function __construct($billNo = null, $netAmt = null, $totalTaxAmt = null, 
             $totalPayAmt = null, $userId = null, $restaurantId = null, 
-            $custId = null, $tableId = null, $takeawayNo = null) {
+            $custId = null, $tableId = null, $takeawayNo = null, $deliveryNo = null) {
         $this->billNo = $billNo;
         $this->netAmt = $netAmt;
         $this->totalTaxAmt = $totalTaxAmt;
@@ -37,6 +38,7 @@ class BillEntryDto {
         $this->custId = $custId;
         $this->tableId = $tableId;
         $this->takeawayNo = $takeawayNo;
+        $this->deliveryNo = $deliveryNo;
     }
     
 }

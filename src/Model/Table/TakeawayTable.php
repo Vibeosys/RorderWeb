@@ -12,6 +12,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use App\DTO\UploadDTO;
 use App\DTO\DownloadDTO;
+use Cake\Datasource\ConnectionManager;
 /**
  * Description of TakeawayTable
  *
@@ -51,18 +52,14 @@ class TakeawayTable extends Table{
         
     }
     public function getMaxNo($restaurantId) {
-        $conditions = array(
-            'conditions' => array('takeaway.RestaurantId =' => $restaurantId),
-            'fields' => array('maxTakeawayNo' => 'MAX(takeaway.TakeawayNo)'));
-        $takeawayEntry = $this->connect()->find('all', $conditions)->toArray();
-        if ($takeawayEntry) {
-            $maxTakeawayNo = $takeawayEntry[0]['maxTakeawayNo'];
-            if (is_null($takeawayEntry)) {
-                $maxTakeawayNo = 0;
-            }
-        }
-        Log::debug('Order Number generated for new order orderNo is :- ' . $maxTakeawayNo);
-        return $maxTakeawayNo;
+        $datasource = ConnectionManager::config('default');
+        $connection = mysql_connect($datasource['host'], $datasource['username'], $datasource['password']);
+        mysql_select_db($datasource['database'], $connection);
+        $query = "call RestaurantDB.getMaxTakeawayNo(".$restaurantId.", @takawaymaxno);";
+        $result =  mysql_query($query);
+        $data = mysql_fetch_assoc($result);
+        mysql_close($connection);
+        return  $data['maxId'];
     }
     
     public function takeawayInsert(UploadDTO\TakeawayUploadDto $takeawayRequest, $restaurantId) {
@@ -93,7 +90,7 @@ class TakeawayTable extends Table{
     
     public function getSingleTakeaway($takeawayNo , $restaurantId) {
         $conditions = ['RestaurantId =' => $restaurantId,
-                        'takeawayNo =' => $takeawayNo];
+                        'TakeawayNo =' => $takeawayNo];
         $takeaway = null;
         try{
             $results = $this->connect()

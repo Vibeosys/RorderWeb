@@ -42,6 +42,7 @@ class OrderTable extends Table {
         $newOrder->TableId = $orderEntry->tableId;
         $newOrder->RestaurantId = $orderEntry->restaurantId;
         $newOrder->TakeawayNo = $orderEntry->takeawayNo;
+        $newOrder->DeliveryNo = $orderEntry->deliveryNo;
         $newOrder->OrderType = $orderEntry->orderType;
         if ($tableObj->save($newOrder)) {
             Log::debug('order has been placed for OrderId :-' .

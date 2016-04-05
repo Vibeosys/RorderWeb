@@ -34,7 +34,8 @@ class UploadController extends ApiController {
         'CT' =>'closeTable',
         'AAE' => 'addApplicationError',
         'P' =>'print',
-        'ATA' => 'addTakeaway'];
+        'ATA' => 'addTakeaway',
+        'AD' => 'addDelivery'];
 
     public function index() {
         $this->autoRender = false;
@@ -144,6 +145,10 @@ class UploadController extends ApiController {
                     $operationData = $record->operationData; 
                     $this->addApplicationError($operationData, $userData);
                     break;
+                case $this->operations['AD']:
+                    $operationData = $record->operationData; 
+                    $this->addDelivery($operationData, $userData);
+                    break;
                 default :
                     $this->response->body(DTO\ErrorDto::prepareError(108));
                     break;
@@ -192,7 +197,7 @@ class UploadController extends ApiController {
             $orderNote[$menuItemRecord->menuId] = $note;
             $menuIdLoopCounter++;
         }
-        if(!count($menuIdList) and !  count($subMenuList)){
+        if(!count($menuIdList) and !count($subMenuList)){
               $this->response->body(DTO\ErrorDto::prepareError(117));
             \Cake\Log\Log::error("request with zero menu quantity");
             return;
@@ -269,6 +274,7 @@ class UploadController extends ApiController {
                 $orderStatus,
                 $userInfo->userId,
                 $this->isZero($orderUploadRequest->takeawayNo),
+                $this->isZero($orderUploadRequest->deliveryNo),
                 $orderUploadRequest->orderType
         );
         $orderHeaderEntrySucceded = $orderController->addOrderEntry($orderEntryDto);
@@ -375,7 +381,8 @@ class UploadController extends ApiController {
                     $userInfo->restaurantId, 
                     $generateBillUploadrequest->custId, 
                     $this->isZero($generateBillUploadrequest->tableId),
-                    $this->isZero($generateBillUploadrequest->takeawayNo));
+                    $this->isZero($generateBillUploadrequest->takeawayNo),
+                    $this->isZero($generateBillUploadrequest->deliveryNo));
             $salesReportDto = new DTO\DownloadDTO\SalesHistoryReportDto(
                     $userInfo->restaurantId, 
                     date('m'), 
@@ -587,10 +594,26 @@ class UploadController extends ApiController {
         $applicationErrorControllr = new ApplicationErrorController();
         $addErrorResult = $applicationErrorControllr->AddError($addErrorRequest, $userInfo);
         if ($addErrorResult) {
-            $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Error catched cleanly'));
+            $this->response->body(DTO\ErrorDto::prepareError(99));
         }  else {
             $this->response->body(DTO\ErrorDto::prepareError(140));
         }
+    }
+    
+    private function addDelivery($operationData, $userInfo) {
+       $addDeliveryRequest = UploadDTO\DeliveryUploadDto::Deserialize($operationData);
+        $deliveryController = new DeliveryController();
+        $addDeliveryRequest->deliveryNo = $deliveryController->getDeliveryNo($userInfo->restaurantId);
+        $addDeliveryRequest->userId = $userInfo->userId;
+        $takeawayResult = $deliveryController->addDeliveryEntry($addDeliveryRequest, $userInfo);
+        if($takeawayResult){
+            $this->response->body(DTO\ErrorDto::prepareSuccessMessage($takeawayResult));
+            return ;
+        }
+        $this->response->body(DTO\ErrorDto::prepareError(120));
+        return ;  
+        
+        
     }
 
 }
