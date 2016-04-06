@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 use App\Model\Table;
+Use Cake\Log\Log;
 /**
  * Description of MenuRecipeController
  *
@@ -21,5 +22,9 @@ class MenuRecipeController extends ApiController{
     
     public function getMenuRecipe($menuId) {
         return $this->getTableObj()->getRecipe($menuId);
+    }
+    
+    public function addNewRecipeItem($insertRequest) {
+        return $this->getTableObj()->insert($insertRequest);
     }
 }

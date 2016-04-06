@@ -239,6 +239,18 @@ class MenuController extends ApiController {
     public function editRecipe() {
         $menuId = parent::readCookie('current-mid');
          $menuRecipeController = new MenuRecipeController();
+         $data = $this->request->data;
+         $result = TRUE;
+         
+         if($this->request->is('post') and isset($data['save'])){
+             //$this->autoRender = FALSE;
+             $menurecipeDto = new UploadDTO\MenuRecipeInsertDto(
+                     $menuId, 
+                     $data['recipeItem'], 
+                     $data['qty'], 
+                     $data['itemUnit']);
+             $result = $menuRecipeController->addNewRecipeItem($menurecipeDto);
+         }
             $recipe = $menuRecipeController->getMenuRecipe($menuId);
             $menuInfo = $this->getMenuItemList(null, array($menuId));
             $menu = null;
@@ -252,6 +264,7 @@ class MenuController extends ApiController {
                 'menurecipe' => $recipe,
                 'menu' => $menu
             ]);
+         
     }
     
     public function addNewItem() {

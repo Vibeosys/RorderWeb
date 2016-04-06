@@ -35,7 +35,7 @@
                                    <a href="../menu" > << Back </a>
                                 </div>
                                 <div class="form-div">  
-                               <form class="form-horizontal" method="post" action="../editrecipe">
+                               <form class="form-horizontal" method="post" action="editrecipe">
                                           <div class="box-body" style="margin-top:50px">
                                             <div class="form-group">
                                                 <label for="Title" class="col-sm-2 control-label">Item Description</label>

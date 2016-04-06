@@ -26,7 +26,7 @@ $(document).ready(function(){
      $('show-rest-section').css('display','none');
      $('show-edit-section').css('display','block');
  });
- //dynamically u[load restaurant logo image using ajax
+ //dynamically upload restaurant logo image using ajax
  $('.file-control').on('change', function(){
      $('.spinner').show();
      var data = new FormData($('input[name="file-upload"]'));     
@@ -274,6 +274,9 @@ $(document).ready(function(){
       });
   }
   });
+  // save menu recipe 
+  
+  
 });
 //blink effect
 function blink(elem, times, speed) {

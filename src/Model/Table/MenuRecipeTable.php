@@ -22,6 +22,7 @@ class MenuRecipeTable extends Table{
     public function connect() {
         return TableRegistry::get('menu_recipe');
     }
+    
     public function getRecipe($menuId) {
         $joins = [
             'a' => [
@@ -63,4 +64,23 @@ class MenuRecipeTable extends Table{
         }
         
     }
+    
+    public function insert($request) {
+        try{
+            $tableObj = $this->connect();
+            $newEntity = $tableObj->newEntity();
+            $newEntity->MenuId = $request->menuId;
+            $newEntity->ItemId = $request->itemId;
+            $newEntity->quantity = $request->qty;
+            $newEntity->UnitId = $request->unitId;
+            if($tableObj->save($newEntity)){
+                return true;
+            }
+            return FALSE;
+        } catch (Exception $ex) {
+            return FALSE;
+        }
+    }
+    
+   
 }
