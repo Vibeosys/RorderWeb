@@ -49,6 +49,7 @@
                                         <tr>
                                             <th>Item Code</th>
                                             <th class="title-width">Material</th>
+                                            <th class="title-width">Category</th>
                                             <th>Stock In Hand</th>
                                             <th>Unit</th>
                                         </tr>
@@ -59,12 +60,15 @@
                                         <tr>
                                         <form action="recipeitems/editrecipeitem" method="post">
                                            
-                                            <td class="title-width">
+                                            <td>
                                                 <?= $item->itemId ?><input class="ItemId<?= $i ?>" style="display:none" type="text" name="ItemId" value="<?= $item->itemId ?>">
                                             </td>
                                  
                                             <td class="lat-width"><input class="roleId" style="display:none" type="text" name="itemName" value="<?= $item->itemName ?>">
                                                 <?= $item->itemName ?>
+                                            </td>
+                                            <td class="lat-width"><input class="roleId" style="display:none" type="text" name="category" value="<?= $item->category ?>">
+                                                <?= $item->category ?>
                                             </td>
                                             <td class="lat-width">
                                                 <input class="stock hidden qty<?= $i ?>" type="text" name="srock" value="<?= $item->qty ?>">

@@ -16,6 +16,7 @@ namespace App\DTO\UploadDTO;
 class RecipeItemMaterInsertDto {
     
     public $itemName;
+    public $category;
     public $unitId;
     public $sLevel;
     public $rLevel;
@@ -24,9 +25,10 @@ class RecipeItemMaterInsertDto {
     public $unit;
 
 
-    public function __construct($itemName = null, $unitId = null, 
+    public function __construct($itemName = null,$category = null,$unitId = null, 
             $sLevel = null, $rLevel = null, $qty = null, $itemId = null,$unit = null) {
         $this->itemName = $itemName;
+        $this->category = $category;
         $this->unitId = $unitId;
         $this->sLevel = $sLevel;
         $this->rLevel = $rLevel;

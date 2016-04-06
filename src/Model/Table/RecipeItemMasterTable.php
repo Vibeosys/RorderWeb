@@ -69,13 +69,19 @@ class RecipeItemMasterTable extends Table{
                             'table' => 'unit_master', 
                             'type' => 'INNER', 
                             'conditions' => 'a.UnitId = recipe_item_master.UnitId '
-                        ]
+                        ],
+                    'b' => [
+                        'table' => 'item_category',
+                        'type' => 'INNER',
+                        'conditions' => 'b.ItemCategoryId = recipe_item_master.ItemCategoryId'
+                    ]
             
                  ];
         
         $fields = [
             'ItemId' => 'recipe_item_master.ItemId',
             'ItemName' => 'recipe_item_master.ItemName',
+            'Category' => 'b.ItemCategoryTitle',
             'UnitId' => 'recipe_item_master.UnitId',
             'SLevel' => 'recipe_item_master.SafetyLevel',
             'RLevel' => 'recipe_item_master.RorderLevel',
@@ -91,6 +97,7 @@ class RecipeItemMasterTable extends Table{
             foreach ($allRecipItems as $recipeItems){
                 $response[$counter++] = new UploadDTO\RecipeItemMaterInsertDto(
                         $recipeItems->ItemName, 
+                        $recipeItems->Category,
                         $recipeItems->UnitId, 
                         $recipeItems->SLevel, 
                         $recipeItems->RLevel, 

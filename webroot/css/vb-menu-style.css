@@ -216,6 +216,7 @@ div.inven-date{
 }
 div.inven-date > span {
    float: right;
+   font-family: Square Sans Serif ;
 }
 div.inven-btn-div > button{
     margin-top: 2%;
@@ -285,5 +286,5 @@ div.operation-status{
     background: orange;
 }
 .calender-icon{
-    margin-right:  10px;
+    margin-right:  0px;
 }
