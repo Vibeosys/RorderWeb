@@ -82,5 +82,44 @@ class MenuRecipeTable extends Table{
         }
     }
     
+    public function update($request) {
+        $key = [
+            'quantity' => $request->qty
+        ];
+        $conditions = [
+            'ItemId =' => $request->itemId,
+            'MenuId =' => $request->menuId
+        ];
+        try{
+            $update = $this->connect()->query()->update();
+            $update->set($key);
+            $update->where($conditions);
+            if($update->execute()){
+                return true;
+            }
+            return FALSE;
+        } catch (Exception $ex) {
+            return FALSE;
+        }
+    }
+    
+    public function remove($request) {
+        $conditions = [
+            'ItemId =' => $request->itemId,
+            'MenuId =' => $request->menuId
+        ];
+        try{
+            $delete = $this->connect()->query()->delete();
+            $delete->where($conditions);
+            if($delete->execute()){
+                return true;
+            }
+            return FALSE;
+        } catch (Exception $ex) {
+            return FALSE;
+        }
+        
+    }
+    
    
 }

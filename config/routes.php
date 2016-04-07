@@ -55,6 +55,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('stockclosecheck', ['controller' => 'ItemStockLevel', 'action' => 'stockCloseCheck']);
     $routes->connect('saveopenstock', ['controller' => 'ItemStockLevel', 'action' => 'saveOpenStock']);
     $routes->connect('saveclosestock', ['controller' => 'ItemStockLevel', 'action' => 'saveCloseStock']);
+    $routes->connect('menu/editrecipe/editrecipeitem', ['controller' => 'MenuRecipe', 'action' => 'editRecipeItem']);
     $routes->fallbacks('DashedRoute');
 });
 

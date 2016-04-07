@@ -88,21 +88,24 @@
                                     </thead>
                                     <tbody>
                                        <?php foreach ($menurecipe as $recipe){?>
+                                    <form action="../menu/editrecipe/editrecipeitem" method="post">    
                                         <tr>
-                                            <input type="text" class="itemId hidden" value="<?= $recipe->itemId ?>">
+                                        <input type="text" name="itemId" class="recipe-itemid hidden" value="<?= $recipe->itemId ?>">
                                             <td class="title-width">
                                                 <?= $recipe->itemName ?>
                                             </td>
                                             <td class="lat-width">
-                                                <?= $recipe->qty ?>
+                                                <span class="recipe-qty-fix<?= $recipe->itemId ?>"><?= $recipe->qty ?></span>
+                                                <input type="number" name="qty" class="recipe-qty-text<?= $recipe->itemId ?> hidden form-control" value="<?= $recipe->qty ?>">
                                             </td>
                                             <td class="lat-width">
-                                                <input type="text" class="unitId hidden" value="<?= $recipe->unitId ?>">
+                                                <input type="text" class="recipe-unitid hidden" value="<?= $recipe->unitId ?>">
                                                 <?= $recipe->unitTitle ?>
                                             </td>
-                                            <td> <button class="dark-orange add-edit-btn"><span> Edit</span></button> <button class="light-orange"><span>Delete</span></button></td>
+                                            <td> <button name="save" class="dark-orange recipe-edit-row-btn" id="<?= $recipe->itemId ?>"><span>Edit</span></button> 
+                                                <button name="delete" class="light-orange"><span>Delete</span></button></td>
                                         </tr>
-                                        
+                                    </form>
                                        <?php } ?>
                                        
                                     </tbody>
@@ -112,6 +115,16 @@
                                             Please Add recipe item for <span> <?php echo $menu->menuTitle; ?></span>
                                         </div>
                                        <?php } ?>
+                                <div class="notification">
+                                    <div class="notice alert alert-warning fade in">
+                                        <span class="notice-message"></span>
+                                        <a >Close</a>
+                                    </div>
+                                    <div class="success alert alert-success fade in">
+                                        <span class="success-message"></span>
+                                        <a >Close</a>
+                                    </div>
+                                </div>
                                 </div>                              
                                 </section>
                             </section>

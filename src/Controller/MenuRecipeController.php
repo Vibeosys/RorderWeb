@@ -27,4 +27,35 @@ class MenuRecipeController extends ApiController{
     public function addNewRecipeItem($insertRequest) {
         return $this->getTableObj()->insert($insertRequest);
     }
+    
+    public function editRecipeItem() {
+       $this->autoRender = FALSE;
+       $menuId = parent::readCookie('current-mid');
+       $data = $this->request->data;
+        if(!$this->isLogin()){
+            $this->redirect('../login');
+        }elseif ($this->request->is('post') and isset ($data['save'])) {
+            $item = new \stdClass();
+            foreach ($data as $key => $value){
+                $item->$key = $value;
+            }
+            $item->menuId = $menuId;
+            $result = $this->getTableObj()->update($item);
+            if($result){
+                $this->redirect('menu/editrecipe');   
+            }
+        }elseif ($this->request->is('post') and isset ($data['delete'])) {
+            $item = new \stdClass();
+            foreach ($data as $key => $value){
+                $item->$key = $value;
+            }
+            $item->menuId = $menuId;
+            $result = $this->getTableObj()->remove($item);
+            if($result){
+                $this->redirect('menu/editrecipe');   
+            }
+        }
+        
+        
+    }
 }

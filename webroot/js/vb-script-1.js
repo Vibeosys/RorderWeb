@@ -246,9 +246,9 @@ $(document).ready(function(){
    blink(".operation-status", -1, 1000); 
   
     //get recipe items 
-    var itemcheck = true
-  $('.recipe-item-select').on('click', function(){
-      if(itemcheck){
+    var itemcheck =   $('.recipe-item-select').length;
+
+    if(itemcheck === 1){
       $.get('/getrecipeitem',{},function(result){
           var html = '';
           itemcheck = false;
@@ -258,12 +258,10 @@ $(document).ready(function(){
          $('.recipe-item-select').append(html);
       });
   }
-  });
-  
   //get units
-  var fullcheck = true;
-  $('.item-unit-select').on('click', function(){
-      if(fullcheck){
+  var fullcheck =  $('.item-unit-select').length;
+  
+    if(fullcheck === 1){
       $.get('/getunits',{},function(result){
           var html = '';
           fullcheck = false;
@@ -273,8 +271,18 @@ $(document).ready(function(){
          $('.item-unit-select').append(html);
       });
   }
+ 
+  // edit single recipe menu
+  $('.recipe-edit-row-btn').on('click',function(){
+      var btntext = $(this).text();
+    if( btntext === 'Edit'){
+        $(this).text('SAVE');
+     var btnId = $(this).attr('id');
+     $('.recipe-qty-fix' + btnId).addClass('hidden');
+     $('.recipe-qty-text' + btnId).removeClass('hidden');
+     return false;
+    }
   });
-  // save menu recipe 
   
   
 });
