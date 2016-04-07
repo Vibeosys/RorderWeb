@@ -18,8 +18,11 @@ $this->layout = false;
 	<meta charset="utf-8">
 	<meta name="keywords" content="Quick Serve" />
 	<meta name="description" content="">
-	<title>QuickServe</title>
+	<title>QuickServe Login</title>
 	<!-- Mobile Metas -->
+         <?= $this->Html->meta(
+    'keyword',
+    'Popular Restaurant Billing Software,Popular Wireless Restaurant Ordering Software,Popular Pos for Restaurant, Popular Hotel Management System')?>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="/favicon.ico">

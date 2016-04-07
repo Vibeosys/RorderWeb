@@ -33,7 +33,7 @@
 					<li><a href="#Process">Process</a></li>
 					<li><a href="#Pricing">Pricing</a></li>
 					<li><a href="#Testimonial">Testimonial</a></li>
-                    <li><a href="#Contact">Contact</a></li>
+                    <li><a href="http://www.vibeosys.com/sales-inquiry/">Contact</a></li>
 				</ul>
 			</div>
 		</div>
@@ -133,11 +133,11 @@
         <div class="container">
             <div class="row margin-bottom">
                 <div class="col-lg-12 margin-top">
-                    <h1 class="margin-top" style="margin-top:2em">Product</h1>
+                    <h1 class="margin-top" style="margin-top:2em">About QuickServe</h1>
                 </div>
                  <div class="col-md-12 col-sm-12">
-                <h4 class="product-text">This is a in-house restaurant ordering system for dine-in restaurants. This app helps Steward and Chef to exchange orders from customers. This is mainly focused for large area restaurants where KOT is manual and error prone. 
-This app can be used for beach, resorts, hotels, villas, lounge or multi-storey restaurants.</h4>
+                <h4 class="product-text">QuickServe is a in-house restaurant ordering system for dine-in restaurants. QuickServe app helps Steward and Chef to exchange orders from customers. QuickServe is mainly focused for large area restaurants where KOT is manual and error prone. 
+QuickServe app can be used for beach, resorts, hotels, villas, lounge or multi-storey restaurants.</h4>
             </div>
                 
                 
@@ -334,7 +334,7 @@ This app can be used for beach, resorts, hotels, villas, lounge or multi-storey 
 							<li class="list-group-item"><i class="fa fa-check text-info"></i>AMC charges</li>
 						</ul>
 						<div class="panel-footer footer-green">
-							<a class="btn-green btn-lg btn-block btn-info center-block" href="#">BUY NOW!</a>
+							<a class="btn-green btn-lg btn-block btn-info center-block" href="http://www.vibeosys.com/sales-inquiry/">BUY NOW!</a>
 						</div>
 					</div>
                 </div>		
@@ -357,7 +357,7 @@ This app can be used for beach, resorts, hotels, villas, lounge or multi-storey 
 							<li class="list-group-item"><i class="fa fa-check text-info"></i> One review per month</li>
 						</ul>
 						<div class="panel-footer footer-green">
-							<a class="btn-green btn-lg btn-block btn-info center-block" href="#">BUY NOW!</a>
+							<a class="btn-green btn-lg btn-block btn-info center-block" href="http://www.vibeosys.com/sales-inquiry/">BUY NOW!</a>
 						</div>
 					</div>
 					
@@ -390,7 +390,7 @@ This app can be used for beach, resorts, hotels, villas, lounge or multi-storey 
 							<li class="list-group-item"><i class="fa fa-check text-info"></i>FREE website access</li>
 						</ul>
 						<div class="panel-footer footer-yellow">
-							<a class="btn-yellow btn-lg btn-block btn-info center-block" href="#">BUY NOW!</a>
+							<a class="btn-yellow btn-lg btn-block btn-info center-block" href="http://www.vibeosys.com/sales-inquiry/">BUY NOW!</a>
 						</div>
 					</div>
 					
@@ -495,16 +495,16 @@ This app can be used for beach, resorts, hotels, villas, lounge or multi-storey 
                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <ul class="social-icon">
                 <li>
-                <a href=""> <span class="footer-icon facebook"> <i class="fa fa-facebook"></i></span></a>
+                <a href="https://www.facebook.com/vibeosys"> <span class="footer-icon facebook"> <i class="fa fa-facebook"></i></span></a>
                 </li>
                  <li>
-                 <a href=""> <span class="footer-icon twitter"> <i class="fa fa-twitter"></i></span></a>
+                 <a href="https://twitter.com/vibeosys"> <span class="footer-icon twitter"> <i class="fa fa-twitter"></i></span></a>
                 </li>
                  <li>
-                 <a href=""> <span class="footer-icon linkedin"> <i class="fa fa-linkedin"></i></span></a>
+                 <a href="https://www.linkedin.com/company/vibeosys-software-pvt-ltd"> <span class="footer-icon linkedin"> <i class="fa fa-linkedin"></i></span></a>
                 </li>
                  <li>
-                 <a href=""> <span class="footer-icon gplus"> <i class="fa fa-google-plus"></i></span></a>
+                 <a href="https://plus.google.com/+VibeosysSoftware"> <span class="footer-icon gplus"> <i class="fa fa-google-plus"></i></span></a>
                 </li>
                 </ul>
 		</div>

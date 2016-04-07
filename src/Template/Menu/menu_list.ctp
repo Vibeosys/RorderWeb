@@ -92,7 +92,7 @@
                                             </td>
                                             <td class="lat-width">
                                                 <input class="roleId" style="display:none" type="text" name="fbtp" value="<?= $menu->fbTypeId ?>">
-                                                <?php if($menu->fbTypeId and $fbType){ $key = $menu->fbTypeId;  $this->Html->image($fbType->$key.'.png', ['width' => '30','height' => '50','alt' => 'MENU']);} ?>
+                                                <?php if($menu->fbTypeId and $fbType){ $key = $menu->fbTypeId; echo  $this->Html->image($fbType->$key.'.png', ['width' => '30','height' => '50','alt' => 'MENU']);} ?>
                                             </td>
                                             <td> <button name="edit" type="submit" class="dark-orange user-edit-btn"><span> Edit</span></button>
                                                 <button style="width: 130px" name="edit-recipe" type="submit" class="dark-orange user-edit-btn"><span> Edit Recipe</span></button> 
