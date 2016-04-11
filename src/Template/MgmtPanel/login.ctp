@@ -577,16 +577,16 @@
                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <ul class="social-icon">
                 <li>
-                <a href="https://www.facebook.com/vibeosys"> <span class="footer-icon facebook"> <i class="fa fa-facebook"></i></span></a>
+                    <a target="_blank" href="https://www.facebook.com/vibeosys"> <span class="footer-icon facebook"> <i class="fa fa-facebook"></i></span></a>
                 </li>
                  <li>
-                 <a href="https://twitter.com/vibeosys"> <span class="footer-icon twitter"> <i class="fa fa-twitter"></i></span></a>
+                 <a target="_blank" href="https://twitter.com/vibeosys"> <span class="footer-icon twitter"> <i class="fa fa-twitter"></i></span></a>
                 </li>
                  <li>
-                 <a href="https://www.linkedin.com/company/vibeosys-software-pvt-ltd"> <span class="footer-icon linkedin"> <i class="fa fa-linkedin"></i></span></a>
+                 <a target="_blank" href="https://www.linkedin.com/company/vibeosys-software-pvt-ltd"> <span class="footer-icon linkedin"> <i class="fa fa-linkedin"></i></span></a>
                 </li>
                  <li>
-                 <a href="https://plus.google.com/+VibeosysSoftware"> <span class="footer-icon gplus"> <i class="fa fa-google-plus"></i></span></a>
+                 <a target="_blank" href="https://plus.google.com/+VibeosysSoftware"> <span class="footer-icon gplus"> <i class="fa fa-google-plus"></i></span></a>
                 </li>
                 </ul>
 		</div>
