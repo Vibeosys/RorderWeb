@@ -112,6 +112,7 @@ $sec = $this->fetch('sec');
         <?= $this->Html->script('dataTables.bootstrap.min.js') ?> 
         <?= $this->Html->script('jquery.slimscroll.min.js') ?> 
         <?= $this->Html->script('Script.js') ?> 
+    <!--
 <script>
      function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -160,5 +161,6 @@ $sec = $this->fetch('sec');
 
 
 </script>
+-->
 </body>
 </html>
