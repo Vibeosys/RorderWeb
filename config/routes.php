@@ -46,6 +46,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('takeawaybills', ['controller' => 'Bill', 'action' => 'displayBill']);
     $routes->connect('gettables', ['controller' => 'MgmtPanel', 'action' => 'getTables']);
     $routes->connect('gettakeaway', ['controller' => 'MgmtPanel', 'action' => 'getTakeaway']);
+    $routes->connect('sendmail', ['controller' => 'MgmtPanel', 'action' => 'sendMail']);
     $routes->connect('orderprintpreview', ['controller' => 'OrderDetails', 'action' => 'orderPrintPreview']);
     $routes->connect('salesreport', ['controller' => 'SalesHistory', 'action' => 'getReport']);
     $routes->connect('transactionMaster/getTransactionReport', ['controller' => 'TransactionMaster', 'action' => 'getTransactionReport']);
