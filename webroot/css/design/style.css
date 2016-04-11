@@ -10,9 +10,11 @@ Version:	1.0
 	2. Header Styles 
 	3. Product Styles 
 	4. Process Styles 
-	5. Pricing Styles 
-	6. Testimonial Styles 
-	7. Footer Styles 
+	5. Pricing Styles
+    6. Demo Style
+	7. Testimonial Styles 
+    8. Contact Style
+	9. Footer Styles 
 	
 
 -------------------------------------------------------------------*/
@@ -26,7 +28,6 @@ Version:	1.0
 body {
 	font-family: 'Noto Sans', sans-serif;
 	font-weight: 400;
-	overflow-x: hidden;
 }
 
 p {
@@ -68,6 +69,10 @@ a, a:hover, a:focus, input, input:focus, button, button:focus, textarea, textare
 .container-fluid {
 	padding: 0;
 	width: 100%;
+}
+
+.margin-top{
+    margin-top: 2em;
 }
 
 /*------------------------------------------------------------------------------ 2. Header Styles ---------------------------------------*/
@@ -180,6 +185,15 @@ header {
 .navbar-default .navbar-nav > li > a:hover {
 	color: #db1914;
 }
+
+
+a.nav-active {
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-color: orange;
+    color: white;
+}
+
 .modal-footer{
     border-bottom: 1px solid #e5e5e5;
     border-top:none;
@@ -220,7 +234,7 @@ background: white;
     line-height: 0px;
     height: 49px;
     padding-top: 0.38em;
-    margin: 0.9em -.19em 0 0;
+    margin: 1em -.19em 0 0;
     border-radius: 0px;
     display: inline-block;
     font-size: 24px;
@@ -245,6 +259,262 @@ text-align: left;
     border-color: #DB1914;
     color: white;
     font-size: 19px;
+}
+.sub-btn:hover{
+    color:#DB1914;
+    background: white;
+    transition: .6s all ease;
+    
+}
+.slider a{
+    color:#337ab7;
+}
+
+@media(min-width:767px) {
+    .navbar {
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+    }
+
+    .top-nav-collapse {
+        padding: 0;
+    }
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
+      border-top-style: solid;
+    border-bottom-style: solid;
+    border-color: orange;
+   color:#DB1914;
+    background-color: transparent;
+    transition: .3s all ease;
+}
+
+/* input style */
+.input {
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	margin: 1em;
+	max-width: 100%;
+	width: calc(100% - 2em);
+	vertical-align: top;
+}
+
+.input__field {
+	position: relative;
+	display: block;
+	float: right;
+	padding: 0.8em;
+	width: 60%;
+	border: none;
+	border-radius: 0;
+	background: #f0f0f0;
+	color: #aaa;
+	font-weight: 400;
+	font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-appearance: none; /* for box shadows to show on iOS */
+}
+
+.input__field:focus {
+	outline: none;
+}
+
+.input__label {
+	display: inline-block;
+	float: right;
+	padding: 0 1em;
+	width: 40%;
+	color: #696969;
+	font-weight: bold;
+	font-size: 70.25%;
+	-webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.input__label-content {
+	position: relative;
+	display: block;
+	padding: 1.6em 0;
+	width: 100%;
+    font-size: 14px;
+}
+
+.graphic {
+	position: absolute;
+	top: 0;
+	left: 0;
+	fill: none;
+}
+
+.icon {
+	color: #333!important;
+	font-size: 18px;
+}
+
+/* Individual styles */
+
+
+/* login */
+.input--login {
+	background: #fff;
+	overflow: hidden;
+	padding: 0.25em 0;
+}
+
+.input--login::after {
+	content: '';
+	width: 1px;
+	position: absolute;
+	top: 0.5em;
+	bottom: 0.5em;
+	left: 2.5em;
+	background: #f0f0f0;
+	z-index: 100;
+}
+
+.input__field--login {
+	background: transparent;
+	padding: 1.5em 1em 0.25em 3.15em;
+	width: 100%;
+	color: #00aeef;
+}
+
+.input__label--login {
+	position: absolute;
+	width: 100%;
+	text-align: left;
+	padding-left: 4.5em;
+	pointer-events: none;
+}
+
+.icon--login {
+	width: 2em;
+	position: absolute;
+	top: -3px;;
+	left: 0;
+	padding: 1em 0 0 0.5em;
+}
+
+.input__label-content--login {
+	padding: 0.9em 0;
+	display: inline-block;
+	-webkit-transform-origin: 0 0;
+	transform-origin: 0 0;
+}
+
+.input__label-content--login span {
+	display: inline-block;
+}
+
+.input__field--login:focus + .input__label--login .input__label-content--login,
+.input--filled .input__label-content--login {
+	-webkit-animation: anim-login-1 0.3s forwards;
+	animation: anim-login-1 0.3s forwards;
+}
+
+@-webkit-keyframes anim-login-1 {
+	50% {
+		-webkit-transform: translate3d(0, 3em, 0);
+		transform: translate3d(0, 3em, 0);
+	}
+	51% {
+		-webkit-transform: translate3d(0, -3em, 0) scale3d(0.85, 0.85, 1);
+		transform: translate3d(0, -3em, 0) scale3d(0.85, 0.85, 1);
+	}
+	100% {
+		color: #a3a3a3;
+		-webkit-transform: translate3d(0, -1.1em, 0) scale3d(0.85, 0.85, 1);
+		transform: translate3d(0, -1.1em, 0) scale3d(0.85, 0.85, 1);
+	}
+}
+
+@keyframes anim-login-1 {
+	50% {
+		-webkit-transform: translate3d(0, 3em, 0);
+		transform: translate3d(0, 3em, 0);
+	}
+	51% {
+		-webkit-transform: translate3d(0, -3em, 0) scale3d(0.85, 0.85, 1);
+		transform: translate3d(0, -3em, 0) scale3d(0.85, 0.85, 1);
+	}
+	100% {
+		color: #a3a3a3;
+		-webkit-transform: translate3d(0, -1.1em, 0) scale3d(0.85, 0.85, 1);
+		transform: translate3d(0, -1.1em, 0) scale3d(0.85, 0.85, 1);
+	}
+}
+
+
+.input__field--login:focus + .input__label--login .icon--login,
+.input--filled .icon--login {
+	-webkit-animation: anim-login-2 0.3s forwards;
+	animation: anim-login-2 0.3s forwards;
+}
+
+@-webkit-keyframes anim-login-2 {
+	50% {
+		opacity: 1;
+		-webkit-transform: translate3d(0, -3em, 0);
+		transform: translate3d(0, -3em, 0);
+	}
+	50.25% {
+		opacity: 0;
+		-webkit-transform: translate3d(0, -3em, 0);
+		transform: translate3d(0, -3em, 0);
+	}
+	50.75% {
+		opacity: 0;
+		-webkit-transform: translate3d(0, 3em, 0);
+		transform: translate3d(0, 3em, 0);
+	}
+	51% {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 3em, 0);
+		transform: translate3d(0, 3em, 0);
+	}
+	100% {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+		color: #00aeef;
+	}
+}
+
+@keyframes anim-login-2 {
+	50% {
+		opacity: 1;
+		-webkit-transform: translate3d(0, -3em, 0);
+		transform: translate3d(0, -3em, 0);
+	}
+	50.25% {
+		opacity: 0;
+		-webkit-transform: translate3d(0, -3em, 0);
+		transform: translate3d(0, -3em, 0);
+	}
+	50.75% {
+		opacity: 0;
+		-webkit-transform: translate3d(0, 3em, 0);
+		transform: translate3d(0, 3em, 0);
+	}
+	51% {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 3em, 0);
+		transform: translate3d(0, 3em, 0);
+	}
+	100% {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+		color: #00aeef;
+	}
 }
 
 
@@ -303,11 +573,13 @@ ul.bullet{
     letter-spacing: 0.05em;
 }
 
+.product .row{
+    margin-right: 0px!important;
+}
+
 /**-------------------------------------------------------------------------------------- 4 Process ------------------------------------------***/
 
-.margin-top{
-    margin-top: 1.5em;
-}
+
 .process-h4{
     text-transform: uppercase;
     margin: 14px 0 20px 0;
@@ -337,7 +609,7 @@ ul.bullet{
 }
 
 .prs-text{
-    padding: 5.7em 0 0 0;
+    padding: 4.7em 0 0 0;
     z-index: 0;
    /* position: absolute;*/
     color: white;
@@ -412,9 +684,12 @@ ul.bullet{
 }
 
 .arrow{
-     margin: 11% 0 0 90%;
+     margin: 1% 0 0 90%;
     position: absolute;
 
+}
+.icon-color{
+    color: white!important;
 }
 
 /*--------------------------------------------------------------------------------------- 5 Price   -----------------------------**/
@@ -584,7 +859,7 @@ ul.bullet{
 .panel.price .btn-yellow{
 			box-shadow: 0 -1px 0px rgba(50,50,50, .2) inset;
 			border:0px;
-            background-color: #F7D708;
+            background-color: #F95105;
 		}
 		
 .price .footer-yellow {
@@ -614,8 +889,62 @@ ul.bullet{
     
 }*/
 
+/*------------------------------------------------------------------------------ 6. Demo Styles ---------------------------------------*/
 
-/*-------------------------------------------------------------------------- 6 TESTIMONIAL STYLES    -------------------------------------- */
+
+#Demo{
+    background:white;
+}
+
+#Demo a{
+    color:blueviolet;
+}
+
+#Demo p{
+    font-size: 15px;
+    line-height: 30px;
+    letter-spacing: 0.1em;
+    color: #666;
+    margin-top: 4em;
+}
+#Demo h3{
+        font-size: 20px;
+    font-weight: bold;
+    color: #141313;
+    letter-spacing: 0.08em;
+    text-align: center;
+    margin: 2em 0 0em 0;
+}
+
+
+.btn-contact{
+     height: 2.5em;
+    width:10em;
+    border-radius: 0px;
+    background-color: #DB1914;
+    border-color: #DB1914;
+    color: white !important;
+    font-size: 19px;   
+    line-height: 2.5em;
+    text-align: center;
+    margin-top: 1em;
+}
+.btn-contact:hover{
+    color:#DB1914!important;
+    background: white;
+    transition: .6s all ease;
+    border: 1px solid #db1914;
+    
+}
+
+
+
+
+
+
+
+
+/*-------------------------------------------------------------------------- 7 TESTIMONIAL STYLES    -------------------------------------- */
          .testimonial-section {
     width: 100%;
     height: auto;
@@ -674,10 +1003,123 @@ ul.bullet{
     margin-top: 5em;
 }
 
+/*------------------------------------------------------------------------------ 8. Contact Styles ---------------------------------------*/
+
+
+#Contact{
+    background-image: url(../../img/footer-bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:  center center;
+    
+}
+#Contact h1{
+    color:white;
+    padding: 1em 0 0 0;
+}
+
+.sub-btn-contact{
+     height: 2.5em;
+    width:10em;
+    border-radius: 0px;
+    margin: 15px 0 0 0;   
+    background-color: #DB1914;
+    border-color: #DB1914;
+    color: white;
+    font-size: 19px;
+    float: right;
+    margin-right: 1em;
+}
+.sub-btn-contact:hover{
+    color:#DB1914;
+    background: white;
+    transition: .6s all ease;
+    
+}
+
+/* contact */
+.input--contact {
+	overflow: hidden;
+	padding-top: .5em;
+}
+
+.input__field--contact {
+ width: 100%;
+    background: transparent;
+    opacity: 0;
+    padding: 2.5em 0 0 1em;
+    z-index: 100;
+    color: black;
+    font-size: 16px;
+    letter-spacing: .09em;
+    line-height: 2em;
+    
+}
+
+.input__label--contact {
+	width: 100%;
+	bottom: 0;
+	position: absolute;
+	pointer-events: none;
+	text-align: left;
+	color: white;
+	padding:0 0.5em .5em 0.2em;
+}
+
+.input__label--contact::before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 4em;
+	top: 100%;
+	left: 0;
+	background: #fff;
+	border-top: 4px solid #9B9F9F;
+	-webkit-transform: translate3d(0, -1px, 0);
+	transform: translate3d(0, 1px, 0);
+	-webkit-transition: -webkit-transform 0.4s;
+	transition: transform 0.4s;
+	-webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.input__label-content--contact {
+	padding: 0em 0;
+	-webkit-transform-origin: 0% 100%;
+	transform-origin: 0% 100%;
+	-webkit-transition: -webkit-transform 0.4s, color 0.4s;
+	transition: transform 0.4s, color 0.4s;
+	-webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+	transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+    font-size: 15px;
+}
+
+.input__field--contact:focus,
+.input--filled .input__field--contact {
+	cursor: text;
+	opacity: 1;
+	-webkit-transition: opacity 0s 0.4s;
+	transition: opacity 0s 0.4s;
+} 
+
+.input__field--contact:focus + .input__label--contact::before,
+.input--filled .input__label--contact::before {
+	-webkit-transition-delay: 0.05s;
+	transition-delay: 0.05s;
+	-webkit-transform: translate3d(0, -3.3em, 0);
+	transform: translate3d(0, -3.3em, 0);
+}
+
+.input__field--contact:focus + .input__label--contact .input__label-content--contact,
+.input--filled .input__label-content--contact {
+	color: white;
+	-webkit-transform: translate3d(0, -2.3em, 0) scale3d(0.81, 0.81, 1);
+	transform: translate3d(0, -2.3em, 0) scale3d(0.81, 0.81, 1);
+}
 
 
 
-/*-------------------------------------------------------------------------- 7 . Footer Styles ----------------------------------------------------*/
+/*-------------------------------------------------------------------------- 9 . Footer Styles ----------------------------------------------------*/
 
 .facebook:hover{
     background: #3b5998
@@ -717,8 +1159,7 @@ ul.social-icon li{
 .footer-icon{
     width: 40px;
     height:40px;
-    background: transparent;
-    line-height: 1.7em;
+    background: #2d2d2d;
     font-size: 1.5em;
     color: white;
     border: 2px solid white;
@@ -726,6 +1167,7 @@ ul.social-icon li{
     position: absolute;
     text-align: center;
     padding-top: 2px;
+        line-height: 1.7em;
 }
 .footer-address{
     font-size: 14px;
@@ -747,6 +1189,21 @@ ul.social-icon li{
 .social-icon{
     text-align: center;
 }
+
+
+footer .row{
+    margin-right: 0px!important;
+}
+
+
+
+
+
+
+
+
+
+
 /* . Slider Styles */
 /*   Login Properties*/
 
@@ -893,7 +1350,7 @@ background: rgba(30, 30, 30, 0.93);
 
 
 .prs-text{
-    padding: 3.7em 15px 0 0!important;
+    padding: 3.3em 5px 0 0!important;
     z-index: 0;
    /* position: absolute;*/
     color: white;
@@ -929,13 +1386,22 @@ background: rgba(30, 30, 30, 0.93);
         width:30px!important;
     }
     .arrow{
-           margin: 7% 0 0 88%;
+           margin: 0% 0 0 90%;
     position: absolute;
-    width: 64px;
-    height: 27px;
+    width: 41px;
+    height: 41px;
     }
     .testimonial{
             height: 640px;
+    }
+    .process-height p {
+    font-weight: normal;
+    line-height: 26px;
+    letter-spacing: 0.02em;
+    color: #666;
+}
+    .google-text{
+        font-size: 14px;
     }
 }
 
@@ -1071,10 +1537,6 @@ background: rgba(30, 30, 30, 0.93);
         display: none;
     }
     
-    
-    
-    
-
 .icon{
     padding: 1em 0 0 0 !important;
     z-index: 0;
@@ -1149,6 +1611,23 @@ background: rgba(30, 30, 30, 0.93);
     .login-text{
     font-size: 30px!important;
 }
+    
+    
+    .facebook{
+        background: #3b5998;
+    }
+
+    .twitter{
+       background: #00aced;
+    }
+    .linkedin{
+       background: #007bb6;
+    }
+    
+    .gplus{
+       background: #dd4b39;
+    }
+        
 }
 
 @media (min-width:750px) and (max-width:860px){
@@ -1188,4 +1667,6 @@ background: rgba(30, 30, 30, 0.93);
     color: white;
     font-size: 13px;
 }
+
 }
+

@@ -11,67 +11,68 @@
      //$this->start('content');
 ?>
 <!-- Header -->
-<header>
-	
-	<nav class="navbar navbar-default">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				</button>
-				<!-- Logo -->
-				<a class="navbar-brand" href="#"><?= $this->Html->image('quickserve-logo.png', ['class' => 'img-responsive logo','alt' => 'QuickServe'])?></a>
-			</div>
-			
-			<!-- Navmenu -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#Home">Home</a></li>
-					<li><a href="#Product">Product</a></li>
-					<li><a href="#Process">Process</a></li>
-					<li><a href="#Pricing">Pricing</a></li>
-					<li><a href="#Testimonial">Testimonial</a></li>
-                    <li><a href="http://www.vibeosys.com/sales-inquiry/">Contact</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-</header>
+ <header>
+         <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+               <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  </button>
+                  <!-- Logo -->
+                  <a class="navbar-brand" href="#"><?= $this->Html->image('quickserve-logo.png', ['class' => 'img-responsive logo','alt' => 'QuickServe'])?></a>
+               </div>
+               <!-- Navmenu -->
+               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav navbar-right">
+                     <li><a href="#Home" class="page-scroll">Home</a></li>
+                     <li><a href="#Product" class="page-scroll">Product</a></li>
+                     <li><a href="#Process" class="page-scroll">Process</a></li>
+                     <li><a href="#Pricing" class="page-scroll">Pricing</a></li>
+                     <li><a href="#Demo" class="page-scroll">Demo</a></li>
+                     <li><a href="#Testimonial" class="page-scroll">Testimonial</a></li>
+                     <li><a href="#Contact" class="page-scroll">Contact</a></li>
+                  </ul>
+               </div>
+            </div>
+         </nav>
+      </header>
 
 <!-- Slider -->
-<div class="slider" id="Home">
+<div class="slider">
 	<div class="slider-caption text-center">
 		<div class="container">
 			 <form action="login" method="post" class="form form--login">
-                 <div class="row">
-            <div class="login center-block" >
-                <h1 class="login-text"> Restaurant Login</h1>
-                <span class="info">If you have an account with us. Please Login.</span>
-               
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="input-label"><lable for="userid"><i class="fa fa-user"></i></lable> </div>
-                <input type="text" name="userName" placeholder="Username" class="form-control input-text center-block" required><br>
-                    
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                     <div class="input-label"><lable for="userid"><i class="fa fa-lock"></i></lable> </div>
-                     <input type="password" name="password" placeholder="Password" class="form-control input-text center-block" required>
-                </div>
-                <div class="alink col-sm-6 col-md-6 col-lg-6 col-xs-6">
-                 
-                 <a href="" data-toggle="modal" data-target="#myModal" >Forgot Password?</a><br>
-                 
-                    </div>
-               
-                <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
-                 <input type="submit" name="login" value="Login" class="form-control sub-btn">
-                    </div>
+                  <div class="row">
+                     <div class="login center-block" >
+                        <h1 class="login-text"> Restaurant Login</h1>
+                        <span class="info">If you have an account with us. Please Login.</span>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                           <span class="input input--login">
+                               <input class="input__field input__field--login" type="text" id="input-username" name="userName" required/>
+                           <label class="input__label input__label--login" for="input-username">
+                           <i class="fa fa-fw fa-user icon icon1 icon--login"></i>
+                           <span class="input__label-content input__label-content--login">UserName</span>
+                           </label>
+                           </span>
+                           <span class="input input--login">
+                               <input class="input__field input__field--login" type="password" id="input-password" name="password" required/>
+                           <label class="input__label input__label--login" for="input-password">
+                           <i class="fa fa-fw fa-lock icon icon--login"></i>
+                           <span class="input__label-content input__label-content--login">Password</span>
+                           </label>
+                           </span>
+                        </div>
+                        <div class="alink col-sm-6 col-md-6 col-lg-6 col-xs-6">
+                           <a href="" data-toggle="modal" data-target="#myModal" >Forgot Password?</a><br>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+                           <input type="submit" name="Login" value="Login" class="form-control sub-btn">
+                        </div>
                      </div>
-                     </div>
-             </form>          
-            
+                  </div>
+               </form>
             
 		</div>
 	</div>
@@ -118,82 +119,57 @@
     </div>
 </div>
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <!-------- Product ------------>
-    
-    <section class="product" id="Product">
-        <div class="container">
-            <div class="row margin-bottom">
-                <div class="col-lg-12 margin-top">
-                    <h1 class="margin-top" style="margin-top:2em">About QuickServe</h1>
-                </div>
-                 <div class="col-md-12 col-sm-12">
-                <h4 class="product-text">QuickServe is a in-house restaurant ordering system for dine-in restaurants. QuickServe app helps Steward and Chef to exchange orders from customers. QuickServe is mainly focused for large area restaurants where KOT is manual and error prone. 
-QuickServe app can be used for beach, resorts, hotels, villas, lounge or multi-storey restaurants.</h4>
+      <section class="product" id="Product">
+         <div class="container">
+            <div class="row margin-bottom margin-top">
+               <div class="col-lg-12 margin-top">
+                  <h1 class="margin-top">About quickserve</h1>
+               </div>
+               <div class="col-md-12 col-sm-12">
+                  <h4 class="product-text">QuickServe is a in-house restaurant ordering system for dine-in restaurants. QuickServe app helps Steward and Chef to exchange orders from customers. QuickServe is mainly focused for large area restaurants where KOT is manual and error prone. 
+                     QuickServe app can be used for beach, resorts, hotels, villas, lounge or multi-storey restaurants.
+                  </h4>
+               </div>
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 benefit-top">
+                  <div class="benefit-style center-block">
+                     <h4 class="product-benefit process-h4">Few important benefits</h4>
+                  </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                  <ul class="bullet">
+                     <li>Single app for Steward and Chef for easy ordering.</li>
+                     <li>App to take orders for Take-away, Home delivery and Dine-in.</li>
+                     <li>Waiting list ease, real-time update to manage customers on week-ends.</li>
+                     <li>Table allocatioreal time update.</li>
+                     <li> Menu item search and filter to quickly search desired item.</li>
+                     <li>Order completion and pickup notification on notification board.</li>
+                  </ul>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <ul class="bullet">
+                     <li>One click error-free bill generation.</li>
+                     <li> Dashboard for Chef to view current orders with notes added by waiter.</li>
+                     <li>Feedback mechanism to improve quality.</li>
+                     <li> Cloud storage eases data backup and anytime availability of data.</li>
+                     <li>Inventory management made easy with a single click.</li>
+                     <li>Billing, customer rush statistical reports in PDF and Excel format at one go.</li>
+                  </ul>
+               </div>
+               <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin-top">
+                     <h4 class="text-right google-text" style="color: #E24425;">Now available on</h4>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin-top">
+                     <a href="https://play.google.com/store/apps/details?id=com.vibeosys.rorderapp&amp;hl=en" target="_blank">
+                    <?= $this->Html->image('google-play-badge.png', ['class' => 'img-responsive','style'=> 'width: 186px;','alt' => 'QuickServe'])?>        
+                     </a>
+                  </div>
+               </div>
             </div>
-                
-                
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 benefit-top">
-                    <div class="benefit-style center-block">
-                    <h4 class="product-benefit process-h4">Few important benefits</h4>
-                        </div>
-                </div>
-                
-                
-                
-                
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
-                <ul class="bullet">
-                <li>Single app for Steward and Chef for easy ordering.</li>
-                <li>App to take orders for Take-away, Home delivery and Dine-in.</li>
-                <li>Waiting list ease, real-time update to manage customers on week-ends.</li>
-                <li>Table allocatioreal time update.</li>
-                <li> Menu item search and filter to quickly search desired item.</li>
-                <li>Order completion and pickup notification on notification board.</li>
-                    </ul>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <ul class="bullet">
-                    <li>One click error-free bill generation.</li>
-<li> Dashboard for Chef to view current orders with notes added by waiter.</li>
-<li>Feedback mechanism to improve quality.</li>
-<li> Cloud storage eases data backup and anytime availability of data.</li>
-<li>Inventory management made easy with a single click.</li>
-<li>Billing, customer rush statistical reports in PDF and Excel format at one go.</li>
-                    </ul>
-                </div>
-                        
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top">
-                    <a href="https://play.google.com/store/apps/details?id=com.vibeosys.rorderapp&amp;hl=en" target="_blank">
-                <?= $this->Html->image('google-play-badge.png', ['class' => 'img-responsive center-block','style'=> 'width: 186px;','alt' => 'QuickServe'])?>        
-                    </a>
-                </div>
-                
-                
-                
-            </div>
-        </div>
-    </section>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+         </div>
+      </section>
+     
     
     <!----------------- Process --------------->
     
@@ -218,8 +194,8 @@ QuickServe app can be used for beach, resorts, hotels, villas, lounge or multi-s
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 process-height">
                     <div class="process-info center-block">
                         
-                        <div class="icon center-block">
-                            <i class="fa fa-bars fa-3x"></i>
+                        <div class="icon center-block icon-color">
+                            <i class="fa fa-bars fa-2x"></i>
                         </div>
                         
                         <div class="crl-process">
@@ -238,8 +214,8 @@ QuickServe app can be used for beach, resorts, hotels, villas, lounge or multi-s
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 process-height">
                     <div class="process-info center-block">
                         
-                        <div class="icon center-block">
-                            <i class="fa fa-cutlery fa-3x"></i>
+                        <div class="icon center-block icon-color">
+                            <i class="fa fa-cutlery fa-2x"></i>
                         </div>
                         
                         <div class="crl-process">
@@ -258,8 +234,8 @@ QuickServe app can be used for beach, resorts, hotels, villas, lounge or multi-s
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 process-height">
                     <div class="process-info center-block">
                         
-                        <div class="icon center-block">
-                            <i class="fa fa-user fa-3x"></i>
+                        <div class="icon center-block icon-color">
+                            <i class="fa fa-user fa-2x"></i>
                         </div>
                         
                         <div class="crl-process">
@@ -279,7 +255,7 @@ QuickServe app can be used for beach, resorts, hotels, villas, lounge or multi-s
                     <div class="process-info center-block">
                         
                         <div class="icon center-block">
-                        <?= $this->Html->image('Hotel.png', ['class' => 'hotel-img','style' => 'width: 45px;'])?>  
+                        <?= $this->Html->image('Hotel.png', ['class' => 'hotel-img','style' => 'width: 37px;'])?>  
                         </div>
                         
                         <div class="crl-process">
@@ -334,7 +310,7 @@ QuickServe app can be used for beach, resorts, hotels, villas, lounge or multi-s
 							<li class="list-group-item"><i class="fa fa-check text-info"></i>AMC charges</li>
 						</ul>
 						<div class="panel-footer footer-green">
-							<a class="btn-green btn-lg btn-block btn-info center-block" href="http://www.vibeosys.com/sales-inquiry/">BUY NOW!</a>
+							<a class="btn-green btn-lg btn-block btn-info center-block" href="#Contact">BUY NOW!</a>
 						</div>
 					</div>
                 </div>		
@@ -357,7 +333,7 @@ QuickServe app can be used for beach, resorts, hotels, villas, lounge or multi-s
 							<li class="list-group-item"><i class="fa fa-check text-info"></i> One review per month</li>
 						</ul>
 						<div class="panel-footer footer-green">
-							<a class="btn-green btn-lg btn-block btn-info center-block" href="http://www.vibeosys.com/sales-inquiry/">BUY NOW!</a>
+							<a class="btn-green btn-lg btn-block btn-info center-block" href="#Contact">BUY NOW!</a>
 						</div>
 					</div>
 					
@@ -390,7 +366,7 @@ QuickServe app can be used for beach, resorts, hotels, villas, lounge or multi-s
 							<li class="list-group-item"><i class="fa fa-check text-info"></i>FREE website access</li>
 						</ul>
 						<div class="panel-footer footer-yellow">
-							<a class="btn-yellow btn-lg btn-block btn-info center-block" href="http://www.vibeosys.com/sales-inquiry/">BUY NOW!</a>
+							<a class="btn-yellow btn-lg btn-block btn-info center-block" href="#Contact">BUY NOW!</a>
 						</div>
 					</div>
 					
@@ -406,6 +382,23 @@ QuickServe app can be used for beach, resorts, hotels, villas, lounge or multi-s
     
     
     </section>
+     <!-- ---------------------------------------------------- Demo------------------------------------------------>
+      <section id="Demo">
+         <div class="container">
+            <div class="row  margin-bottom margin-top">
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <h1 class="text-center margin-top"> For Free Demo Or For 1 Month Free Trial</h1>
+               </div>
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <h3 class="text-justify">Fill up form and We will get back to you  <input type="button" value="Fill Me" class="btn-contact" onclick="window.location.href='#Contact'"> </h3>
+               </div>
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <p class="text-center">Alternatively You can also send a Email at <a href="mailto:info@vibeosys.com">info@vibeosys.com</a>  </p>
+               </div>
+            </div>
+         </div>
+      </section>
+    
     
     <!----------------------- Testimonial -------------------------->
     
@@ -477,12 +470,101 @@ QuickServe app can be used for beach, resorts, hotels, villas, lounge or multi-s
     
     
     </section>
-    
-    
+     <!-------------------------------------------------- Contact ---------------------------------------->
+      <section id="Contact">
+         <div class="container">
+            <div class="row margin-top">
+                <form id="sales-form">
+               <div class="col-lg-12">
+                  <h1> Contact Us</h1>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <span class="input input--contact">
+                  <input class="input__field input__field--contact" type="text" id="input-first" required/>
+                  <label class="input__label input__label--contact" for="input-first">
+                  <span class="input__label-content input__label-content--contact">First Name</span>
+                  </label>
+                  </span>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <span class="input input--contact">
+                  <input class="input__field input__field--contact" type="text" id="input-last" required/>
+                  <label class="input__label input__label--contact" for="input-last">
+                  <span class="input__label-content input__label-content--contact">Last Name</span>
+                  </label>
+                  </span>
+               </div>
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <span class="input input--contact">
+                  <input class="input__field input__field--contact" type="text" id="input-restaurant" required/>
+                  <label class="input__label input__label--contact" for="input-restaurant">
+                  <span class="input__label-content input__label-content--contact">Restaurant Name</span>
+                  </label>
+                  </span>
+               </div>
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <span class="input input--contact">
+                  <input class="input__field input__field--contact" type="email" id="input-email" required/>
+                  <label class="input__label input__label--contact" for="input-email">
+                  <span class="input__label-content input__label-content--contact">Email id</span>
+                  </label>
+                  </span>
+               </div>
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <span class="input input--contact">
+                      <input class="input__field input__field--contact" type="number" id="input-phone" required/>
+                  <label class="input__label input__label--contact" for="input-phone">
+                  <span class="input__label-content input__label-content--contact">Phone No</span>
+                  </label>
+                  </span>
+               </div>
+               <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 margin-bottom">
+                   <input type="button" id="mail-send-btn" name="contact" value="Submit" class="form-control sub-btn-contact">
+               </div>
+                </form>
+            </div>
+         </div>
+      </section>
+     <div id="myContactModal" class="modal animated zoomin"> 
+         <div class="modal-dialog" style="margin: 18em auto;">
+             <div class="modal-content" style="color: green">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Message Successfully Send.</h4>
+               </div>
+               <div class="modal-body" style="height: 6em;">
+                
+                     <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                        <p>Thank You.!<br>We will get back to you soon.....</p>
+                        
+                     </div>
+                     
+               </div>
+            </div>
+         </div>
+      </div>
+     <div id="myErrorModal" class="modal animated zoomin"> 
+         <div class="modal-dialog" style="margin: 18em auto;">
+             <div class="modal-content" style="color: orangered">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Failed to Send Message.</h4>
+               </div>
+               <div class="modal-body" style="height: 6em;">
+                
+                     <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                        <p>Sorry.!<br>Please try again.....</p>
+                        
+                     </div>
+                     
+               </div>
+            </div>
+         </div>
+      </div>
     
 	
 	<!-- Footer -->
-	<footer class="footer-section" id="Contact">
+	<footer class="footer-section">
 		<div class="continer-fluid">
         <div class="row">
                 

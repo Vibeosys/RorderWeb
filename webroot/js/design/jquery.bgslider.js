@@ -7,9 +7,9 @@ jQuery(function($){
 	slide_links				:	'blank',	// Individual links for each slide (Options: false, 'num', 'name', 'blank')
 	slides 					:  	[			// Slideshow Images
 										{image : '../../img/1.jpg'},
-										{image : '../../img/2.jpg'},
-                                                                                {image : '../../img/3.jpg'},
-                                                                                {image : '../../img/4.jpg'}
+                                        {image : '../../img/2.jpg'},
+                                        {image : '../../img/3.jpg'},
+                                        {image : '../../img/4.jpg'}
 										
 
 		]

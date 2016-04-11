@@ -285,6 +285,8 @@ $(document).ready(function(){
   });
   
   
+  
+  
 });
 //blink effect
 function blink(elem, times, speed) {
@@ -467,3 +469,4 @@ function closestockCheck(){
                             
                         }});
 }
+

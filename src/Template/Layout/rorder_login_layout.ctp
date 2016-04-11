@@ -39,7 +39,7 @@ $this->layout = false;
          <?= $this->Html->css('design/style.css') ?> 
 
 </head>
-<body>
+<body data-spy="scroll" data-target=".navbar-fixed-top" id="Home">
       <?php if($this->fetch('content')){
                          echo $this->fetch('content');
                       }else{
@@ -54,9 +54,14 @@ $this->layout = false;
         <?= $this->Html->script('design/main.js') ?> 
         <?= $this->Html->script('design/superslider.js') ?> 
         <?= $this->Html->script('design/jquery.bgslider.js') ?> 
+        <?= $this->Html->script('design/classie.js') ?> 
+       
+        <?= $this->Html->script('design/jquerybutton.js') ?> 
+        <?= $this->Html->script('design/jquery.easing.min.js') ?> 
+        <?= $this->Html->script('design/scrolling-nav.js') ?> 
  <script type="text/rocketscript">
         $('#carousel-example').carousel({
-            interval: 1000 //TIME IN MILLI SECONDS
+            interval: 3000 //TIME IN MILLI SECONDS
         })    
     </script>
   

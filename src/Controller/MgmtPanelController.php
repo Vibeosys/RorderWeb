@@ -13,6 +13,8 @@ use App\Controller\Component;
 use Cake\Log\Log;
 use App\DTO;
 use Cake\Filesystem\Folder;
+use Cake\Mailer\Email;
+
 /**
  * Description of MgmtPanelController
  *
@@ -24,7 +26,7 @@ class MgmtPanelController extends ApiController{
     public function login() {
         $userName = parent::readCookie('un');
         $password = parent::readCookie('pw');
-        if($this->request->is('post') and isset($this->request->data['login'])){
+        if($this->request->is('post') and isset($this->request->data['Login'])){
             $requestData = $this->request->data;
             $adminCredential = new UploadDTO\AdminUserUploadDto(
                     $requestData['userName'], 
@@ -270,5 +272,48 @@ class MgmtPanelController extends ApiController{
             }else{
                 $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(124),COLOR => ERROR_COLOR]);
             }
+    }
+    
+    public function sendMail() {
+        $this->autoRender = FALSE;
+        $data = $this->request->data;
+        $from = [
+            $data['email'] => $data['fname'].' '.$data['lname'],
+        ];
+       $to = ADMIN_EMAIL_ID;
+       $subject = "QuickServe sales inquiry";
+       $content = "";
+       $content .= "<table style='height: 279px; margin-left: auto; margin-right: auto;' width='601'><tbody><tr><td colspan='2'>"
+."<h1 style='text-align: center;'><span style='color: #ff0000;'><strong>Sales Inquiry</strong></span></h1></td></tr>"
+."<tr><td style='text-align: justify;' width='300px'><h2 style='padding-left: 180px;'><strong>Name:</strong></h2></td>"
+."<td>&nbsp;<span style='font-size: 12pt;'>".$data['fname']." ".$data['lname']."</span></td></tr>"//name
+. "<tr><td style='text-align: justify;'><h2 style='padding-left: 180px;'><strong>Email:</strong></h2></td>"
+ . "<td><span style='font-size: 12pt;'>&nbsp;".$data['email'] ."</span></td></tr>"
+."<tr><td style='text-align: justify;'><h2 style='padding-left: 180px;'><strong>Phone:</strong></h2></td>"
+."<td>&nbsp;<span style='font-size: 12pt;'>".$data['phone']."</span></td></tr>"
+."<tr><td style='text-align: justify;'><h2 style='padding-left: 180px;'><strong>Restaurant:</strong></h2></td>"
+."<td><span style='font-size: 12pt;'>&nbsp;".$data['restaurant']."</span></td></tr></tbody></table>";
+       
+        try{
+            $mailer = new Email();
+            
+            $mailer->transport('quickserve');
+         $mailer->template('', 'default');
+         $headers = ['Content-Type:text/HTML'];
+            $result =   $mailer->from($from)->emailFormat('html')
+                                ->to($to)->template('default')
+                                ->subject($subject)
+                                ->send($content);
+             if($result){
+                 $this->response->body (true);
+                 
+             }else{
+                $this->response->body (false);
+             }
+        } catch (Exception $e) {
+
+            $this->response->body(false);
+
+        }
     }
 }
