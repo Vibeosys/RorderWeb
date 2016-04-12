@@ -278,21 +278,25 @@ class MgmtPanelController extends ApiController{
         $this->autoRender = FALSE;
         $data = $this->request->data;
         $from = [
-            $data['email'] => $data['fname'].' '.$data['lname'],
+            'hr@vibeosys.com' => $data['fname'].' '.$data['lname'],
         ];
-       $to = ADMIN_EMAIL_ID;
+       $to = 'anand@vibeosys.com';
        $subject = "QuickServe sales inquiry";
        $content = "";
-       $content .= "<table style='height: 279px; margin-left: auto; margin-right: auto;' width='601'><tbody><tr><td colspan='2'>"
-."<h1 style='text-align: center;'><span style='color: #ff0000;'><strong>Sales Inquiry</strong></span></h1></td></tr>"
-."<tr><td style='text-align: justify;' width='300px'><h2 style='padding-left: 180px;'><strong>Name:</strong></h2></td>"
-."<td>&nbsp;<span style='font-size: 12pt;'>".$data['fname']." ".$data['lname']."</span></td></tr>"//name
-. "<tr><td style='text-align: justify;'><h2 style='padding-left: 180px;'><strong>Email:</strong></h2></td>"
- . "<td><span style='font-size: 12pt;'>&nbsp;".$data['email'] ."</span></td></tr>"
-."<tr><td style='text-align: justify;'><h2 style='padding-left: 180px;'><strong>Phone:</strong></h2></td>"
-."<td>&nbsp;<span style='font-size: 12pt;'>".$data['phone']."</span></td></tr>"
-."<tr><td style='text-align: justify;'><h2 style='padding-left: 180px;'><strong>Restaurant:</strong></h2></td>"
-."<td><span style='font-size: 12pt;'>&nbsp;".$data['restaurant']."</span></td></tr></tbody></table>";
+       $content .= "<table style='height: 100%; margin-left: auto; margin-right: auto;' width='677'><tbody>"
+            ."<tr><td colspan='2'><h1 style='text-align: center;'><span style='color: #ff0000;'><strong>Sales Inquiry</strong></span></h1></td></tr>"
+            ."<tr><td style='text-align: justify;' width='30px'><h2 style='padding-left: 30px;'><strong>Name:</strong></h2></td>"
+            ."<td>&nbsp;<span style='font-size: 12pt;'>".$data['fname']." ".$data['lname']."</span></td></tr>"//name
+            ."<tr><td style='text-align: justify;'><h2 style='padding-left: 30px;'><strong>Email:</strong></h2></td>"
+            ."<td><span style='font-size: 12pt;'>&nbsp;".$data['email'] ."</span></td></tr>"
+            ."<tr><td style='text-align: justify;'><h2 style='padding-left: 30px;'><strong>Phone:</strong></h2></td>"
+            ."<td>&nbsp;<span style='font-size: 12pt;'>".$data['phone']."</span></td></tr>"
+            ."<tr><td style='text-align: justify;'><h2 style='text-align: justify; padding-left: 30px;'><strong>Restaurant:</strong></h2></td>"
+            ."<td><span style='font-size: 12pt;'>&nbsp;".$data['restaurant']."</span></td></tr>"
+            ."<tr><td style='text-align: justify;'><h2 style='text-align: justify; padding-left: 30px;'><strong>Comment</strong></h2></td>"
+            ."<td style='word-break: break-all;'><p style='text-align: justify;'><span style='font-size: 12pt;'>".$data['msg']."</span></p></td></tr>"
+           
+               . "</tbody></table>";
        
         try{
             $mailer = new Email();
@@ -315,5 +319,25 @@ class MgmtPanelController extends ApiController{
             $this->response->body(false);
 
         }
+    }
+    
+    public function setCookie() {
+        $this->autoRender = FALSE;
+        $data = $this->request->data;
+        if($this->request->is('post')){
+            $name = $data['name'];
+            $value = $data['value'];
+            parent::writeCookie($name, $value); 
+        }
+    }
+    public function getCookie() {
+        $this->autoRender = FALSE;
+        $data = $this->request->data;
+        $result = NULL;
+        if($this->request->is('post')){
+            $name = $data['name'];
+            $result = parent::readCookie($name); 
+        }
+        $this->response->body($result);
     }
 }

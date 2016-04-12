@@ -283,7 +283,9 @@ $(document).ready(function(){
      return false;
     }
   });
-  
+  $('#menu_toggle').on('click',function(){
+      $('.content-wrapper').toggleClass('margin');
+  });
   
   
   

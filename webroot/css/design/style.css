@@ -183,15 +183,22 @@ header {
 }
 
 .navbar-default .navbar-nav > li > a:hover {
-	color: #db1914;
+    
+    color:#DB1914;
+    background-color: transparent;
+    transition: .3s all ease;
 }
-
-
-a.nav-active {
-    border-top-style: solid;
-    border-bottom-style: solid;
-    border-color: orange;
-    color: white;
+.menu{
+	    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: black;
+}
+.menu:hover{
+	  color:#DB1914;
+    background-color: transparent;
+    transition: .3s all ease;
 }
 
 .modal-footer{
@@ -225,8 +232,9 @@ a.nav-active {
     
 }
 .login-text{
-    padding-top: 1em;
+   //padding-top: 1em;
     color: white;
+    font-size: 36px;
 }
 .input-label{
 background: white;
@@ -262,13 +270,16 @@ text-align: left;
 }
 .sub-btn:hover{
     color:#DB1914;
+    
     background: white;
     transition: .6s all ease;
     
 }
 .slider a{
     color:#337ab7;
+    margin-left: .4em;
 }
+
 
 @media(min-width:767px) {
     .navbar {
@@ -283,10 +294,15 @@ text-align: left;
 }
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
-      border-top-style: solid;
     border-bottom-style: solid;
-    border-color: orange;
-   color:#DB1914;
+    border-color: #DB1914;
+   color:#DB1914!important;
+    background-color: transparent;
+    transition: .3s all ease;
+}
+.navbar-default .navbar-nav>.active>a>h2, .navbar-default .navbar-nav>.active>a>h2:focus, .navbar-default .navbar-nav>.active>a>h2:hover{
+    border-color: #DB1914;
+   color:#DB1914!important;
     background-color: transparent;
     transition: .3s all ease;
 }
@@ -578,7 +594,18 @@ ul.bullet{
 }
 
 /**-------------------------------------------------------------------------------------- 4 Process ------------------------------------------***/
-
+.border-style{
+	position: relative;
+}
+.border-style:after{
+	content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 15%;
+    width: 70%;
+    border-top: 4px solid black;
+	top:-2em;
+}
 
 .process-h4{
     text-transform: uppercase;
@@ -592,8 +619,9 @@ ul.bullet{
     position: absolute;
     z-index: 1;
 }
-.process h1{
+.process h3{
     text-transform: uppercase;
+	font-size: 36px;
 }
 
 .icon{
@@ -701,6 +729,9 @@ ul.bullet{
 }
 .price-list{
     text-transform: uppercase;
+}
+.price-list h3{
+	font-size:36px;
 }
 		.panel.price,
 		.panel.price>.panel-heading{
@@ -873,6 +904,8 @@ ul.bullet{
         width: 130px;
     text-align: center;
 }
+
+
 /*
 .price-list h1:after{
     position: absolute;
@@ -905,21 +938,19 @@ ul.bullet{
     line-height: 30px;
     letter-spacing: 0.1em;
     color: #666;
-    margin-top: 4em;
+    margin-top: 1em;
 }
-#Demo h3{
-        font-size: 20px;
+#Demo h2{
     font-weight: bold;
     color: #141313;
     letter-spacing: 0.08em;
-    text-align: center;
     margin: 2em 0 0em 0;
 }
 
 
 .btn-contact{
      height: 2.5em;
-    width:10em;
+    width:100%;
     border-radius: 0px;
     background-color: #DB1914;
     border-color: #DB1914;
@@ -927,7 +958,7 @@ ul.bullet{
     font-size: 19px;   
     line-height: 2.5em;
     text-align: center;
-    margin-top: 1em;
+    margin-top: 3.5em;
 }
 .btn-contact:hover{
     color:#DB1914!important;
@@ -936,11 +967,41 @@ ul.bullet{
     border: 1px solid #db1914;
     
 }
+@media (max-width:767px)
+{
+.btn-contact{
+    margin-top: 1em;
+   width: 10em;
+}
+    #Demo h2{
+    font-size: 26px;
+        text-align: justify;
+        margin-top: 0em;
+}
+    
+.fa-demo{
+    font-size: 3em;
+    text-align: center;
+    margin-top: 0!important;
+}
+    
+}
+
+@media (max-width:480px){
+    #Demo h2{
+        font-size: 19px;
+        text-align:justify;
+    }
+
+}
 
 
 
-
-
+.fa-demo{
+    font-size: 3em;
+    text-align: center;
+    margin-top: 1.8em;
+}
 
 
 
@@ -985,9 +1046,11 @@ ul.bullet{
     width:100%;
     margin-top: 5em;
 }
-.testimonial h1{
+.testimonial h3{
     color: white;
     text-align: center;
+	font-size:36px;
+	font-size: 36px;
 }
 .testimonial{
    background-image: url(../../img/testimonial-bg.jpg);
@@ -996,9 +1059,7 @@ ul.bullet{
     background-size: cover;
     height: 540px;
 }
-.testimonial h1{
-    text-transform: uppercase;
-}
+ 
 .margin-top-testimonial{
     margin-top: 5em;
 }
@@ -1013,9 +1074,12 @@ ul.bullet{
     background-position:  center center;
     
 }
-#Contact h1{
+#Contact h3{
     color:white;
-    padding: 1em 0 0 0;
+    padding: 1.9em 0 0 0;
+	font-size:36px;
+	text-align:center;
+	
 }
 
 .sub-btn-contact{
@@ -1029,6 +1093,7 @@ ul.bullet{
     font-size: 19px;
     float: right;
     margin-right: 1em;
+	transition:.1s all ease-in-out;
 }
 .sub-btn-contact:hover{
     color:#DB1914;
@@ -1038,10 +1103,65 @@ ul.bullet{
 }
 
 /* contact */
+span.rest-text{
+    color: gray;
+}
 .input--contact {
 	overflow: hidden;
 	padding-top: .5em;
 }
+.input--contact-textarea {
+	overflow: hidden;
+	padding-top: 2.5em;
+}
+.input__field--contact-textarea:focus, .input--filled .input__field--contact-textarea{
+    cursor: text;
+    opacity: 1;
+    -webkit-transition: opacity 0s 0.4s;
+    transition: opacity 0s 0.4s;
+}
+.input__field--contact-textarea{
+       width: 100%;
+    background: white;
+    opacity: 0;
+    padding: 1em 0 0 1em;
+    z-index: 100;
+    color: black;
+    font-size: 16px;
+    letter-spacing: .09em;
+    line-height: 1.3em;
+	border-top-style:solid;
+	border-top-color:#aaa;
+	border-top-width:4px;
+	
+}
+.input__label-content-textarea{
+    position: relative;
+    display: block;
+    padding: 0.2em 0;
+    width: 100%;
+    font-size: 14px;
+}
+
+.input__field--contact-textarea:focus + .input__label--contact .input__label-content--contact-textarea, .input--filled .input__label-content--contact-textarea {
+   color: white;
+    -webkit-transform: translate3d(0, -5em, 0) scale3d(0.81, 0.81, 1);
+    transform: translate3d(0, -5em, 0) scale3d(0.81, 0.81, 1);
+    margin-left: -65px;
+    font-size: 16px;
+    
+}
+@media (min-width:992px){
+.input__field--contact-textarea:focus + .input__label--contact .input__label-content--contact-textarea, .input--filled .input__label-content--contact-textarea {
+   color: white;
+    -webkit-transform: translate3d(0, -5em, 0) scale3d(0.81, 0.81, 1);
+    transform: translate3d(0, -5em, 0) scale3d(0.81, 0.81, 1);
+    margin-left: -103px;
+    font-size: 16px;
+    
+}
+}
+
 
 .input__field--contact {
  width: 100%;
@@ -1055,6 +1175,7 @@ ul.bullet{
     line-height: 2em;
     
 }
+
 
 .input__label--contact {
 	width: 100%;
@@ -1670,3 +1791,9 @@ background: rgba(30, 30, 30, 0.93);
 
 }
 
+.margin-constant{
+    margin-left: 231px;
+}
+.margin{
+    margin-left: 70px;
+}

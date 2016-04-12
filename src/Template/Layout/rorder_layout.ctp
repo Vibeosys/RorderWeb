@@ -24,7 +24,7 @@ $sec = $this->fetch('sec');
  <?= $this->Html->meta(
     'keyword',
     'Popular Restaurant Billing Software,Popular Wireless Restaurant Ordering Software,Popular Pos for Restaurant, Popular Hotel Management System')?>
-    
+    <!-- old css  -->
     <?= $this->Html->css('vb-menu-style.css') ?> 
     <?= $this->Html->css('bootstrap.min.css') ?> 
     <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css') ?>
@@ -33,82 +33,182 @@ $sec = $this->fetch('sec');
     <?= $this->Html->css('bootstrap-tagsinput.css') ?>
     <?= $this->Html->css('Style.css') ?>
     <?= $this->Html->css('All-skins.css') ?>
+   
+     <!-- new css  -->
+ <?= $this->Html->css('design/animate.min.css') ?>
+    <?= $this->Html->css('design/custom.css') ?>
+    <?= $this->Html->css('design/font-awesome.css') ?>
+     
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper">
-        <header class="main-header">
-            <!-- Logo -->
-          <a href="/" class="logo">
-                    <i class="qs-logo"><?= $this->Html->image('quickserve-logo.PNG', ['class' => 'qs-image','alt' => 'QUICK SERVE'])?></i>
+
+
+<body class="nav-md">
+
+  <div class="container body">
+
+
+    <div class="main_container">
+
+      <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+
+          <div class="navbar nav_title" style="border: 0;">
+            <a href="" class="site_title">
+                 <?= $this->Html->image('quickserve-small-logo.png', ['style' => ' width: 55px;'])?>
+                 <span>QuickeServe</span></a>
+          </div>
+          <div class="clearfix"></div>
+
+          <!-- menu prile quick info -->
+          <div class="profile">
+            <div class="profile_pic">
+                 <?= $this->Html->image('quickserve-admin-img.jpg', ['class' => 'img-circle profile_img','alt' => '...'])?>
+            </div>
+            <div class="profile_info">
+              <span>Welcome,</span>
+              <h2>Admin</h2>
+            </div>
+          </div>
+          <!-- /menu prile quick info -->
+
+          <br />
+
+          <!-- sidebar menu -->
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+
+            <div class="menu_section">
+           <h3>&nbsp;</h3>
+              <ul class="nav side-menu">
+                <li class="active"><a href=""><i class="fa fa-home"></i> Dashboard </a>
+                </li>
+                <li><a><i class="fa fa-edit"></i> Order <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a>Table View</a>
+                    </li>
+                    <li><a href="">Dine-In</a>
+                    </li>
+                    <li><a href="">Takeaway</a>
+                    </li>
+                    <li><a href="">Home-Delivery</a>
+                    </li>
+                    <li><a href="">Manage Table</a>
+                    </li>
+                    <li><a href="">Table Category</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-cutlery"></i> Kitchen <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="">Menu</a>
+                    </li>
+                    <li><a href="">Recipe</a>
+                    </li>
+                    <li><a href="">Menu Category</a>
+                    </li>
+                    <li><a href="">Recipe Category</a>
+                    </li>
+                    <li><a href="">Kitchen/Printers</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-table"></i> Inventory Management <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="tables.html">Stock Upload</a>
+                    </li>
+                    <li><a href="tables_dynamic.html">Stock Modification</a>
+                    </li>
+					<li><a href="tables_dynamic.html">Stock Taking</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-bar-chart-o"></i> Reports <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="chartjs.html">Reports 1</a>
+                    </li>
+                    <li><a href="chartjs2.html">Reports 2</a>
+                    </li>
+                    <li><a href="morisjs.html">Reports3</a>
+                    </li>
+                    <li><a href="echarts.html">Reports 4 </a>
+                    </li>
+                    <li><a href="other_charts.html">Reports 5</a>
+                    </li>
+                  </ul>
+                </li>
+           
+           
+                <li><a><i class="fa fa-bug"></i> Manage Restaurant <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="e_commerce.html">Edit Info</a>
+                    </li>
+                    <li><a href="projects.html">Users</a>
+                    </li>
+                    <li><a href="project_detail.html">Devices</a>
+                    </li>
+                    <li><a href="contacts.html">Configration</a>
+                    </li>
+                    
+                  </ul>
+                </li>
+               
+              </ul>
+            </div>
+
+          </div>
+          <!-- /sidebar menu -->
+        </div>
+      </div>
+
+      <!-- top navigation -->
+      <div class="top_nav">
+
+        <div class="nav_menu">
+          <nav class="" role="navigation">
+            <div class="nav toggle">
+              <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a href="" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                     <?= $this->Html->image('quickserve-admin-img.jpg', ['alt' => ''])?>
+                  Admin
+                  <span class=" fa fa-angle-down"></span>
                 </a>
-            <!-- Header Navbar -->
-            <nav class="navbar navbar-static-top" role="navigation">
-                <!-- Sidebar toggle button-->
-                <!--<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>-->
-                <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <!-- User Account -->
-                        <li class="dropdown user user-menu">
-                            <a href="../logout">
-                                <?= $this->Html->image('user.png', ['class' => 'user-image','alt' => 'User Image'])?>
-                                <span class="hidden-xs">Sign Off</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar">
-            <!-- sidebar -->
-            <section class="sidebar">
-                <!-- sidebar menu:  -->
-                <ul class="sidebar-menu">
-                    <li>
-                        <a href="../menu/addnewmenu">
-                            <i class="icon dashboard"></i> <span>Menu</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../menu-category/addnewmenucategory">
-                            <i class="icon regions"></i> <span>Menu category</span>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="../rtables/addnewtables">
-                            <i class="icon channels"></i>  <span>Restaurant Tables</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../table-category/addnewtablecategory">
-                            <i class="icon products"></i>  <span>Tables Category</span>
-                        </a>
-                    </li>
+                <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
+                  <li><a href="">  Profile</a>
+                  </li>
+                  
+                  <li><a href="logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  </li>
                 </ul>
-            </section>
-            <!-- /.sidebar -->
-        </aside>
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+              </li>
+
+
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+      <!-- /top navigation -->
+
+        <!-- footer content -->
+
+        <!-- /footer content -->
+      </div>
+      <!-- /page content -->
+
+    </div>
+    <div class="content-wrapper margin-constant">
            <?php if($this->fetch('content')){
                          echo $this->fetch('content');
                       }else{
                          echo 'content block not set';
                       }
            ?>
-        </div><!-- /.content-wrapper -->
-    </div><!-- ./wrapper -->
-     <footer class="main-footer" >
-            <div class="pull-right hidden-xs">
-                <b>Version</b> 1.0.0
-            </div>
-         <span>Copyright &copy; 2015-2016 <a href="mgmtpanel">QuickServe</a>.</span> All rights reserved.
-        </footer>
+    </div>
+    
+    <!-- old js  -->
         <?= $this->Html->script('jQuery-2.1.4.min.js') ?>
         <?= $this->Html->script('bootstrap.min.js') ?> 
         <?= $this->Html->script('jQuery-cookie.js') ?>
@@ -118,6 +218,10 @@ $sec = $this->fetch('sec');
         <?= $this->Html->script('dataTables.bootstrap.min.js') ?> 
         <?= $this->Html->script('jquery.slimscroll.min.js') ?> 
         <?= $this->Html->script('Script.js') ?> 
+       
+    <!-- new js  -->
+     <?= $this->Html->script('design/jquery.min.js') ?> 
+        <?= $this->Html->script('design/custom.js') ?> 
   
 <script>
     
@@ -125,7 +229,7 @@ $sec = $this->fetch('sec');
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; " + expires;
+    document.cookie = cname + "=" + cvalue + "; " + expires +';domain='+<?php echo DOMAIN?>;
     }
     function getCookie(cname) {
     var name = cname + "=";

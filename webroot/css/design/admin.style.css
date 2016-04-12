@@ -1,0 +1,37 @@
+.logo{
+    width: 15em;
+    margin-top: -1em;
+    float: left;
+    padding-top: 16px;   
+
+}
+
+.remove-space{
+    padding-right: 0px;
+    padding-left: 0px;
+    float: right;
+    text-align: center;
+}
+.btn-rest{
+        width: 156px;
+    height: 48px;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: .2em;
+        background-color: rgba(0,0,0,0.2);
+    border-color: rgba(0,0,0,0.2);
+    
+}
+.img-rest{
+        position: absolute;
+    z-index: 1;
+    width: 10em;
+    margin-left: -1em;
+}
+.restaurant-img{
+    border-radius: 5px 0 0 5px;
+    
+}
+.welcome{
+    margin:1em;
+}
