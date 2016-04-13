@@ -4,6 +4,13 @@
  * Core: General Layout Style
  * -------------------------
  */
+
+div.margin-constant{
+    margin-left: 231px;
+}
+div.margin-less{
+    margin-left: 70px;
+}
 html,
 body {
   min-height: 100%;
@@ -124,8 +131,23 @@ body {
     -o-transform: translate(230px, 0);
     transform: translate(230px, 0);
   }
+  
 }
-.content-wrapper,
+@media (max-width: 992px){
+    .margin-constant{
+      margin-left: 0px!important;
+  }
+  div.margin-more{
+    margin-left: 70px!important;
+}
+}
+.content-wrapper{
+  min-height: 100%;
+  background-color: rgb(249, 249, 249);
+  z-index: 800;
+  min-width: 400px;
+  //margin-left: 231px;
+}
 .right-side {
   min-height: 100%;
   background-color: rgb(249, 249, 249);

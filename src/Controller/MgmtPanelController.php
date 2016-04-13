@@ -205,11 +205,8 @@ class MgmtPanelController extends ApiController{
     }
     
     public function printPreview() {
-            $tableId = $_COOKIE['cti'];
+            $tableId = parent::readCookie('cti');
             $takeawayNo = 0;
-            if(key_exists('ctkno', $_COOKIE)){
-                $takeawayNo = $_COOKIE['ctkno'];
-            }
             Log::debug('Current tableId :-'.$tableId);
             Log::debug('Current takeawayNo :- '.$takeawayNo);
              if(empty($tableId) and empty($takeawayNo)){
@@ -339,5 +336,17 @@ class MgmtPanelController extends ApiController{
             $result = parent::readCookie($name); 
         }
         $this->response->body($result);
+    }
+    
+    public function reports() {
+        if($this->request->is('post')){
+            $data = $this->request->data;
+            parent::writeCookie('cri', $data['restId']);
+            $this->set([
+                'rest' => $data['restId']
+            ]);
+        }else{
+            $this->redirect('login');
+        }
     }
 }

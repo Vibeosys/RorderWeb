@@ -64,7 +64,7 @@ $this->layout = false;
             interval: 3000 //TIME IN MILLI SECONDS
         })    
     </script>
-  
+<!--  
 <script>
      function setCookie(cname, cvalue, exdays) {
     $.post('/setcookie',{name:cname,value:cvalue},function(result){
@@ -110,7 +110,7 @@ $this->layout = false;
 
 
 </script>
-<!-- Begin Inspectlet Embed Code -->
+<!-- Begin Inspectlet Embed Code 
 <script type="text/javascript" id="inspectletjs">
 window.__insp = window.__insp || [];
 __insp.push(['wid', 865249698]);

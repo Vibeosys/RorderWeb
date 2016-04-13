@@ -95,11 +95,10 @@ class BillController  extends ApiController{
     
     public function displayBill() {
         $restId = parent::readCookie('cri');
-        $result = key_exists('cti', $_COOKIE);
         Log::debug('Current restaurantId in order controller :- '.$restId);
-        if(isset($restId) and $result){
-            $tableId = $_COOKIE['cti'];
-            $takeawayNo = $_COOKIE['ctn'];
+        if(isset($restId)){
+            $tableId = parent::readCookie('cti');
+            $takeawayNo = parent::readCookie('ctn');
             Log::debug('Now bill list shows for table :-'.$tableId .'or for takeawayNo :- '.$takeawayNo);
             $latestBill = $this->getTableObj()->getTableBill($tableId, $takeawayNo, $restId);
             if(is_null($latestBill)){

@@ -95,11 +95,11 @@ class OrderController extends ApiController {
     
     public function displayOrders() {
         $restId = parent::readCookie('cri');
-        $result = key_exists('cti', $_COOKIE);
+        ;
         Log::debug('Current restaurantId in order controller :- '.$restId);
-        if(isset($restId) and $result){
-            $tableId = $_COOKIE['cti'];
-            $takeawayNo = $_COOKIE['ctn'];
+        if(isset($restId)){
+            $tableId =parent::readCookie('cti');
+            $takeawayNo = parent::readCookie('ctn');
             Log::debug('Now order list shows for table :-'.$tableId);
             $latestOrders = $this->getLatestOrders($tableId,$takeawayNo, $restId);
             if(is_null($latestOrders)){

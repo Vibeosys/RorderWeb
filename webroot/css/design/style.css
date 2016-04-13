@@ -1160,6 +1160,12 @@ span.rest-text{
     font-size: 16px;
     
 }
+  .margin-constant{
+      margin-left: 0px!important;
+  }
+  div.margin-more{
+    margin-left: 70px!important;
+}
 }
 
 
@@ -1791,9 +1797,3 @@ background: rgba(30, 30, 30, 0.93);
 
 }
 
-.margin-constant{
-    margin-left: 231px;
-}
-.margin{
-    margin-left: 70px;
-}

@@ -2,18 +2,12 @@
 //hide sections
 
 $(document).ready(function(){
-  var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>';
-  var text = $('#dinein').text();
-  if(text === 'Dine-In'){
+  var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>' 
       $('.table-list').html(loading);
       printtable();
-  }
+  
   
   //onclick on dine-in tab to retrive table
-  $('#dinein').on('click', function(){
-      $('.table-list').html(loading);
-        printtable();
-});
 //onclick on takeaway tab to retrive takeaway
   $('#takeaway').on('click', function(){
       $('.table-list').html(loading);
@@ -284,7 +278,8 @@ $(document).ready(function(){
     }
   });
   $('#menu_toggle').on('click',function(){
-      $('.content-wrapper').toggleClass('margin');
+      $('.content-wrapper').toggleClass('margin-less');
+      $('.content-wrapper').toggleClass('margin-more');
   });
   
   
@@ -310,7 +305,6 @@ function blink(elem, times, speed) {
         times -= .5;
     }
 }
-
 function printtable(){
      $.ajax({
                         url: "/gettables",
@@ -323,12 +317,12 @@ function printtable(){
                                   var printhtml = '';
                                $.each(result, function(idx, obj){
                                    if(obj.isOccupied){
-                                    printhtml = printhtml + '<div class="print-table-button col-xs-2"  style="border-bottom: 8px solid rgba(247, 0, 0, 0.48);">'
-                                                        +  obj.tableNo +'<br><div class="order-button col-xs-5" onclick="tableorder(' + obj.tableId + ')">Orders</div><div class="bill-button col-xs-5" onclick="tablebill(' + obj.tableId + ')">Bills</div> </div>'; 
+                                    printhtml = printhtml + '<div class="print-table-button col-xs-2" onclick="perform(' +obj.tableId +')" style="border-bottom: 8px solid rgba(247, 0, 0, 0.48);">'
+                                                        +  obj.tableNo +' </div>'; 
                                    }else{
                                   
-                                    printhtml = printhtml + '<div class="print-table-button col-xs-2"  style="border-bottom: 8px solid rgba(0, 128, 0, 0.55);">'
-                                                      +  obj.tableNo +'<br><div class="order-button col-xs-5" onclick="tableorder(' + obj.tableId + ')">Orders</div><div class="bill-button col-xs-5" onclick="tablebill(' + obj.tableId + ')">Bills</div> </div>';    
+                                    printhtml = printhtml + '<div class="print-table-button col-xs-2" onclick="perform(' +obj.tableId +')" style="border-bottom: 8px solid rgba(0, 128, 0, 0.55);">'
+                                                      +  obj.tableNo +' </div>'; 
                                    }
                                $('.table-list').html(printhtml);
                                });
@@ -370,11 +364,37 @@ function printtakeaway(){
                         }});
 }
 
-function tableorder(id){
-    $.cookie("cti", id, { expires : 1 });
-    $.cookie("ctn", 0, { expires : 1 });
-    window.location.assign("tableorders");
+//table view all operation
+function perform(id){
+    var current_option = $('#option').val();
+    if(current_option === 'placeorder'){
+        alert(current_option + id);
+    }else if(current_option === 'generatebill'){
+        alert(current_option+ id);
+    }else if(current_option === 'cancelorder'){
+        alert(current_option+ id);
+    }else if(current_option === 'printkot'){
+         $.post('/setcookie',{name:'cti',value:id},function(result){
+        
+        });
+        $.post('/setcookie',{name:'ctn',value:0},function(result){
+        
+        });
+        window.location.replace('tableorders');
+    }else if(current_option === 'managetable'){
+        alert(current_option+ id);
+    }else if(current_option === 'printbill'){
+        $.post('/setcookie',{name:'cti',value:id},function(result){
+        
+        });
+        $.post('/setcookie',{name:'ctn',value:0},function(result){
+        
+        });
+        window.location.replace('tablebills');
+    }
+    
 }
+
 
 function tablebill(id){
     $.cookie("cti", id, { expires : 1 });
@@ -394,9 +414,13 @@ function takeawaybill(id){
 }
 
 function tablepopup(id) {
-        $.cookie("cti", id, { expires : 1 });
-        $.cookie("ctn", 0, { expires : 1 });
-    window.open("billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
+        $.post('/setcookie',{name:'cti',value:id},function(result){
+        
+        });
+        $.post('/setcookie',{name:'ctn',value:0},function(result){
+        
+        });
+    window.open("../billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
 }
 
 function takeawaypopup(id) {

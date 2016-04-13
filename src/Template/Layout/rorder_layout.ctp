@@ -39,6 +39,7 @@ $sec = $this->fetch('sec');
     <?= $this->Html->css('design/custom.css') ?>
     <?= $this->Html->css('design/font-awesome.css') ?>
      
+  
 </head>
 
 
@@ -83,13 +84,49 @@ $sec = $this->fetch('sec');
                 </li>
                 <li><a><i class="fa fa-edit"></i> Order <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a>Table View</a>
-                    </li>
-                    <li><a href="">Dine-In</a>
+                      <li><a>Table View</a>
+                        <ul class="nav child_menu" style="display: none">
+                                  <li><a href="../tableview/placeorder">Place Order</a>                      
+                                  </li>
+                                 <li><a href="../tableview/generatebill">Generate Bill</a>
+                                </li>
+                                <li><a href="../tableview/cancelorder">Cancel Order</a>
+                                </li>
+                                <li><a href="../tableview/printkot">Print KOT</a>
+                                </li>
+                                <li><a href="../tableview/managetable">Manage Table</a>
+                                </li>
+                                <li><a href="../tableview/printbill">Print Bill</a>
+                                </li>
+                              </ul>
                     </li>
                     <li><a href="">Takeaway</a>
+                          <ul class="nav child_menu" style="display: none">
+                                  <li><a href="tableview">Place Order</a>                      
+                                  </li>
+                                 <li><a href="">Generate Bill</a>
+                                </li>
+                                <li><a href="">Cancel Order</a>
+                                </li>
+                                <li><a href="">Print KOT</a>
+                                </li>
+                                <li><a href="">Print Bill</a>
+                                </li>
+                              </ul>
                     </li>
                     <li><a href="">Home-Delivery</a>
+                         <ul class="nav child_menu" style="display: none">
+                                  <li><a href="tableview">Place Order</a>                      
+                                  </li>
+                                 <li><a href="">Generate Bill</a>
+                                </li>
+                                <li><a href="">Cancel Order</a>
+                                </li>
+                                <li><a href="">Print KOT</a>
+                                </li>
+                                <li><a href="">Print Bill</a>
+                                </li>
+                              </ul>
                     </li>
                     <li><a href="">Manage Table</a>
                     </li>
@@ -179,7 +216,7 @@ $sec = $this->fetch('sec');
                   <li><a href="">  Profile</a>
                   </li>
                   
-                  <li><a href="logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <li><a href="../logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>
                 </ul>
               </li>
@@ -199,7 +236,7 @@ $sec = $this->fetch('sec');
       <!-- /page content -->
 
     </div>
-    <div class="content-wrapper margin-constant">
+    <div class="content-wrapper margin-constant" style="">
            <?php if($this->fetch('content')){
                          echo $this->fetch('content');
                       }else{
@@ -209,7 +246,8 @@ $sec = $this->fetch('sec');
     </div>
     
     <!-- old js  -->
-        <?= $this->Html->script('jQuery-2.1.4.min.js') ?>
+         <!-- scripts-->
+     <?= $this->Html->script('jQuery-2.1.4.min.js') ?>
         <?= $this->Html->script('bootstrap.min.js') ?> 
         <?= $this->Html->script('jQuery-cookie.js') ?>
         <?= $this->Html->script('vb-script-1.js') ?>
@@ -218,18 +256,20 @@ $sec = $this->fetch('sec');
         <?= $this->Html->script('dataTables.bootstrap.min.js') ?> 
         <?= $this->Html->script('jquery.slimscroll.min.js') ?> 
         <?= $this->Html->script('Script.js') ?> 
+          <?= $this->Html->script('fusioncharts.js') ?> 
+        <?= $this->Html->script('fusioncharts.theme.fint.js') ?> 
        
     <!-- new js  -->
      <?= $this->Html->script('design/jquery.min.js') ?> 
-        <?= $this->Html->script('design/custom.js') ?> 
-  
+        <?= $this->Html->script('design/custom.js') ?>  
+<!--  
 <script>
     
      function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; " + expires +';domain='+<?php echo DOMAIN?>;
+    document.cookie = cname + "=" + cvalue + "; " + expires +';domain='+<?php //echo DOMAIN?>;
     }
     function getCookie(cname) {
     var name = cname + "=";
@@ -271,7 +311,6 @@ $sec = $this->fetch('sec');
 
 
 </script> 
-<!-- Begin Inspectlet Embed Code -->
 <script type="text/javascript" id="inspectletjs">
 window.__insp = window.__insp || [];
 __insp.push(['wid', 865249698]);
@@ -280,7 +319,7 @@ function ldinsp(){if(typeof window.__inspld != "undefined") return; window.__ins
 setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
 })();
 </script>
-<!-- End Inspectlet Embed Code -->
+ End Inspectlet Embed Code -->
 
 
 </body>

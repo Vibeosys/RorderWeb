@@ -90,6 +90,8 @@ div.print-table-button{
     font-weight: bolder;
     text-align: center;
     padding-top: 3%;
+    padding: 20px;
+    cursor: pointer;
 }
 div.print-table-button > button{
     background-color: #fff;
