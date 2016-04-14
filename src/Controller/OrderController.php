@@ -95,7 +95,7 @@ class OrderController extends ApiController {
     
     public function displayOrders() {
         $restId = parent::readCookie('cri');
-        ;
+        
         Log::debug('Current restaurantId in order controller :- '.$restId);
         if(isset($restId)){
             $tableId =parent::readCookie('cti');

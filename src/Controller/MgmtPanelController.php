@@ -206,7 +206,7 @@ class MgmtPanelController extends ApiController{
     
     public function printPreview() {
             $tableId = parent::readCookie('cti');
-            $takeawayNo = 0;
+            $takeawayNo = parent::readCookie('ctn');
             Log::debug('Current tableId :-'.$tableId);
             Log::debug('Current takeawayNo :- '.$takeawayNo);
              if(empty($tableId) and empty($takeawayNo)){

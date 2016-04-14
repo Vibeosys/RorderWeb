@@ -6,7 +6,7 @@
     use Cake\Network\Exception\NotFoundException;
     use App\Controller;
 
-     $this->layout = 'rorder_inventory_layout';
+     $this->layout = 'rorder_layout';
      $this->assign('title', 'Stock Taking');
      $this->assign('breadcrum', '<ol class="breadcrumb">
                     <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>  
@@ -14,6 +14,7 @@
                 </ol>');
      //$this->start('content');
 ?>
+
             <section class="content">
                 <div class="row">
                     <div class="col-xs-12">

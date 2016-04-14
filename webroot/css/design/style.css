@@ -154,7 +154,7 @@ header {
 
 .logo{
     width: 15em;
-    margin-top: -1em;
+    margin-top: -0.4em;
 
 }
 .navbar-default .navbar-brand {
@@ -219,7 +219,9 @@ header {
     float: right;
 }
 
-
+.login-btn{
+	padding-right: 2em;
+}
 
 
 .input-text{
@@ -593,19 +595,14 @@ ul.bullet{
     margin-right: 0px!important;
 }
 
+.google-text{
+	color: #E24425;
+}
+.google-play{
+	width:186px;
+}
 /**-------------------------------------------------------------------------------------- 4 Process ------------------------------------------***/
-.border-style{
-	position: relative;
-}
-.border-style:after{
-	content: '';
-    position: absolute;
-    bottom: 0px;
-    left: 15%;
-    width: 70%;
-    border-top: 4px solid black;
-	top:-2em;
-}
+
 
 .process-h4{
     text-transform: uppercase;
@@ -699,6 +696,9 @@ ul.bullet{
     padding-top: 10px;
     
 }*/
+.hotel-img{
+	width:37px;
+}
 
 .line{
     padding-top: 2em;
@@ -1102,6 +1102,19 @@ ul.bullet{
     
 }
 
+
+.mail{
+	margin: 18em auto;
+}
+.mail-body{
+	height: 6em;
+}
+.mail-fail{
+	color: orangered;
+}
+.mail-sucess{
+color: green;	
+}
 /* contact */
 span.rest-text{
     color: gray;
@@ -1159,12 +1172,6 @@ span.rest-text{
     margin-left: -103px;
     font-size: 16px;
     
-}
-  .margin-constant{
-      margin-left: 0px!important;
-  }
-  div.margin-more{
-    margin-left: 70px!important;
 }
 }
 
@@ -1529,6 +1536,7 @@ background: rgba(30, 30, 30, 0.93);
 }
     .google-text{
         font-size: 14px;
+		
     }
 }
 
@@ -1796,4 +1804,3 @@ background: rgba(30, 30, 30, 0.93);
 }
 
 }
-

@@ -3,16 +3,13 @@
 
 $(document).ready(function(){
   var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>' 
-      $('.table-list').html(loading);
-      printtable();
+     // $('.table-list').html(loading);
+     
   
   
   //onclick on dine-in tab to retrive table
 //onclick on takeaway tab to retrive takeaway
-  $('#takeaway').on('click', function(){
-      $('.table-list').html(loading);
-        printtakeaway();
-});  
+  
     
  $('show-edit-section').hide();
  
@@ -306,62 +303,10 @@ function blink(elem, times, speed) {
     }
 }
 function printtable(){
-     $.ajax({
-                        url: "/gettables",
-                        type: "POST",
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        success: function (result, jqXHR, textStatus) {
-                            if (result) {
-                                  var printhtml = '';
-                               $.each(result, function(idx, obj){
-                                   if(obj.isOccupied){
-                                    printhtml = printhtml + '<div class="print-table-button col-xs-2" onclick="perform(' +obj.tableId +')" style="border-bottom: 8px solid rgba(247, 0, 0, 0.48);">'
-                                                        +  obj.tableNo +' </div>'; 
-                                   }else{
-                                  
-                                    printhtml = printhtml + '<div class="print-table-button col-xs-2" onclick="perform(' +obj.tableId +')" style="border-bottom: 8px solid rgba(0, 128, 0, 0.55);">'
-                                                      +  obj.tableNo +' </div>'; 
-                                   }
-                               $('.table-list').html(printhtml);
-                               });
-                            } else {
-                                var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
-                            $('.table-list').html(printhtml);
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
-                            $('.table-list').html(printhtml);
-                        }});
+    
 }
 function printtakeaway(){
-     $.ajax({
-                        url: "/gettakeaway",
-                        type: "POST",
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        success: function (result, jqXHR, textStatus) {
-                            if (result) {
-                                  var printhtml = '';
-                               $.each(result, function(idx, obj){
-                                   
-                                    printhtml = printhtml + '<div class="print-table-button col-xs-2">'
-                                                     + '#' +  obj.tno +' <br><div class="order-button col-xs-5" onclick="takeawayorder(' + obj.tno + ')">Orders</div><div class="bill-button col-xs-5" onclick="takeawaybill(' + obj.tno + ')">Bills</div></div>'; 
-                               });
-                               $('.table-list').html(printhtml);
-                               
-                            } else {
-                                var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span><a href="../managedata" > << Back </a></div>';
-                            $('.table-list').html(printhtml);
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span><a href="../managedata" > << Back </a></div>';
-                            $('.table-list').html(printhtml);
-                        }});
+    
 }
 
 //table view all operation
@@ -395,23 +340,33 @@ function perform(id){
     
 }
 
+function takeawayPerform(no){
+     var current_option = $('#option').val();
+    if(current_option === 'placeorder'){
+        alert(current_option + no);
+    }else if(current_option === 'generatebill'){
+        alert(current_option+ no);
+    }else if(current_option === 'cancelorder'){
+        alert(current_option+ no);
+    }else if(current_option === 'printkot'){
+         $.post('/setcookie',{name:'cti',value:0},function(result){
+        
+        });
+        $.post('/setcookie',{name:'ctn',value:no},function(result){
+        
+        });
+        window.location.replace('takeawayorders');
+    }else if(current_option === 'printbill'){
+        $.post('/setcookie',{name:'cti',value:0},function(result){
+        
+        });
+        $.post('/setcookie',{name:'ctn',value:no},function(result){
+        
+        });
+        window.location.replace('takeawaybills');
+    }
+}
 
-function tablebill(id){
-    $.cookie("cti", id, { expires : 1 });
-    $.cookie("ctn", 0, { expires : 1 });
-    window.location.assign("tablebills");
-}
-function takeawayorder(id){
-    $.cookie("ctn", id, { expires : 1 });
-    $.cookie("cti", 0, { expires : 1 });
-    window.location.assign("takeawayorders");
-}
-
-function takeawaybill(id){
-    $.cookie("ctkno", id, { expires : 1 });
-    $.cookie("cti", 0, { expires : 1 });
-    window.location.assign("takeawaybills");
-}
 
 function tablepopup(id) {
         $.post('/setcookie',{name:'cti',value:id},function(result){
@@ -424,9 +379,13 @@ function tablepopup(id) {
 }
 
 function takeawaypopup(id) {
-        $.cookie("cti", 0, { expires : 1 });
-        $.cookie("ctn", id, { expires : 1 });
-    window.open("billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
+        $.post('/setcookie',{name:'cti',value:0},function(result){
+        
+        });
+        $.post('/setcookie',{name:'ctn',value:id},function(result){
+        
+        });
+    window.open("../billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
 }
 
 function kotprint(id,cono,ctno,ctkno,csb,cot) {

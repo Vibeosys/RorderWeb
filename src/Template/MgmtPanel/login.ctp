@@ -22,7 +22,8 @@ use Cake\Cache\Cache;
                     <span class="icon-bar"></span>
                 </button>
                 <!-- Logo -->
-                <a class="navbar-brand" href="#"><?= $this->Html->image('quickserve-logo.png', ['class' => 'img-responsive logo','alt' => 'QuickServe'])?></a>
+                <a class="navbar-brand" href="#"><?= $this->Html->image('quickserve-logo.png', ['class' => 'img-responsive logo','alt' => 'QuickServe'])?>
+                </a>
             </div>
             <!-- Navmenu -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -68,7 +69,7 @@ use Cake\Cache\Cache;
                         <div class="alink col-sm-6 col-md-6 col-lg-6 col-xs-6">
                             <a href="" data-toggle="modal" data-target="#myModal" >Forgot Password?</a><br>
                         </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6" style="padding-right: 2em; ">
+                        <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6" class="login-btn">
                             <input type="submit" name="Login" value="Login" class="form-control sub-btn">
                         </div>
                     </div>
@@ -159,11 +160,11 @@ use Cake\Cache\Cache;
             </div>
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin-top">
-                    <h4 class="text-right google-text" style="color: #E24425;">Now available on</h4>
+                    <h4 class="text-right google-text">Now available on</h4>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin-top">
                     <a href="https://play.google.com/store/apps/details?id=com.vibeosys.rorderapp&amp;hl=en" target="_blank">
-                    <?= $this->Html->image('google-play-badge.png', ['class' => 'img-responsive','style'=> 'width: 186px;','alt' => 'QuickServe'])?>        
+                   <?= $this->Html->image('google-play-badge.png', ['class' => 'img-responsive','style'=> 'width: 186px;','alt' => 'google-play'])?>      
                     </a>
                 </div>
             </div>
@@ -178,16 +179,16 @@ use Cake\Cache\Cache;
     <div class="container">
         <div class="row">
             <div class="col-lg-12 margin-top">
-               <h3 class="margin-top border-style">How it works?</h3>
+               <h3 class="margin-top">How it works?</h3>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 mobile-view">
-                    <?= $this->Html->image('dotted-line.png', ['class' => 'line1 line img-responsive'])?>                        
+                     <?= $this->Html->image('dotted-line.png', ['class' => 'line1 line img-responsive','alt' => 'dotted-line'])?>                       
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <h4 class="process-h4">Just 4 Steps To Follow</h4>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 mobile-view" >
-            <?= $this->Html->image('dotted-line.png', ['class' => 'line2 line img-responsive'])?>        
+             <?= $this->Html->image('dotted-line.png', ['class' => 'line1 line img-responsive','alt' => 'dotted-line'])?>         
             </div>
         </div>
         <div class="row margin-bottom">
@@ -202,12 +203,12 @@ use Cake\Cache\Cache;
                     <div class="crl-process">
                         <span class="crl-text">1</span>
                     </div>
-                    <?= $this->Html->image('arrow_right.png', ['class' => 'img-responsive arrow'])?>       
+                   <?= $this->Html->image('arrow_right.png', ['class' => 'img-responsive arrow','alt' => 'process-arrow'])?>       
                     <div class="prs-text">
                         <span>Order Taking</span>
                     </div>
                 </div>
-                        <?= $this->Html->image('process-section-bg.png', ['class' => 'img-responsive center-block process-img'])?>       
+                        <?= $this->Html->image('process-section-bg.png', ['class' => 'img-responsive center-block process-img','alt' => 'Order-Taking-process'])?>     
                 <p>Steward takes order in restaurant in Dine-In or Takeaway or Home Delivery</p>
 
 
@@ -222,13 +223,12 @@ use Cake\Cache\Cache;
                     <div class="crl-process">
                         <span class="crl-text">2</span>
                     </div>
-                    <?= $this->Html->image('arrow_right.png', ['class' => 'img-responsive arrow arrow2'])?>       
+                    <?= $this->Html->image('arrow_right.png', ['class' => 'img-responsive arrow','alt' => 'process-arrow'])?>      
                     <div class="prs-text">
                         <span>Chef  Confirm</span>
                     </div>
                 </div>
-                        <?= $this->Html->image('process-section-bg.png', ['class' => 'img-responsive center-block process-img'])?>
-                <p>KOT gets printed in Kitchen Chef confirms the orders</p>
+                       <?= $this->Html->image('process-section-bg.png', ['class' => 'img-responsive center-block process-img','alt' => 'Chef-Confirm-process'])?>               <p>KOT gets printed in Kitchen Chef confirms the orders</p>
 
 
             </div>
@@ -242,13 +242,12 @@ use Cake\Cache\Cache;
                     <div class="crl-process">
                         <span class="crl-text">3</span>
                     </div>
-                        <?= $this->Html->image('arrow_right.png', ['class' => 'img-responsive arrow'])?>  
+                       <?= $this->Html->image('arrow_right.png', ['class' => 'img-responsive arrow','alt' => 'process-arrow'])?>  
                     <div class="prs-text">
                         <span>Customer Process</span>
                     </div>
                 </div>
-                        <?= $this->Html->image('process-section-bg.png', ['class' => 'img-responsive center-block process-img'])?>
-                <p>Customer enjoy the meal and gets printed bill</p>
+                        <?= $this->Html->image('process-section-bg.png', ['class' => 'img-responsive center-block process-img','alt' => 'Customer-Process'])?>                <p>Customer enjoy the meal and gets printed bill</p>
 
 
             </div>
@@ -256,7 +255,7 @@ use Cake\Cache\Cache;
                 <div class="process-info center-block">
 
                     <div class="icon center-block">
-                        <?= $this->Html->image('Hotel.png', ['class' => 'hotel-img','style' => 'width: 37px;'])?>  
+                        <?= $this->Html->image('Hotel.png', ['class' => 'hotel-img','alt' => 'process-logo'])?>   
                     </div>
 
                     <div class="crl-process">
@@ -267,8 +266,7 @@ use Cake\Cache\Cache;
                         <span>Restaurant Owner</span>
                     </div>
                 </div>
-                   <?= $this->Html->image('process-section-bg.png', ['class' => 'img-responsive center-block process-img'])?>
-                <p>Owner views repors on Daily, Monthly and Annually</p>
+                   <?= $this->Html->image('process-section-bg.png', ['class' => 'img-responsive center-block process-img','alt' => 'Restaurant-owner-Process'])?>               <p>Owner views repors on Daily, Monthly and Annually</p>
 
 
             </div>
@@ -542,13 +540,13 @@ use Cake\Cache\Cache;
     </div>
 </section>
 <div id="myContactModal" class="modal animated zoomin"> 
-    <div class="modal-dialog" style="margin: 18em auto;">
-        <div class="modal-content" style="color: green">
+    <div class="modal-dialog mail" >
+        <div class="modal-content" >
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Message Successfully Send.</h4>
             </div>
-            <div class="modal-body" style="height: 6em;">
+            <div class="modal-body mail-body" >
 
                 <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                     <p>Thank You.!<br>We will get back to you soon.....</p>
@@ -560,13 +558,13 @@ use Cake\Cache\Cache;
     </div>
 </div>
 <div id="myErrorModal" class="modal animated zoomin"> 
-    <div class="modal-dialog" style="margin: 18em auto;">
-        <div class="modal-content" style="color: orangered">
+    <div class="modal-dialog mail">
+        <div class="modal-content mail-fail">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Failed to Send Message.</h4>
             </div>
-            <div class="modal-body" style="height: 6em;">
+            <div class="modal-body mail-body" >
 
                 <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                     <p>Sorry.!<br>Please try again.....</p>
@@ -609,4 +607,3 @@ use Cake\Cache\Cache;
         </div>
     </div>
 </footer>
-

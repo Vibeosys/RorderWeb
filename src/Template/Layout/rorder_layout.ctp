@@ -102,45 +102,43 @@ $sec = $this->fetch('sec');
                     </li>
                     <li><a href="">Takeaway</a>
                           <ul class="nav child_menu" style="display: none">
-                                  <li><a href="tableview">Place Order</a>                      
+                                  <li><a href="../takeaway/placeorder">Place Order</a>                      
                                   </li>
-                                 <li><a href="">Generate Bill</a>
+                                 <li><a href="../takeaway/generatebill">Generate Bill</a>
                                 </li>
-                                <li><a href="">Cancel Order</a>
+                                <li><a href="../takeaway/cancelorder">Cancel Order</a>
                                 </li>
-                                <li><a href="">Print KOT</a>
+                                <li><a href="../takeaway/printkot">Print KOT</a>
                                 </li>
-                                <li><a href="">Print Bill</a>
+                                <li><a href="../takeaway/printbill">Print Bill</a>
                                 </li>
                               </ul>
                     </li>
                     <li><a href="">Home-Delivery</a>
                          <ul class="nav child_menu" style="display: none">
-                                  <li><a href="tableview">Place Order</a>                      
+                                  <li><a href="../delivery/placeorder">Place Order</a>                      
                                   </li>
-                                 <li><a href="">Generate Bill</a>
+                                 <li><a href="../delivery/placeorder">Generate Bill</a>
                                 </li>
-                                <li><a href="">Cancel Order</a>
+                                <li><a href="../delivery/placeorder">Cancel Order</a>
                                 </li>
-                                <li><a href="">Print KOT</a>
+                                <li><a href="../delivery/placeorder">Print KOT</a>
                                 </li>
-                                <li><a href="">Print Bill</a>
+                                <li><a href="../delivery/placeorder">Print Bill</a>
                                 </li>
                               </ul>
                     </li>
-                    <li><a href="">Manage Table</a>
+                    <li><a href="../rtables">Manage Table</a>
                     </li>
-                    <li><a href="">Table Category</a>
+                    <li><a href="../tablecategory/addnewtablecategory">Table Category</a>
                     </li>
                   </ul>
                 </li>
                 <li><a><i class="fa fa-cutlery"></i> Kitchen <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="">Menu</a>
+                    <li><a href="../menu">Menu</a>
                     </li>
-                    <li><a href="">Recipe</a>
-                    </li>
-                    <li><a href="">Menu Category</a>
+                    <li><a href="../menucategory/addnewmenucategory">Menu Category</a>
                     </li>
                     <li><a href="">Recipe Category</a>
                     </li>
@@ -154,7 +152,7 @@ $sec = $this->fetch('sec');
                     </li>
                     <li><a href="tables_dynamic.html">Stock Modification</a>
                     </li>
-					<li><a href="tables_dynamic.html">Stock Taking</a>
+		    <li><a href="../stocktaking">Stock Taking</a>
                     </li>
                   </ul>
                 </li>
@@ -178,7 +176,7 @@ $sec = $this->fetch('sec');
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="e_commerce.html">Edit Info</a>
                     </li>
-                    <li><a href="projects.html">Users</a>
+                    <li><a href="../users">Users</a>
                     </li>
                     <li><a href="project_detail.html">Devices</a>
                     </li>
@@ -261,7 +259,14 @@ $sec = $this->fetch('sec');
        
     <!-- new js  -->
      <?= $this->Html->script('design/jquery.min.js') ?> 
-        <?= $this->Html->script('design/custom.js') ?>  
+        <?= $this->Html->script('design/custom.js') ?> 
+    <?php if($this->fetch('script')){
+                         echo $this->fetch('script');
+                      }else{
+                         echo 'content block not set';
+                      }
+           ?>
+    
 <!--  
 <script>
     
