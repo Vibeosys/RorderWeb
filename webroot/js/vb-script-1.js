@@ -278,7 +278,9 @@ $(document).ready(function(){
       $('.content-wrapper').toggleClass('margin-less');
       $('.content-wrapper').toggleClass('margin-more');
   });
-  
+  $('.close').on('click',function(){
+      $('#popup').css('display','none');
+  });
   
   
 });
@@ -315,7 +317,45 @@ function perform(id){
     if(current_option === 'placeorder'){
         alert(current_option + id);
     }else if(current_option === 'generatebill'){
-        alert(current_option+ id);
+         var cust = '';
+         var billNo = null;
+         $.post('/getcurrenttablecustomer',{table:id},function(response){
+             cust = response.custId; 
+        });
+        $.post('/getwebuser',{},function(result){
+            result.macId = 'WEB:MAC:ADDRESS';
+           
+            var zero = 0;
+            var table = id;
+            var request = '{"user": {"userId":'+ result.userId +','+
+                                '"password":"'+ result.password +'",' +
+                                '"macId":"'+ result.macId +'",' +
+                                '"restaurantId":'+ result.restaurantId +'},' +
+                      ' "data": [{' +
+		 '"operation": "generateBill","operationData": {\"custId\":\"'+ cust +'\",\"tableId\":'+ table +',\"takeawayNo\":'+ zero +',\"deliveryNo\":'+ zero +'}}]}';
+         $.post('/api/v1/upload',request,function(result1){
+             if(result1.errorCode){
+                 $('#popup').css('display','block');
+                 $('#head').text('Error');
+                 $('#head').css('color','red');
+                 $('#msg').text(result1.message);
+             }else{
+                 billNo = result1.dada;
+                 $('#popup').css('display','block');
+                 var html = '';
+                  $.post('/getpaymentoptions',{},function(result){
+                      $.each(result,function(key,value){
+                          html += '<select name="userRole" class="form-control-select" required>';
+                          html += '<>';
+                      });
+                    });
+             }
+             
+        });
+           
+           
+        });
+        
     }else if(current_option === 'cancelorder'){
         alert(current_option+ id);
     }else if(current_option === 'printkot'){
@@ -345,7 +385,15 @@ function takeawayPerform(no){
     if(current_option === 'placeorder'){
         alert(current_option + no);
     }else if(current_option === 'generatebill'){
-        alert(current_option+ no);
+        var strComputer = ".";
+        var objWMIService = GetObject("winmgmts:\\\\" + strComputer + "\\root\\cimv2");
+        var e = new Enumerator(objWMIService.ExecQuery("Select * from Win32_NetworkAdapter","WQL",48));
+
+        for (;!e.atEnd();e.moveNext())
+        {	objItem = e.item();
+                WScript.Echo ("MACAddress: " + objItem.MACAddress)
+        }
+        alert(objItem.MACAddress);
     }else if(current_option === 'cancelorder'){
         alert(current_option+ no);
     }else if(current_option === 'printkot'){

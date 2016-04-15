@@ -5393,3 +5393,7 @@ ul.notifications {
 .copyright-info {
   padding: 8px 0;
 }
+//functionality css changes
+#head,#msg{
+    margin: 20px 20px;
+}

@@ -38,6 +38,17 @@ use Cake\Cache\Cache;
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
+<div id="popup" class="modal animated zoomin"> 
+    <div class="modal-dialog mail" >
+        <div class="modal-content" id="show">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <div class="heading" id="head">
+            </div>
+            <div class="message" id="msg">
+            </div>
+        </div>
+        </div>
+</div>
 <input type="text" class="hidden" id="option" value="<?= $option ?>">
 <?php $this->start('script');?>
 <script>

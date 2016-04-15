@@ -1250,6 +1250,15 @@ span.rest-text{
 	-webkit-transform: translate3d(0, -2.3em, 0) scale3d(0.81, 0.81, 1);
 	transform: translate3d(0, -2.3em, 0) scale3d(0.81, 0.81, 1);
 }
+.item-scope{
+    color: grey;
+    text-align: left;
+    font-size: 10px;
+    display: inline-block;
+    letter-spacing: 1px;
+    margin-left: 16px;
+}
+
 
 
 

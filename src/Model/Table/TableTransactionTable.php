@@ -165,11 +165,15 @@ class TableTransactionTable extends Table {
         return $transactionEntry->count();
     }
     
-    public function getCustomer($tableId) {
+    public function getCustomer($tableId,$restaurantId = null) {
         $conditions = [
             'TableId =' => $tableId];
+        if(!is_null($restaurantId)){
+            $conditions['RestaurantId'] = $restaurantId;
+        }
         $result = $this->connect()->find('all', ['conditions' => $conditions, 'contains' => array('CustId')]);
         if($result->count()){
+            Log::debug($result->first()->CustId);
             return $result->first()->CustId ;
         }  else {
             return null;

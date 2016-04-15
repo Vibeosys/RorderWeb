@@ -20,6 +20,9 @@ Router::scope('/', function ($routes) {
     $routes->connect('rtables', ['controller' => 'RTables', 'action' => 'tableList']);
     $routes->connect('rtables/edittable', ['controller' => 'RTables', 'action' => 'editTable']);
     $routes->connect('users', ['controller' => 'User', 'action' => 'usersList']);
+    $routes->connect('getwebuser', ['controller' => 'User', 'action' => 'getWebUser']);
+    $routes->connect('getpaymentoptions', ['controller' => 'PaymentModeMaster', 'action' => 'getPaymentOptions']);
+    $routes->connect('getcurrenttablecustomer', ['controller' => 'TableTransaction', 'action' => 'getCurrentTableCustomer']);
     $routes->connect('user/addnewuser', ['controller' => 'User', 'action' => 'addNewUser']);
     $routes->connect('user/edituser', ['controller' => 'User', 'action' => 'editUser']);
     $routes->connect('recipeitems/addnewrecipeitems', ['controller' => 'RecipeItemMaster', 'action' => 'addNewRecipeItem']);

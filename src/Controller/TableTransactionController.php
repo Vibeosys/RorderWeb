@@ -110,5 +110,22 @@ class TableTransactionController extends ApiController {
     public function getCurrentCustomer($tableId) {
         return $this->getTableObj()->getCustomer($tableId);
     }
+    
+    public function getCurrentTableCustomer() {
+        $this->autoRender = FALSE;
+       
+        if(!$this->isLogin()){
+            $this->response->body(DTO\ErrorDto::prepareError(141));
+        }
+         if($this->request->is('post')){
+             
+              $data = $this->request->data;
+              $restaurantId = parent::readCookie('cri');
+              Log::debug($data);
+              $cust = $this->getTableObj()->getCustomer($data['table'],$restaurantId);
+              $response['custId'] = $cust;
+              $this->response->body(json_encode($response));
+         }
+    }
 
 }

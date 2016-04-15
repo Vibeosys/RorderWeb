@@ -129,5 +129,25 @@ class UserTable extends Table {
         }
         return $userDto;
     }
+    
+    public function getUserInfo($restaurantId, $userRole) {
+        $conditions = ['RestaurantId =' => $restaurantId,'RoleId =' => $userRole];
+         $users = $this->connect()->find()->where($conditions);
+        $count = $users->count();
+        if (!$count) {
+            return 0;
+        }
+        foreach ($users as $user) {
+            $userDto = new DownloadDTO\UserDownloadDto(
+                    $user->UserId, 
+                    $user->UserName, 
+                    $user->Password, 
+                    $user->Active, 
+                    $user->RoleId, 
+                    $user->RestaurantId);
+
+        }
+        return $userDto;
+    }
 
 }

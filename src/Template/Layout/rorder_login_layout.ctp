@@ -16,7 +16,7 @@ $this->layout = false;
       <!-- Meta -->
       <meta charset="utf-8">
       <meta name="keywords" content="QuickServe mobile app, QuickServe restaurant management system, Restaurant POS billing, Popular POS for restaurants, Restaurant management system, Popular restaurant systems, Mobile app for restaurant POS" />
-      <meta name="description" content="QuickServe is a in-house restaurant ordering system for dine-in restaurants. QuickServe app helps Steward and Chef to exchange orders from customers.">
+       <meta itemprop="description" itemscope itemtype="http://schema.org/SoftwareApplication" name="description" content="QuickServe is a in-house restaurant ordering system for dine-in restaurants. QuickServe app helps Steward and Chef to exchange orders from customers.">
       <title>QuickServe | Mobile App for Restaurant POS, Popular POS for restaurants | A Vibeosys.com product</title>
       <!-- Mobile Metas -->
        
@@ -50,10 +50,11 @@ $this->layout = false;
 		<meta name="twitter:app:id:googleplay" content="https://play.google.com/store/apps/details?id=com.vibeosys.rorderapp&amp;hl=en" />
 		<meta name="twitter:app:name:googleplay" content="QuickServe" />
 		<meta name="twitter:app:country" content="in">
-	  
+	 
+                <link rel="canonical" href="http://quickserve.vibeosys.com/" />
 	  <!-- Favicon-->
 	  
-	 <?= $this->Html->meta ( 'favicon.ico', '/favicon.ico', array ('type' => 'icon' ) )?>
+	   <link rel="icon" type="image/ico" href="favicon.ico" />
 	   <link rel="apple-touch-icon-precomposed" href="favicon.ico" />
       <!-- Google Webfont -->
       <link href='http://fonts.googleapis.com/css?family=Vampiro+One' rel='stylesheet' type='text/css'>

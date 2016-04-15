@@ -432,7 +432,7 @@ class UploadController extends ApiController {
                 $this->response->body(DTO\ErrorDto::prepareError(107));
                 return 0;
         }
-        $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Bill has been generated'));
+        $this->response->body(DTO\ErrorDto::prepareSuccessMessage('Bill has been generated',$generateBillResult));
         foreach ($customerOrders as $billedOrder){
             $changeOrderStatusResult = $orderController->changeOrderStatus(
                      $billedOrder->orderId, 

@@ -16,9 +16,13 @@ class ErrorDto {
     
     public $errorCode;
     public $message;
-    
-    
-    
+    public $data;
+
+
+
+
+
+
     //format {"errorCode":"100", "message":"User is not authenticated"}
     public static function prepareError($errorcode) {
         
@@ -28,11 +32,12 @@ class ErrorDto {
         return json_encode($errorDto);
     }
     
-     public static function prepareSuccessMessage($message) {
+     public static function prepareSuccessMessage($message, $data = 0) {
         
         $errorDto = new ErrorDto();
         $errorDto->errorCode = 0;
         $errorDto->message = $message;
+        $errorDto->data = $data;
         return json_encode($errorDto);
     }
     
@@ -85,7 +90,8 @@ class ErrorDto {
         137 => 'Oops ! Table information not updated',
         138 => 'Oops ! Request with empty customer information',
         139 => 'Oops ! Customer details can not added',
-        140 => 'Oops ! Error not added'
+        140 => 'Oops ! Error not added',
+        141 => 'Oops ! Not Found'
        ];
     
 }

@@ -42,4 +42,14 @@ class PaymentModeMasterController extends ApiController{
         return $preparedStatements;
     }
     
+    public function getPaymentOptions() {
+        $this->autoRender = FALSE;
+        if($this->request->is('post')){
+         $data = $this->getPaymetModes();
+         $this->response->body(json_encode($data));
+        }else{
+            $this->response->body(0);
+        }
+    }
+    
 }

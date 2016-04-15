@@ -175,5 +175,16 @@ class UserController extends ApiController {
         }
     }
     
+    public function getWebUser() {
+        $this->autoRender = FALSE;
+      if(!$this->isLogin()){
+          $this->redirect('login');
+      }
+      $restaurantId = parent::readCookie('cri');
+      $userRole = 4;
+      $userinfo = $this->getTbaleObj()->getUserInfo($restaurantId, $userRole);
+      $this->response->body(json_encode($userinfo));
+    }
+    
     
 }

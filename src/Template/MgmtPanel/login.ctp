@@ -163,7 +163,7 @@ use Cake\Cache\Cache;
                     <h4 class="text-right google-text">Now available on</h4>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin-top">
-                    <a href="https://play.google.com/store/apps/details?id=com.vibeosys.rorderapp&amp;hl=en" target="_blank">
+                   <a itemprop="installUrl" itemscope itemtype="http://schema.org/installUrl" href="https://play.google.com/store/apps/details?id=com.vibeosys.rorderapp&amp;hl=en" target="_blank" >
                    <?= $this->Html->image('google-play-badge.png', ['class' => 'img-responsive','style'=> 'width: 186px;','alt' => 'google-play'])?>      
                     </a>
                 </div>
@@ -533,6 +533,20 @@ use Cake\Cache\Cache;
                   </span>
                </div>
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 margin-bottom">
+                    <div itemscope itemtype="http://schema.org/SoftwareApplication" class="item-scope">
+  <span itemprop="name" >QuickServe</span> -REQUIRES <span itemprop="operatingSystem">ANDROID</span>
+  <link itemprop="applicationCategory" href="http://schema.org/MobileApplication"/>
+    <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">RATING:
+    <span itemprop="ratingValue">4.5</span> (<span itemprop="ratingCount">9000</span> ratings )
+	<link itemprop="image" itemscope itemtype="http://schema.org/image"  href="http://quickserve.vibeosys.com/img/quickserve-small-logo.png" />
+	
+  </div>
+
+  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    Price: $<span itemprop="price">0.00</span>
+    <meta itemprop="priceCurrency" content="USD" />
+  </div>
+</div>
                     <input type="button" id="mail-send-btn" name="contact" value="Submit" class="form-control sub-btn-contact">
                 </div>
             </form>
