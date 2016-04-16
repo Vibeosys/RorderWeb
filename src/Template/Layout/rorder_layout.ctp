@@ -38,6 +38,7 @@ $sec = $this->fetch('sec');
  <?= $this->Html->css('design/animate.min.css') ?>
     <?= $this->Html->css('design/custom.css') ?>
     <?= $this->Html->css('design/font-awesome.css') ?>
+    <?= $this->Html->css('design/admin.style.css') ?>
      
   
 </head>
@@ -73,19 +74,17 @@ $sec = $this->fetch('sec');
           <!-- /menu prile quick info -->
 
           <br />
-
-          <!-- sidebar menu -->
-          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-
+           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-           <h3>&nbsp;</h3>
+              <h3>&nbsp;</h3>
               <ul class="nav side-menu">
-                <li class="active"><a href=""><i class="fa fa-home"></i> Dashboard </a>
+                <li class="active"><a href="#"><i class="fa fa-home"></i> Dashboard </a>
                 </li>
-                <li><a><i class="fa fa-edit"></i> Order <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                      <li><a>Table View</a>
-                        <ul class="nav child_menu" style="display: none">
+                <li><a><i class="fa fa-edit"></i> Order <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
+                 <ul class="nav child_menu" style="display: none">
+                     <li><a data-toggle="collapse" href="#submenu-table"  aria-expanded="false" aria-controls="collapseExample">Table View <i class="fa fa-chevron-down fa-down-arrow"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                          <div class="collapse" id="submenu-table">
+                            <ul class="nav child_menu sub-child-menu">
                                   <li><a href="../tableview/placeorder">Place Order</a>                      
                                   </li>
                                  <li><a href="../tableview/generatebill">Generate Bill</a>
@@ -94,14 +93,14 @@ $sec = $this->fetch('sec');
                                 </li>
                                 <li><a href="../tableview/printkot">Print KOT</a>
                                 </li>
-                                <li><a href="../tableview/managetable">Manage Table</a>
-                                </li>
                                 <li><a href="../tableview/printbill">Print Bill</a>
                                 </li>
                               </ul>
-                    </li>
-                    <li><a href="">Takeaway</a>
-                          <ul class="nav child_menu" style="display: none">
+                         </div>
+                      </li>
+                    <li><a data-toggle="collapse" href="#submenu-table2"  aria-expanded="false" aria-controls="collapseExample">Takeaway<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                          <div class="collapse" id="submenu-table2">
+                            <ul class="nav child_menu sub-child-menu">
                                   <li><a href="../takeaway/placeorder">Place Order</a>                      
                                   </li>
                                  <li><a href="../takeaway/generatebill">Generate Bill</a>
@@ -113,20 +112,23 @@ $sec = $this->fetch('sec');
                                 <li><a href="../takeaway/printbill">Print Bill</a>
                                 </li>
                               </ul>
+                         </div>
                     </li>
-                    <li><a href="">Home-Delivery</a>
-                         <ul class="nav child_menu" style="display: none">
+                    <li><a data-toggle="collapse" href="#submenu-table3" aria-expanded="false" aria-controls="collapseExample">Home-Delivery<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                          <div class="collapse" id="submenu-table3">
+                            <ul class="nav child_menu sub-child-menu">
                                   <li><a href="../delivery/placeorder">Place Order</a>                      
                                   </li>
-                                 <li><a href="../delivery/placeorder">Generate Bill</a>
+                                 <li><a href="../delivery/generatebill">Generate Bill</a>
                                 </li>
-                                <li><a href="../delivery/placeorder">Cancel Order</a>
+                                <li><a href="../delivery/cancelorder">Cancel Order</a>
                                 </li>
-                                <li><a href="../delivery/placeorder">Print KOT</a>
+                                <li><a href="../delivery/printkot">Print KOT</a>
                                 </li>
-                                <li><a href="../delivery/placeorder">Print Bill</a>
+                                <li><a href="../delivery/printbill">Print Bill</a>
                                 </li>
                               </ul>
+                         </div>
                     </li>
                     <li><a href="../rtables">Manage Table</a>
                     </li>
@@ -134,11 +136,13 @@ $sec = $this->fetch('sec');
                     </li>
                   </ul>
                 </li>
-                <li><a><i class="fa fa-cutlery"></i> Kitchen <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-cutlery"></i> Kitchen <span  class="fa fa-chevron-down fa-down-arrow "></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="../menu">Menu</a>
                     </li>
-                    <li><a href="../menucategory/addnewmenucategory">Menu Category</a>
+                    <li><a href="../menucategory/addnewmenucategory">Recipe</a>
+                    </li>
+                    <li><a href="">Menu Category</a>
                     </li>
                     <li><a href="">Recipe Category</a>
                     </li>
@@ -146,50 +150,82 @@ $sec = $this->fetch('sec');
                     </li>
                   </ul>
                 </li>
-                <li><a><i class="fa fa-table"></i> Inventory Management <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-table"></i>  Inventory Management <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="tables.html">Stock Upload</a>
+                     <li class="stock-upload"><a data-toggle="collapse" href="#submenu-upload" aria-expanded="false" aria-controls="collapseExample">Stock Upload<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                          <div class="collapse" id="submenu-upload">
+                         <ul class="nav child_menu submenu-stock-upload sub-child-menu">
+                                  <li><a href="">Material Stock Upload</a>                      
+                                  </li>
+                                 <li><a href="">Material Brand Stock Upload</a>
+                                </li>
+                                
+                              </ul>
+                         </div>
                     </li>
-                    <li><a href="tables_dynamic.html">Stock Modification</a>
+                    <li>
+                        <a  data-toggle="collapse" href="#submenu-modify" aria-expanded="false" aria-controls="collapseExample">Stock Modification<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                         <div class="collapse" id="submenu-modify">
+                        <ul class="nav child_menu sub-child-menu">
+                                  <li><a href="">Material Stock Modification</a>                      
+                                  </li>
+                                 <li><a href="">Material Brand Stock Modification</a>
+                                </li>
+                                
+                              </ul>
+                        </div>
                     </li>
-		    <li><a href="../stocktaking">Stock Taking</a>
+					<li><a href="../stocktaking">Stock Taking</a>
                     </li>
                   </ul>
                 </li>
-                <li><a><i class="fa fa-bar-chart-o"></i> Reports <span class="fa fa-chevron-down"></span></a>
+                 <li><a><i class="fa fa-bar-chart-o"></i> Reports <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="chartjs.html">Reports 1</a>
+                    <li><a href="">Transaction Report</a>
                     </li>
-                    <li><a href="chartjs2.html">Reports 2</a>
+                    <li><a href="">Order lead time Report</a>
                     </li>
-                    <li><a href="morisjs.html">Reports3</a>
+                    <li><a href="">Sales Report</a>
                     </li>
-                    <li><a href="echarts.html">Reports 4 </a>
+                    <li><a href="">Sales forcast Report</a>
                     </li>
-                    <li><a href="other_charts.html">Reports 5</a>
+                    <li><a href="">Lead tine forcast Report</a>
+                    </li>
+                      <li><a href="">Favourate menu Report</a>
+                    </li>
+                      <li><a href="">Customer Rush hours Report</a>
+                    </li>
+                      <li><a href="">Per stawords sales Report</a>
+                    </li>
+                      <li><a href="">Stock availability  Report</a>
+                    </li>
+                      <li><a href="">Stawords performance Report</a>
+                    </li>
+                      <li><a href="">Material Requisition  Report</a>
+                    </li>
+                      <li><a href="">Brandwise material Requisition Report</a>
                     </li>
                   </ul>
                 </li>
-           
-           
-                <li><a><i class="fa fa-bug"></i> Manage Restaurant <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-bug"></i> Manage Restaurant <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="e_commerce.html">Edit Info</a>
+                    <li><a href="../edit">Edit Info</a>
                     </li>
                     <li><a href="../users">Users</a>
                     </li>
-                    <li><a href="project_detail.html">Devices</a>
+                    <li><a href="">Devices</a>
                     </li>
-                    <li><a href="contacts.html">Configration</a>
+                    <li><a href="">Configration</a>
                     </li>
-                    
-                  </ul>
+                   
+                  </ul> 
                 </li>
-               
               </ul>
             </div>
+              
+          </div> <!-- /sidebar menu -->
 
-          </div>
+          
           <!-- /sidebar menu -->
         </div>
       </div>
@@ -245,20 +281,19 @@ $sec = $this->fetch('sec');
     
     <!-- old js  -->
          <!-- scripts-->
-     <?= $this->Html->script('jQuery-2.1.4.min.js') ?>
-        <?= $this->Html->script('bootstrap.min.js') ?> 
+         <?= $this->Html->script('design/jquery.min.js') ?> 
+        <?= $this->Html->script('design/bootstrap.min.js') ?> 
         <?= $this->Html->script('jQuery-cookie.js') ?>
         <?= $this->Html->script('vb-script-1.js') ?>
-        <?= $this->Html->script('bootstrap-tagsinput.js') ?>
         <?= $this->Html->script('jquery.dataTables.js') ?> 
         <?= $this->Html->script('dataTables.bootstrap.min.js') ?> 
         <?= $this->Html->script('jquery.slimscroll.min.js') ?> 
-        <?= $this->Html->script('Script.js') ?> 
+        
           <?= $this->Html->script('fusioncharts.js') ?> 
         <?= $this->Html->script('fusioncharts.theme.fint.js') ?> 
        
     <!-- new js  -->
-     <?= $this->Html->script('design/jquery.min.js') ?> 
+     
         <?= $this->Html->script('design/custom.js') ?> 
     <?php if($this->fetch('script')){
                          echo $this->fetch('script');

@@ -46,6 +46,7 @@ class PaymentModeMasterController extends ApiController{
         $this->autoRender = FALSE;
         if($this->request->is('post')){
          $data = $this->getPaymetModes();
+         Log::debug(json_encode($data));
          $this->response->body(json_encode($data));
         }else{
             $this->response->body(0);

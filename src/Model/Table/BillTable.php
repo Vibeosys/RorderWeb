@@ -196,4 +196,19 @@ class BillTable extends Table {
             echo 'bill table database error'.$ex;
         }
     }
+    
+    public function getDiscount($restaurantId, $billNo, $discount) {
+         $conditions = array(
+            'conditions' => array('bill.RestaurantId =' => $restaurantId,'bill.BillNo =' => $billNo),
+            'fields' => array('NetAmount'));
+         $disAmt = 0;
+        $billTableEntry = $this->connect()->find('all', $conditions)->toArray();
+        if ($billTableEntry) {
+            $amount = $billTableEntry[0]['NetAmount'];
+            if ($amount) {
+               $disAmt = ($discount/100) * $amount;
+            }
+        }
+        return $disAmt;
+    }
 }

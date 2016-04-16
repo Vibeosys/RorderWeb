@@ -280,10 +280,32 @@ $(document).ready(function(){
   });
   $('.close').on('click',function(){
       $('#popup').css('display','none');
+      $('#myPayment').css('display','none');
+      var check = $('#pcheck').val();
+      if(check === 1){
+      reloadme();
+  }
   });
-  
+  //make payment
+ 
   
 });
+//
+function payBill(billNo, userInfo, table, cust){
+     $('#myPayment').css('display','block');
+     var html = '';
+     $.post('/getpaymentoptions',{},function(result){
+     html += '<select id="pm" name="paymentMode" class="form-control" required>';
+     $.each(result,function(key,value){
+     html += '<option value="'+ value.paymentMOdeId +'">'+ value.paymentModeTitle +' </option>';
+     });
+     html += '<select>';
+     $('#select').html(html);
+     $('.submitbtn').attr('onclick','makepayment(' + billNo +',\''+ userInfo +'\',\''+ table +'\',\''+ cust +'\')');
+    });
+}
+
+
 //blink effect
 function blink(elem, times, speed) {
     if (times > 0 || times < 0) {
@@ -319,42 +341,39 @@ function perform(id){
     }else if(current_option === 'generatebill'){
          var cust = '';
          var billNo = null;
+         var userInfo = '';
          $.post('/getcurrenttablecustomer',{table:id},function(response){
              cust = response.custId; 
         });
-        $.post('/getwebuser',{},function(result){
-            result.macId = 'WEB:MAC:ADDRESS';
-           
-            var zero = 0;
+               var zero = 0;
             var table = id;
-            var request = '{"user": {"userId":'+ result.userId +','+
+            $.post('/getwebuser',{},function(result){
+            result.macId = 'WEB:MAC:ADDRESS';
+             userInfo = '{"user": {"userId":'+ result.userId +','+
                                 '"password":"'+ result.password +'",' +
                                 '"macId":"'+ result.macId +'",' +
-                                '"restaurantId":'+ result.restaurantId +'},' +
-                      ' "data": [{' +
+                                '"restaurantId":'+ result.restaurantId +'},';
+             var  request = userInfo  +  ' "data": [{' +
 		 '"operation": "generateBill","operationData": {\"custId\":\"'+ cust +'\",\"tableId\":'+ table +',\"takeawayNo\":'+ zero +',\"deliveryNo\":'+ zero +'}}]}';
          $.post('/api/v1/upload',request,function(result1){
              if(result1.errorCode){
                  $('#popup').css('display','block');
                  $('#head').text('Error');
                  $('#head').css('color','red');
-                 $('#msg').text(result1.message);
+                 $('#msg').text(result1.errorCode+': '+result1.message);
              }else{
-                 billNo = result1.dada;
-                 $('#popup').css('display','block');
-                 var html = '';
-                  $.post('/getpaymentoptions',{},function(result){
-                      $.each(result,function(key,value){
-                          html += '<select name="userRole" class="form-control-select" required>';
-                          html += '<>';
-                      });
-                    });
+                 billNo = result1.data;
+                 if(confirm(result1.message + '\nMAKE A PAYMENT?') === true){
+                     payBill(billNo,userInfo,table,cust);
+                 }else{
+                     return false;
+                 }
              }
              
         });
            
-           
-        });
+           }); 
+     
         
     }else if(current_option === 'cancelorder'){
         alert(current_option+ id);
@@ -385,15 +404,7 @@ function takeawayPerform(no){
     if(current_option === 'placeorder'){
         alert(current_option + no);
     }else if(current_option === 'generatebill'){
-        var strComputer = ".";
-        var objWMIService = GetObject("winmgmts:\\\\" + strComputer + "\\root\\cimv2");
-        var e = new Enumerator(objWMIService.ExecQuery("Select * from Win32_NetworkAdapter","WQL",48));
-
-        for (;!e.atEnd();e.moveNext())
-        {	objItem = e.item();
-                WScript.Echo ("MACAddress: " + objItem.MACAddress)
-        }
-        alert(objItem.MACAddress);
+      
     }else if(current_option === 'cancelorder'){
         alert(current_option+ no);
     }else if(current_option === 'printkot'){
@@ -413,6 +424,43 @@ function takeawayPerform(no){
         });
         window.location.replace('takeawaybills');
     }
+}
+
+
+function makepayment(bill, userInfo, table, cust){
+    $(":button").val('Please Wait....');
+    var value = $('#pm').val();
+    var dis = $('#discount').val();
+    var disAmt = null;
+     $.post('/getdiscountamount',{discount:dis,billNo:bill},function(result){
+         disAmt = result;
+         var payrequest = userInfo +
+               ' "data": [{' +
+		 '"operation": "payedBill","operationData": {\"billNo\":\"'+ bill +'\",\"isPayed\":1,\"payedBy\":'+ value +',\"discount\":'+ disAmt +'}}]}';   
+         $.post('/api/v1/upload',payrequest,function(result){
+             if(!result.errorCode){
+                 $(":button").val('Submit');
+                 var closerequest = userInfo +
+               ' "data": [{' +
+		 '"operation": "closeTable","operationData": {\"tableId\":\"'+ table +'\",\"custId\":\"'+ cust +'\"}}]}';
+                    $.post('/api/v1/upload',closerequest,function(result){
+                        var tabelclose = userInfo +
+               ' "data": [{' +
+		 '"operation": "tableOccupy","operationData": {\"tableId\":\"'+ table +'\",\"isOccupied\":0}}]}';
+                         $.post('/api/v1/upload',tabelclose,function(result){
+                           $('#pcheck').val('1'); 
+                         });
+                    });
+                 $('#myPayment').css('display','none');
+                 $('#popup').css('display','block');
+                 $('#head').text('Success');
+                 $('#head').css('color','green');
+                 $('#msg').text(result.message);
+             }else{
+             alert('Error in bill Payment');
+         }
+        });
+     });
 }
 
 

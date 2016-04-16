@@ -119,4 +119,18 @@ class BillController  extends ApiController{
         }
         $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
     }
+    
+    public function getDiscountAmount() {
+        $this->autoRender = FALSE;
+        if(!$this->isLogin()){
+            $this->response->body(DTO\ErrorDto::prepareError(104));
+            return;
+        }  else if($this->request->is('post')) {
+            $restaurantId = parent::readCookie('cri');
+            $data = $this->request->data;
+            $disAmt = $this->getTableObj()->getDiscount($restaurantId, $data['billNo'], $data['discount']);
+            Log::debug('Dicount amount :- '.$disAmt);
+            $this->response->body($disAmt); 
+        }
+    }
 }

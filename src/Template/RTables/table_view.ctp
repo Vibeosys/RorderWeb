@@ -42,16 +42,54 @@ use Cake\Cache\Cache;
     <div class="modal-dialog mail" >
         <div class="modal-content" id="show">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <div class="heading" id="head">
+            <div class="heading" id="head" style="padding: 20px 20px">
             </div>
-            <div class="message" id="msg">
+            <div class="message" id="msg" style="padding: 20px 20px">
             </div>
         </div>
         </div>
 </div>
+<div id="myPayment" class="modal animated zoomin">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">MakePayment</h4>
+            </div>
+            <div class="modal-body">
+                    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                        <label for="payment"> Payment By</label>
+                        <div class="contact-form" style="padding: 0px 5px;">
+                            <div id="select" class="form-group has-feedback">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                        <label for="payment"> Add Discount</label>
+                        <div class="contact-form" style="padding: 0px 5px;">
+                            <div id="select" class="form-group has-feedback">
+                                <input class="form-control" type="number" id="discount"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group text-center">
+                            <input type="button" class="form-control center-block submitbtn btn btn-primary" name="submit" value="Submit">
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
 <input type="text" class="hidden" id="option" value="<?= $option ?>">
+<input type="text" class="hidden" id="pcheck" value="">
+
 <?php $this->start('script');?>
 <script>
+    function reloadme(){
+        document.location.reload();
+    }
 var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>' 
       $('.table-list').html(loading);
  $.ajax({

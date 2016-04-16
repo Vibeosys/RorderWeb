@@ -23,6 +23,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('getwebuser', ['controller' => 'User', 'action' => 'getWebUser']);
     $routes->connect('getpaymentoptions', ['controller' => 'PaymentModeMaster', 'action' => 'getPaymentOptions']);
     $routes->connect('getcurrenttablecustomer', ['controller' => 'TableTransaction', 'action' => 'getCurrentTableCustomer']);
+    $routes->connect('getdiscountamount', ['controller' => 'Bill', 'action' => 'getDiscountAmount']);
     $routes->connect('user/addnewuser', ['controller' => 'User', 'action' => 'addNewUser']);
     $routes->connect('user/edituser', ['controller' => 'User', 'action' => 'editUser']);
     $routes->connect('recipeitems/addnewrecipeitems', ['controller' => 'RecipeItemMaster', 'action' => 'addNewRecipeItem']);

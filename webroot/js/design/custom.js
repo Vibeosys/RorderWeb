@@ -4,30 +4,61 @@
  * and open the template in the editor.
  */
 
-/** ******  left menu  *********************** **/
+/** ******  left menu  ***********************/
 $(function () {
-    $('#sidebar-menu li ul').slideUp();
-    $('#sidebar-menu li').removeClass('active');
+    //$('#sidebar-menu li ul').slideUp();
+    //$('#sidebar-menu li').removeClass('active');
 
-    $('#sidebar-menu li').on('click', function() {
-        var link = $('a', this).attr('href');
+    $('#sidebar-menu li').on('click', function() {        
+        
+         var link = $('a', this).attr('href');
 
         if(link) { 
             window.location.href = link;
-        } else {
-            if ($(this).is('.active')) {
+        } 
+        else {
+         if ($(this).is('.active')) {
                 $(this).removeClass('active');
                 $('ul', this).slideUp();
-            } else {
+            } 
+            else {
                 $('#sidebar-menu li').removeClass('active');
                 $('#sidebar-menu li ul').slideUp();
                 
                 $(this).addClass('active');
                 $('ul', this).slideDown();
+                
             }
+        
         }
+        
+        /*
+        
+        var link = $('a', this).attr('href');
+
+        if(link) { 
+            window.location.href = link;
+        } 
+        else {
+            
+            if ($(this).is('.active')) {
+                $(this).removeClass('active');
+                $('ul', this).slideUp();
+            } 
+            else {
+                $('#sidebar-menu li').removeClass('active');
+                $('#sidebar-menu li ul').slideUp();
+                
+                $(this).addClass('active');
+                $('ul', this).slideDown();
+                
+            }
+        }*/
     });
 
+    
+    
+    
     $('#menu_toggle').click(function () {
         if ($('body').hasClass('nav-md')) {
             $('body').removeClass('nav-md').addClass('nav-sm');
@@ -55,6 +86,7 @@ $(function () {
     $('#sidebar-menu a').filter(function () {
         return this.href == url;
     }).parent('li').addClass('current-page').parent('ul').slideDown().parent().addClass('active');
+    
 });
 
 /** ******  /left menu  *********************** **/
@@ -67,11 +99,6 @@ $(window).resize(function () {
 
 
 
-/** ******  tooltip  *********************** **/
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-})
-/** ******  /tooltip  *********************** **/
 /** ******  progressbar  *********************** **/
 if ($(".progress .progress-bar")[0]) {
     $('.progress .progress-bar').progressbar(); // bootstrap 3
@@ -311,16 +338,6 @@ $(function () {
 
 /** ******  Accordion  *********************** **/
 
-/** ******  scrollview  *********************** **/
-$(document).ready(function () {
-
-    $(".scroll-view").niceScroll({
-        touchbehavior: true,
-        cursorcolor: "rgba(42, 63, 84, 0.35)"
-    });
-
-});
-/** ******  /scrollview  *********************** **/
 
 /** ******  NProgress  *********************** **/
 if (typeof NProgress != 'undefined') {

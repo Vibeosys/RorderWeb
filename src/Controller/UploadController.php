@@ -41,6 +41,7 @@ class UploadController extends ApiController {
         $this->autoRender = false;
         date_default_timezone_set('GMT');
         $jsonData = $this->request->input();
+        Log::debug($jsonData);
         if (empty($jsonData)) {
             $this->response->body(DTO\ErrorDto::prepareError(104));
             Log::error('Upload request data is empty');

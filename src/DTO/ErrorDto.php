@@ -68,7 +68,7 @@ class ErrorDto {
         115 => 'Transaction Entries are deleted',
         116 => 'Your device is not registered with us. For registration Please contact on info@vibeosys.com.',
         117 => 'Menu quantity should be greater than zaro(0)',
-        118 => 'Cant generate bill twise',
+        118 => 'Oops ! Cant generate bill',
         119 => 'Error in customer remove',
         120 => 'We cant process takeaway request',
         121 => 'Your username or password is incorrect',
