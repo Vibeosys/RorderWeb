@@ -101,6 +101,7 @@ class OrderController extends ApiController {
             $tableId =parent::readCookie('cti');
             $takeawayNo = parent::readCookie('ctn');
             Log::debug('Now order list shows for table :-'.$tableId);
+            Log::debug('Now order list shows for takeaway :-'.$takeawayNo);
             $latestOrders = $this->getLatestOrders($tableId,$takeawayNo, $restId);
             if(is_null($latestOrders)){
                 $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);

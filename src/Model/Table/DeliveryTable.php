@@ -88,4 +88,46 @@ class DeliveryTable extends Table{
             return false;
         }
     }
+    
+    public function getDelivery($restaurantId) {
+        $previousDate = date(VB_DATE_TIME_FORMAT, strtotime('-2 hour', strtotime(date(VB_DATE_TIME_FORMAT))));
+         $conditions = [
+                            'RestaurantId =' => $restaurantId,
+                           'CreatedDate >' => $previousDate
+                      ];
+        $delivery = FALSE;
+        $order = 'DeliveryNo';
+        $counter = 0;
+        try{
+            $results = $this->connect()
+                    ->find()
+                    ->where($conditions)
+                    ->orderAsc($order);
+            if($results->count()){
+                foreach ($results as $result){
+                    $delivery[$counter] = new DownloadDTO\TakeawayDownloadDto(
+                                    $result->DeliveryNo,
+                                    $result->DeliveryCharges,
+                                    $result->SourceId,
+                                    $result->Discount);
+                }
+            }
+            return $delivery;    
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+    
+    public function getCustomer($deliveryNo, $restaurantId) {
+         $condition = array('RestaurantId =' => $restaurantId,'DeliveryNo =' => $deliveryNo);
+         $conditions = array(
+            'conditions' => $condition,
+            'fields' => array('CustId'));
+        $data = $this->connect()->find('all', $conditions)->first();
+        $result = null;
+        if($data){
+          $result = $data->CustId;
+        }
+        return $result;
+    }
 }

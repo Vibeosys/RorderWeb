@@ -212,9 +212,12 @@ class BillTable extends Table {
         return $disAmt;
     }
     
-    public function getTableBillInfo($tableId, $restaurantId) {
+    public function getBillInfo($tableId,$takeaway, $delivery,$restaurantId) {
+        $condition = array('RestaurantId =' => $restaurantId,'IsPayed =' => 0);
+        if($tableId){$condition['TableId ='] = $tableId;}elseif ($takeaway) {
+            $condition['TakeawayNo ='] = $takeaway;}else{$condition['DeliveryNo ='] = $delivery;}
          $conditions = array(
-            'conditions' => array('RestaurantId =' => $restaurantId,'TableId =' => $tableId, 'IsPayed =' => 0),
+            'conditions' => $condition,
             'fields' => array('BillNo', 'CustId'));
         $billTableEntry = $this->connect()->find('all', $conditions)->first();
         $result = null;

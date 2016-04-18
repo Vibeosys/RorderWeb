@@ -15,14 +15,18 @@ namespace App\DTO\DownloadDTO;
  */
 class TakeawayDownloadDto {
     
-    public  $tno;//takeawayNo
+    public $tno;//takeawayNo
     public $tdc;//takeawaydelivetcharges
     public $tsi;//takeawaysourceId
-    
-    public function __construct($takeawayNo = null, $deliveryCharges = null, $sourceId = null) {
+    public $disPer;
+
+
+    public function __construct($takeawayNo = null, $deliveryCharges = null, 
+            $sourceId = null, $disPer = null) {
         
         $this->tno = $takeawayNo;
         $this->tdc = $deliveryCharges;
         $this->tsi = $sourceId;
+        $this->disPer = $disPer;
     }
 }

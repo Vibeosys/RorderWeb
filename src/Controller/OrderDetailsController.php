@@ -62,12 +62,12 @@ class OrderDetailsController extends ApiController {
     public function orderPrintPreview() {
         $result = isset($_COOKIE['coi']);
         if(1){
-            $orderId = $_COOKIE['coi'];
-            $orderNo = $_COOKIE['cono'];
-            $tableNo = $_COOKIE['ctno'];
-            $takeawayNo = $_COOKIE['ctkno'];
-            $userName = $_COOKIE['csb'];
-            $orderTime = $_COOKIE['cot'];
+            $orderId = parent::readCookie('coi');
+            $orderNo = parent::readCookie('cono');
+            $tableNo = parent::readCookie('ctno');
+            $takeawayNo = parent::readCookie('ctkno');
+            $userName = parent::readCookie('csb');
+            $orderTime = parent::readCookie('cot');
             $orderDetails = $this->getTableObj()->getKotDetails($orderId);
             Log::debug('letest order details :-'.json_encode($orderDetails));
             $this->set([

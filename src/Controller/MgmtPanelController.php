@@ -204,6 +204,25 @@ class MgmtPanelController extends ApiController{
         }
     }
     
+    public function getDelivery() {
+        $this->autoRender = FALSE;
+        if(!$this->isLogin()){
+            $this->response->body(0);
+            return;
+        }    
+        $restId = parent::readCookie('cri');
+        if(isset($restId) and $this->request->is('ajax') ){
+            Log::debug('Ajax request hited for delivery');
+            $deliveryController = new DeliveryController();
+            $latestDelivery = $deliveryController->getDeliveries($restId);
+            if($latestDelivery){
+            $this->response->body(json_encode($latestDelivery));
+            }  else {
+                $this->response->body(0);
+            }
+        }
+    }
+    
     public function printPreview() {
             $tableId = parent::readCookie('cti');
             $takeawayNo = parent::readCookie('ctn');

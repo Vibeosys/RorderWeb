@@ -281,17 +281,22 @@ $(document).ready(function(){
   $('.close').on('click',function(){
       $('#popup').css('display','none');
       $('#myPayment').css('display','none');
-      var check = $('#pcheck').val();
-      if(check === 1){
-      reloadme();
-  }
+     var text = $('#head').text();
+     if('Payment Success' === text){
+         reloadme();
+     }
+     
   });
   //make payment
  
   
 });
+
+function reloadme(){
+        document.location.reload();
+    }
 //
-function payBill(billNo, userInfo, table, cust){
+function payBill(billNo, userInfo, table,takeaway, delivery, cust, discount){
      $('#myPayment').css('display','block');
      var html = '';
      $.post('/getpaymentoptions',{},function(result){
@@ -301,7 +306,11 @@ function payBill(billNo, userInfo, table, cust){
      });
      html += '<select>';
      $('#select').html(html);
-     $('.submitbtn').attr('onclick','makepayment(' + billNo +',\''+ userInfo +'\',\''+ table +'\',\''+ cust +'\')');
+     if(discount){
+           $('#discount').attr('disabled','disabled');
+            $('#discount').val(discount);
+        }
+     $('.submitbtn').attr('onclick','makepayment(' + billNo +',\''+ userInfo +'\',\''+ table +'\',\''+ takeaway +'\',\''+ delivery +'\',\''+ cust +'\')');
     });
 }
 
@@ -334,35 +343,36 @@ function printtakeaway(){
 }
 
 //table view all operation
-function perform(id){
+function perform(table,takwaway,delivery,discount,deliveryCharge){
     var current_option = $('#option').val();
     if(current_option === 'placeorder'){
-        alert(current_option + id);
+        alert(current_option + table);
     }else if(current_option === 'generatebill'){
          var cust = '';
          var billNo = null;
          var userInfo = '';
-         var zero = 0;
-         var table = id;
+         var delivery = delivery;
+         var takeaway = takwaway;
+         var table = table;
         $.post('/getwebuser',{},function(result){
             result.macId = 'WEB:MAC:ADDRESS';
             userInfo = '{"user": {"userId":'+ result.userId +','+
                                 '"password":"'+ result.password +'",' +
                                 '"macId":"'+ result.macId +'",' +
                                 '"restaurantId":'+ result.restaurantId +'},';
-            $.post('/getlatesttablebill',{table:table},function(result){
+            $.post('/getlatestbill',{table:table,takeaway:takeaway,delivery:delivery},function(result){
             if(result){
                 if(confirm('Bill was generated for this Table' + '\nMAKE A PAYMENT?') === true){
-                     payBill(result.BillNo,userInfo,table,result.CustId);
+                     payBill(result.BillNo,userInfo,table,takeaway,delivery,result.CustId,discount);
                  }else{
                      return false;
                  }
             }else{
-        $.post('/getcurrenttablecustomer',{table:id},function(response){
+        $.post('/getcurrenttablecustomer',{table:table,takeaway:takeaway,delivery:delivery},function(response){
              cust = response.custId; 
         
          var  request = userInfo +  ' "data": [{' +
-		 '"operation": "generateBill","operationData": {\"custId\":\"'+ cust +'\",\"tableId\":'+ table +',\"takeawayNo\":'+ zero +',\"deliveryNo\":'+ zero +'}}]}';
+		 '"operation": "generateBill","operationData": {\"custId\":\"'+ cust +'\",\"tableId\":'+ table +',\"takeawayNo\":'+ takeaway +',\"deliveryNo\":'+ delivery +'}}]}';
         $.post('/api/v1/upload',request,function(result1){
              if(result1.errorCode){
                  $('#popup').css('display','block');
@@ -372,7 +382,7 @@ function perform(id){
              }else{
                  billNo = result1.data;
                  if(confirm(result1.message + '\nMAKE A PAYMENT?') === true){
-                     payBill(billNo,userInfo,table,cust);
+                     payBill(billNo,userInfo,table,takeaway,delivery,cust,discount);
                  }else{
                      return false;
                  }
@@ -383,9 +393,9 @@ function perform(id){
         });  
         });   
     }else if(current_option === 'cancelorder'){
-        alert(current_option+ id);
+        alert(current_option+ table);
     }else if(current_option === 'printkot'){
-         $.post('/setcookie',{name:'cti',value:id},function(result){
+         $.post('/setcookie',{name:'cti',value:table},function(result){
         
         });
         $.post('/setcookie',{name:'ctn',value:0},function(result){
@@ -393,9 +403,9 @@ function perform(id){
         });
         window.location.replace('tableorders');
     }else if(current_option === 'managetable'){
-        alert(current_option+ id);
+        alert(current_option+ table);
     }else if(current_option === 'printbill'){
-        $.post('/setcookie',{name:'cti',value:id},function(result){
+        $.post('/setcookie',{name:'cti',value:table},function(result){
         
         });
         $.post('/setcookie',{name:'ctn',value:0},function(result){
@@ -406,35 +416,7 @@ function perform(id){
     
 }
 
-function takeawayPerform(no){
-     var current_option = $('#option').val();
-    if(current_option === 'placeorder'){
-        alert(current_option + no);
-    }else if(current_option === 'generatebill'){
-      
-    }else if(current_option === 'cancelorder'){
-        alert(current_option+ no);
-    }else if(current_option === 'printkot'){
-         $.post('/setcookie',{name:'cti',value:0},function(result){
-        
-        });
-        $.post('/setcookie',{name:'ctn',value:no},function(result){
-        
-        });
-        window.location.replace('takeawayorders');
-    }else if(current_option === 'printbill'){
-        $.post('/setcookie',{name:'cti',value:0},function(result){
-        
-        });
-        $.post('/setcookie',{name:'ctn',value:no},function(result){
-        
-        });
-        window.location.replace('takeawaybills');
-    }
-}
-
-
-function makepayment(bill, userInfo, table, cust){
+function makepayment(bill, userInfo, table, takeaway, delivery, cust){
     $(":button").val('Please Wait....');
     var value = $('#pm').val();
     var dis = $('#discount').val();
@@ -447,6 +429,7 @@ function makepayment(bill, userInfo, table, cust){
          $.post('/api/v1/upload',payrequest,function(result){
              if(!result.errorCode){
                  $(":button").val('Submit');
+                 if(table){
                  var closerequest = userInfo +
                ' "data": [{' +
 		 '"operation": "closeTable","operationData": {\"tableId\":\"'+ table +'\",\"custId\":\"'+ cust +'\"}}]}';
@@ -457,10 +440,11 @@ function makepayment(bill, userInfo, table, cust){
                          $.post('/api/v1/upload',tabelclose,function(result){
                            $('#pcheck').val('1'); 
                          });
-                    });
+                    });}
+                    $('#pcheck').val('1'); 
                  $('#myPayment').css('display','none');
                  $('#popup').css('display','block');
-                 $('#head').text('Success');
+                 $('#head').text('Payment Success');
                  $('#head').css('color','green');
                  $('#msg').text(result.message);
              }else{
@@ -492,13 +476,13 @@ function takeawaypopup(id) {
 }
 
 function kotprint(id,cono,ctno,ctkno,csb,cot) {
-    $.cookie("coi", id, { expires : 1 });
-    $.cookie("cono", cono, { expires : 1 });
-    $.cookie("ctno", ctno, { expires : 1 });
-    $.cookie("ctkno", ctkno, { expires : 1 });
-    $.cookie("csb", csb, { expires : 1 });
-    $.cookie("cot", cot, { expires : 1 });
-    window.open("orderprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
+      $.post('/setcookie',{name:'coi',value:id},function(result){});
+      $.post('/setcookie',{name:'cono',value:cono},function(result){});
+      $.post('/setcookie',{name:'ctno',value:ctno},function(result){});
+      $.post('/setcookie',{name:'ctkno',value:ctkno},function(result){});
+      $.post('/setcookie',{name:'csb',value:csb},function(result){});
+      $.post('/setcookie',{name:'cot',value:cot},function(result){});
+    window.open("../orderprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
 }
 
 function errorpopup(){

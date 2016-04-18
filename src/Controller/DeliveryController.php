@@ -23,6 +23,13 @@ class DeliveryController extends ApiController{
          return  $this->getTableObj()->getMaxNo($restaurantId) + 1;
     }
     
+    public function getDeliveries($restaurantId) {
+        return $this->getTableObj()->getDelivery($restaurantId);
+    }
+    
+    public function getCurrentCustomer($deliveryNo, $restaurantId) {
+        return $this->getTableObj()->getCustomer($deliveryNo, $restaurantId);
+    }
     public function addDeliveryEntry($deliveryRequest, $userInfo) {
         $deliveryResult = $this->getTableObj()->insert(
                 $deliveryRequest, 
@@ -38,5 +45,13 @@ class DeliveryController extends ApiController{
                     $userInfo->restaurantId);
         }
         return $deliveryResult;
+    }
+    
+     public function deliveryView() {
+          $data = explode('/', $this->request->url);
+        echo $data[1];
+        $this->set([
+            'option' => $data[1]
+        ]);
     }
 }

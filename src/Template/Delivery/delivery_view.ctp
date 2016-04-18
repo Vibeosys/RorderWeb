@@ -9,7 +9,7 @@ use Cake\Cache\Cache;
 
     $this->layout = false;
     $this->layout = 'rorder_layout';
-    $this->assign('title', 'Table View');
+    $this->assign('title', 'Takeaway');
     //$this->assign('script','var loading=\'<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>\';$(".table-list").html(loading),$.ajax({url:"/gettables",type:"POST",contentType:!1,cache:!1,processData:!1,success:function(e,t,a){if(e){var s="";$.each(e,function(e,t){s=t.isOccupied?s+\'<div class="print-table-button col-xs-2" onclick="perform(\'+t.tableId+\')" style="border-bottom: 8px solid rgba(247, 0, 0, 0.48);">\'+t.tableNo+" </div>":s+\'<div class="print-table-button col-xs-2" onclick="perform(\'+t.tableId+\')" style="border-bottom: 8px solid rgba(0, 128, 0, 0.55);">\'+t.tableNo+" </div>",$(".table-list").html(s)})}else{var s=\'<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>\';$(".table-list").html(s)}},error:function(e,t,a){var s=\'<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>\';$(".table-list").html(s)}});');
 ?>
 
@@ -85,14 +85,12 @@ use Cake\Cache\Cache;
 <input type="text" class="hidden" id="option" value="<?= $option ?>">
 <input type="text" class="hidden" id="pcheck" value="">
 <input type="text" class="hidden" id="webUser" >
-
 <?php $this->start('script');?>
 <script>
-    
 var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>' 
       $('.table-list').html(loading);
  $.ajax({
-                        url: "/gettables",
+                        url: "/getdelivery",
                         type: "POST",
                         contentType: false,
                         cache: false,
@@ -101,26 +99,21 @@ var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.g
                             if (result) {
                                   var printhtml = '';
                                $.each(result, function(idx, obj){
-                                   if(obj.isOccupied){
-                                    printhtml = printhtml + '<div class="print-table-button col-xs-2" onclick="perform(' +obj.tableId +',0,0)" style="border-bottom: 8px solid rgba(247, 0, 0, 0.48);">'
-                                                        +  obj.tableNo +' </div>'; 
-                                   }else{
-                                  
-                                    printhtml = printhtml + '<div class="print-table-button col-xs-2" onclick="perform(' +obj.tableId +',0,0)" style="border-bottom: 8px solid rgba(0, 128, 0, 0.55);">'
-                                                      +  obj.tableNo +' </div>'; 
-                                   }
-                               $('.table-list').html(printhtml);
+                                   
+                                    printhtml = printhtml + '<div class="print-table-button col-xs-2" onclick="perform(0,0,' + obj.tno +',' + obj.disPer +',' + obj.tdc +')">'
+                                                     + '#' +  obj.tno +'</div>'; 
                                });
+                               $('.table-list').html(printhtml);
+                               
                             } else {
-                                var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
+                                var printhtml = '<div style="font-size: 40px;color: red;text-align: center;" class="alert"><strong>Info!</strong> No active delivery now.</div>';
                             $('.table-list').html(printhtml);
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
+                            var printhtml = '<div style="font-size: 40px;color: red;text-align: center;" class="alert"><strong>Info!</strong> No active delivery now.</div>';
                             $('.table-list').html(printhtml);
                         }});
-
 
 </script>
 

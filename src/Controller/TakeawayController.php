@@ -42,6 +42,10 @@ class TakeawayController extends ApiController{
         return $takeawayResult;
     }
     
+    public function getTakeawayCustomer($takeawayNo, $restaurantId) {
+        return $this->getTableObj()->getCustomer($takeawayNo, $restaurantId);
+    }
+    
     public function getLatestTakeaway($restaurantId) {
         return $this->getTableObj()->getTakeaway($restaurantId);
     }

@@ -42,7 +42,8 @@ class TakeawayTable extends Table{
                             new DownloadDTO\TakeawayDownloadDto(
                                     $result->TakeawayNo, 
                                     $result->DeliveryCharges, 
-                                    $result->SourceId);
+                                    $result->SourceId,
+                                    $result->Discount);
                 }
             }
             return $allTakeaway;    
@@ -113,5 +114,18 @@ class TakeawayTable extends Table{
         } catch (Exception $ex) {
             return false;
         }
+    }
+    
+    public function getCustomer($takeawayNo, $restaurantId) {
+        $condition = array('RestaurantId =' => $restaurantId,'TakeawayNo =' => $takeawayNo);
+         $conditions = array(
+            'conditions' => $condition,
+            'fields' => array('CustId'));
+        $data = $this->connect()->find('all', $conditions)->first();
+        $result = null;
+        if($data){
+          $result = $data->CustId;
+        }
+        return $result;
     }
 }

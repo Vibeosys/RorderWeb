@@ -134,7 +134,7 @@ class BillController  extends ApiController{
         }
     }
     
-    public function getLatestTableBill() {
+    public function getLatestBill() {
          $this->autoRender = FALSE;
         if(!$this->isLogin()){
             $this->response->body(DTO\ErrorDto::prepareError(104));
@@ -143,7 +143,7 @@ class BillController  extends ApiController{
             $restaurantId = parent::readCookie('cri');
             $data = $this->request->data;
             Log::debug($data);
-            $result = $this->getTableObj()->getTableBillInfo($data['table'], $restaurantId);
+            $result = $this->getTableObj()->getBillInfo($data['table'],$data['takeaway'],$data['delivery'], $restaurantId);
             if(is_null($result)){
                 $this->response->body(0);
             }else{

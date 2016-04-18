@@ -165,7 +165,7 @@ class OrderTable extends Table {
     public function getTableOrders($tableId, $takeawayNo, $restaurantId) {
           $allOrders = NULL;
            $condition = ['RestaurantId =' => $restaurantId,
-                    'OrderStatus =' => PLACED_ORDER_STATUS];
+                    'OrderStatus =' => FULFILLED_ORDER_STATUS];
                 if($tableId){
                     $condition['TableId ='] = $tableId;
                 }  else {

@@ -118,12 +118,19 @@ class TableTransactionController extends ApiController {
             $this->response->body(DTO\ErrorDto::prepareError(141));
         }
          if($this->request->is('post')){
-             
-              $data = $this->request->data;
               $restaurantId = parent::readCookie('cri');
-              Log::debug($data);
-              $cust = $this->getTableObj()->getCustomer($data['table'],$restaurantId);
-              $response['custId'] = $cust;
+              $data = $this->request->data;
+              if($data['table']){
+                Log::debug($data);
+                $cust = $this->getTableObj()->getCustomer($data['table'],$restaurantId);
+                $response['custId'] = $cust;
+              }elseif ($data['takeaway']) {
+                $takeawayController = new TakeawayController();
+                $response['custId'] = $takeawayController->getTakeawayCustomer($data['takeaway'], $restaurantId);
+              }elseif ($data['delivery']) {
+                $deliveryController = new DeliveryController();
+                $response['custId'] = $deliveryController->getCurrentCustomer($data['delivery'], $restaurantId);
+              }
               $this->response->body(json_encode($response));
          }
     }
