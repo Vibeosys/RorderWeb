@@ -342,20 +342,28 @@ function perform(id){
          var cust = '';
          var billNo = null;
          var userInfo = '';
-         $.post('/getcurrenttablecustomer',{table:id},function(response){
-             cust = response.custId; 
-        });
-               var zero = 0;
-            var table = id;
-            $.post('/getwebuser',{},function(result){
+         var zero = 0;
+         var table = id;
+        $.post('/getwebuser',{},function(result){
             result.macId = 'WEB:MAC:ADDRESS';
-             userInfo = '{"user": {"userId":'+ result.userId +','+
+            userInfo = '{"user": {"userId":'+ result.userId +','+
                                 '"password":"'+ result.password +'",' +
                                 '"macId":"'+ result.macId +'",' +
                                 '"restaurantId":'+ result.restaurantId +'},';
-             var  request = userInfo  +  ' "data": [{' +
+            $.post('/getlatesttablebill',{table:table},function(result){
+            if(result){
+                if(confirm('Bill was generated for this Table' + '\nMAKE A PAYMENT?') === true){
+                     payBill(result.BillNo,userInfo,table,result.CustId);
+                 }else{
+                     return false;
+                 }
+            }else{
+        $.post('/getcurrenttablecustomer',{table:id},function(response){
+             cust = response.custId; 
+        
+         var  request = userInfo +  ' "data": [{' +
 		 '"operation": "generateBill","operationData": {\"custId\":\"'+ cust +'\",\"tableId\":'+ table +',\"takeawayNo\":'+ zero +',\"deliveryNo\":'+ zero +'}}]}';
-         $.post('/api/v1/upload',request,function(result1){
+        $.post('/api/v1/upload',request,function(result1){
              if(result1.errorCode){
                  $('#popup').css('display','block');
                  $('#head').text('Error');
@@ -369,12 +377,11 @@ function perform(id){
                      return false;
                  }
              }
-             
-        });
-           
            }); 
-     
-        
+       });
+           }
+        });  
+        });   
     }else if(current_option === 'cancelorder'){
         alert(current_option+ id);
     }else if(current_option === 'printkot'){

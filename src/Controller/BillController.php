@@ -133,4 +133,23 @@ class BillController  extends ApiController{
             $this->response->body($disAmt); 
         }
     }
+    
+    public function getLatestTableBill() {
+         $this->autoRender = FALSE;
+        if(!$this->isLogin()){
+            $this->response->body(DTO\ErrorDto::prepareError(104));
+            return;
+        }  else if($this->request->is('post')) {
+            $restaurantId = parent::readCookie('cri');
+            $data = $this->request->data;
+            Log::debug($data);
+            $result = $this->getTableObj()->getTableBillInfo($data['table'], $restaurantId);
+            if(is_null($result)){
+                $this->response->body(0);
+            }else{
+                $this->response->body(json_encode($result));
+            }
+            Log::debug('data :- '. json_encode($result));
+        }
+    }
 }

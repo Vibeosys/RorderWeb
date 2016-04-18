@@ -24,6 +24,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('getpaymentoptions', ['controller' => 'PaymentModeMaster', 'action' => 'getPaymentOptions']);
     $routes->connect('getcurrenttablecustomer', ['controller' => 'TableTransaction', 'action' => 'getCurrentTableCustomer']);
     $routes->connect('getdiscountamount', ['controller' => 'Bill', 'action' => 'getDiscountAmount']);
+    $routes->connect('getlatesttablebill', ['controller' => 'Bill', 'action' => 'getLatestTableBill']);
     $routes->connect('user/addnewuser', ['controller' => 'User', 'action' => 'addNewUser']);
     $routes->connect('user/edituser', ['controller' => 'User', 'action' => 'editUser']);
     $routes->connect('recipeitems/addnewrecipeitems', ['controller' => 'RecipeItemMaster', 'action' => 'addNewRecipeItem']);

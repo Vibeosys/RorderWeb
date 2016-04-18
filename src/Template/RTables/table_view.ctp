@@ -84,6 +84,7 @@ use Cake\Cache\Cache;
 </div>
 <input type="text" class="hidden" id="option" value="<?= $option ?>">
 <input type="text" class="hidden" id="pcheck" value="">
+<input type="text" class="hidden" id="webUser" >
 
 <?php $this->start('script');?>
 <script>

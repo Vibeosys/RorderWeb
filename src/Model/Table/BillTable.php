@@ -211,4 +211,16 @@ class BillTable extends Table {
         }
         return $disAmt;
     }
+    
+    public function getTableBillInfo($tableId, $restaurantId) {
+         $conditions = array(
+            'conditions' => array('RestaurantId =' => $restaurantId,'TableId =' => $tableId, 'IsPayed =' => 0),
+            'fields' => array('BillNo', 'CustId'));
+        $billTableEntry = $this->connect()->find('all', $conditions)->first();
+        $result = null;
+        if($billTableEntry){
+          $result = $billTableEntry;
+        }
+        return $result;
+    }
 }
