@@ -6,7 +6,7 @@
             function printfunction(id){
                  var html="<html>";
                   html+="<head>";
-                html+= "<style>@font-face{font-family:JQuicksand-Light;src:url(Quicksand-Light.otf) format('truetype')}body{width:230px;height:100%;font-family:sans-serif;font-size:15px}.content-wrapper{width:230px}.restaurant-info{text-align:center;font-size:20px}tbody{border-top:2px dotted gray}table.desc-table{font-family:Quicksand-Light;font-size:16px;text-decoration:none}.amount-desc{text-align:right}.amount-desc > span{margin-right:20px}.small{width:40%;position:relative;left:30%}.footer{height:auto;text-align: center}td{text-align:left}hr{border:.1px dashed gray}span.date-time{font-size:14px;padding-top:4px;padding-left:10px}div.print-button{position:relative;top:-350px;left:60%}input{height:100px;width:200px;font-size:29px;background-color:#dcdcdc;border:1px solid gray;border-radius:5px}.small-width{width:10px}</style>";
+                html+= "<style>body{width:230px;height:100%;font-family:sans-serif;font-size:15px}.content-wrapper{width:230px}.right-position{right: 0;}.restaurant-info{text-align:center;font-size:20px}tbody{border-top:2px dotted gray}table.desc-table{font-family:Quicksand-Light;font-size:16px;text-decoration:none}.amount-desc{text-align:right}.amount-desc > span{margin-right:20px}.small{width:40%;position:relative;left:30%}.footer{height:auto;text-align: center}td{text-align:left}hr{border:.1px dashed gray}span.date-time{font-size:14px;padding-top:4px;padding-left:10px}div.print-button{position:relative;top:-350px;left:60%}input{height:100px;width:200px;font-size:29px;background-color:#dcdcdc;border:1px solid gray;border-radius:5px}.small-width{width:10px}</style>";
                 html+= "</head>";
                 html+= document.getElementById(id).innerHTML;
         
@@ -18,6 +18,11 @@
                 printWin.print();
                 printWin.close();
             }
+            $(document).ready(function(){
+                var width = $('.dis-td').width();
+                var td = 229 - width;
+                $('.td-width').width(td);
+            });
         </script>
     </head>
     <body>
@@ -29,20 +34,22 @@
             <div class="date-time" style="padding-left: 0px">
              <span style="position:relative;left: 0">Order  #<?= $orderNo ?></span>
              <?php if($tableNo){?>
-              <span style="position:absolute;right: 0">Table  #<?= $tableNo ?></span><br>  
-             <?php }else{ ?>
-             <span style="position:absolute;right: 0">Takeaway  #<?= $takeawayNo ?></span><br>  
+              <span class="right-position" style="position:absolute;">Table  #<?= $tableNo ?></span><br>  
+             <?php }else if($takeawayNo){ ?>
+             <span class="right-position" style="position:absolute;">Takeaway  #<?= $takeawayNo ?></span><br> 
+              <?php }else if($deliveryNo){ ?>
+             <span class="right-position" style="position:absolute;">Delivery  #<?= $deliveryNo ?></span><br> 
             <?php } ?>
              <span style="position:relative;left: 0">Served By  <?= $user ?></span>
-            <span style="position:absolute;right: 0">Time <?= $time ?></span>
+             <span class="right-position" style="position:absolute;">Time <?= $time ?></span>
             </div>
             <hr>
             <div class="order-desc">
                 <table class="desc-table">
                     <thead>
                     <th></th>
-                    <th style="text-align: left">Description</th>
-                    <th></th>
+                    <th class="dis-td" style="text-align: left">Description</th>
+                    <th class="td-width"></th>
                     <th style="text-align: right">Qty</th>
                     <th></th>
                     </thead>
@@ -51,7 +58,7 @@
                         <?php foreach ($menus as $menu){ ?>
                         <tr>
                             <td></td>
-                            <td><?= $menu->desc ?><br><span style="margin-left: 20px;font-size: 14px;font-style: italic;"><?= $menu->note ?></span></td>
+                            <td ><?= $menu->desc ?><br><span style="margin-left: 20px;font-size: 14px;font-style: italic;"><?= $menu->note ?></span></td>
                             <td style="width:18px"></td>
                             <td><?= $menu->qty ?></td>
                             <td style="width:6%"></td>

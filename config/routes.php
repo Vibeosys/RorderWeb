@@ -62,8 +62,10 @@ Router::scope('/', function ($routes) {
     $routes->connect('logout', ['controller' => 'MgmtPanel', 'action' => 'logout']);
     $routes->connect('tableview/tableorders', ['controller' => 'Order', 'action' => 'displayOrders']);
     $routes->connect('takeaway/takeawayorders', ['controller' => 'Order', 'action' => 'displayOrders']);
+    $routes->connect('delivery/deliveryorders', ['controller' => 'Order', 'action' => 'displayOrders']);
     $routes->connect('tableview/tablebills', ['controller' => 'Bill', 'action' => 'displayBill']);
     $routes->connect('takeaway/takeawaybills', ['controller' => 'Bill', 'action' => 'displayBill']);
+    $routes->connect('delivery/deliverybills', ['controller' => 'Bill', 'action' => 'displayBill']);
     $routes->connect('gettables', ['controller' => 'MgmtPanel', 'action' => 'getTables']);
     $routes->connect('gettakeaway', ['controller' => 'MgmtPanel', 'action' => 'getTakeaway']);
     $routes->connect('getdelivery', ['controller' => 'MgmtPanel', 'action' => 'getDelivery']);

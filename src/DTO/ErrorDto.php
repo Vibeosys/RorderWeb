@@ -19,10 +19,6 @@ class ErrorDto {
     public $data;
 
 
-
-
-
-
     //format {"errorCode":"100", "message":"User is not authenticated"}
     public static function prepareError($errorcode) {
         

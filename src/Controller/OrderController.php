@@ -89,8 +89,8 @@ class OrderController extends ApiController {
         return $this->getTableObj()->IsOrderPresent($custId, $restaurantId, $orderStatus);
     }
     
-    public function getLatestOrders($tableId, $takeawayNo, $restaurantId) {
-        return $this->getTableObj()->getTableOrders($tableId, $takeawayNo, $restaurantId);
+    public function getLatestOrders($tableId, $takeawayNo,$deliveryNo, $restaurantId) {
+        return $this->getTableObj()->getTableOrders($tableId, $takeawayNo,$deliveryNo, $restaurantId);
     }
     
     public function displayOrders() {
@@ -100,9 +100,11 @@ class OrderController extends ApiController {
         if(isset($restId)){
             $tableId =parent::readCookie('cti');
             $takeawayNo = parent::readCookie('ctn');
+            $deliveryNo = parent::readCookie('cdn');
             Log::debug('Now order list shows for table :-'.$tableId);
             Log::debug('Now order list shows for takeaway :-'.$takeawayNo);
-            $latestOrders = $this->getLatestOrders($tableId,$takeawayNo, $restId);
+            Log::debug('Now order list shows for delivery :-'.$deliveryNo);
+            $latestOrders = $this->getLatestOrders($tableId,$takeawayNo,$deliveryNo, $restId);
             if(is_null($latestOrders)){
                 $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
                 return;
@@ -116,6 +118,7 @@ class OrderController extends ApiController {
                 $order->orderTime = date('H:i',strtotime('+330 minutes',strtotime($order->orderTime)));
                 $order->tableId = $this->isNull($order->tableId);
                 $order->takeawayNo = $this->isNull($order->takeawayNo);
+                $order->deliveryNo = $this->isNull($order->deliveryNo);
             }
             $this->set(['orders' => $latestOrders]);
         }

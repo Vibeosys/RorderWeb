@@ -162,14 +162,16 @@ class OrderTable extends Table {
         }
     }
     
-    public function getTableOrders($tableId, $takeawayNo, $restaurantId) {
+    public function getTableOrders($tableId, $takeawayNo,$deliveryNo, $restaurantId) {
           $allOrders = NULL;
            $condition = ['RestaurantId =' => $restaurantId,
                     'OrderStatus =' => FULFILLED_ORDER_STATUS];
                 if($tableId){
                     $condition['TableId ='] = $tableId;
-                }  else {
+                }  else if($takeawayNo){
                     $condition['TakeawayNo ='] = $takeawayNo;
+                }elseif ($deliveryNo) {
+                    $condition['DeliveryNo ='] = $deliveryNo;
                 }
            $orders = $this->connect()->find()
                 ->where($condition)->orderDesc('OrderNo');
@@ -184,11 +186,11 @@ class OrderTable extends Table {
                         $order->UserId, 
                         $order->TableId,
                         $order->TakeawayNo,
-                        $order->OrderType);
+                        $order->OrderType,
+                        $order->DeliveryNo);
 
                 $allOrders[$counter++] = $orderDto;
             }
-            Log::debug('Orders are retrived for customer ID : ' . $tableId);
         }
         return $allOrders;
     }

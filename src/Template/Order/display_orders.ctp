@@ -29,13 +29,15 @@ use Cake\Cache\Cache;
                         <div class="table-order-list"> 
                           <?php if(isset($orders)){
                           foreach ($orders as $order){ ?>
-                            <div class="order-show col-xs-5" onclick="kotprint('<?= $order->orderId ?>',<?= $order->orderNo ?>,<?= $order->tableId ?>,<?= $order->takeawayNo ?>,'<?= $order->user ?>','<?= $order->orderTime ?>')">
+                            <div class="order-show col-xs-5" onclick="kotprint('<?= $order->orderId ?>',<?= $order->orderNo ?>,<?= $order->tableId ?>,<?= $order->takeawayNo ?>,<?= $order->deliveryNo ?>,'<?= $order->user ?>','<?= $order->orderTime ?>')">
                                 <div class="row">
                                     <div class="order-no col-xs-5"><label>Order #</label> <?= $order->orderNo ?></div>
                                  <?php if($order->tableId){ ?>
                                     <div class="table-no col-xs-5"><label>Table #</label> <?= $order->tableId ?></div>
-                                 <?php }else{ ?>
+                                 <?php }else if($order->takeawayNo){ ?>
                                     <div class="table-no col-xs-5"><label>Takeaway #</label> <?= $order->takeawayNo ?></div>
+                                <?php }else if($order->deliveryNo){ ?>
+                                    <div class="table-no col-xs-5"><label>Delivery #</label> <?= $order->deliveryNo ?></div>
                                  <?php } ?>
                                 </div>
                                 <div class="row">
@@ -45,7 +47,7 @@ use Cake\Cache\Cache;
                             </div>
                           <?php }}else{ ?>
                              <?php if(isset($message)){ ?>
-                                <div class="error-message"><div class="error-img"></div><span class="error-text"><?= $message?></span></div>
+                                <div style="font-size: 40px;color: red;text-align: center;" class="alert"><strong>Info!</strong> No active Order now.</div>
                           <?php }} ?>
                         </div>
                     </div>

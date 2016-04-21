@@ -22,10 +22,12 @@ class OrderShowDownloadDto {
     public $tableId;
     public $takeawayNo;
     public $orderType;
-    
+    public $deliveryNo;
+
+
     public function __construct($orderId = null, $orderNo = null, 
             $orderTime = null, $user = null, $tableId = null, 
-            $takeawayNo = null, $orderType = null) {
+            $takeawayNo = null, $orderType = null, $deliveryNo = null) {
         $this->orderId = $orderId;
         $this->orderNo = $orderNo;
         $this->orderTime = $orderTime;
@@ -33,5 +35,6 @@ class OrderShowDownloadDto {
         $this->tableId = $tableId;
         $this->takeawayNo = $takeawayNo;
         $this->orderType = $orderType;
+        $this->deliveryNo = $deliveryNo;
     }
 }

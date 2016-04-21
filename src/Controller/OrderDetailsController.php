@@ -66,6 +66,7 @@ class OrderDetailsController extends ApiController {
             $orderNo = parent::readCookie('cono');
             $tableNo = parent::readCookie('ctno');
             $takeawayNo = parent::readCookie('ctkno');
+            $deliveryNo = parent::readCookie('cdno');
             $userName = parent::readCookie('csb');
             $orderTime = parent::readCookie('cot');
             $orderDetails = $this->getTableObj()->getKotDetails($orderId);
@@ -74,6 +75,7 @@ class OrderDetailsController extends ApiController {
                 'orderNo' => $orderNo,
                 'tableNo' => $tableNo,
                 'takeawayNo' => $takeawayNo,
+                'deliveryNo' => $deliveryNo,
                 'user' => $userName,
                 'time' => $orderTime,
                 'menus' => $orderDetails
