@@ -226,13 +226,15 @@ class MgmtPanelController extends ApiController{
     public function printPreview() {
             $tableId = parent::readCookie('cti');
             $takeawayNo = parent::readCookie('ctn');
+            $deliveryNo = parent::readCookie('cdn');
             Log::debug('Current tableId :-'.$tableId);
             Log::debug('Current takeawayNo :- '.$takeawayNo);
-             if(empty($tableId) and empty($takeawayNo)){
+            Log::debug('Current delivery number :- '.$takeawayNo);
+             if(!$tableId and !$takeawayNo and !$deliveryNo){
                 $this->redirect('login');
             }
             $billController = new BillController();
-            $billInfo = $billController->getBill($tableId, $takeawayNo);
+            $billInfo = $billController->getBill($tableId, $takeawayNo, $deliveryNo);
             if(is_null($billInfo)){
                 Log::error('Bill has not generated for this table');
                 $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(124),COLOR => ERROR_COLOR]);

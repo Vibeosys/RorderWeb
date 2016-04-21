@@ -46,10 +46,9 @@ class BillController  extends ApiController{
         return false;
     }
     
-    public function getBill($tableId, $takeawayNo) {
-        Log::debug('Bill request arrived for tableId :- '.$tableId);
-        if(isset($tableId)){
-            return $this->getTableObj()->getCustomerBill($tableId, $takeawayNo);
+    public function getBill($tableId, $takeawayNo, $deliveryNo) {
+        if(isset($tableId) or isset($takeawayNo) or isset($deliveryNo)){
+            return $this->getTableObj()->getCustomerBill($tableId, $takeawayNo, $deliveryNo);
         }
         return null;
     }
@@ -99,8 +98,9 @@ class BillController  extends ApiController{
         if(isset($restId)){
             $tableId = parent::readCookie('cti');
             $takeawayNo = parent::readCookie('ctn');
+            $deliveryNo = parent::readCookie('cdn');
             Log::debug('Now bill list shows for table :-'.$tableId .'or for takeawayNo :- '.$takeawayNo);
-            $latestBill = $this->getTableObj()->getTableBill($tableId, $takeawayNo, $restId);
+            $latestBill = $this->getTableObj()->getTableBill($tableId, $takeawayNo,$deliveryNo, $restId);
             if(is_null($latestBill)){
                 $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
                 return;
@@ -115,7 +115,8 @@ class BillController  extends ApiController{
             }
             $this->set(['bills' => $latestBill,
                         'tableId' => $tableId,
-                        'takeawayNo' => $takeawayNo]);
+                        'takeawayNo' => $takeawayNo,
+                        'deliveryNo' => $deliveryNo]);
         }
         $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
     }

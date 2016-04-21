@@ -18,14 +18,16 @@ class TableBillDownloadDto {
     public $billNo;
     public $tableNo;
     public $takeawayNo;
+    public $deliveryNo;
     public $user;
     public $date;
     
     public function __construct($billNo = null, $tableNo = null, 
-            $takeawayNo = null, $user = null, $date = null) {
+            $takeawayNo = null,$deliveryNo = null, $user = null, $date = null) {
         $this->billNo = $billNo;
         $this->tableNo = $tableNo;
         $this->takeawayNo = $takeawayNo;
+        $this->deliveryNo = $deliveryNo;
         $this->user = $user;
         $this->date = $date;
     }

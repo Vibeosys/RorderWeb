@@ -31,15 +31,19 @@ use Cake\Cache\Cache;
                           foreach ($bills as $bill){ ?>
                             <?php if($tableId){?>
                             <div class="order-show col-xs-5" onclick="tablepopup(<?= $tableId ?>)">
-                               <?php }else{ ?>
+                               <?php }else if($takeawayNo){ ?>
                                 <div class="order-show col-xs-5" onclick="takeawaypopup(<?= $takeawayNo ?>)">
+                               <?php }else{ ?>
+                                <div class="order-show col-xs-5" onclick="deliverypopup(<?= $deliveryNo ?>)">      
                                <?php } ?>
                                 <div class="row">
                                     <div class="order-no col-xs-5"><label>Bill #</label> <?= $bill->billNo ?></div>
                                <?php if($tableId){?>
                                       <div class="table-no col-xs-5"><label>Table #</label> <?= $bill->tableNo ?></div>
-                               <?php }else{ ?>
+                               <?php }else if($takeawayNo){ ?>
                                       <div class="table-no col-xs-5"><label>Takeaway #</label> <?= $takeawayNo ?></div>
+                                 <?php }else{ ?>
+                                      <div class="table-no col-xs-5"><label>Delivery#</label> <?= $deliveryNo ?></div>       
                                <?php } ?>
                                     
                                 </div>
@@ -50,7 +54,7 @@ use Cake\Cache\Cache;
                             </div>
                           <?php }}else{ ?>
                              <?php if(isset($message)){ ?>
-                                <div class="error-message"><div class="error-img"></div><span class="error-text"><?= $message?></span></div>
+                                <div style="font-size: 40px;color: red;text-align: center;" class="alert"><strong>Info!</strong> Bill Not generated.</div>
                           <?php }} ?>
                         </div>
                     </div>

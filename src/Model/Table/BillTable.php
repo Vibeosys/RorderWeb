@@ -131,14 +131,14 @@ class BillTable extends Table {
         }
     }
     
-    public function getCustomerBill($tableId, $takeawayNo) {
+    public function getCustomerBill($tableId, $takeawayNo, $deliveryNo) {
          $billDownloadDto = null;
          if($tableId){
-            $conditions = [
-                'TableId =' => $tableId];
+            $conditions['TableId ='] = $tableId;
+         }  else if($takeawayNo) {
+             $conditions['TakeawayNo ='] = $takeawayNo;
          }  else {
-             $conditions = [
-                'TakeawayNo =' => $takeawayNo];
+             $conditions['DeliveryNo ='] = $deliveryNo;
          }
               $order = 'BillNo';
             try{
@@ -158,7 +158,8 @@ class BillTable extends Table {
                             $bill->IsPayed,
                             $bill->PayedBy,
                             $bill->Discount,
-                            $bill->TakeawayNo);
+                            $bill->TakeawayNo,
+                            $bill->DeliveryNo);
                     //return $billDownloadDto;
                 }
                 Log::debug('Bill found for tableId :- '.$tableId.' BillNO :- '.$billDownloadDto->billNo);
@@ -168,14 +169,16 @@ class BillTable extends Table {
             echo 'bill table database error'.$ex;
         }
     }      
-    public function getTableBill($tableId, $takeawayNo, $restaurantId) {
+    public function getTableBill($tableId, $takeawayNo,$deliveryNo, $restaurantId) {
         $allTableBills = null;
         $tableBillCounter = 0;
            $conditions = [ 'RestaurantId =' => $restaurantId];
             if($tableId){
                     $conditions['TableId ='] = $tableId;
-                }  else {
+                }  else if($takeawayNo) {
                     $conditions['TakeawayNo ='] = $takeawayNo;
+                }else{
+                    $conditions['DeliveryNo ='] = $deliveryNo;
                 }
               $order = 'BillNo';
             try{
@@ -186,6 +189,7 @@ class BillTable extends Table {
                             $bill->BillNo, 
                             $bill->TableId,
                             $bill->TakeawayNo,
+                            $bill->DeliveryNo,
                             $bill->UserId,
                             $bill->CreatedDate);
                 }

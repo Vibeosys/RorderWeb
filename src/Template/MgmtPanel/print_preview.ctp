@@ -43,8 +43,10 @@
             <div class="date-time">
            <?php if($table){ ?>   
             Table No. :  <?= $table ?><br>   
-           <?php }else { ?>
+           <?php }else if($bill->takeawayNo) { ?>
             TakeAway No. :  <?= $bill->takeawayNo ?><br>
+            <?php }else if($bill->deliveryNo) { ?>
+            Delivery No. :  <?= $bill->deliveryNo ?><br>
             <?php } ?>
             Bill No. : <?= $bill->billNo ?><br>  
                <?php date_default_timezone_set(CURRENT_TIME_ZONE);?>

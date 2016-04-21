@@ -391,32 +391,30 @@ function perform(table,takwaway,delivery,discount,deliveryCharge){
     }else if(current_option === 'cancelorder'){
         alert(current_option+ table);
     }else if(current_option === 'printkot'){
+        $.post('/setcookie',{name:'cti',value:table},function(result){});
+        $.post('/setcookie',{name:'ctn',value:takeaway},function(result){});
+        $.post('/setcookie',{name:'cdn',value:delivery},function(result){});
         if(table){
-            $.post('/setcookie',{name:'cti',value:table},function(result){});
-            $.post('/setcookie',{name:'ctn',value:0},function(result){});
-            $.post('/setcookie',{name:'cdn',value:0},function(result){});
             window.location.replace('tableorders');
         }else if(takeaway){
-            $.post('/setcookie',{name:'cti',value:0},function(result){});
-            $.post('/setcookie',{name:'ctn',value:takeaway},function(result){});
-            $.post('/setcookie',{name:'cdn',value:0},function(result){});
             window.location.replace('takeawayorders');
         }else if(delivery){
-            $.post('/setcookie',{name:'cti',value:0},function(result){});
-            $.post('/setcookie',{name:'ctn',value:0},function(result){});
-            $.post('/setcookie',{name:'cdn',value:delivery},function(result){});
             window.location.replace('deliveryorders');
         }
     }else if(current_option === 'managetable'){
         alert(current_option+ table);
     }else if(current_option === 'printbill'){
-        $.post('/setcookie',{name:'cti',value:table},function(result){
+        $.post('/setcookie',{name:'cti',value:table},function(result){});
+        $.post('/setcookie',{name:'ctn',value:takeaway},function(result){});
+        $.post('/setcookie',{name:'cdn',value:delivery},function(result){});
+        if(table){
+            window.location.replace('tablebills');
+        }else if(takeaway){
+            window.location.replace('takeawaybills');
+        }else if(delivery){
+            window.location.replace('deliverybills');
+        }
         
-        });
-        $.post('/setcookie',{name:'ctn',value:0},function(result){
-        
-        });
-        window.location.replace('tablebills');
     }
     
 }
@@ -461,22 +459,22 @@ function makepayment(bill, userInfo, table, takeaway, delivery, cust){
 
 
 function tablepopup(id) {
-        $.post('/setcookie',{name:'cti',value:id},function(result){
-        
-        });
-        $.post('/setcookie',{name:'ctn',value:0},function(result){
-        
-        });
+        $.post('/setcookie',{name:'cti',value:id},function(result){});
+        $.post('/setcookie',{name:'ctn',value:0},function(result){});
+        $.post('/setcookie',{name:'cdn',value:0},function(result){});
     window.open("../billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
 }
 
 function takeawaypopup(id) {
-        $.post('/setcookie',{name:'cti',value:0},function(result){
-        
-        });
-        $.post('/setcookie',{name:'ctn',value:id},function(result){
-        
-        });
+        $.post('/setcookie',{name:'cti',value:0},function(result){});
+        $.post('/setcookie',{name:'ctn',value:id},function(result){});
+        $.post('/setcookie',{name:'cdn',value:0},function(result){});
+    window.open("../billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
+}
+function deliverypopup(id) {
+        $.post('/setcookie',{name:'cti',value:0},function(result){});
+        $.post('/setcookie',{name:'ctn',value:0},function(result){});
+        $.post('/setcookie',{name:'cdn',value:id},function(result){});
     window.open("../billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
 }
 
