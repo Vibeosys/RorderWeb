@@ -83,10 +83,9 @@
                       
                 <div class="count"><?= $single->title ?></div>
                             <p class="text-center"><?= $single->city ?><?= $single->country ?></p>
-                            <form action="reports" method="post"> 
                                 <input type="text" name="restId" class="hidden" value="<?= $single->restaurantId ?>">
                 <input type="submit" name="resta1" value="More Detail" class=" btn-rest center-block text-center">
-                 </form>
+                 
                   </div>
                 
               </div>
@@ -98,8 +97,18 @@
     
   <?= $this->Html->script('design/jquery.min.js') ?>  
   <?= $this->Html->script('design/bootstrap.min.js') ?>  
-  <?= $this->Html->script('design/custom.js') ?>  
+  <?= $this->Html->script('design/custom.js') ?> 
+    <script>
+    $(document).ready(function(){
+       $(":submit").on('click',function(){
+           var restId = $(":text").val();
+           $.post('/setcookie',{name:'cri',value:restId},function(result){});
+           $(location).attr('href','reports');
+       }); 
+    });
+    </script>
   <!-- /footer content -->
-</body>
+  </body>
 
 </html>
+

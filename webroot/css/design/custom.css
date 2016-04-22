@@ -202,7 +202,7 @@ body.nav-sm span.fa, body.nav-sm .menu_section h3 {
     border-bottom: 1px solid #E6E9ED;*/
   background-color: white;
   border-bottom: 1px solid #D9DEE4;
-  margin-bottom: 10px;
+  //margin-bottom: 10px;
   width: 100%;
 }
 body.nav-md .container.body .col-md-3.left_col {
@@ -3746,4 +3746,68 @@ ul.notifications {
 }
 .copyright-info {
   padding: 8px 0;
+}
+
+
+/* ------------- comming-soon -----------
+.coming-soon-bg{
+    background-image: url(../images/coming-soon.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-attachment: fixed;
+}*/
+
+.coming-soon{
+   padding-top: 14em;
+}
+.coming-soon h1{
+    color: #f2635f;
+    letter-spacing: 2px;
+    text-align: center;
+    font-size: 56px;
+    font-weight: 400;
+}
+
+.coming-soon h3{
+    color: royalblue;
+    letter-spacing: 2px;
+    text-align: center;
+    font-size: 46px;
+    font-weight: 800;
+    
+}
+.coming-soon h4{
+    color:cornflowerblue;
+    letter-spacing: 2px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+
+.fil-not-found{
+    margin-top: 10em;
+}
+.fil-not-found h1{
+    color: #f2635f;
+    letter-spacing: 2px;
+    text-align: center;
+    font-size: 56px;
+    font-weight: 400;
+    display: inline-block;
+    
+}
+
+.fil-not-found h3{
+    color: #f2635f;
+    letter-spacing: 2px;
+    text-align: center;
+    font-size: 46px;
+    font-weight: 800;
+    display: inline-block;
+}
+img{
+    display: inline-block;
+    text-align: center;
 }

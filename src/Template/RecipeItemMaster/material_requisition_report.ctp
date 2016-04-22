@@ -7,24 +7,31 @@
     use App\Controller;
 
     $this->layout = false;
-     $this->layout = 'rorder_inventory_layout';
+    if(isset($limit)){
+     $this->layout = 'rorder_layout';
      $this->assign('title', 'Restaurant Material Requisition Report');
-     $this->assign('breadcrum', ' <ol class="breadcrumb">
-                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">Material Stock Upload</li>
-                </ol>');
+     }
      //$this->start('content');
-?>
+?>          <?php if(isset($limit)) {?>
+            <section class="content-header">
+            <h1>
+                  Restaurant Material Requisition Report
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Material Requisition Report</li>
+            </ol>
+            </section>
             <section class="content">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box">                           
                             <section class="content content-div show-add-section">
                                 <div class="back-btn" style="margin-top: 10px"> 
-                                   <a href="../inventory/stockinventoryreport" > << Back </a>
+                                 
                                 </div>
-                              
-                                <section class="stock-section" id="msu" style="margin-top:50px">
+                                <?php }?>
+                                    <section class="stock-section" id="msu" style="margin-top:50px">  
                                    <div class="material-requisition" style="">
                                        <div class="graph-head">Material Requisition Report <a  onclick="alert('Work In Progress')">Download</a></div>   
                                     <div class="box-body show-grid-section">
@@ -150,12 +157,14 @@
                                     </tbody>
                                 </table>
                             </div>          
-                                    </div>  
+                                    </div> 
+ 
                                 </section>
+                                   <?php if(isset($limit)) {?>
                             </section>
                         </div><!-- /.box -->                       
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </section><!-- /.content -->
-            
+    <?php }?>      
            

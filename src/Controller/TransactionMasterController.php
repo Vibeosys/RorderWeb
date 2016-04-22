@@ -89,4 +89,16 @@ class TransactionMasterController extends ApiController{
         $this->response->body($chartData);
     }
     
+    public function transactionReport() {
+        if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+         if($this->request->is('get')){
+            $this->set(['limit' => 1]);
+        }
+        $this->set([
+            'rest' => parent::readCookie('cri')
+            ]);
+    }
+    
 }

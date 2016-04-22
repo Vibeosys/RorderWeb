@@ -140,13 +140,13 @@ $sec = $this->fetch('sec');
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="../menu">Menu</a>
                     </li>
-                    <li><a href="../menucategory/addnewmenucategory">Recipe</a>
+                    <li><a href="../kitchen/recipe">Recipe</a>
                     </li>
-                    <li><a href="">Menu Category</a>
+                    <li><a href="../menucategory/addnewmenucategory" >Menu Category</a>
                     </li>
-                    <li><a href="">Recipe Category</a>
+                    <li><a href="../kitchen/recipecategory">Recipe Category</a>
                     </li>
-                    <li><a href="">Kitchen/Printers</a>
+                    <li><a href="../kitchen/printers">Kitchen/Printers</a>
                     </li>
                   </ul>
                 </li>
@@ -155,9 +155,9 @@ $sec = $this->fetch('sec');
                      <li class="stock-upload"><a data-toggle="collapse" href="#submenu-upload" aria-expanded="false" aria-controls="collapseExample">Stock Upload<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
                           <div class="collapse" id="submenu-upload">
                          <ul class="nav child_menu submenu-stock-upload sub-child-menu">
-                                  <li><a href="">Material Stock Upload</a>                      
+                                  <li><a href="../inventory/materialstockupload">Material Stock Upload</a>                      
                                   </li>
-                                 <li><a href="">Material Brand Stock Upload</a>
+                                 <li><a href="../inventory/materialbrandstockupload">Material Brand Stock Upload</a>
                                 </li>
                                 
                               </ul>
@@ -167,9 +167,9 @@ $sec = $this->fetch('sec');
                         <a  data-toggle="collapse" href="#submenu-modify" aria-expanded="false" aria-controls="collapseExample">Stock Modification<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
                          <div class="collapse" id="submenu-modify">
                         <ul class="nav child_menu sub-child-menu">
-                                  <li><a href="">Material Stock Modification</a>                      
+                                  <li><a href="../inventory/materialstockmodification">Material Stock Modification</a>                      
                                   </li>
-                                 <li><a href="">Material Brand Stock Modification</a>
+                                 <li><a href="../inventory/materialbrandstockmodification">Material Brand Stock Modification</a>
                                 </li>
                                 
                               </ul>
@@ -181,29 +181,29 @@ $sec = $this->fetch('sec');
                 </li>
                  <li><a><i class="fa fa-bar-chart-o"></i> Reports <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="">Transaction Report</a>
+                    <li><a href="../reports/transactionreport">Transaction Report</a>
                     </li>
-                    <li><a href="">Order lead time Report</a>
+                    <li><a href="../reports/orderleadtime">Order lead time Report</a>
                     </li>
-                    <li><a href="">Sales Report</a>
+                    <li><a href="../reports/salesreport">Sales Report</a>
                     </li>
-                    <li><a href="">Sales forcast Report</a>
+                    <li><a href="../reports/salesforcast">Sales forcast Report</a>
                     </li>
-                    <li><a href="">Lead tine forcast Report</a>
+                    <li><a href="../reports/leadtineforcast">Lead tine forcast Report</a>
                     </li>
-                      <li><a href="">Favourate menu Report</a>
+                      <li><a href="../reports/favouratemenu">Favourate menu Report</a>
                     </li>
-                      <li><a href="">Customer Rush hours Report</a>
+                      <li><a href="../reports/customerrushhour">Customer Rush hours Report</a>
                     </li>
-                      <li><a href="">Per stawords sales Report</a>
+                      <li><a href="../reports/perstawordssales">Per stawords sales Report</a>
                     </li>
-                      <li><a href="">Stock availability  Report</a>
+                      <li><a href="../reports/stockavailability">Stock availability  Report</a>
                     </li>
-                      <li><a href="">Stawords performance Report</a>
+                      <li><a href="../reports/stawordsperformance">Stawords performance Report</a>
                     </li>
-                      <li><a href="">Material Requisition  Report</a>
+                      <li><a href="../inventory/materialrequisitionreport">Material Requisition  Report</a>
                     </li>
-                      <li><a href="">Brandwise material Requisition Report</a>
+                      <li><a href="../inventory/materialbrandwiserequisitionreport">Brandwise material Requisition Report</a>
                     </li>
                   </ul>
                 </li>
@@ -213,32 +213,25 @@ $sec = $this->fetch('sec');
                     </li>
                     <li><a href="../users">Users</a>
                     </li>
-                    <li><a href="">Devices</a>
+                    <li><a href="../manage/devices">Devices</a>
                     </li>
-                    <li><a href="">Configration</a>
+                    <li><a href="../manage/configuration">Configration</a>
                     </li>
-                   
                   </ul> 
                 </li>
               </ul>
             </div>
-              
           </div> <!-- /sidebar menu -->
-
-          
           <!-- /sidebar menu -->
         </div>
       </div>
-
       <!-- top navigation -->
       <div class="top_nav">
-
         <div class="nav_menu">
           <nav class="" role="navigation">
             <div class="nav toggle">
               <a id="menu_toggle"><i class="fa fa-bars"></i></a>
             </div>
-
             <ul class="nav navbar-nav navbar-right">
               <li>
                 <a href="" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -249,36 +242,28 @@ $sec = $this->fetch('sec');
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
                   <li><a href="">  Profile</a>
                   </li>
-                  
                   <li><a href="../logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>
                 </ul>
               </li>
-
-
             </ul>
           </nav>
         </div>
-
       </div>
       <!-- /top navigation -->
-
         <!-- footer content -->
-
         <!-- /footer content -->
       </div>
       <!-- /page content -->
-
     </div>
     <div class="content-wrapper margin-constant" style="">
            <?php if($this->fetch('content')){
                          echo $this->fetch('content');
                       }else{
-                         echo 'content block not set';
+                         
                       }
            ?>
     </div>
-    
     <!-- old js  -->
          <!-- scripts-->
          <?= $this->Html->script('design/jquery.min.js') ?> 
@@ -288,20 +273,16 @@ $sec = $this->fetch('sec');
         <?= $this->Html->script('jquery.dataTables.js') ?> 
         <?= $this->Html->script('dataTables.bootstrap.min.js') ?> 
         <?= $this->Html->script('jquery.slimscroll.min.js') ?> 
-        
           <?= $this->Html->script('fusioncharts.js') ?> 
         <?= $this->Html->script('fusioncharts.theme.fint.js') ?> 
-       
     <!-- new js  -->
-     
         <?= $this->Html->script('design/custom.js') ?> 
     <?php if($this->fetch('script')){
                          echo $this->fetch('script');
                       }else{
-                         echo 'content block not set';
+                         
                       }
            ?>
-    
 <!--  
 <script>
     
@@ -360,7 +341,5 @@ setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent
 })();
 </script>
  End Inspectlet Embed Code -->
-
-
 </body>
 </html>

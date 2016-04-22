@@ -83,4 +83,16 @@ class SalesHistoryController extends ApiController{
         $this->response->type('text/plain');
         $this->response->body($chartData);
     }
+    
+    public function salesReport() {
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+         if($this->request->is('get')){
+            $this->set(['limit' => 1]);
+        }
+        $this->set([
+            'rest' => parent::readCookie('cri')
+            ]);
+    }
 }

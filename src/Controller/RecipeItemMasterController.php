@@ -163,6 +163,9 @@ class RecipeItemMasterController extends ApiController{
          if(!$this->isLogin()){
             $this->redirect('login');
         }
+        if($this->request->is('get')){
+            $this->set(['limit' => 'set']);
+        }
         
     }
     
@@ -170,7 +173,18 @@ class RecipeItemMasterController extends ApiController{
          if(!$this->isLogin()){
             $this->redirect('login');
         }
-        
+         if($this->request->is('get')){
+            $this->set(['limit' => 1]);
+        }
+    }
+    
+    public function stockAvailability() {
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+        if($this->request->is('get')){
+            $this->set(['limit' => 1]);
+        }
     }
    /* 
     private function paginatedItem($restaurantId, $page = 1) {

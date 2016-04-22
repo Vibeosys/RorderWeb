@@ -83,6 +83,22 @@ Router::scope('/', function ($routes) {
     $routes->connect('saveopenstock', ['controller' => 'ItemStockLevel', 'action' => 'saveOpenStock']);
     $routes->connect('saveclosestock', ['controller' => 'ItemStockLevel', 'action' => 'saveCloseStock']);
     $routes->connect('menu/editrecipe/editrecipeitem', ['controller' => 'MenuRecipe', 'action' => 'editRecipeItem']);
+    $routes->connect('reports/stockavailability', ['controller' => 'RecipeItemMaster', 'action' => 'stockAvailability']); 
+    $routes->connect('reports/transactionreport', ['controller' => 'TransactionMaster', 'action' => 'transactionReport']); 
+    $routes->connect('reports/customerrushhour', ['controller' => 'CustomerVisit', 'action' => 'rushHourReport']); 
+    $routes->connect('reports/salesreport', ['controller' => 'SalesHistory', 'action' => 'salesReport']); 
+    
+    $routes->connect('kitchen/recipe', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('kitchen/recipecategory', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('kitchen/printers', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('reports/orderleadtime', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('reports/salesforcast', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('reports/leadtineforcast', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('reports/favouratemenu', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('reports/perstawordssales', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('reports/stawordsperformance', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('manage/devices', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('manage/configuration', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
     $routes->fallbacks('DashedRoute');
 });
 

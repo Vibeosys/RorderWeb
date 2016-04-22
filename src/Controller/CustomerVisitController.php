@@ -79,4 +79,16 @@ class CustomerVisitController extends ApiController{
         $this->response->type('text/plain');
         $this->response->body($chartData);
     }
+    
+    public function rushHourReport() {
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+         if($this->request->is('get')){
+            $this->set(['limit' => 1]);
+        }
+        $this->set([
+            'rest' => parent::readCookie('cri')
+            ]);
+    }
 }

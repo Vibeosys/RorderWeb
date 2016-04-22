@@ -66,8 +66,8 @@ $(document).ready(function(){
          $('.sales-history').css('padding-left','0');
          $('.customer-visit').css('padding-left','0');
      }else{
-         $('.sales-history').css('padding-left','10%');
-         $('.customer-visit').css('padding-left','10%');
+         $('.sales-history').css('margin-left','10%');
+         $('.customer-visit').css('margin-left','10%');
      }
    });
    // restaurant shadow 

@@ -360,14 +360,15 @@ class MgmtPanelController extends ApiController{
     }
     
     public function reports() {
-        if($this->request->is('post')){
-            $data = $this->request->data;
-            parent::writeCookie('cri', $data['restId']);
-            $this->set([
-                'rest' => $data['restId']
-            ]);
-        }else{
+        if(!$this->isLogin()){
             $this->redirect('login');
         }
+            $this->set([
+                'rest' => parent::readCookie('cri')
+            ]);
+    }
+    
+    public function commingSoon() {
+        
     }
 }

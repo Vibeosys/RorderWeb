@@ -7,14 +7,18 @@
     use App\Controller;
 
     $this->layout = false;
-     $this->layout = 'rorder_inventory_layout';
+     $this->layout = 'rorder_layout';
      $this->assign('title', 'Restaurant Material Stock Modification');
-     $this->assign('breadcrum', ' <ol class="breadcrumb">
+     //$this->start('content');
+?>           <section class="content-header">
+            <h1>
+                  Restaurant Material Stock Modification
+            </h1>
+            <ol class="breadcrumb">
                     <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
                     <li class="active">Material Stock Modification</li>
-                </ol>');
-     //$this->start('content');
-?>
+                </ol>
+            </section>
             <section class="content">
                 <div class="row">
                     <div class="col-xs-12">

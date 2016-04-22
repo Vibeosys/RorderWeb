@@ -54,7 +54,21 @@ use Cake\Cache\Cache;
                             </div>
                           <?php }}else{ ?>
                              <?php if(isset($message)){ ?>
-                                <div style="font-size: 40px;color: red;text-align: center;" class="alert"><strong>Info!</strong> Bill Not generated.</div>
+                            <div class="right_col" role="main">
+                                <section class="fil-not-found">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">    
+                                            <img src="../img/sad.png" >
+                                            <h1 class="e-msg">Sorry!  </h1>
+                                            <h3> Information </h3> <h1> not found.</h1>
+                                            </div>   
+                                        </div>
+                                    </div>
+                                </section>
+            
+            
+                            </div>
                           <?php }} ?>
                         </div>
                     </div>
