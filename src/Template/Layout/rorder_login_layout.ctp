@@ -95,7 +95,7 @@ $this->layout = false;
     </script>
 <!--
 <script>
-    <>
+    
      function setCookie(cname, cvalue, exdays) {
     $.post('/setcookie',{name:cname,value:cvalue},function(result){
         
@@ -140,7 +140,7 @@ $this->layout = false;
 
 
 </script>
-<!-- Begin Inspectlet Embed Code 
+
 <script type="text/javascript" id="inspectletjs">
 window.__insp = window.__insp || [];
 __insp.push(['wid', 865249698]);
@@ -150,6 +150,5 @@ setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent
 })();
 </script>
 -->
-
 </body>
 </html>  

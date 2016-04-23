@@ -28,57 +28,9 @@
                                 <section class="stock-section" id="msu" style="margin-top:50px">
                                    <div class="material-requisition" style="">
                                        <div class="graph-head">Material BrandWise Requisition Report <a  onclick="alert('Work In Progress')">Download</a></div>   
-                                    <div class="box-body show-grid-section">
-                                <table id="destination" class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Brand Code</th>
-                                            <th class="title-width">Brand</th>
-                                            <th class="lat-width">Stock</th>
-                                            <th class="lat-width">Reorder Stock</th>
-                                            <th class="lat-width">Unit</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="color: red">
-                                          <td>1</td>
-                                            <td>
-                                                Saffola
-                                            </td>
-                                             <td>4</td>
-                                             <td>5</td>
-                                            <td>Litre</td>
-                                        </tr>
-                                        <tr style="color: red">
-                                             <td>2</td>
-                                            <td>
-                                                Fortune
-                                            </td>
-                                            <td >3</td>
-                                            <td >5</td>
-                                            <td >Litre</td>
-                                        </tr>
-                                        <tr style="color: green">
-                                             <td>3</td>
-                                            <td class="title-width">
-                                                Planters
-                                            </td>
-                                            <td class="lat-width">1</td>
-                                            <td class="lat-width">1</td>
-                                            <td class="lat-width">Kg</td>
-                                        </tr>
-                                        <tr style="color: red">
-                                             <td>4</td>
-                                            <td class="title-width">
-                                               Terrasoul Superfoods
-                                            </td>
-                                            <td class="lat-width">1</td>
-                                            <td class="lat-width">2</td>
-                                            <td class="lat-width">Kg</td>
-                                        </tr>
-                                   </tbody>
-                                </table>
-                            </div>          
+                                       <div id="bw-req" class="box-body show-grid-section">
+                                
+                                    </div>          
                                     </div>  
                                 </section>
                                 <?php if(isset($limit)) {?>
@@ -87,5 +39,56 @@
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </section><!-- /.content -->
-              <?php } ?>       
+<?php $this->start('script'); ?>  
+            <?php }?> 
+   <script>
+      
+    $(document).ready(function(){
+     
+         var htmlc = '';
+         var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>';
+         $('#bw-req').html(loading);
+         $.post('/ajax/materialbwrequisitionreport',{},function(result){
+             htmlc += '<table id="destination" class="table table-bordered table-hover">';
+             htmlc += '<thead><tr>';
+             htmlc += '<th>Brand Code</th>';
+             htmlc += '<th class="title-width">Brand</th>';
+             htmlc += '<th class="title-width">Material</th>';
+             htmlc += '<th class="lat-width">Stock</th>';
+             htmlc += '<th class="lat-width">Reorder Stock</th>';
+             htmlc += '<th class="lat-width">Unit</th>';
+             htmlc += '</tr></thead><tbody>';
+            if(result){
+                $.each(result,function(key,value){
+                    if(value.qty <= value.rLevel){
+                    htmlc += '<tr style="color: red">';
+                }else{ htmlc += '<tr style="color: green">';
+                }
+                    htmlc += '<td>' + value.brandCode + '</td>';
+                    htmlc += '<td>' + value.brand + '</td>';
+                    htmlc += '<td class="title-width">' + value.item + '</td>';
+                    htmlc += '<td class="lat-width">' + value.stock + '</td>';
+                    htmlc += '<td class="lat-width">' + value.rstock + '</td>';
+                    htmlc +=     '<td class="lat-width">' + value.unit + '</td></tr>';
+                });
+                htmlc += '</tbody></table>'; 
+                $('#bw-req').html(htmlc);
+            }else{
+                 var error = '<div class="right_col" role="main">' +
+                                '<section class="fil-not-found">' +
+                                    '<div class="container">' +
+                                        '<div class="row">' +
+                                            '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">' +
+                                            '<img src="../img/sad.png" >' +
+                                            '<h1 class="e-msg">Sorry!  </h1>' +
+                                            '<h3> Information </h3> <h1> not found.</h1>' +
+                                            '</div></div></div></section></div>';
+               $('#bw-req').html(error);                     
+           }
+        });
+ });
+  </script> 
+  <?php if(isset($limit)) {?>
+  <?php $this->end('script'); ?>
+      <?php }?>   
            

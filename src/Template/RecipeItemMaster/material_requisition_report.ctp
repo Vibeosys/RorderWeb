@@ -34,7 +34,7 @@
                                     <section class="stock-section" id="msu" style="margin-top:50px">  
                                    <div class="material-requisition" style="">
                                        <div class="graph-head">Material Requisition Report <a  onclick="alert('Work In Progress')">Download</a></div>   
-                                    <div class="box-body show-grid-section">
+                                       <div id="req" class="box-body show-grid-section">
                                
                                     </div>          
                                     </div> 
@@ -55,7 +55,7 @@
      
          var htmlc = '';
          var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>';
-         $('.show-grid-section').html(loading);
+         $('#req').html(loading);
          $.post('/ajax/materialrequisitionreport',{},function(result){
              htmlc += '<table id="destination" class="table table-bordered table-hover">';
              htmlc += '<thead><tr>';
@@ -78,9 +78,18 @@
                     htmlc +=     '<td class="lat-width">' + value.unit + '</td></tr>';
                 });
                 htmlc += '</tbody></table>'; 
-                $('.show-grid-section').html(htmlc);
+                $('#req').html(htmlc);
             }else{
-                alert('Error..! Not Upload');
+                var error = '<div class="right_col" role="main">' +
+                                '<section class="fil-not-found">' +
+                                    '<div class="container">' +
+                                        '<div class="row">' +
+                                            '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">' +
+                                            '<img src="../img/sad.png" >' +
+                                            '<h1 class="e-msg">Sorry!  </h1>' +
+                                            '<h3> Information </h3> <h1> not found.</h1>' +
+                                            '</div></div></div></section></div>';
+               $('#req').html(error);      
            }
         });
  });

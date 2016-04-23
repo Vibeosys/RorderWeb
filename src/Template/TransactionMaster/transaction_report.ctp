@@ -51,6 +51,15 @@
                                        <?php }  ?>
             <script>
             FusionCharts.ready(function () {
+                var error = '<div class="right_col" role="main">' +
+                                '<section class="fil-not-found">' +
+                                    '<div class="container">' +
+                                        '<div class="row">' +
+                                            '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">' +
+                                            '<img src="../img/sad.png" >' +
+                                            '<h1 class="e-msg">Sorry!  </h1>' +
+                                            '<h3> Information </h3> <h1> not found.</h1>' +
+                                            '</div></div></div></section></div>';
                 $.ajax({
                         url: "/transactionMaster/getTransactionReport?id=" + '<?= $rest ?>',
                         type: "POST",
@@ -68,11 +77,11 @@
                                     dataFormat: 'json',
                                     dataSource: result}).render();
                             } else {
-                                alert('Error..!Please contact on info@vibeosys.com');
+                                    $('#transaction-graph').html(error);      
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                                 $('#transaction-graph').html(error); 
                         }});
             });
             </script>

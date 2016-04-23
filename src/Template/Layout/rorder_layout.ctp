@@ -278,7 +278,7 @@ $sec = $this->fetch('sec');
                          
                       }
            ?>
-<!--  
+ <!--
 <script>
     
      function setCookie(cname, cvalue, exdays) {
@@ -335,6 +335,6 @@ function ldinsp(){if(typeof window.__inspld != "undefined") return; window.__ins
 setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
 })();
 </script>
- End Inspectlet Embed Code -->
+-->
 </body>
 </html>
