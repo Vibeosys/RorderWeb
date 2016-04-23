@@ -87,6 +87,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('reports/transactionreport', ['controller' => 'TransactionMaster', 'action' => 'transactionReport']); 
     $routes->connect('reports/customerrushhour', ['controller' => 'CustomerVisit', 'action' => 'rushHourReport']); 
     $routes->connect('reports/salesreport', ['controller' => 'SalesHistory', 'action' => 'salesReport']); 
+    $routes->connect('ajax/materialrequisitionreport', ['controller' => 'RecipeItemMaster', 'action' => 'getMaterialRequisitionReport']);
     
     $routes->connect('kitchen/recipe', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
     $routes->connect('kitchen/recipecategory', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);

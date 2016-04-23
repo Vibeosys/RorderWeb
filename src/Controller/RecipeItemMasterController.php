@@ -122,6 +122,17 @@ class RecipeItemMasterController extends ApiController{
         }else{
             $this->response->body(FALSE);
         }
+    }
+    
+    public function getMaterialRequisitionReport() {
+        $this->autoRender = FALSE;
+        if($this->request->is('ajax') and $this->isLogin()){
+            $restaurantId = parent::readCookie('cri');
+            $response = $this->getTableObj()->getRecipeItems($restaurantId);
+            $this->response->body(json_encode($response));
+        }else{
+            $this->response->body(false);
+        }
         
     }
     

@@ -51,21 +51,21 @@
         $(document).ready(function(){
             $.post('/inventory/materialrequisitionreport',{},function(result){
                 $('.material-req-report').html(result);
-            });
-            $.post('/reports/stockavailability',{},function(result){
-                $('.inventry-report').html(result);
-            });
-            $.post('/reports/transactionreport',{},function(result){
-                $('.transaction-report').html(result);
-            });
-             $.post('/reports/customerrushhour',{},function(result){
-                $('.customer-visit').html(result);
-            });
-             $.post('/reports/salesreport',{},function(result){
-                $('.sales-history').html(result);
-            });
-            $.post('/inventory/materialbrandwiserequisitionreport',{},function(result){
-                $('.material-bw-req-report').html(result);
+                $.post('/reports/stockavailability',{},function(result){
+                    $('.inventry-report').html(result);
+                    $.post('/reports/transactionreport',{},function(result){
+                        $('.transaction-report').html(result);
+                        $.post('/reports/customerrushhour',{},function(result){
+                            $('.customer-visit').html(result);
+                            $.post('/reports/salesreport',{},function(result){
+                                $('.sales-history').html(result);
+                                $.post('/inventory/materialbrandwiserequisitionreport',{},function(result){
+                                    $('.material-bw-req-report').html(result);
+                                });
+                            });
+                        });
+                    });
+                });
             });
         });
         </script>

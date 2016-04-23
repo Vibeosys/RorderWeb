@@ -35,128 +35,8 @@
                                    <div class="material-requisition" style="">
                                        <div class="graph-head">Material Requisition Report <a  onclick="alert('Work In Progress')">Download</a></div>   
                                     <div class="box-body show-grid-section">
-                                <table id="destination" class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Material Code</th>
-                                            <th class="title-width">Material</th>
-                                            <th class="lat-width">Stock</th>
-                                            <th class="lat-width">Reorder Stock</th>
-                                            <th class="lat-width">Unit</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="color: red">
-                                            <td>1001</td>
-                                            <td class="title-width">
-                                                Paneer
-                                            </td>
-                                            <td class="lat-width">10</td>
-                                            <td class="lat-width">12</td>
-                                            <td class="lat-width">Kg</td>
-                                        </tr>
-                                        <tr style="color: red">
-                                            <td>1002</td>
-                                            <td class="title-width">
-                                                Cottage Cheese
-                                            </td>
-                                            <td class="lat-width">4</td>
-                                            <td class="lat-width">5</td>
-                                            <td class="lat-width">Kg</td>
-                                        </tr>
-                                        <tr style="color: green">
-                                            <td>1003</td>
-                                            <td class="title-width">
-                                                Oil
-                                            </td>
-                                            <td class="lat-width">10</td>
-                                            <td class="lat-width">10</td>
-                                            <td class="lat-width">Litre</td>
-                                        </tr>
-                                        <tr style="color: red">
-                                            <td>1004</td>
-                                            <td class="title-width">
-                                                Cashew
-                                            </td>
-                                            <td class="lat-width">2</td>
-                                            <td class="lat-width">3</td>
-                                            <td class="lat-width">Kg</td>
-                                        </tr>
-                                        <tr style="color: red">
-                                            <td>1005</td>
-                                            <td class="title-width">
-                                                Tomato
-                                            </td>
-                                            <td class="lat-width">10</td>
-                                            <td class="lat-width">12</td>
-                                            <td class="lat-width">Kg</td>
-                                        </tr>
-                                        <tr style="color: green">
-                                            <td>1006</td>
-                                            <td class="title-width">
-                                                Onion
-                                            </td>
-                                            <td class="lat-width">10</td>
-                                            <td class="lat-width">10</td>
-                                            <td class="lat-width">Kg</td>
-                                        </tr>
-                                        <tr style="color: red">
-                                            <td>1007</td>
-                                            <td class="title-width">
-                                                eggs
-                                            </td>
-                                            <td class="lat-width">50</td>
-                                            <td class="lat-width">80</td>
-                                            <td class="lat-width">Unit</td>
-                                        </tr>
-                                        <tr style="color: red">
-                                            <td>1008</td>
-                                            <td class="title-width">
-                                                Fish
-                                            </td>
-                                            <td class="lat-width">20</td>
-                                            <td class="lat-width">25</td>
-                                            <td class="lat-width">Unit</td>
-                                        </tr>
-                                        <tr style="color: green">
-                                            <td>1009</td>
-                                            <td class="title-width">
-                                                Chicken
-                                            </td>
-                                            <td class="lat-width">5</td>
-                                            <td class="lat-width">5</td>
-                                            <td class="lat-width">Kg</td>
-                                        </tr>
-                                        <tr style="color: red">
-                                            <td>1010</td>
-                                            <td class="title-width">
-                                                Ginger
-                                            </td>
-                                            <td class="lat-width">1</td>
-                                            <td class="lat-width">2</td>
-                                            <td class="lat-width">Kg</td>
-                                        </tr>
-                                        <tr style="color: red">
-                                            <td>1011</td>
-                                            <td class="title-width">
-                                                White Flower
-                                            </td>
-                                            <td class="lat-width">20</td>
-                                            <td class="lat-width">25</td>
-                                            <td class="lat-width">Kg</td>
-                                        </tr>
-                                        <tr style="color: green">
-                                            <td>1012</td>
-                                            <td class="title-width">
-                                                Mutton
-                                            </td>
-                                            <td class="lat-width">5</td>
-                                            <td class="lat-width">5</td>
-                                            <td class="lat-width">Kg</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>          
+                               
+                                    </div>          
                                     </div> 
  
                                 </section>
@@ -166,5 +46,45 @@
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </section><!-- /.content -->
-    <?php }?>      
-           
+    
+ <?php $this->start('script'); ?>  
+            <?php }?> 
+   <script>
+      
+    $(document).ready(function(){
+     
+         var htmlc = '';
+         var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>';
+         $('.show-grid-section').html(loading);
+         $.post('/ajax/materialrequisitionreport',{},function(result){
+             htmlc += '<table id="destination" class="table table-bordered table-hover">';
+             htmlc += '<thead><tr>';
+             htmlc += '<th>Material Code</th>';
+             htmlc += '<th class="title-width">Material</th>';
+             htmlc += '<th class="lat-width">Stock</th>';
+             htmlc += '<th class="lat-width">Reorder Stock</th>';
+             htmlc += '<th class="lat-width">Unit</th>';
+             htmlc += '</tr></thead><tbody>';
+            if(result){
+                $.each(result,function(key,value){
+                    if(value.qty <= value.rLevel){
+                    htmlc += '<tr style="color: red">';
+                }else{ htmlc += '<tr style="color: green">';
+                }
+                    htmlc += '<td>' + value.itemId + '</td>'
+                    htmlc += '<td class="title-width">' + value.itemName + '</td>';
+                    htmlc += '<td class="lat-width">' + value.qty + '</td>';
+                    htmlc += '<td class="lat-width">' + value.rLevel + '</td>';
+                    htmlc +=     '<td class="lat-width">' + value.unit + '</td></tr>';
+                });
+                htmlc += '</tbody></table>'; 
+                $('.show-grid-section').html(htmlc);
+            }else{
+                alert('Error..! Not Upload');
+           }
+        });
+ });
+  </script> 
+  <?php if(isset($limit)) {?>
+  <?php $this->end('script'); ?>
+      <?php }?>       

@@ -45,15 +45,10 @@ $sec = $this->fetch('sec');
 
 
 <body class="nav-md">
-
   <div class="container body">
-
-
     <div class="main_container">
-
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
-
           <div class="navbar nav_title" style="border: 0;">
             <a href="" class="site_title">
                  <?= $this->Html->image('quickserve-small-logo.png', ['style' => ' width: 55px;'])?>
