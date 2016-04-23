@@ -82,6 +82,33 @@
             </div>
         </div>
     </div>
+    <div id="takeaway-view-error" style="display: none">
+    <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center" >                    
+                       <div class="error-msg1">
+                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 border-bottom">
+                               <div class="row">
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <img src="../img/error-fix.png" class="img-responsive error-fix">
+                                   </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                        <span class="error-heading">Bills not Found! </span>
+                                   </div>
+                               </div> 
+                            </div>
+                           <div class="msg-text">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-3 ">                  
+                                            <p class="error-p1">The content not found</p>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  col-lg-offset-2 col-md-offset-3">
+                                           <p class="error-msg2">Here are some suggestions:</p>
+                                                    <ul class="error-list1">
+                                                                <li> <a href="../tableview/printbill">Back</a> </li>
+                                                                <li> <a href="../reports">Home</a></li>
+                                                    </ul>
+                                    </div>
+                            </div>
+                    </div>
+    </div> </div>      
     <input type="text" class="hidden" id="option" value="<?= $option ?>">
     <input type="text" class="hidden" id="pcheck" value="">
     <input type="text" class="hidden" id="webUser" >
@@ -106,12 +133,12 @@
                                    $('.table-list').html(printhtml);
 
                                 } else {
-                                    var printhtml = '<div style="font-size: 40px;color: red;text-align: center;" class="alert"><strong>Info!</strong> No active Takaway now.</div>';
+                               var printhtml = $('takeaway-view-error').text();    
                                 $('.table-list').html(printhtml);
                                 }
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
-                                var printhtml = '<div style="font-size: 40px;color: red;text-align: center;" class="alert"><strong>Info!</strong> No active Takaway now.</div>';
+                               var printhtml = $('takeaway-view-error').text();  
                                 $('.table-list').html(printhtml);
                             }});
 

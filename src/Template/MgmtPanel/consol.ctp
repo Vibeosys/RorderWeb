@@ -82,7 +82,7 @@
                  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 remove-space">
                       
                 <div class="count"><?= $single->title ?></div>
-                            <p class="text-center"><?= $single->city ?><?= $single->country ?></p>
+                            <p class="text-center"><?= $single->city ?>, <?= $single->country ?></p>
                                 <input type="text" name="restId" class="hidden" value="<?= $single->restaurantId ?>">
                 <input type="submit" name="resta1" value="More Detail" class=" btn-rest center-block text-center">
                  
