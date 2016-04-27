@@ -1,6 +1,5 @@
     <?php
-
-    use Cake\Cache\Cache;
+        use Cake\Cache\Cache;
         use Cake\Core\Configure;
         use Cake\Datasource\ConnectionManager;
         use Cake\Error\Debugger;

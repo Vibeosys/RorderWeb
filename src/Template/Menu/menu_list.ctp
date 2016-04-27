@@ -40,7 +40,6 @@
                                             <th class="title-width">Title</th>
                                             <th>Image</th>
                                             <th class="lat-width">Price</th>
-                                            <th>Ingredients</th>
                                             <th>Spicy</th>
                                             <th>Category</th>
                                             <th>Kitchen</th>
@@ -50,7 +49,6 @@
                                     </thead>
                                     <tbody>
                                    <?php foreach($menus as $menu){ ?>
-                                    
                                         <tr>
                                         <form action="menu/editmenu" method="post">
                                            
@@ -69,10 +67,7 @@
                                             <td class="lat-width"><input class="roleId" style="display:none" type="text" name="prc" value="<?= $menu->price ?>">
                                                 <?= $menu->price ?>
                                             </td>
-                                            <td>
-                                                <?= $menu->ingredients ?><input style="display:none" type="text" name="igt" value="<?= $menu->ingredients ?>">
-                                            </td>
-                                             
+                                                       
                                                <input style="display:none" type="text" name="tags" value="<?= $menu->tags ?>">
                                                 <input style="display:none" type="text" name="avl" value="<?= $menu->availabilityStatus ?>">
                                                <input style="display:none" type="text" name="act" value="<?= $menu->active ?>">
@@ -92,7 +87,7 @@
                                             </td>
                                             <td class="lat-width">
                                                 <input class="roleId" style="display:none" type="text" name="fbtp" value="<?= $menu->fbTypeId ?>">
-                                                <?php if($menu->fbTypeId and $fbType){ $key = $menu->fbTypeId; echo  $this->Html->image($fbType->$key.'.png', ['width' => '50','height' => '50','alt' => 'MENU']);} ?>
+                                                <?php if($menu->fbTypeId and $fbType){ $key = $menu->fbTypeId; echo  $this->Html->image($fbType->$key.'.png', ['width' => '40','height' => '40','alt' => 'MENU']);} ?>
                                             </td>
                                             <td> <button name="edit" type="submit" class="dark-orange user-edit-btn"><span> Edit</span></button>
                                                 <button style="width: 130px" name="edit-recipe" type="submit" class="dark-orange user-edit-btn"><span> Edit Recipe</span></button> 

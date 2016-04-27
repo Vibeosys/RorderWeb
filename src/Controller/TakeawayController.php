@@ -52,7 +52,6 @@ class TakeawayController extends ApiController{
     
     public function takeawayView() {
           $data = explode('/', $this->request->url);
-        echo $data[1];
         $this->set([
             'option' => $data[1]
         ]);

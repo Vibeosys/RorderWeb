@@ -13,7 +13,7 @@
     'Popular Restaurant Billing Software,Popular Wireless Restaurant Ordering Software,Popular Pos for Restaurant, Popular Hotel Management System')?>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>QuickServe </title>
+  <title>QuickServe</title>
 
   <!-- Bootstrap core CSS -->
 
@@ -85,9 +85,7 @@
                             <p class="text-center"><?= $single->city ?>, <?= $single->country ?></p>
                                 <input type="text" name="restId" class="hidden" value="<?= $single->restaurantId ?>">
                 <input type="submit" name="resta1" value="More Detail" class=" btn-rest center-block text-center">
-                 
                   </div>
-                
               </div>
             </div>
             <?php $i++; }} ?>
