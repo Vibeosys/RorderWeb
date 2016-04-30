@@ -64,7 +64,7 @@
                                             <div class="form-group">
                                                 <label for="latitude" class="col-sm-2 control-label">Ingredients</label>
                                                 <div class="col-sm-8">
-                                                    <input name="igt" type="text" class="form-control" value="<?= $menuInfo->igt ?>" >
+                                                    <input name="igt" type="text" class="form-control" value="" >
                                                 </div>
                                             </div>
                                             <div class="form-group">

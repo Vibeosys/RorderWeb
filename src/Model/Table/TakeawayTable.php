@@ -30,7 +30,7 @@ class TakeawayTable extends Table{
                         'CreatedDate >' => $previousDate];
         $order = 'TakeawayNo';
         $takeawayCounter = 0;
-        $allTakeaway = null;
+        $allTakeaway = 0;
         try{
             $results = $this->connect()
                     ->find()

@@ -26,7 +26,7 @@
 
 
 <body>
- <div class="container body">
+ <div class="container container-page body">
      
       <!-- top navigation -->
       <div class="top_nav">
@@ -34,20 +34,20 @@
         <div class="nav_menu">
           <nav class="" role="navigation">
             <div class="nav logo">
-               <?= $this->Html->image('quickserve-logo.png', ['class'=>'img-responsive', 'alt'=>'QuickServe'])?>
+             <?= $this->Html->image('quickserve-logo.png', ['class'=>'img-responsive', 'alt'=>'QuickServe'])?>
             </div>
 
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right rest-align">
               <li>
                 <a href="" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                   <?= $this->Html->image('quickserve-admin-img.jpg', ['alt' => '...'])?>Admin
+                  <?= $this->Html->image('quickserve-admin-img.jpg', ['alt' => '...'])?>Admin
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
                   <li><a href="">  Profile</a>
                   </li>
                   
-                  <li><a href=""><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <li><a href="../logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>
                 </ul>
               </li>
@@ -66,46 +66,55 @@
             <h3>Welcome !</h3>
             </div>
         </div>
+        
+        
         </div>
     </section>
     <section>
     <div class="container-fluid">
         <div class="row top_tiles">
-            <?php if(isset($data)) { $i = 1; foreach ($data as $single){ ?>
-            <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
-              <div class="tile-stats b-<?= $i ?>">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                      <div class="img-rest">
-                          <?= $this->Html->image('quickserve-restaurant-default.png', ['class' => 'img-responsive'])?>
-                </div>
-                  </div>
-                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 remove-space">
-                      
-                <div class="count"><?= $single->title ?></div>
-                            <p class="text-center"><?= $single->city ?>, <?= $single->country ?></p>
-                                <input type="text" name="restId" class="hidden" value="<?= $single->restaurantId ?>">
-                <input type="submit" name="resta1" value="More Detail" class=" btn-rest center-block text-center">
-                  </div>
-              </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+               
+                 <?php if(isset($data)) { $i = 1; foreach ($data as $single){ ?>
+                    <?php if($i%2 == 0){ ?>
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                   <?php }else { ?>
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12  col-lg-offset-2">
+                     <?php   } ?>
+                      <div class="tile-stats center-block b-<?= $i ?>">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                              <div class="img-rest"><?= $this->Html->image('quickserve-restaurant-default.png', ['class' => 'img-responsive'])?>
+                        </div>
+                          </div>
+                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 remove-space">
+
+                        <div class="count"><?= $single->title ?></div>
+                                    <p class="text-center"><?= $single->city ?>, <?= $single->country ?></p>
+                                    <input type="text" name="restId" class="hidden" value="<?= $single->restaurantId ?>">
+                        <input type="button" name="resta1" value="More Detail" class=" btn-rest center-block text-center">
+                          </div>
+
+                      </div>
+                    </div>
+                  <?php $i++; }} ?>
+                  
             </div>
-            <?php $i++; }} ?>
+            
         </div> 
         </div>
     </section>
-    
-  <?= $this->Html->script('design/jquery.min.js') ?>  
+ <?= $this->Html->script('design/jquery.min.js') ?>  
   <?= $this->Html->script('design/bootstrap.min.js') ?>  
   <?= $this->Html->script('design/custom.js') ?> 
     <script>
     $(document).ready(function(){
-       $(":submit").on('click',function(){
+       $(":button").on('click',function(){
            var restId = $(":text").val();
            $.post('/setcookie',{name:'cri',value:restId},function(result){});
            $(location).attr('href','reports');
        }); 
     });
     </script>
-  <!-- /footer content -->
   </body>
 
 </html>

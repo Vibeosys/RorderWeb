@@ -204,9 +204,9 @@ $sec = $this->fetch('sec');
                 </li>
                   <li><a><i class="fa fa-bug"></i> Manage Restaurant <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="../edit">Edit Info</a>
+                    <li><a href="../manage/edit">Edit Info</a>
                     </li>
-                    <li><a href="../users">Users</a>
+                    <li><a href="../manage/users">Users</a>
                     </li>
                     <li><a href="../manage/devices">Devices</a>
                     </li>

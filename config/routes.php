@@ -19,14 +19,14 @@ Router::scope('/', function ($routes) {
     $routes->connect('rtables/addnewtables', ['controller' => 'RTables', 'action' => 'addNewTables']);
     $routes->connect('rtables', ['controller' => 'RTables', 'action' => 'tableList']);
     $routes->connect('rtables/edittable', ['controller' => 'RTables', 'action' => 'editTable']);
-    $routes->connect('users', ['controller' => 'User', 'action' => 'usersList']);
+    $routes->connect('manage/users', ['controller' => 'User', 'action' => 'usersList']);
     $routes->connect('getwebuser', ['controller' => 'User', 'action' => 'getWebUser']);
     $routes->connect('getpaymentoptions', ['controller' => 'PaymentModeMaster', 'action' => 'getPaymentOptions']);
     $routes->connect('getcurrenttablecustomer', ['controller' => 'TableTransaction', 'action' => 'getCurrentTableCustomer']);
     $routes->connect('getdiscountamount', ['controller' => 'Bill', 'action' => 'getDiscountAmount']);
     $routes->connect('getlatestbill', ['controller' => 'Bill', 'action' => 'getLatestBill']);
-    $routes->connect('user/addnewuser', ['controller' => 'User', 'action' => 'addNewUser']);
-    $routes->connect('user/edituser', ['controller' => 'User', 'action' => 'editUser']);
+    $routes->connect('manage/user/addnewuser', ['controller' => 'User', 'action' => 'addNewUser']);
+    $routes->connect('manage/user/edituser', ['controller' => 'User', 'action' => 'editUser']);
     $routes->connect('recipeitems/addnewrecipeitems', ['controller' => 'RecipeItemMaster', 'action' => 'addNewRecipeItem']);
     $routes->connect('stocktaking', ['controller' => 'RecipeItemMaster', 'action' => 'inventory']); 
     $routes->connect('inventory/materialstockupload', ['controller' => 'RecipeItemMaster', 'action' => 'materialStockUpload']); 
@@ -40,7 +40,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('getunits', ['controller' => 'UnitMaster', 'action' => 'getUnits']); 
     $routes->connect('/', ['controller' => 'MgmtPanel', 'action' => 'consol']);
     $routes->connect('upload', ['controller' => 'MgmtPanel', 'action' => 'upload']);
-    $routes->connect('/edit', ['controller' => 'MgmtPanel', 'action' => 'edit']);
+    $routes->connect('manage/edit', ['controller' => 'MgmtPanel', 'action' => 'edit']);
     $routes->connect('managedata', ['controller' => 'MgmtPanel', 'action' => 'manageData']);
     $routes->connect('tableview/placeorder', ['controller' => 'RTables', 'action' => 'tableView']);
     $routes->connect('tableview/generatebill', ['controller' => 'RTables', 'action' => 'tableView']);

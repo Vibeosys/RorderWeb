@@ -9,17 +9,18 @@ use Cake\Cache\Cache;
 
     $this->layout = false;
     $this->layout = 'rorder_layout';
-    $this->assign('title', 'Takeaway');
+    $this->assign('title', 'Delivery');
     //$this->assign('script','var loading=\'<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>\';$(".table-list").html(loading),$.ajax({url:"/gettables",type:"POST",contentType:!1,cache:!1,processData:!1,success:function(e,t,a){if(e){var s="";$.each(e,function(e,t){s=t.isOccupied?s+\'<div class="print-table-button col-xs-2" onclick="perform(\'+t.tableId+\')" style="border-bottom: 8px solid rgba(247, 0, 0, 0.48);">\'+t.tableNo+" </div>":s+\'<div class="print-table-button col-xs-2" onclick="perform(\'+t.tableId+\')" style="border-bottom: 8px solid rgba(0, 128, 0, 0.55);">\'+t.tableNo+" </div>",$(".table-list").html(s)})}else{var s=\'<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>\';$(".table-list").html(s)}},error:function(e,t,a){var s=\'<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>\';$(".table-list").html(s)}});');
 ?>
 
 <section class="content-header">
     <h1>
-        Restaurant Table View
+        Restaurant Delivery
     </h1>
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Table View</li>
+        <li>Delivery</li>
+        <li class="active"><span style="text-transform: capitalize"><?= $option ?></span></li>
     </ol>
 </section>
 <section class="content">
@@ -29,7 +30,7 @@ use Cake\Cache\Cache;
                
                 <section class="content content-div show-add-section">
                     <div class="row">
-                        <div class="table-list">    
+                        <div class="delivery-list">    
                                    
                         </div>
                     </div>
@@ -82,6 +83,33 @@ use Cake\Cache\Cache;
         </div>
     </div>
 </div>
+ <div id="delivery-view-error" style="display: none">
+    <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center" >                    
+                       <div class="error-msg1">
+                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 border-bottom">
+                               <div class="row">
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <img src="../img/error-fix.png" class="img-responsive error-fix">
+                                   </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                        <span class="error-heading">Active Delivery not Found! </span>
+                                   </div>
+                               </div> 
+                            </div>
+                           <div class="msg-text">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-3 ">                  
+                                            <p class="error-p1">The content not found</p>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  col-lg-offset-2 col-md-offset-3">
+                                           <p class="error-msg2">Here are some suggestions:</p>
+                                                    <ul class="error-list1">
+                                                                <li> <a href="../tableview/printbill">Back</a> </li>
+                                                                <li> <a href="../reports">Home</a></li>
+                                                    </ul>
+                                    </div>
+                            </div>
+                    </div>
+    </div> </div> 
 <input type="text" class="hidden" id="option" value="<?= $option ?>">
 <input type="text" class="hidden" id="pcheck" value="">
 <input type="text" class="hidden" id="webUser" >
@@ -103,16 +131,16 @@ var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.g
                                     printhtml = printhtml + '<div class="print-table-button col-xs-2" onclick="perform(0,0,' + obj.tno +',' + obj.disPer +',' + obj.tdc +')">'
                                                      + '#' +  obj.tno +'</div>'; 
                                });
-                               $('.table-list').html(printhtml);
+                               $('.delivery-list').html(printhtml);
                                
                             } else {
-                                var printhtml = '<div style="font-size: 40px;color: red;text-align: center;" class="alert"><strong>Info!</strong> No active delivery now.</div>';
-                            $('.table-list').html(printhtml);
+                                var printhtml = $('#delivery-view-error').html();
+                            $('.delivery-list').html(printhtml);
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            var printhtml = '<div style="font-size: 40px;color: red;text-align: center;" class="alert"><strong>Info!</strong> No active delivery now.</div>';
-                            $('.table-list').html(printhtml);
+                            var printhtml = $('#delivery-view-error').html();
+                            $('.delivery-list').html(printhtml);
                         }});
 
 </script>

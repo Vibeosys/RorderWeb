@@ -26,9 +26,6 @@
                     <div class="col-xs-12">
                         <div class="box">  
                              <div class="box-header">
-                                <div class="back-btn" style="margin-top: 10px"> 
-                                   <a href="../managedata" > << Back </a>
-                                </div>
                                  <a style="float: right" href="menu/addnewmenu"><button class="dark-orange add-edit-btn"><span>Add New Menu</span></button></a>
                             </div>
                             <div class="box-body show-grid-section">
@@ -100,8 +97,8 @@
                                 </table>
                                 <div class="col-xs-3"></div>
                                 <div class="col-xs-3"></div>
-                                                                <div class="col-xs-3"></div>
-                                 <div class="col-xs-3" id="pagination">
+                                <div class="col-xs-2"></div>
+                                <div class="col-xs-4" id="pagination">
                                      
                                     <span id="prev-btn" ><button class="previous dark-orange" ><?=  $this->Paginator->prev(' << ' . __('previous')) ?></button></span>
                                     <span id="next-btn" ><button class="next dark-orange" ><?= $this->Paginator->next('next »') ?></button></span>

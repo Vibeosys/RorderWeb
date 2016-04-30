@@ -134,9 +134,9 @@ class MgmtPanelController extends ApiController{
                 $this->redirect('/');
             }
         }elseif ($this->request->is('post') and isset($this->request->data['cancel'])) {
-            $this->redirect('/');
+           // $this->redirect('/');
         }
-        $restaurantId = parent::readCookie('eri');
+        $restaurantId = parent::readCookie('cri');
         if(isset($restaurantId)){
             $restaurantController = new RestaurantController();
             $allRestaurants = $restaurantController->getAdminRestaurants(array($restaurantId));
@@ -200,7 +200,13 @@ class MgmtPanelController extends ApiController{
             Log::debug('Ajax request hited for takeaway');
             $takeawayController = new TakeawayController();
             $latestTakeaway = $takeawayController->getLatestTakeaway($restId);
+            if($latestTakeaway){
             $this->response->body(json_encode($latestTakeaway));
+           }else{
+            $this->response->body(0);
+           }
+        }else {
+            $this->response->body(0);
         }
     }
     

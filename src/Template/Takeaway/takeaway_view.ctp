@@ -18,17 +18,17 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Table View</li>
+            <li>Takeaway</li>
+            <li class="active"><span style="text-transform: capitalize"><?= $option ?></span></li>
         </ol>
     </section>
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
                 <div class="box"> 
-
                     <section class="content content-div show-add-section">
                         <div class="row">
-                            <div class="table-list">    
+                            <div class="takeaway-list">    
 
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                         <img src="../img/error-fix.png" class="img-responsive error-fix">
                                    </div>
                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                        <span class="error-heading">Bills not Found! </span>
+                                        <span class="error-heading">Takeaway not Found! </span>
                                    </div>
                                </div> 
                             </div>
@@ -129,16 +129,17 @@
                                         printhtml = printhtml + '<div class="print-table-button col-xs-2" onclick="perform(0,' + obj.tno +',0,' + obj.disPer +')">'
                                                          + '#' +  obj.tno +'</div>'; 
                                    });
-                                   $('.table-list').html(printhtml);
+                                   $('.takeaway-list').html(printhtml);
 
                                 } else {
-                               var printhtml = $('takeaway-view-error').text();    
-                                $('.table-list').html(printhtml);
+                                    
+                               var printhtml = $('#takeaway-view-error').html();    
+                                $('.takeaway-list').html(printhtml);
                                 }
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
-                               var printhtml = $('takeaway-view-error').text();  
-                                $('.table-list').html(printhtml);
+                               var printhtml = $('#takeaway-view-error').html();  
+                                $('.takeaway-list').html(printhtml);
                             }});
 
     </script>

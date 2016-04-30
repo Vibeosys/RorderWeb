@@ -9,8 +9,9 @@
     $this->layout = false;
     $this->layout = 'rorder_layout';
     $this->assign('title', 'Table View');
-<?php $this->start('content');?>
     ?>
+
+    
 
 <section class="content-header">
     <h1>
@@ -18,7 +19,8 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Table View</li>
+        <li>Table View</li>
+        <li class="active"><span style="text-transform: capitalize"><?= $option ?></span></li>
     </ol>
 </section>
 <section class="content">
@@ -84,7 +86,6 @@
 <input type="text" style="display: none" class="hidden" id="option" value="<?= $option ?>">
 <input type="text" class="hidden" id="pcheck" value="">
 <input type="text" class="hidden" id="webUser" >
-<?php $this->end('content'); ?>
 <?php $this->start('script');?>
 <script>  
 var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>' 
