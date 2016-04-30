@@ -1,5 +1,6 @@
 <?php
-    use Cake\Cache\Cache;
+
+use Cake\Cache\Cache;
     use Cake\Core\Configure;
     use Cake\Datasource\ConnectionManager;
     use Cake\Error\Debugger;
@@ -11,85 +12,58 @@
     $this->assign('title', 'Table View');
     ?>
 
-    
 
-<section class="content-header">
-    <h1>
-        Restaurant Table View
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li>Table View</li>
-        <li class="active"><span style="text-transform: capitalize"><?= $option ?></span></li>
-    </ol>
-</section>
-<section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box"> 
-               
-                <section class="content content-div show-add-section">
-                    <div class="row">
-                        <div class="table-list">    
-                                   
-                        </div>
-                    </div>
-                </section>
-            </div><!-- /.box -->                       
-        </div><!-- /.col -->
-    </div><!-- /.row -->
-</section><!-- /.content -->
-<div id="popup" class="modal animated zoomin"> 
-    <div class="modal-dialog mail" >
-        <div class="modal-content" id="show">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <div class="heading" id="head" style="padding: 20px 20px">
-            </div>
-            <div class="message" id="msg" style="padding: 20px 20px">
-            </div>
-        </div>
-        </div>
-</div>
-<div id="myPayment" class="modal animated zoomin">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">MakePayment</h4>
-            </div>
-            <div class="modal-body">
-                    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                        <label for="payment"> Payment By</label>
-                        <div class="contact-form" style="padding: 0px 5px;">
-                            <div id="select" class="form-group has-feedback">
-                                
+
+<section class="table-list">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a  href="#all" data-toggle="tab">All Table</a>
+                    </li>
+                    <li><a href="#reserved" data-toggle="tab">Reserved</a>
+                    </li>
+                    <li><a href="#free" data-toggle="tab">Free</a>
+                    </li>
+                </ul>
+                <div class="tab-content ">       
+                    <div class="tab-pane active" id="all">
+                        <div class="x_panel">
+                            <div class="x_content" id="all-table">
+
+
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                        <label for="payment"> Add Discount</label>
-                        <div class="contact-form" style="padding: 0px 5px;">
-                            <div id="select" class="form-group has-feedback">
-                                <input class="form-control" type="number" id="discount"> 
+
+                    <div class="tab-pane" id="reserved">
+                        <div class="x_panel">
+                            <div class="x_content" id="reserved-table">
+
+
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <div class="form-group text-center">
-                            <input type="button" class="form-control center-block submitbtn btn btn-primary" name="submit" value="Submit">
+
+                    <div class="tab-pane" id="free">
+                        <div class="x_panel">
+                            <div class="x_content" id="free-table">
+
+
+                            </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 <input type="text" style="display: none" class="hidden" id="option" value="<?= $option ?>">
-<input type="text" class="hidden" id="pcheck" value="">
-<input type="text" class="hidden" id="webUser" >
 <?php $this->start('script');?>
 <script>  
 var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>' 
-      $('.table-list').html(loading);
+      $('#all-table').html(loading);
  $.ajax({
                         url: "/gettables",
                         type: "POST",
@@ -98,26 +72,33 @@ var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.g
                         processData: false,
                         success: function (result, jqXHR, textStatus) {
                             if (result) {
-                                  var printhtml = '';
+                                  var alltables = '';
+				  var reservedtables = '';
+				  var freetables = '';
                                $.each(result, function(idx, obj){
                                    if(obj.isOccupied){
-                                    printhtml = printhtml + '<div class="print-table-button col-xs-2" onclick="perform(' +obj.tableId +',0,0)" style="border-bottom: 8px solid rgba(247, 0, 0, 0.48);">'
-                                                        +  obj.tableNo +' </div>'; 
+                                alltables = alltables + '<a class="btn btn-app red" onclick="perform(' + obj.tableId + ',0,0);" ><i class="fa fa-table "></i>' +  obj.tableNo + '</a>';
+				reservedtables = reservedtables + '<a class="btn btn-app red" onclick="perform(' +obj.tableId +',0,0);" ><i class="fa fa-table "></i>' +  obj.tableNo + '</a>';
                                    }else{
-                                  
-                                    printhtml = printhtml + '<div class="print-table-button col-xs-2" onclick="perform(' +obj.tableId +',0,0)" style="border-bottom: 8px solid rgba(0, 128, 0, 0.55);">'
-                                                      +  obj.tableNo +' </div>'; 
+                                alltables = alltables + '<a class="btn btn-app green" onclick="perform(' +obj.tableId +',0,0);" ><i class="fa fa-table "></i>' +  obj.tableNo + '</a>';
+				freetables = freetables + '<a class="btn btn-app green" onclick="perform(' +obj.tableId +',0,0);" ><i class="fa fa-table "></i>' +  obj.tableNo + '</a>';
                                    }
-                               $('.table-list').html(printhtml);
+                                $('#all-table').html(alltables);
+				$('#reserved-table').html(reservedtables);
+				$('#free-table').html(freetables);
                                });
                             } else {
-                                var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
-                            $('.table-list').html(printhtml);
+                                var alltables = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
+                            $('#all-table').html(alltables);
+				$('#reserved-table').html(alltables);
+				$('#free-table').html(alltables);
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            var printhtml = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
-                            $('.table-list').html(printhtml);
+                            var alltables = '<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>';
+                            $('#all-table').html(alltables);
+							$('.reserved-table').html(alltables);
+							$('.free-table').html(alltables);
                         }});
 </script>
 

@@ -92,8 +92,8 @@ class DeliveryTable extends Table{
     public function getDelivery($restaurantId) {
         $previousDate = date(VB_DATE_TIME_FORMAT, strtotime('-2 hour', strtotime(date(VB_DATE_TIME_FORMAT))));
          $conditions = [
-                            'RestaurantId =' => $restaurantId,
-                           'CreatedDate >' => $previousDate
+                            'RestaurantId =' => $restaurantId
+                          
                       ];
         $delivery = FALSE;
         $order = 'DeliveryNo';
@@ -109,7 +109,8 @@ class DeliveryTable extends Table{
                                     $result->DeliveryNo,
                                     $result->DeliveryCharges,
                                     $result->SourceId,
-                                    $result->Discount);
+                                    $result->Discount,
+                                    $result->Status);
                 }
             }
             return $delivery;    

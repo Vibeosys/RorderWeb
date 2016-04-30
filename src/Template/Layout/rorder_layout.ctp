@@ -11,10 +11,11 @@ $this->layout = false;
 $page = $this->fetch('page');
 $sec = $this->fetch('sec');
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
-<html>
 <head>
-    <meta charset="utf-8">
+   <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>QuickServe | <?= $this->fetch('title')?></title>
      <?= $this->Html->meta ( 'favicon.ico', '/favicon.ico', array ('type' => 'icon' ) )?>
@@ -40,47 +41,47 @@ $sec = $this->fetch('sec');
     <?= $this->Html->css('design/font-awesome.css') ?>
     <?= $this->Html->css('design/admin.style.css') ?>
      
+  <link href="../css/design/animate.min.css" rel="stylesheet">
+
   
+
 </head>
 
 
 <body class="nav-md">
-  <div class="container body">
+
+  <div class="container container-page body">
+
+
     <div class="main_container">
-      <div class="col-md-3 left_col">
+
+ 
+      <div class="col-md-3 left_col scrollbar" id="style-1">
         <div class="left_col scroll-view">
+
           <div class="navbar nav_title" style="border: 0;">
-            <a href="" class="site_title">
-                 <?= $this->Html->image('quickserve-small-logo.png', ['style' => ' width: 55px;'])?>
-                 <span>QuickeServe</span></a>
+            <a href="index.html" class="site_title"> <?= $this->Html->image('quickserve-small-logo.png', ['style' => ' width: 55px;'])?> <span>QuickeServe</span></a>
           </div>
           <div class="clearfix"></div>
 
-          <!-- menu prile quick info -->
-          <div class="profile">
-            <div class="profile_pic">
-                 <?= $this->Html->image('quickserve-admin-img.jpg', ['class' => 'img-circle profile_img','alt' => '...'])?>
-            </div>
-            <div class="profile_info">
-              <span>Welcome,</span>
-              <h2>Admin</h2>
-            </div>
-          </div>
-          <!-- /menu prile quick info -->
 
-          <br />
-           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+          <!-- sidebar menu -->
+            
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+
             <div class="menu_section">
               <h3>&nbsp;</h3>
+           
               <ul class="nav side-menu">
                 <li class="active"><a href="#"><i class="fa fa-home"></i> Dashboard </a>
                 </li>
                 <li><a><i class="fa fa-edit"></i> Order <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
                  <ul class="nav child_menu" style="display: none">
-                     <li><a data-toggle="collapse" href="#submenu-table"  aria-expanded="false" aria-controls="collapseExample">Table View <i class="fa fa-chevron-down fa-down-arrow"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                     <li class="child-plus"><a data-toggle="collapse" href="#submenu-table"  aria-expanded="false" aria-controls="collapseExample">Table View <i class="fa fa-chevron-down fa-down-arrow"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                        
                           <div class="collapse" id="submenu-table">
                             <ul class="nav child_menu sub-child-menu">
-                                  <li><a href="../tableview/placeorder">Place Order</a>                      
+                               <li><a href="../tableview/placeorder">Place Order</a>                      
                                   </li>
                                  <li><a href="../tableview/generatebill">Generate Bill</a>
                                 </li>
@@ -93,10 +94,13 @@ $sec = $this->fetch('sec');
                               </ul>
                          </div>
                       </li>
-                    <li><a data-toggle="collapse" href="#submenu-table2"  aria-expanded="false" aria-controls="collapseExample">Takeaway<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                     
+                    <li class="child-plus"><a data-toggle="collapse" href="#submenu-table2"  aria-expanded="false" aria-controls="collapseExample">Takeaway<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                        
+                        
                           <div class="collapse" id="submenu-table2">
                             <ul class="nav child_menu sub-child-menu">
-                                  <li><a href="../takeaway/placeorder">Place Order</a>                      
+                                                                   <li><a href="../takeaway/placeorder">Place Order</a>                      
                                   </li>
                                  <li><a href="../takeaway/generatebill">Generate Bill</a>
                                 </li>
@@ -108,11 +112,16 @@ $sec = $this->fetch('sec');
                                 </li>
                               </ul>
                          </div>
+                        
+                        
+                        
+                        
                     </li>
-                    <li><a data-toggle="collapse" href="#submenu-table3" aria-expanded="false" aria-controls="collapseExample">Home-Delivery<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                    <li class="child-plus"><a data-toggle="collapse" href="#submenu-table3" aria-expanded="false" aria-controls="collapseExample">Home-Delivery<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                                                
                           <div class="collapse" id="submenu-table3">
                             <ul class="nav child_menu sub-child-menu">
-                                  <li><a href="../delivery/placeorder">Place Order</a>                      
+                                                                   <li><a href="../delivery/placeorder">Place Order</a>                      
                                   </li>
                                  <li><a href="../delivery/generatebill">Generate Bill</a>
                                 </li>
@@ -124,16 +133,19 @@ $sec = $this->fetch('sec');
                                 </li>
                               </ul>
                          </div>
+                        
+                        
                     </li>
-                    <li><a href="../rtables">Manage Table</a>
+                   <li><a href="../rtables">Manage Table</a>
                     </li>
                     <li><a href="../tablecategory/addnewtablecategory">Table Category</a>
                     </li>
                   </ul>
                 </li>
+                
                 <li><a><i class="fa fa-cutlery"></i> Kitchen <span  class="fa fa-chevron-down fa-down-arrow "></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="../menu">Menu</a>
+                  <li><a href="../menu">Menu</a>
                     </li>
                     <li><a href="../kitchen/recipe">Recipe</a>
                     </li>
@@ -147,7 +159,7 @@ $sec = $this->fetch('sec');
                 </li>
                 <li><a><i class="fa fa-table"></i>  Inventory Management <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                     <li class="stock-upload"><a data-toggle="collapse" href="#submenu-upload" aria-expanded="false" aria-controls="collapseExample">Stock Upload<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                     <li class="stock-upload child-plus"><a data-toggle="collapse" href="#submenu-upload" aria-expanded="false" aria-controls="collapseExample">Stock Upload<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
                           <div class="collapse" id="submenu-upload">
                          <ul class="nav child_menu submenu-stock-upload sub-child-menu">
                                   <li><a href="../inventory/materialstockupload">Material Stock Upload</a>                      
@@ -158,25 +170,23 @@ $sec = $this->fetch('sec');
                               </ul>
                          </div>
                     </li>
-                    <li>
-                        <a  data-toggle="collapse" href="#submenu-modify" aria-expanded="false" aria-controls="collapseExample">Stock Modification<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                    <li class="child-plus"><a  data-toggle="collapse" href="#submenu-modify" aria-expanded="false" aria-controls="collapseExample"s>Stock Modification<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
                          <div class="collapse" id="submenu-modify">
                         <ul class="nav child_menu sub-child-menu">
-                                  <li><a href="../inventory/materialstockmodification">Material Stock Modification</a>                      
+                                <li><a href="../inventory/materialstockmodification">Material Stock Modification</a>                      
                                   </li>
                                  <li><a href="../inventory/materialbrandstockmodification">Material Brand Stock Modification</a>
                                 </li>
-                                
                               </ul>
                         </div>
                     </li>
-					<li><a href="../stocktaking">Stock Taking</a>
+		<li><a href="../stocktaking">Stock Taking</a>
                     </li>
                   </ul>
                 </li>
                  <li><a><i class="fa fa-bar-chart-o"></i> Reports <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="../reports/transactionreport">Transaction Report</a>
+                                      <li><a href="../reports/transactionreport">Transaction Report</a>
                     </li>
                     <li><a href="../reports/orderleadtime">Order lead time Report</a>
                     </li>
@@ -204,7 +214,7 @@ $sec = $this->fetch('sec');
                 </li>
                   <li><a><i class="fa fa-bug"></i> Manage Restaurant <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="../manage/edit">Edit Info</a>
+                   <li><a href="../manage/edit">Edit Info</a>
                     </li>
                     <li><a href="../manage/users">Users</a>
                     </li>
@@ -212,46 +222,63 @@ $sec = $this->fetch('sec');
                     </li>
                     <li><a href="../manage/configuration">Configration</a>
                     </li>
+                   
                   </ul> 
                 </li>
               </ul>
             </div>
+              
           </div> <!-- /sidebar menu -->
-          <!-- /sidebar menu -->
+        
+         
+          <!-- /menu footer buttons -->
         </div>
       </div>
+        
+        
       <!-- top navigation -->
       <div class="top_nav">
+
         <div class="nav_menu">
           <nav class="" role="navigation">
             <div class="nav toggle">
               <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                <h2 class="page-heading">Dine-IN Table List</h2>
+                
             </div>
+               
+
             <ul class="nav navbar-nav navbar-right">
-              <li>
+                <li>
+                 <ol class="breadcrumb">
+                            <li><a href="#" class="red">Dashboard</a></li>
+                            <li><a href="#" class="red">Restaurent 1</a></li>
+                            <li class="active">Delivery Table List</li>
+                    </ol>
+                    </li>
+                  <li>
                 <a href="" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                     <?= $this->Html->image('quickserve-admin-img.jpg', ['alt' => ''])?>
-                  Admin
+                  <?= $this->Html->image('quickserve-admin-img.jpg', ['class' => '','alt' => '...'])?>Admin
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
                   <li><a href="">  Profile</a>
                   </li>
-                  <li><a href="../logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  
+                  <li><a href=""><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>
                 </ul>
               </li>
+ 
+
             </ul>
           </nav>
         </div>
+
       </div>
       <!-- /top navigation -->
-        <!-- footer content -->
-        <!-- /footer content -->
-      </div>
       <!-- /page content -->
-    </div>
-    <div class="content-wrapper margin-constant" style="">
+      <div class="right_col" role="main">
            <?php if($this->fetch('content')){
                          echo $this->fetch('content');
                       }else{
@@ -278,6 +305,8 @@ $sec = $this->fetch('sec');
                          
                       }
            ?>
+      </div>
+    </div>
  <!--
 <script>
     

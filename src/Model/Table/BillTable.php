@@ -230,4 +230,16 @@ class BillTable extends Table {
         }
         return $result;
     }
+    
+    public function getTakeawayAndDeliveryDetails($billNo) {
+        $conditions = array(
+            'conditions' => array('bill.BillNo =' => $billNo),
+            'fields' => array('TakeawayNo','DeliveryNo'));
+         $billTableEntry = $this->connect()->find('all', $conditions)->first();
+        $result = null;
+        if($billTableEntry){
+          $result = $billTableEntry;
+        }
+        return $result;
+    }
 }

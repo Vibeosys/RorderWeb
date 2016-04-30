@@ -26,11 +26,10 @@ class TakeawayTable extends Table{
     
     public function getTakeaway($restaurantId) {
         $previousDate = date(VB_DATE_TIME_FORMAT, strtotime('-2 hour', strtotime(date(VB_DATE_TIME_FORMAT))));
-        $conditions = ['RestaurantId =' => $restaurantId,
-                        'CreatedDate >' => $previousDate];
+        $conditions = ['RestaurantId =' => $restaurantId];
         $order = 'TakeawayNo';
         $takeawayCounter = 0;
-        $allTakeaway = 0;
+        $allTakeaway = array();
         try{
             $results = $this->connect()
                     ->find()
@@ -43,10 +42,14 @@ class TakeawayTable extends Table{
                                     $result->TakeawayNo, 
                                     $result->DeliveryCharges, 
                                     $result->SourceId,
-                                    $result->Discount);
+                                    $result->Discount,
+                                    $result->Status);
+                            Log::debug('all takeaway returned');
                 }
+                return $allTakeaway;   
             }
-            return $allTakeaway;    
+            return 0;
+             
         } catch (Exception $ex) {
             return false;
         }
@@ -127,5 +130,15 @@ class TakeawayTable extends Table{
           $result = $data->CustId;
         }
         return $result;
+    }
+    
+    public function status($takeawayNo) {
+        if($takeawayNo){
+            $conditions = ['TakeawayNo =' => $takeawayNo];
+            $update = $this->connect()->query()->update();
+            $update->set(['Status' => 1]);
+            $update->where($conditions);
+            $update->execute();
+        }
     }
 }

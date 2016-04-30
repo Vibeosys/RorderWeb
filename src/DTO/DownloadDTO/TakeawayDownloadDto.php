@@ -19,14 +19,16 @@ class TakeawayDownloadDto {
     public $tdc;//takeawaydelivetcharges
     public $tsi;//takeawaysourceId
     public $disPer;
+    public $status;
 
 
     public function __construct($takeawayNo = null, $deliveryCharges = null, 
-            $sourceId = null, $disPer = null) {
+            $sourceId = null, $disPer = null, $status = null) {
         
         $this->tno = $takeawayNo;
         $this->tdc = $deliveryCharges;
         $this->tsi = $sourceId;
         $this->disPer = $disPer;
+        $this->status = $status;
     }
 }

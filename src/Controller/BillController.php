@@ -46,6 +46,9 @@ class BillController  extends ApiController{
         return false;
     }
     
+    public function getBillDetails($billNo) {
+        return $this->getTableObj()->getTakeawayAndDeliveryDetails($billNo);
+    }
     public function getBill($tableId, $takeawayNo, $deliveryNo) {
         if(isset($tableId) or isset($takeawayNo) or isset($deliveryNo)){
             return $this->getTableObj()->getCustomerBill($tableId, $takeawayNo, $deliveryNo);
