@@ -293,10 +293,13 @@ $sec = $this->fetch('sec');
         <?= $this->Html->script('jquery.dataTables.js') ?> 
         <?= $this->Html->script('dataTables.bootstrap.min.js') ?> 
         <?= $this->Html->script('jquery.slimscroll.min.js') ?> 
-          <?= $this->Html->script('fusioncharts.js') ?> 
-        <?= $this->Html->script('fusioncharts.theme.fint.js') ?> 
-    <!-- new js  -->
         <?= $this->Html->script('design/custom.js') ?> 
+        <?= $this->Html->script('design/chartjs/chart.min.js') ?> 
+        <?= $this->Html->script('design/datatables/jquery.dataTables.min.js') ?> 
+        <?= $this->Html->script('design/datatables/dataTables.bootstrap.js') ?> 
+        <?= $this->Html->script('design/datatables/dataTables.responsive.min.js') ?> 
+        <?= $this->Html->script('design/datatables/responsive.bootstrap.min.js') ?> 
+         
     <?php if($this->fetch('script')){
                          echo $this->fetch('script');
                       }else{

@@ -25,7 +25,7 @@ class CustomerVisitTable extends Table{
     
     public function getData($restaurantId) {
         $conditions = ['RestaurantId' => $restaurantId,
-                        'Month' => date('m'),
+                        'Month' => date('m')-1,
                         'Year' => date('Y')];
         $rows = $this->connect()->find()->where($conditions);
         $customerVisitInfo = null;

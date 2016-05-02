@@ -24,13 +24,6 @@ class CustomerVisitController extends ApiController{
                       'f8to10' => '8Pm to 10Pm',
                       'f10to12' => '10Pm to 12Pm'];
     private $objKey = ['f11to2','f2to3','f4to6','f6to8','f8to10','f10to12'];
-    private $paicahrt_default_data = ["formatnumberscale" => "0",
-                              "showborder" => "0",
-                            "bgColor" => "#ffffff",
-                            "borderAlpha" => "20",
-                              "caption" => "",
-                              "subCaption" => ""];
-
     private function getTableObj() {
         return new Table\CustomerVisitTable();
     }
@@ -69,14 +62,8 @@ class CustomerVisitController extends ApiController{
         foreach ($intermediate as $key => $value){
             $data[$ind++] = new DownloadDTO\SalesHistoryDataDto($this->timeSlot[$key], $value);
         }
-        $stdObj = new \stdClass();
-        foreach ($this->paicahrt_default_data as $key => $value){
-        $stdObj->$key = $value;    
-        }
-        $salesMainDto = new DownloadDTO\SalesMainDto($stdObj, $data);
-        $chartData = json_encode($salesMainDto);
-        \Cake\Log\Log::debug('Customer Visit Report : - '.$chartData);
-        $this->response->type('text/plain');
+      
+        $chartData = json_encode($data);
         $this->response->body($chartData);
     }
     

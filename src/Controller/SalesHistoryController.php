@@ -29,27 +29,6 @@ class SalesHistoryController extends ApiController{
                       '11' => 'Nov',
                       '12' => 'Dec'];
     
-   private $bar_chart_default_values = ["caption" => "",
-                    "subCaption" => "",
-                    "xAxisName" => "Month",
-                    "yAxisName" => "sales (In Rupee)",
-                    "numberPrefix" => "₹",
-                    "paletteColors" => "#0075c2",
-                    "bgColor" => "#ffffff",
-                    "borderAlpha" => "20",
-                    "canvasBorderAlpha" => "0",
-                    "usePlotGradientColor" => "0",
-                    "plotBorderAlpha" => "10",
-                    "placevaluesInside" => "1",
-                    "rotatevalues" => "1",
-                    "valueFontColor" =>"#ffffff",                
-                    "showXAxisLine" =>"1",
-                    "xAxisLineColor" =>"#999999",
-                    "divlineColor" => "#999999",               
-                    "divLineIsDashed" => "1",
-                    "showAlternateHGridColor" => "1",
-                    "subcaptionFontBold" => "0",
-                    "subcaptionFontSize" => "14"];
     private function getTableObj() {
         return new Table\SalesHistoryTable();
     }
@@ -74,13 +53,8 @@ class SalesHistoryController extends ApiController{
         foreach ($salesReportData as $resport){
             $data[$ind++] = new DownloadDTO\SalesHistoryDataDto($this->month[$resport->month], $resport->billTotalAmt);
         }
-        $stdObj = new \stdClass();
-        foreach ($this->bar_chart_default_values as $key => $value){
-        $stdObj->$key = $value;    
-        }
-        $salesMainDto = new DownloadDTO\SalesMainDto($stdObj, $data);
-        $chartData = json_encode($salesMainDto);
-        $this->response->type('text/plain');
+        $chartData = json_encode($data);
+       // $this->response->type('text/plain');
         $this->response->body($chartData);
     }
     
