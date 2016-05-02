@@ -10,8 +10,17 @@ use Cake\Cache\Cache;
     $this->layout = false;
     $this->layout = 'rorder_layout';
     $this->assign('title', 'Delivery');
+    $this->assign('heading', 'Delivery List');
     //$this->assign('script','var loading=\'<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>\';$(".table-list").html(loading),$.ajax({url:"/gettables",type:"POST",contentType:!1,cache:!1,processData:!1,success:function(e,t,a){if(e){var s="";$.each(e,function(e,t){s=t.isOccupied?s+\'<div class="print-table-button col-xs-2" onclick="perform(\'+t.tableId+\')" style="border-bottom: 8px solid rgba(247, 0, 0, 0.48);">\'+t.tableNo+" </div>":s+\'<div class="print-table-button col-xs-2" onclick="perform(\'+t.tableId+\')" style="border-bottom: 8px solid rgba(0, 128, 0, 0.55);">\'+t.tableNo+" </div>",$(".table-list").html(s)})}else{var s=\'<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>\';$(".table-list").html(s)}},error:function(e,t,a){var s=\'<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>\';$(".table-list").html(s)}});');
 ?>
+<?php $this->start('breadcrum');?>
+     <ol class="breadcrumb">
+                            <li><a href="../" class="red">Dashboard</a></li>
+                            <li><a href="../reports" class="red">Restaurent 1</a></li>
+                            <li class="active">Delivery List</li>
+                            <li style="text-transform: capitalize" class="active"><?= $option ?></li>
+                    </ol>
+<?php $this->end('breadcrum'); ?>
 
 <section class="table-list">
     <div class="container-fluid">

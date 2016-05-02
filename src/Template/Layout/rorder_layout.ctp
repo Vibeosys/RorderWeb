@@ -243,18 +243,16 @@ $sec = $this->fetch('sec');
           <nav class="" role="navigation">
             <div class="nav toggle">
               <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                <h2 class="page-heading">Dine-IN Table List</h2>
+                <h2 class="page-heading"><?= $this->fetch('heading')?></h2>
                 
             </div>
                
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                 <ol class="breadcrumb">
-                            <li><a href="#" class="red">Dashboard</a></li>
-                            <li><a href="#" class="red">Restaurent 1</a></li>
-                            <li class="active">Delivery Table List</li>
-                    </ol>
+                 <?php if($this->fetch('breadcrum')){
+                         echo $this->fetch('breadcrum');
+                      }?>
                     </li>
                   <li>
                 <a href="" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

@@ -73,6 +73,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('setcookie', ['controller' => 'MgmtPanel', 'action' => 'setCookie']);
     $routes->connect('getcookie', ['controller' => 'MgmtPanel', 'action' => 'getCookie']);
     $routes->connect('reports', ['controller' => 'MgmtPanel', 'action' => 'reports']);
+    $routes->connect('reportsnew', ['controller' => 'MgmtPanel', 'action' => 'reportsNew']);
     $routes->connect('orderprintpreview', ['controller' => 'OrderDetails', 'action' => 'orderPrintPreview']);
     $routes->connect('salesreport', ['controller' => 'SalesHistory', 'action' => 'getReport']);
     $routes->connect('transactionMaster/getTransactionReport', ['controller' => 'TransactionMaster', 'action' => 'getTransactionReport']);

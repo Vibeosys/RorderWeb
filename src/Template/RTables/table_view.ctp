@@ -10,10 +10,16 @@ use Cake\Cache\Cache;
     $this->layout = false;
     $this->layout = 'rorder_layout';
     $this->assign('title', 'Table View');
+    $this->assign('heading', 'Dine-IN Table List');
     ?>
-
-
-
+<?php $this->start('breadcrum');?>
+     <ol class="breadcrumb">
+                            <li><a href="../" class="red">Dashboard</a></li>
+                            <li><a href="../reports" class="red">Restaurent 1</a></li>
+                            <li class="active">Table List</li>
+                            <li style="text-transform: capitalize" class="active"><?= $option ?></li>
+                    </ol>
+<?php $this->end('breadcrum'); ?>
 <section class="table-list">
     <div class="container-fluid">
         <div class="row">

@@ -373,6 +373,14 @@ class MgmtPanelController extends ApiController{
                 'rest' => parent::readCookie('cri')
             ]);
     }
+    public function reportsNew() {
+        if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+            $this->set([
+                'rest' => parent::readCookie('cri')
+            ]);
+    }
     
     public function commingSoon() {
         
