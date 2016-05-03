@@ -102,6 +102,8 @@ Router::scope('/', function ($routes) {
     $routes->connect('reports/stawordsperformance', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
     $routes->connect('manage/devices', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
     $routes->connect('manage/configuration', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    //error url
+    $routes->connect('notfound', ['controller' => 'Error', 'action' => 'notFound']);
     $routes->fallbacks('DashedRoute');
 });
 
