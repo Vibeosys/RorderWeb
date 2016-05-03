@@ -6,94 +6,93 @@
     use Cake\Network\Exception\NotFoundException;
     use App\Controller;
 
-    $this->layout = false;
-    if(isset($limit)){
      $this->layout = 'rorder_layout';
      $this->assign('title', 'Restaurant Material Requisition Report');
-     }
-     //$this->start('content');
-?>          <?php if(isset($limit)) {?>
-            <section class="content-header">
-            <h1>
-                  Restaurant Material Requisition Report
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Material Requisition Report</li>
-            </ol>
-            </section>
-            <section class="content">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="box">                           
-                            <section class="content content-div show-add-section">
-                                <div class="back-btn" style="margin-top: 10px"> 
-                                 
-                                </div>
-                                <?php }?>
-                                    <section class="stock-section" id="msu" style="margin-top:50px">  
-                                   <div class="material-requisition" style="">
-                                       <div class="graph-head">Material Requisition Report <a  onclick="alert('Work In Progress')">Download</a></div>   
-                                       <div id="req" class="box-body show-grid-section">
-                               
-                                    </div>          
-                                    </div> 
- 
-                                </section>
-                                   <?php if(isset($limit)) {?>
-                            </section>
-                        </div><!-- /.box -->                       
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </section><!-- /.content -->
-    
- <?php $this->start('script'); ?>  
-            <?php }?> 
-   <script>
-      
-    $(document).ready(function(){
      
-         var htmlc = '';
-         var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>';
-         $('#req').html(loading);
-         $.post('/ajax/materialrequisitionreport',{},function(result){
-             htmlc += '<table id="destination" class="table table-bordered table-hover">';
-             htmlc += '<thead><tr>';
-             htmlc += '<th>Material Code</th>';
-             htmlc += '<th class="title-width">Material</th>';
-             htmlc += '<th class="lat-width">Stock</th>';
-             htmlc += '<th class="lat-width">Reorder Stock</th>';
-             htmlc += '<th class="lat-width">Unit</th>';
-             htmlc += '</tr></thead><tbody>';
+?>    
+     
+<?php $this->start('breadcrum');?>
+       <ol class="breadcrumb">
+                            <li><a href="../" class="red">Dashboard</a></li>
+                            <li><a href="../reports" class="red">Reports</a></li>
+                            <li class="active">Material Requisition</li>
+                    </ol>
+<?php $this->end('breadcrum'); ?>
+<div class="row">
+              
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        <h2>Material Requisition Report</h2>
+                       <ul class="nav navbar-right panel_toolbox">
+                    <li><a href="#"><i class="fa fa-download"></i> Download</a>
+                    </li>
+                  </ul>
+                        <div class="clearfix"></div>
+                      </div>
+                        <div class="x_content" id="main-div">
+                       
+                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                          <thead>
+                            <tr>
+                              <th>Material Code</th>
+                              <th>Material</th>
+                              <th>Stock</th>
+                              <th>Reorder Stock</th>
+                              <th>Unit</th>
+                             
+                            </tr>
+                          </thead>
+                          <tbody id="req">
+                          
+                          </tbody>
+                        </table>
+
+                      </div>
+                    </div>
+                  </div>
+          </div>
+ <?php $this->start('script'); ?>  
+ <script type="text/javascript">
+     var htmlc = '';
+$.post('/ajax/materialrequisitionreport',{},function(result){
             if(result){
                 $.each(result,function(key,value){
                     if(value.qty <= value.rLevel){
                     htmlc += '<tr style="color: red">';
-                }else{ htmlc += '<tr style="color: green">';
-                }
+                    }else{ 
+                        htmlc += '<tr style="color: green">';
+                    }
                     htmlc += '<td>' + value.itemId + '</td>'
-                    htmlc += '<td class="title-width">' + value.itemName + '</td>';
-                    htmlc += '<td class="lat-width">' + value.qty + '</td>';
-                    htmlc += '<td class="lat-width">' + value.rLevel + '</td>';
-                    htmlc +=     '<td class="lat-width">' + value.unit + '</td></tr>';
+                    htmlc += '<td>' + value.itemName + '</td>';
+                    htmlc += '<td>' + value.qty + '</td>';
+                    htmlc += '<td>' + value.rLevel + '</td>';
+                    htmlc +=     '<td>' + value.unit + '</td></tr>';
                 });
-                htmlc += '</tbody></table>'; 
                 $('#req').html(htmlc);
+                if(htmlc){
+                     $(document).ready(function() {
+            $('#datatable').dataTable();
+            $('#datatable-keytable').DataTable({
+              keys: true
+            });
+            $('#datatable-responsive').DataTable();
+            $('#datatable-scroller').DataTable({
+              deferRender: true,
+              scrollY: 380,
+              scrollCollapse: true,
+              scroller: true
+            });
+            var table = $('#datatable-fixed-header').DataTable({
+              fixedHeader: true
+            });
+          });
+                    }
             }else{
-                var error = '<div class="right_col" role="main">' +
-                                '<section class="fil-not-found">' +
-                                    '<div class="container">' +
-                                        '<div class="row">' +
-                                            '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">' +
-                                            '<img src="../img/sad.png" >' +
-                                            '<h1 class="e-msg">Sorry!  </h1>' +
-                                            '<h3> Information </h3> <h1> not found.</h1>' +
-                                            '</div></div></div></section></div>';
-               $('#req').html(error);      
+                $.get('/notfound',{},function(result){
+                                    $('#main-div').append(result);
+                });
            }
         });
- });
-  </script> 
-  <?php if(isset($limit)) {?>
+        </script>
   <?php $this->end('script'); ?>
-      <?php }?>       

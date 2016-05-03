@@ -56,13 +56,13 @@
                                    
                             } else {
                                 $.get('/notfound',{},function(result){
-                                    $('#custRushHours').html(result);
+                                    $('#custRushHours').append(result);
                                 });
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                                  $.get('/notfound',{},function(result){
-                                    $('#custRushHours').html(result);
+                                    $('#custRushHours').append(result);
                                 });
                         }});
  </script>    

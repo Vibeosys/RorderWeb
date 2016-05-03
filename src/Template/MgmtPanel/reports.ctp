@@ -161,9 +161,7 @@ use Cake\Cache\Cache;
    <!-- Chart script -->
 <?php $this->start('script');?>    
   <script>
-    Chart.defaults.global.legend = {
-      enabled: false
-    };
+   
 
     // sales history
      $.ajax({
@@ -190,7 +188,7 @@ use Cake\Cache\Cache;
                             data: {
                                 labels: labels,
                             datasets: [{
-                            label: '# of Amount',
+                            label: 'Amount',
                             backgroundColor: "#26B99A",
                             data: value
                             }]
@@ -241,7 +239,7 @@ use Cake\Cache\Cache;
                                       data: {
                                         labels: labels,
                                         datasets: [{
-                                          label: '# of Amount',
+                                          label: 'Amount',
                                           backgroundColor: "#9B59B6",
                                           data: value
                                         }]
@@ -275,7 +273,7 @@ use Cake\Cache\Cache;
       data: {
        labels: ["January", "February", "March", "April", "May", "June", "July"],
         datasets: [{
-          label: '# of Votes',
+          label: 'Stock',
           backgroundColor: "#3498DB",
           data: [10, 62, 40, 55, 22, 89, 66]
         }]
