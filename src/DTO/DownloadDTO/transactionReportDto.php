@@ -17,11 +17,9 @@ class transactionReportDto {
     
     public $label;
     public $value;
-    public $color;
     
     public function __construct($label = null, $value = null, $color = null) {
         $this->label = $label;
         $this->value = $value;
-        $this->color = $color;
     }
 }

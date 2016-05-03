@@ -44,8 +44,7 @@ class CustomerVisitController extends ApiController{
         \Cake\Log\Log::debug('Ajax request visited with RestaurantId :-'.$restaurantId);
         $customerVisitReportData = $this->getTableObj()->getdata($restaurantId);
         if(is_null($customerVisitReportData)){
-             $this->response->type('text/plain');
-            $this->response->body('Invalid Data');
+            $this->response->body(0);
             return ;
         }
         $intermediate = [];

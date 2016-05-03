@@ -19,27 +19,6 @@ use Cake\Log\Log;
  */
 class TransactionMasterController extends ApiController{
     
-     private $bar_chart_default_values = [
-                    "xAxisName" => "Payment Mode",
-                    "yAxisName" => "Amount (In Rupee)",
-                    "numberPrefix" => "₹",
-                    "paletteColors" => "#0075c2",
-                    "bgColor" => "#ffffff",
-                    "borderAlpha" => "20",
-                    "canvasBorderAlpha" => "0",
-                    "usePlotGradientColor" => "0",
-                    "plotBorderAlpha" => "10",
-                    "placevaluesInside" => "1",
-                    "rotatevalues" => "1",
-                    "valueFontColor" =>"#ffffff",                
-                    "showXAxisLine" =>"1",
-                    "xAxisLineColor" =>"#999999",
-                    "divlineColor" => "#999999",               
-                    "divLineIsDashed" => "1",
-                    "showAlternateHGridColor" => "1",
-                    "subcaptionFontBold" => "0",
-                    "subcaptionFontSize" => "14"];
-   
     private function getTableObj() {
         return new Table\TransactionMasterTable();
     }
@@ -73,19 +52,7 @@ class TransactionMasterController extends ApiController{
         }
         $transactionDetailsController = new TransactionDetailsController();
         $reportData = $transactionDetailsController->generateReport($restaurantId);
-        $count = 0;
-        if(isset($reportData)){
-        foreach ($reportData as $report){
-            $report->color = $this->colors[$count++];
-        }}
-        $stdObj = new \stdClass();
-        foreach ($this->bar_chart_default_values as $key => $value){
-        $stdObj->$key = $value;    
-        }
-        $salesMainDto = new DownloadDTO\SalesMainDto($stdObj, $reportData);
-        $chartData = json_encode($salesMainDto);
-        Log::debug('Transaction data :-'.$chartData);
-        $this->response->type('text/plain');
+        $chartData = json_encode($reportData);
         $this->response->body($chartData);
     }
     
