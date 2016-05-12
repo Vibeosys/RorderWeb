@@ -96,16 +96,19 @@ class BillController  extends ApiController{
     }
     
     public function displayBill() {
+        $this->autoRender = FALSE;
         $restId = parent::readCookie('cri');
+        $request = $this->request->query;
+        Log::debug($request);
         Log::debug('Current restaurantId in order controller :- '.$restId);
         if(isset($restId)){
-            $tableId = parent::readCookie('cti');
-            $takeawayNo = parent::readCookie('ctn');
-            $deliveryNo = parent::readCookie('cdn');
+            $tableId = $request['table'];
+            $takeawayNo = $request['takeaway'];
+            $deliveryNo = $request['delivery'];
             Log::debug('Now bill list shows for table :-'.$tableId .'or for takeawayNo :- '.$takeawayNo);
             $latestBill = $this->getTableObj()->getTableBill($tableId, $takeawayNo,$deliveryNo, $restId);
             if(is_null($latestBill)){
-                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
+                $this->response->body(json_encode([MESSAGE => DTO\ErrorDto::prepareMessage(126)]));
                 return;
             }
             $userController = new UserController();
@@ -116,12 +119,15 @@ class BillController  extends ApiController{
                 $bill->tableNo = $rtableController->getBillTableNo($bill->tableNo);
                 $bill->date = date('d-m-Y H:i',strtotime('+330 minutes',strtotime($bill->date)));  
             }
-            $this->set(['bills' => $latestBill,
-                        'tableId' => $tableId,
-                        'takeawayNo' => $takeawayNo,
-                        'deliveryNo' => $deliveryNo]);
+            if($this->request->is('ajax')){
+                $response = json_encode($latestBill);
+                Log::debug($response);
+                $this->response->body($response);
+            }
+          
+        }  else if($this->request->is('ajax')){
+                $this->response->body(json_encode([MESSAGE => DTO\ErrorDto::prepareMessage(126)]));
         }
-        $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
     }
     
     public function getDiscountAmount() {

@@ -19,7 +19,7 @@ use Cake\Cache\Cache;
                     <h3>Contruction</h3>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <img src="../img/under-contruction.png" class="img-responsive">
+                 <?= $this->Html->image('under-contruction.png',['alt' => 'Comming Soon', 'class' => 'img-responsive']) ?>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                 <h4>Please check back soon</h4>

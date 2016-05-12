@@ -10,7 +10,7 @@ use Cake\Cache\Cache;
     $this->layout = false;
     $this->layout = 'rorder_layout';
     $this->assign('title', 'Table View');
-    $this->assign('heading', 'Dine-IN Table List');
+    $this->assign('heading', 'Dine In Table List');
     ?>
 <?php $this->start('breadcrum');?>
      <ol class="breadcrumb">
@@ -65,6 +65,46 @@ use Cake\Cache\Cache;
         </div>
     </div>
 </section>
+<div id="table_data_popup" class="modal animated zoomin">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Table No :- <span id="table_heading"> </span></h4>
+
+            </div>
+            <div class="scrollbar" id="style-1">
+            <div class="modal-body">
+                <div class="row" id="popup_list">
+                    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+                        <div class="order">
+                                    <div class="order-no">
+                                        <span class="text-1">Bill No: 231</span> <br>
+                                        <span class="text-2">Table No : 101</span>
+                                    </div>
+                                    <div class="order-detail ">
+                                        <span class="text-1">Served By: abcdef</span><br>
+                                        <span class="text-2">Date: 3-5-2016</span>
+                                    </div>
+                                    <div class="print">
+                                        <a class="btn-print">
+                                            <i class="fa fa-print fa-icon"></i> Print Bill
+                                        </a> 
+                                    </div>
+                           
+                        </div>                       
+                      </div>
+                    <div class="modal-footer">
+                        
+                    </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+    
+    </div> 
+    </div>
 <input type="text" style="display: none" class="hidden" id="option" value="<?= $option ?>">
 <?php $this->start('script');?>
 <script>  
@@ -106,6 +146,9 @@ var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.g
 							$('.reserved-table').html(alltables);
 							$('.free-table').html(alltables);
                         }});
+                        $('.close').on('click', function(){
+                            $('#table_data_popup').css('display','none');
+                        });
 </script>
 
 <?php $this->end('script'); ?>

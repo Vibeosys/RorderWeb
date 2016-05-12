@@ -6,61 +6,38 @@
     use Cake\Network\Exception\NotFoundException;
     use App\Controller;
 
-    if(isset($limit)){
      $this->layout = 'rorder_layout';
      $this->assign('title', 'Restaurant Transaction Report');
-    
-     //$this->start('content');
 ?>          
-             <section class="content-header">
-            <h1>
-                  Restaurant Transaction Report
-            </h1>
-            <ol class="breadcrumb">
-                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">Transaction Report</li>
-                </ol>
-            </section>
-            <section class="content">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="box">                           
-                            <section class="content content-div show-add-section">
-                                <div class="back-btn" style="margin-top: 10px"> 
-                                </div>
-                              
-                                <section class="stock-section" id="msu" style="margin-top:50px">
-                                   <div class="material-requisition" style="">
-                                     <?php } ?>  
-                                       <div class="graph-head">Monthly Transaction Report<a  onclick="alert('Work In Progress')">Download</a></div> 
-                                        <div class="inventry-report" style="padding-left:10% ">
-                                            <div id="transaction-graph">   
-                                            </div>
-                                        </div>
-                                       <?php if(isset($limit)){ ?>
-                                    </div>  
-                                </section>
-                            </section>
-                        </div>       
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </section><!-- /.content -->
-                                       
-   <?= $this->Html->script('fusioncharts.js') ?> 
-        <?= $this->Html->script('fusioncharts.theme.fint.js') ?> 
-                                       <?php }  ?>
-            <script>
-            FusionCharts.ready(function () {
-                var error = '<div class="right_col" role="main">' +
-                                '<section class="fil-not-found">' +
-                                    '<div class="container">' +
-                                        '<div class="row">' +
-                                            '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">' +
-                                            '<img src="../img/sad.png" >' +
-                                            '<h1 class="e-msg">Sorry!  </h1>' +
-                                            '<h3> Information </h3> <h1> not found.</h1>' +
-                                            '</div></div></div></section></div>';
-                $.ajax({
+<?php $this->start('breadcrum');?>
+      <ol class="breadcrumb">
+                            <li><a href="../" class="red">Dashboard</a></li>
+                            <li><a href="../reports" class="red">Reports</a></li>
+                            <li class="active">Monthly Transaction Report</li>
+                    </ol>
+<?php $this->end('breadcrum'); ?>       
+<div class="row">
+              
+                <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Monthly Transaction Report</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a href="#"><i class="fa fa-download"></i> Download</a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                  <div class="x_content" id="error_tr">
+                  <canvas id="transaction_graph"></canvas>
+                </div>
+              </div>
+              </div>           
+          </div>
+   <?php $this->start('script');?>                                    
+<script type="text/javascript">
+    
+              $.ajax({
                         url: "/transactionMaster/getTransactionReport?id=" + '<?= $rest ?>',
                         type: "POST",
                         // data: {id: restId},
@@ -69,21 +46,46 @@
                         processData: false,
                         success: function (result, jqXHR, textStatus) {
                             if (result) {
-                                var revenueChart = new FusionCharts({
-                                    type: 'column2d',
-                                    renderAt: 'transaction-graph',
-                                    width: '750',
-                                    height: '350',
-                                    dataFormat: 'json',
-                                    dataSource: result}).render();
+                                 var labels = new Array();
+                                var value = new Array();
+                                $.each(result,function(key, obj){
+                                    labels.push(obj.label);
+                                    value.push(obj.value);
+                                });
+                             var ctx = document.getElementById("transaction_graph");
+                                    var mybarChart = new Chart(ctx, {
+                                      type: 'bar',
+                                      data: {
+                                        labels: labels,
+                                        datasets: [{
+                                          label: 'Amount',
+                                          backgroundColor: "#9B59B6",
+                                          data: value
+                                        }]
+                                      },
+
+                                      options: {
+                                        scales: {
+                                          yAxes: [{
+                                            ticks: {
+                                              beginAtZero: true
+                                            }
+                                          }]
+                                        }
+                                      }
+                                    });
                             } else {
-                                    $('#transaction-graph').html(error);      
+                                $.get('/notfound',{},function(result){
+                                    $('#error_tr').html(result);
+                                });
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                                 $('#transaction-graph').html(error); 
+                                $.get('/notfound',{},function(result){
+                                    $('#error_tr').html(result);
+                                });
                         }});
-            });
+    
             </script>
            
-
+<?php $this->end('script'); ?>   

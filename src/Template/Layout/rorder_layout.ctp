@@ -81,15 +81,15 @@ $sec = $this->fetch('sec');
                         
                           <div class="collapse" id="submenu-table">
                             <ul class="nav child_menu sub-child-menu">
-                               <li><a href="../tableview/placeorder">Place Order</a>                      
+                               <li><a href="../../tableview/placeorder">Place Order</a>                      
                                   </li>
-                                 <li><a href="../tableview/generatebill">Generate Bill</a>
+                                 <li><a href="../../tableview/generatebill">Generate Bill</a>
                                 </li>
-                                <li><a href="../tableview/cancelorder">Cancel Order</a>
+                                <li><a href="../../tableview/cancelorder">Cancel Order</a>
                                 </li>
-                                <li><a href="../tableview/printkot">Print KOT</a>
+                                <li><a href="../../tableview/printkot">Print KOT</a>
                                 </li>
-                                <li><a href="../tableview/printbill">Print Bill</a>
+                                <li><a href="../../tableview/printbill">Print Bill</a>
                                 </li>
                               </ul>
                          </div>
@@ -102,13 +102,13 @@ $sec = $this->fetch('sec');
                             <ul class="nav child_menu sub-child-menu">
                                                                    <li><a href="../takeaway/placeorder">Place Order</a>                      
                                   </li>
-                                 <li><a href="../takeaway/generatebill">Generate Bill</a>
+                                 <li><a href="../../takeaway/generatebill">Generate Bill</a>
                                 </li>
-                                <li><a href="../takeaway/cancelorder">Cancel Order</a>
+                                <li><a href="../../takeaway/cancelorder">Cancel Order</a>
                                 </li>
-                                <li><a href="../takeaway/printkot">Print KOT</a>
+                                <li><a href="../../takeaway/printkot">Print KOT</a>
                                 </li>
-                                <li><a href="../takeaway/printbill">Print Bill</a>
+                                <li><a href="../../takeaway/printbill">Print Bill</a>
                                 </li>
                               </ul>
                          </div>

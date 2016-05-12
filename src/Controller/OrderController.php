@@ -94,19 +94,21 @@ class OrderController extends ApiController {
     }
     
     public function displayOrders() {
+        $this->autoRender = FALSE;
         $restId = parent::readCookie('cri');
-        
+         $request = $this->request->query;
+        Log::debug($request);
         Log::debug('Current restaurantId in order controller :- '.$restId);
         if(isset($restId)){
-            $tableId =parent::readCookie('cti');
-            $takeawayNo = parent::readCookie('ctn');
-            $deliveryNo = parent::readCookie('cdn');
+            $tableId = $request['table'];
+            $takeawayNo = $request['takeaway'];
+            $deliveryNo = $request['delivery'];
             Log::debug('Now order list shows for table :-'.$tableId);
             Log::debug('Now order list shows for takeaway :-'.$takeawayNo);
             Log::debug('Now order list shows for delivery :-'.$deliveryNo);
             $latestOrders = $this->getLatestOrders($tableId,$takeawayNo,$deliveryNo, $restId);
             if(is_null($latestOrders)){
-                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
+                 $this->response->body(json_encode([MESSAGE => DTO\ErrorDto::prepareMessage(126)]));
                 return;
             }
             $userController = new UserController();
@@ -120,9 +122,14 @@ class OrderController extends ApiController {
                 $order->takeawayNo = $this->isNull($order->takeawayNo);
                 $order->deliveryNo = $this->isNull($order->deliveryNo);
             }
-            $this->set(['orders' => $latestOrders]);
+             if($this->request->is('ajax')){
+                $response = json_encode($latestOrders);
+                Log::debug($response);
+                $this->response->body($response);
+            }
+        }else if($this->request->is('ajax')){
+         $this->response->body(json_encode([MESSAGE => DTO\ErrorDto::prepareMessage(126)]));
         }
-        $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(126)]);
     }
 
 }

@@ -27,7 +27,7 @@
                   </ul>
                   <div class="clearfix"></div>
                 </div>
-                <div class="x_content">
+                  <div class="x_content" id="error_sr">
                   <canvas id="sales-history-graph"></canvas>
                 </div>
               </div>
@@ -79,11 +79,15 @@
                               
                             } else {
                                 
-                                    $('#shr').hide();      
+                                    $.get('/notfound',{},function(result){
+                                    $('#error_sr').append(result);
+                                }); 
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                                     $('#shr').hide();   
+                                     $.get('/notfound',{},function(result){
+                                    $('#error_sr').append(result);
+                                });
                         }});
    
  </script>    

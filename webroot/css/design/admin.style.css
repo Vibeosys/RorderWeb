@@ -87,3 +87,16 @@ border-radius: 10px;
 background-color: #BFBFBF;
 }
 /* Scrollbar End */ 
+
+
+@media (min-width: 848px){
+.modal-dialog {
+    width: 992px;
+    margin: 30px auto;
+}
+}
+
+.modal-body{
+    height:456px;
+    overflow-y: auto;
+}

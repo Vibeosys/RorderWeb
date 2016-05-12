@@ -73,7 +73,7 @@ class TransactionDetailsTable extends Table{
     }
     
     public function getReport($restaurantId) {
-        $reportData = null;
+        $reportData = 0;
         $counter = 0;
         $day = date('d') -1;
         $day = '0'.$day;
