@@ -162,4 +162,18 @@ class BillController  extends ApiController{
             Log::debug('data :- '. json_encode($result));
         }
     }
+    
+    public function generateStatus() {
+        
+    }
+    
+    public function billPayment() {
+        $paymentModeController = new PaymentModeMasterController();
+        $paymentOptions = $paymentModeController->getPaymetModes();
+        $this->set(['p_option' => $paymentOptions]);
+    }
+    
+    public function invalidEntry() {
+        
+    }
 }

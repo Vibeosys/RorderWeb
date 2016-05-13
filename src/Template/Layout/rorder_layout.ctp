@@ -100,7 +100,7 @@ $sec = $this->fetch('sec');
                         
                           <div class="collapse" id="submenu-table2">
                             <ul class="nav child_menu sub-child-menu">
-                                                                   <li><a href="../takeaway/placeorder">Place Order</a>                      
+                                                                   <li><a href="../../takeaway/placeorder">Place Order</a>                      
                                   </li>
                                  <li><a href="../../takeaway/generatebill">Generate Bill</a>
                                 </li>
@@ -121,25 +121,22 @@ $sec = $this->fetch('sec');
                                                 
                           <div class="collapse" id="submenu-table3">
                             <ul class="nav child_menu sub-child-menu">
-                                                                   <li><a href="../delivery/placeorder">Place Order</a>                      
+                                                                   <li><a href="../../delivery/placeorder">Place Order</a>                      
                                   </li>
-                                 <li><a href="../delivery/generatebill">Generate Bill</a>
+                                 <li><a href="../../delivery/generatebill">Generate Bill</a>
                                 </li>
-                                <li><a href="../delivery/cancelorder">Cancel Order</a>
+                                <li><a href="../../delivery/cancelorder">Cancel Order</a>
                                 </li>
-                                <li><a href="../delivery/printkot">Print KOT</a>
+                                <li><a href="../../delivery/printkot">Print KOT</a>
                                 </li>
-                                <li><a href="../delivery/printbill">Print Bill</a>
+                                <li><a href="../../delivery/printbill">Print Bill</a>
                                 </li>
                               </ul>
                          </div>
                         
                         
                     </li>
-                   <li><a href="../rtables">Manage Table</a>
-                    </li>
-                    <li><a href="../tablecategory/addnewtablecategory">Table Category</a>
-                    </li>
+                  
                   </ul>
                 </li>
                 
@@ -147,13 +144,13 @@ $sec = $this->fetch('sec');
                   <ul class="nav child_menu" style="display: none">
                   <li><a href="../menu">Menu</a>
                     </li>
-                    <li><a href="../kitchen/recipe">Recipe</a>
+                   <!-- <li><a href="../kitchen/recipe">Recipe</a>
+                    </li> -->
+                    <li><a href="../../menucategory/addnewmenucategory" >Menu Category</a>
                     </li>
-                    <li><a href="../menucategory/addnewmenucategory" >Menu Category</a>
-                    </li>
-                    <li><a href="../kitchen/recipecategory">Recipe Category</a>
-                    </li>
-                    <li><a href="../kitchen/printers">Kitchen/Printers</a>
+                    <!--<li><a href="../kitchen/recipecategory">Recipe Category</a>
+                    </li> -->
+                    <li><a href="../../kitchen/printers">Kitchen/Printers</a>
                     </li>
                   </ul>
                 </li>
@@ -162,20 +159,20 @@ $sec = $this->fetch('sec');
                      <li class="stock-upload child-plus"><a data-toggle="collapse" href="#submenu-upload" aria-expanded="false" aria-controls="collapseExample">Stock Upload<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
                           <div class="collapse" id="submenu-upload">
                          <ul class="nav child_menu submenu-stock-upload sub-child-menu">
-                                  <li><a href="../inventory/materialstockupload">Material Stock Upload</a>                      
+                                  <li><a href="../../inventory/materialstockupload">Material Stock Upload</a>                      
                                   </li>
-                                 <li><a href="../inventory/materialbrandstockupload">Material Brand Stock Upload</a>
+                                 <li><a href="../../inventory/materialbrandstockupload">Material Brand Stock Upload</a>
                                 </li>
                                 
                               </ul>
                          </div>
                     </li>
-                    <li class="child-plus"><a  data-toggle="collapse" href="#submenu-modify" aria-expanded="false" aria-controls="collapseExample"s>Stock Modification<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                    <li class="child-plus"><a  data-toggle="collapse" href="#submenu-modify" aria-expanded="false" aria-controls="collapseExample">Stock Modification<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
                          <div class="collapse" id="submenu-modify">
                         <ul class="nav child_menu sub-child-menu">
-                                <li><a href="../inventory/materialstockmodification">Material Stock Modification</a>                      
+                                <li><a href="../../inventory/materialstockmodification">Material Stock Modification</a>                      
                                   </li>
-                                 <li><a href="../inventory/materialbrandstockmodification">Material Brand Stock Modification</a>
+                                 <li><a href="../../inventory/materialbrandstockmodification">Material Brand Stock Modification</a>
                                 </li>
                               </ul>
                         </div>
@@ -186,41 +183,45 @@ $sec = $this->fetch('sec');
                 </li>
                  <li><a><i class="fa fa-bar-chart-o"></i> Reports <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                                      <li><a href="../reports/transactionreport">Transaction Report</a>
+                                      <li><a href="../../reports/transactionreport">Transaction Report</a>
                     </li>
-                    <li><a href="../reports/orderleadtime">Order lead time Report</a>
+                    <li><a href="../../reports/orderleadtime">Order lead time Report</a>
                     </li>
-                    <li><a href="../reports/salesreport">Sales Report</a>
+                    <li><a href="../../reports/salesreport">Sales Report</a>
                     </li>
-                    <li><a href="../reports/salesforcast">Sales forcast Report</a>
+                    <li><a href="../../reports/salesforcast">Sales forcast Report</a>
                     </li>
-                    <li><a href="../reports/leadtineforcast">Lead tine forcast Report</a>
+                    <li><a href="../../reports/leadtineforcast">Lead tine forcast Report</a>
                     </li>
-                      <li><a href="../reports/favouratemenu">Favourate menu Report</a>
+                      <li><a href="../../reports/favouratemenu">Favourate menu Report</a>
                     </li>
-                      <li><a href="../reports/customerrushhour">Customer Rush hours Report</a>
+                      <li><a href="../../reports/customerrushhour">Customer Rush hours Report</a>
                     </li>
-                      <li><a href="../reports/perstawordssales">Per stawords sales Report</a>
+                      <li><a href="../../reports/perstawordssales">Per stawords sales Report</a>
                     </li>
-                      <li><a href="../reports/stockavailability">Stock availability  Report</a>
+                      <li><a href="../../reports/stockavailability">Stock availability  Report</a>
                     </li>
-                      <li><a href="../reports/stawordsperformance">Stawords performance Report</a>
+                      <li><a href="../../reports/stawordsperformance">Stawords performance Report</a>
                     </li>
-                      <li><a href="../inventory/materialrequisitionreport">Material Requisition  Report</a>
+                      <li><a href="../../inventory/materialrequisitionreport">Material Requisition  Report</a>
                     </li>
-                      <li><a href="../inventory/materialbrandwiserequisitionreport">Brandwise material Requisition Report</a>
+                      <li><a href="../../inventory/materialbrandwiserequisitionreport">Brandwise material Requisition Report</a>
                     </li>
                   </ul>
                 </li>
                   <li><a><i class="fa fa-bug"></i> Manage Restaurant <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                   <li><a href="../manage/edit">Edit Info</a>
+                   <li><a href="../../manage/edit">Edit Info</a>
                     </li>
-                    <li><a href="../manage/users">Users</a>
+                    <li><a href="../../manage/users">Users</a>
                     </li>
-                    <li><a href="../manage/devices">Devices</a>
+                     <li><a href="../../rtables">Manage Table</a>
                     </li>
-                    <li><a href="../manage/configuration">Configration</a>
+                    <li><a href="../../tablecategory/addnewtablecategory">Table Category</a>
+                    </li>
+                    <li><a href="../../manage/devices">Devices</a>
+                    </li>
+                    <li><a href="../../manage/configuration">Configration</a>
                     </li>
                    
                   </ul> 

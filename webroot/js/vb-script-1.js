@@ -351,15 +351,30 @@ function perform(table,takwaway,delivery,discount,deliveryCharge){
          var table = table;
     if(current_option === 'placeorder'){
           if(table){
-                  window.location.replace('../tableview/placeorder/place-an-order');
+                  window.location.replace('../../tableview/placeorder/place-an-order');
           }else if(takeaway){
-                 window.location.replace('../takeaway/placeorder/place-an-order');
+                 window.location.replace('../../takeaway/placeorder/place-an-order');
           }else{
-                window.location.replace('../delivery/placeorder/place-an-order');
+                window.location.replace('../../delivery/placeorder/place-an-order');
           }
        
     }else if(current_option === 'generatebill'){
-        
+        var s_link = '';
+        var e_link = '';
+        var back_link = '';
+        if(table){
+                  s_link = 'tableview/generatebill/generate-status';
+                  e_link = 'tableview/generatebill/invalid-entry';
+                  back_link = 'tableview/generatebill';
+          }else if(takeaway){
+                  s_link ='takeaway/generatebill/generate-status';
+                  e_link ='takeaway/generatebill/invalid-entry';
+                  back_link = 'takeaway/generatebill';
+          }else{
+                 s_link ='delivery/generatebill/generate-status';
+                 e_link ='delivery/generatebill/invalid-entry';
+                 back_link = 'delivery/generatebill';
+          }
   
         $.post('/getwebuser',{},function(result){
             result.macId = 'WEB:MAC:ADDRESS';
@@ -369,32 +384,51 @@ function perform(table,takwaway,delivery,discount,deliveryCharge){
                                 '"restaurantId":'+ result.restaurantId +'},';
             $.post('/getlatestbill',{table:table,takeaway:takeaway,delivery:delivery},function(result){
             if(result){
-                if(confirm('Bill was generated for this Table' + '\nMAKE A PAYMENT?') === true){
-                     payBill(result.BillNo,userInfo,table,takeaway,delivery,result.CustId,discount);
-                 }else{
-                     return false;
-                 }
+                if(result.errorCode){
+                    alert(result.errorCode);
+                    if(result.errorCode == 104){
+                        window.location.replace('../../login');
+                    }else{
+                     $.post('/setcookie',{name:'bg_st_msg',value:result.message},function(result){});
+                     $.post('/setcookie',{name:'bg_link',value:back_link},function(result){});
+                      window.location.replace('../'+ e_link);
+                  }
+                }else{
+                    $.post('/setcookie',{name:'bg_billno',value:result.BillNo},function(result){});
+                    $.post('/setcookie',{name:'bg_userinfo',value:userInfo},function(result){});
+                    $.post('/setcookie',{name:'bg_table',value:table},function(result){});
+                    $.post('/setcookie',{name:'bg_take',value:takeaway},function(result){});
+                    $.post('/setcookie',{name:'bg_deli',value:delivery},function(result){});
+                    $.post('/setcookie',{name:'bg_cust',value:result.CustId},function(result){});
+                    $.post('/setcookie',{name:'bg_disc',value:discount},function(result){});
+                    $.post('/setcookie',{name:'bg_st_msg',value:'Bill was already generated !'},function(result){});
+                    
+                    window.location.replace('../'+s_link);
+                }
             }else{
-        $.post('/getcurrenttablecustomer',{table:table,takeaway:takeaway,delivery:delivery},function(response){
-             cust = response.custId; 
-        
-         var  request = userInfo +  ' "data": [{' +
-		 '"operation": "generateBill","operationData": {\"custId\":\"'+ cust +'\",\"tableId\":'+ table +',\"takeawayNo\":'+ takeaway +',\"deliveryNo\":'+ delivery +'}}]}';
-        $.post('/api/v1/upload',request,function(result1){
-             if(result1.errorCode){
-                 $('#popup').css('display','block');
-                 $('#head').text('Error');
-                 $('#head').css('color','red');
-                 $('#msg').text(result1.errorCode+': '+result1.message);
-             }else{
-                 billNo = result1.data;
-                 if(confirm(result1.message + '\nMAKE A PAYMENT?') === true){
-                     payBill(billNo,userInfo,table,takeaway,delivery,cust,discount);
-                 }else{
-                     return false;
-                 }
-             }
-           }); 
+                $.post('/getcurrenttablecustomer',{table:table,takeaway:takeaway,delivery:delivery},function(response){
+                    cust = response.custId; 
+                    var  request = userInfo +  ' "data": [{' +
+                            '"operation": "generateBill","operationData": {\"custId\":\"'+ cust +'\",\"tableId\":'+ table +',\"takeawayNo\":'+ takeaway +',\"deliveryNo\":'+ delivery +'}}]}';
+                    $.post('/api/v1/upload',request,function(result1){
+                        if(result1.errorCode){
+                            $.post('/setcookie',{name:'bg_st_msg',value:result1.message},function(result){});
+                             $.post('/setcookie',{name:'bg_link',value:back_link},function(result){});
+                      window.location.replace('../'+ e_link);
+                 
+                            }else{
+                                billNo = result1.data;
+                                $.post('/setcookie',{name:'bg_billno',value:billNo},function(result){});
+                                $.post('/setcookie',{name:'bg_userinfo',value:userInfo},function(result){});
+                                $.post('/setcookie',{name:'bg_table',value:table},function(result){});
+                                $.post('/setcookie',{name:'bg_take',value:takeaway},function(result){});
+                                $.post('/setcookie',{name:'bg_deli',value:delivery},function(result){});
+                                $.post('/setcookie',{name:'bg_cust',value:cust},function(result){});
+                                $.post('/setcookie',{name:'bg_disc',value:discount},function(result){});
+                                $.post('/setcookie',{name:'bg_st_msg',value:'Bill has generated !'},function(result){});
+                             window.location.replace('../ '+ s_link);
+                            }
+                        }); 
        });
            }
         });  
@@ -403,9 +437,9 @@ function perform(table,takwaway,delivery,discount,deliveryCharge){
          if(table){
                   window.location.replace('../../tableview/cancelorder/cancel-an-order');
           }else if(takeaway){
-                 window.location.replace('../takeaway/cancelorder/cancel-an-order');
+                 window.location.replace('../../takeaway/cancelorder/cancel-an-order');
           }else{
-                window.location.replace('../delivery/cancelorder/cancel-an-order');
+                window.location.replace('../../delivery/cancelorder/cancel-an-order');
           }
     }else if(current_option === 'printkot'){
         $.post('/setcookie',{name:'cti',value:table},function(result){});
@@ -548,7 +582,9 @@ function perform(table,takwaway,delivery,discount,deliveryCharge){
 }
 
 function makepayment(bill, userInfo, table, takeaway, delivery, cust){
-    $(":button").val('Please Wait....');
+    $("#loading").css('display','block');
+    $('#btn_yes').attr('disabled','disabled');
+    $('#btn_no').attr('disabled','disabled');
     var value = $('#pm').val();
     var dis = $('#discount').val();
     var disAmt = null;
@@ -559,7 +595,7 @@ function makepayment(bill, userInfo, table, takeaway, delivery, cust){
 		 '"operation": "payedBill","operationData": {\"billNo\":\"'+ bill +'\",\"isPayed\":1,\"payedBy\":'+ value +',\"discount\":'+ disAmt +'}}]}';   
          $.post('/api/v1/upload',payrequest,function(result){
              if(!result.errorCode){
-                 $(":button").val('Submit');
+                  var link = ''; 
                  if(table){
                  var closerequest = userInfo +
                ' "data": [{' +
@@ -571,15 +607,25 @@ function makepayment(bill, userInfo, table, takeaway, delivery, cust){
                          $.post('/api/v1/upload',tabelclose,function(result){
                            $('#pcheck').val('1'); 
                          });
-                    });}
-                    $('#pcheck').val('1'); 
-                 $('#myPayment').css('display','none');
-                 $('#popup').css('display','block');
-                 $('#head').text('Payment Success');
-                 $('#head').css('color','green');
-                 $('#msg').text(result.message);
+                    });
+                    link = 'tableview/generatebill';
+                }else if(takeaway){
+                    link = 'takeaway/generatebill';
+                }else{
+                     link = 'delivery/generatebill';
+                }
+                $('.msg-text').css('color','green');
+                $('.msg-text').addClass('msg-text-extra');
+                var s_html = 'payment has been done<br>';
+                s_html += '<ul class="error-list1"><li> <a href="../generatebill">OK</a> </li><li> <a href="../../reports">Home</a></li></ul>';
+                    $('.msg-text').html(s_html); 
+                 
              }else{
-             alert('Error in bill Payment');
+             $('.msg-text').css('color','red');
+             $('.msg-text').addClass('msg-text-extra');
+              var s_html = 'Payment has been failed<br>';
+              s_html += '<ul class="error-list1"><li> <a href="../generatebill">Back</a> </li><li> <a href="../../reports">Home</a></li></ul>';
+                    $('.msg-text').html(s_html);
          }
         });
      });

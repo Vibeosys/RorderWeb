@@ -91,7 +91,7 @@ background-color: #BFBFBF;
 
 @media (min-width: 848px){
 .modal-dialog {
-    width: 992px;
+    width: 800px;
     margin: 30px auto;
 }
 }
@@ -99,4 +99,43 @@ background-color: #BFBFBF;
 .modal-body{
     height:456px;
     overflow-y: auto;
+}
+
+.btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    padding: 10px 12px;
+    border-radius: 25px;
+    font-size:18px;
+    line-height: 1.33;
+    box-shadow: 2px 3px 4px grey;
+
+}
+.btn-circle {
+    width: 20px;
+    height: 20px;
+    padding: 1px 0;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.428571429;
+}
+.fa-size{
+    font-size: 1.5em;
+}
+.nav-tabs>li>a{
+    width:174px;
+}
+@media (max-width:578px){
+    .nav-tabs>li>a{
+        width: auto;
+    }
+}
+
+.nav-tabs {
+    border-bottom: 1px solid rgb(251, 172, 24);
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+        border: 1px solid rgb(251, 172, 24);
+    border-bottom-color: transparent;
 }

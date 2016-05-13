@@ -520,9 +520,10 @@ a:hover, a:focus {
   margin-right: 0;
 }
 .top_nav .navbar-right {
-  margin: 0;
-  width: 50%;
+
+/*  width: 50%;*/
   float: right;
+    margin-right: 18em;
 }
 .top_nav .navbar-right li {
   display: inline-block;
@@ -771,6 +772,28 @@ footer {
 }
 a.btn-success, a.btn-primary, a.btn-warning, a.btn-danger {
   color: #fff !important;
+}
+.btn-danger-outline {
+    color: #d9534f;
+    background-color: transparent;
+    background-image: none;
+    border-color: #d9534f;
+}
+.btn-danger-outline:hover {
+    color: white;
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+.btn-success-outline {
+    color: #5cb85c;
+    background-color: transparent;
+    background-image: none;
+    border-color: #5cb85c;
+}
+.btn-success-outline:hover {
+    color: white;
+    background-color: #5cb85c;
+    border-color: #5cb85c;
 }
 .btn {
   border-radius: 3px;
@@ -1844,7 +1867,6 @@ a.star {
   width: 100%;
 }
 .buttons, button, .btn {
-  margin-bottom: 5px;
   margin-right: 5px;
 }
 .btn-group-vertical .btn, .btn-group .btn {
@@ -1969,6 +1991,12 @@ span.section {
 .form-control {
   border-radius: 0;
   width: 100%;
+}
+.select-payment{
+    width:70%;
+}
+.push-top{
+    margin:20px 0 20px 0;
 }
 .form-horizontal .control-label {
   padding-top: 8px
@@ -4035,7 +4063,6 @@ img{
     color: #565a5c;
     letter-spacing: .5px;
 }
-
 .order{
         border: 2px dashed #E0E0E0;
     margin-bottom: 9px;
@@ -4127,3 +4154,59 @@ img{
         margin-right: 10px;
     }
 }
+
+.btn-edit{
+   
+    position: relative;
+    padding: 7px 5px;
+    margin: 0 0 12px 0px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 2px;
+    text-align: center;
+    /* color: #666; */
+    border: 1px solid #1abb9c;
+    background-color: rgba(26, 187, 156, 0.42);
+    font-size: 14px;
+    display: inline-block;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+}
+. .fa-edit{
+        font-size: 13px;
+        margin-right: 10px;
+    }
+.spicy-food{
+    width:30px;
+}
+.menu-img{
+    width:30px;
+}
+.veg-non-veg{
+    width:30px;
+    text-align: center;
+    display:inline-block
+}
+@media  (max-width:991px){
+
+    .navbar-right{
+            margin-right: 0!important;
+        }
+    
+    }
+    
+    
+    .msg-text-extra{
+            padding-top: 100px;
+    padding-bottom: 50px;
+    font-size: 20px;
+    }    

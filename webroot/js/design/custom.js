@@ -6,34 +6,34 @@
 
 /** ******  left menu  ***********************/
 $(function () {
-    //$('#sidebar-menu li ul').slideUp();
-    //$('#sidebar-menu li').removeClass('active');
-
-    $('#sidebar-menu li').on('click', function() {        
-        
+   // $('#sidebar-menu li ul').slideUp();
+   // $('#sidebar-menu li').removeClass('active');
+/*
+    $('#sidebar-menu li').click( function() { 
          var link = $('a', this).attr('href');
 
         if(link) { 
             window.location.href = link;
         } 
         else {
-         if ($(this).is('.active')) {
-                $(this).removeClass('active');
-                $('ul', this).slideUp();
-            } 
-            else {
-                $('#sidebar-menu li').removeClass('active');
-                $('#sidebar-menu li ul').slideUp();
-                
+         if ($(this).is('.active'))
+             {
                 $(this).addClass('active');
                 $('ul', this).slideDown();
-                
-            }
-        
+            
+             }
+        else{
+            
+                            $('#sidebar-menu li').removeClass('active');
+                $('#sidebar-menu li ul').slideDown();
+
         }
-        
-        /*
-        
+        }
+             });*/
+    
+  
+         
+        $('#sidebar-menu li').click( function() {   
         var link = $('a', this).attr('href');
 
         if(link) { 
@@ -53,8 +53,9 @@ $(function () {
                 $('ul', this).slideDown();
                 
             }
-        }*/
-    });
+        }
+        });
+    
 
     
     
@@ -99,10 +100,13 @@ $(window).resize(function () {
 
 
 
+/** ******  tooltip  *********************** **/
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+/** ******  /tooltip  *********************** **/
 /** ******  progressbar  *********************** **/
-if ($(".progress .progress-bar")[0]) {
-    $('.progress .progress-bar').progressbar(); // bootstrap 3
-}
+
 /** ******  /progressbar  *********************** **/
 /** ******  switchery  *********************** **/
 if ($(".js-switch")[0]) {
