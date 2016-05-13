@@ -7,12 +7,7 @@ label.custom-file-upload {
     width: 100%;
     
 }
-input[type='file']{
-    position: relative;
-    top: -40px;
-    cursor: pointer;
-    opacity: 0;
-}
+
 select.form-control-select {
     border-color: #d2d6de;
     width: 50%;
@@ -133,16 +128,10 @@ div.print-table-button > button{
     font-size: 16px;
     background-color: rgba(158, 158, 158, 0.09);
 }
-ul.nav > li.active >a{
-    color: orangered;
-    cursor: default;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-bottom-color: transparent;
-}
+
 #loading-image{
-    margin-top: 10%;
-    margin-left: 40%;
+        margin-top: 8%;
+    margin-left: -8%;
 }
 div.order-button , div.bill-button{
     

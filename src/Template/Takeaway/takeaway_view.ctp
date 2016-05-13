@@ -28,7 +28,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a  href="#all" data-toggle="tab">All Table</a>
+                        <a  href="#all" data-toggle="tab">All Takeaway</a>
                     </li>
                     <li><a href="#reserved" data-toggle="tab">Active</a>
                     </li>
@@ -128,7 +128,7 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  col-lg-offset-2 col-md-offset-3">
                                            <p class="error-msg2">Here are some suggestions:</p>
                                                     <ul class="error-list1">
-                                                                <li> <a href="../tableview/printbill">Back</a> </li>
+                                                        <li> <a onclick="window.history.back()">Back</a> </li>
                                                                 <li> <a href="../reports">Home</a></li>
                                                     </ul>
                                     </div>

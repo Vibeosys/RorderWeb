@@ -28,7 +28,7 @@ use Cake\Cache\Cache;
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a  href="#all" data-toggle="tab">All Table</a>
+                        <a  href="#all" data-toggle="tab">All Delivery</a>
                     </li>
                     <li><a href="#reserved" data-toggle="tab">Active</a>
                     </li>

@@ -1,4 +1,5 @@
 <?php
+
     use Cake\Cache\Cache;
     use Cake\Core\Configure;
     use Cake\Datasource\ConnectionManager;
@@ -6,179 +7,175 @@
     use Cake\Network\Exception\NotFoundException;
     use App\Controller;
 
-     $this->layout = 'rorder_layout';
-     $this->assign('title', 'Edit Menu');
-     //$this->start('content');
+    $this->layout = false;
+    $this->layout = 'rorder_layout';
+    $this->assign('title', 'Edit Menu');
+    $this->assign('heading', 'Edit Menu');
+    //$this->assign('script','var loading=\'<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>\';$(".table-list").html(loading),$.ajax({url:"/gettables",type:"POST",contentType:!1,cache:!1,processData:!1,success:function(e,t,a){if(e){var s="";$.each(e,function(e,t){s=t.isOccupied?s+\'<div class="print-table-button col-xs-2" onclick="perform(\'+t.tableId+\')" style="border-bottom: 8px solid rgba(247, 0, 0, 0.48);">\'+t.tableNo+" </div>":s+\'<div class="print-table-button col-xs-2" onclick="perform(\'+t.tableId+\')" style="border-bottom: 8px solid rgba(0, 128, 0, 0.55);">\'+t.tableNo+" </div>",$(".table-list").html(s)})}else{var s=\'<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>\';$(".table-list").html(s)}},error:function(e,t,a){var s=\'<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>\';$(".table-list").html(s)}});');
 ?>
-      
-<section class="content-header">
-                <h1>
-                    Menu
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>  
-                    <li><a href="../menu">Restaurant Menu</a></li>
-                    <li class="active">Edit Menu</li>
-                </ol>
-            </section>
-            <!-- Main content -->
-            <section class="content">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="box">                           
-                            <section class="content content-div show-add-section">
-                                <div class="row">
-                                    <!--Destination Form -->
-                                    <div class="with-border box-header">
-                                        <h3 class="box-title">Edit menu</h3>
-                                    </div><!-- /.box-header -->
-                                    <!-- form start -->
-                                  <?php if(isset($menuInfo)) { ?>
-                                    <form class="form-horizontal" method="post" action="editmenu">
-                                        <div class="box-body">
-                                            <div class="form-group">
-                                                <input style="display:none" type="text" name="mid" value="<?= $menuInfo->mid ?>">
-                                                <label for="Title" class="col-sm-2 control-label">Title</label>
-                                                <div class="col-sm-8">
-                                                    <input name="ttl" type="text" class="form-control" id="Title" value="<?= $menuInfo->ttl ?>">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="latitude" class="col-sm-2 control-label">Image</label>
-                                                <div class="col-sm-8">
-                                                    <?php if(strlen($menuInfo->img)) { ?>
-                                                 <img  src="<?= $menuInfo->img ?>" alt ="<?= $menuInfo->ttl ?>" width="100" height="100">
-                                                <?php }else{ ?>
-                                                <?= $this->Html->image('Quickserve-menu-default.gif', ['width' => '100','height' => '100','alt' => 'MENU'])?>
-                                                <?php } ?>
-                                                   
-                                                    <input style="display:none" name="img" type="text" class="form-control" value="<?= $menuInfo->img ?>">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="latitude" class="col-sm-2 control-label">Price</label>
-                                                <div class="col-sm-8">
-                                                    <input name="prc" type="text" class="form-control" value="<?= $menuInfo->prc ?>" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="latitude" class="col-sm-2 control-label">Ingredients</label>
-                                                <div class="col-sm-8">
-                                                    <input name="igt" type="text" class="form-control" value="" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="latitude" class="col-sm-2 control-label">Tags</label>
-                                                <div class="col-sm-8">
-                                                    <input name="tags" type="text" class="form-control" value="<?= $menuInfo->tags ?>">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="latitude" class="col-sm-2 control-label"></label>
-                                                <div class="col-sm-8">
-                                                <?php if($menuInfo->avl){ ?>
-                                                    <input name="avl" type="checkbox" checked> Available
-                                                <?php }else {?>   
-                                                    <input name="avl" type="checkbox" > Available
-                                                <?php }?>    
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="latitude" class="col-sm-2 control-label"></label>
-                                                <div class="col-sm-8">
-                                                   <?php if($menuInfo->act){ ?>
-                                                    <input name="act" type="checkbox" checked> Active
-                                                <?php }else {?>   
-                                                    <input name="act" type="checkbox" > Active
-                                                <?php }?>  
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="latitude" class="col-sm-2 control-label"></label>
-                                                <div class="col-sm-8">
-                                                   <?php if($menuInfo->spy){ ?>
-                                                    <input name="spy" type="checkbox" checked> Spicy
-                                                <?php }else {?>   
-                                                    <input name="spy" type="checkbox" > Spicy
-                                                <?php }?>  
-                                                </div>
-                                            </div>
-                                             <div class="form-group">
-                                                <label for="longitude" class="col-sm-2 control-label">Menu Category</label>
-                                            <div class="col-sm-8">
-                                                    <select name="category" class="form-control-select" required>
-                                                        <option value="null">Select Category</option>
-                                                    <?php  if(isset($category)){
-                                                                foreach ($category as $key => $value){
-                                                                    if($key == $menuInfo->ctgy){
-                                                                        echo '<option value="'.$key.'" selected>'.$value.'</option>';
-                                                                     }else {
-                                                                        echo '<option value="'.$key.'">'.$value.'</option>';
-                                                                     }
-                                                                }
-                                                            }
-                                                    ?>
-                                                    </select>
-                                            </div>
-                                             </div>
-                                            <div class="form-group">
-                                            <label for="longitude" class="col-sm-2 control-label">Room </label>
-                                            <div class="col-sm-8">
-                                                    <select name="room" class="form-control-select" required>
-                                                        <option value="null">Select Room</option>
-                                                    <?php  if(isset($room)){
-                                                                foreach ($room as $key => $value){
-                                                                    if($key == $menuInfo->rm){
-                                                                       echo '<option value="'.$key.'" selected>'.$value.'</option>';
-                                                                     }else {
-                                                                        echo '<option value="'.$key.'">'.$value.'</option>';
-                                                                     }
-                                                                }
-                                                            }
-                                                    ?>
-                                                    </select>
-                                            </div>
-                                            </div>
-                                             <div class="form-group">
-                                            <label for="longitude" class="col-sm-2 control-label">Food Beverages Type </label>
-                                            <div class="col-sm-8">
-                                                    <select name="fbType" class="form-control-select" required>
-                                                        <option value="null">Select Type</option>
-                                                    <?php  if(isset($fbType)){
-                                                                foreach ($fbType as $key => $value){
-                                                                    if($key == $menuInfo->fbtp){
-                                                                       echo '<option value="'.$key.'" selected>'.$value.'</option>';
-                                                                     }else {
-                                                                        echo '<option value="'.$key.'">'.$value.'</option>';
-                                                                     }
-                                                                }
-                                                            }
-                                                    ?>
-                                                    </select>
-                                            </div>
-                                            </div>
-                                        </div><!-- /.box-body -->
-                                        <div class="box-footer col-xs-12" style="margin-left:0px">
-                                            <div class="row">
-                                                <div class="col-xs-4"></div>
-                                                    <div class="col-xs-6">
-                                                        <button name="save" value="true" type="submit" style="margin-bottom:10px" class="dark-orange add-save-btn">Submit</button>
-                                                        <input type="button" value="cancel" class="light-orange button add-save-btn"  onclick="window.history.back();">
-                                                    </div>
-                                                <div class="col-xs-2"></div>
-                                            </div>
-                                        </div><!-- /.box-footer -->
-                                    </form>
-                                  <?php } ?>
-                                 <?php if(isset($message)) {?>
-                                    <div class="error-message" style="color:<?= $color ?>"> <?= $message ?> <a style="margin-left: 20px;padding: 5px;border:1px solid gainsboro" href="../menu">OK</a> </div>   
-                                 <?php } ?>
-                                    <!-- /.box -->
-                                    <!-- Destination form elements disabled -->
-                                </div>
-                            </section>
-                        </div><!-- /.box -->                       
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </section><!-- /.content -->
-             <?php $this->end();?>
+<?php $this->start('breadcrum');?>
+     <ol class="breadcrumb">
+                            <li><a href="../" class="red">Dashboard</a></li>
+                            <li><a href="../reports" class="red">Restaurent 1</a></li>
+                           <li class="active"> Edit Menu</li>
+                    </ol>
+<?php $this->end('breadcrum'); ?>           
+        
+         <div class="">
+          <div class="clearfix"></div>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_content">
+                  <br />
+                  <?php if(isset($menuInfo)) {?>
+                  <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="editmenu">
+
+                    <div class="form-group">
+                        <input style="display:none" type="text" name="mid" value="<?= $menuInfo->mid ?>">
+                        <input style="display:none" name="img" type="text" class="form-control" value="<?= $menuInfo->img ?>">
+                        <input style="display:none" name="igt" type="text" class="form-control" value="" >
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Title 
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="title" name="ttl" required="required" class="form-control col-md-7 col-xs-12" value="<?= $menuInfo->ttl ?>">  
+                         <?php if($menuInfo->spy){ ?>
+                          <input name="spy" type="checkbox" class="flat" checked>
+                         <?php }else {?>   
+                          <input name="spy" type="checkbox" class="flat">
+                        <?php }?>  
+                           <?= $this->Html->image("menu/spicy_food.png", ['class' => "spicy-food"]) ?>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">Price
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="price" name="prc" required="required" class="form-control col-md-7 col-xs-12" value="<?= $menuInfo->prc ?>">
+                      </div>
+                    </div>
+                  <div class="form-group">
+                      <label for="ingredients" class="control-label col-md-3 col-sm-3 col-xs-12">Tags</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="ingredients" class="form-control col-md-7 col-xs-12" type="text" name="tags" value="<?= $menuInfo->tags ?>">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                         <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                           <?php if($menuInfo->avl){ ?>
+                          <input name="avl" type="checkbox" class="flat" checked> Available
+                           <?php }else {?>   
+                          <input name="avl" type="checkbox" class="flat" > Available
+                           <?php }?>  
+                          <div style="margin-top:10px">
+                           <?php if($menuInfo->act){ ?>
+                          <input name="act" type="checkbox" class="flat" checked> Active
+                            <?php }else {?>   
+                            <input name="act" type="checkbox" class="flat"> Active
+                            <?php }?>  
+                            </div>
+                      </div>
+                    </div>  
+                      
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Category</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select name="category" class="select2_category form-control">
+                            <option value="null" disabled>Select Category</option>
+                          <?php  if(isset($category)){
+                            foreach ($category as $key => $value){
+                            if($key == $menuInfo->ctgy){
+                            echo '<option value="'.$key.'" selected>'.$value.'</option>';
+                            }else {
+                              echo '<option value="'.$key.'">'.$value.'</option>';
+                            }
+                            }
+                            }
+                          ?>
+                        </select>
+                      </div>
+                    </div>
+                      
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Kitchen</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select name="room" class="select2_kitchen form-control">
+                            <?php  if(isset($room)){
+                            foreach ($room as $key => $value){
+                            if($key == $menuInfo->rm){
+                            echo '<option value="'.$key.'" selected>'.$value.'</option>';
+                            }else {
+                            echo '<option value="'.$key.'">'.$value.'</option>';
+                            }
+                            }
+                            }
+                           ?>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Food Type</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select name="fbType" class="select2_foodtype form-control">
+                            <?php  if(isset($fbType)){
+                              foreach ($fbType as $key => $value){
+                              if($key == $menuInfo->fbtp){
+                              echo '<option value="'.$key.'" selected>'.$value.'</option>';
+                              }else {
+                              echo '<option value="'.$key.'">'.$value.'</option>';
+                              }
+                              }
+                               }
+                               ?>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Image 
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="image" class="date-picker form-control col-md-7 col-xs-12" type="file">
+                      </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                        <button name="save" value="true" type="submit" class="btn btn-success">Submit</button>
+                           <button type="button" value="cancel" class="btn btn-primary" onclick="window.history.back();">Cancel</button>
+                      </div>
+                    </div>
+
+                  </form>
+                  <?php } else { ?>
+                   <div class="error-message" style="color:<?= $color ?>"> <?= $message ?> <a style="margin-left: 20px;padding: 5px;border:1px solid gainsboro" href="../menu">OK</a> </div>   
+                  <?php } ?>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+<?php $this->start('script');?>
+<script>
+   $(document).ready(function() {
+      $(".select2_category").select2({
+        placeholder: "Select a Category",
+        allowClear: true
+      });
+        $(".select2_kitchen").select2({
+        placeholder: "Select a Kitchen",
+        allowClear: true
+      });
+      $(".select2_foodtype").select2({
+        placeholder: "Select a Food Type",
+        allowClear: true
+      });
+    });
+         
+ </script>
+ 
+
+<?php $this->end('script'); ?>

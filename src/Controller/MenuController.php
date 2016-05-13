@@ -149,6 +149,7 @@ class MenuController extends ApiController {
         $data = $this->request->data;
         if($this->request->is('post') and isset($data['edit'])){
             $stdMenu = new \stdClass();
+            Log::debug($data);
             foreach ($data as $k => $v){
                 $stdMenu->$k = $v;
             }
@@ -187,7 +188,7 @@ class MenuController extends ApiController {
                         json_encode($menuUpdate), 
                         UPDATE_OPERATION, 
                         $restaurantId);
-                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(134),COLOR => SUCCESS_COLOR]);
+                $this->redirect('menu');
             } else {
                 $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(136),COLOR => ERROR_COLOR]);
             }
@@ -207,7 +208,7 @@ class MenuController extends ApiController {
         }
         $conditions = array('RestaurantId =' => $restaurantId);
         $limit = PAGE_LIMIT;
-        $menus = $this->paginate($menuTable->connect()->find()->where($conditions),['limit' => $limit, 'page' => $page]);
+        $menus = $menuTable->connect()->find()->where($conditions);
          $allMenus = null;
         $i = 0;
         foreach ($menus as $menu) {

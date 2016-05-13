@@ -62,11 +62,12 @@
                                             </td>
                                             <td class="lat-width"><input class="roleId" style="display:none" type="text" name="prc" value="<?= $menu->price ?>">
                                                 <?= $menu->price ?>
-                                            </td>
-                                                       
-                                               <input style="display:none" type="text" name="tags" value="<?= $menu->tags ?>">
+                                                 <input style="display:none" type="text" name="tags" value="<?= $menu->tags ?>">
                                                 <input style="display:none" type="text" name="avl" value="<?= $menu->availabilityStatus ?>">
                                                <input style="display:none" type="text" name="act" value="<?= $menu->active ?>">
+                                            </td>
+                                                       
+                                              
                                            
                                              <td class="lat-width">
                                                 <input class="roleId" style="display:none" type="text" name="spy" value="<?= $menu->isSpicy ?>">

@@ -28,20 +28,19 @@
                       <div class="x_title">
                         <h2>Menu</h2>
                        <ul class="nav navbar-right panel_toolbox">
-                    <li><a href="#"><i class="fa fa-plus-circle"></i> Add New Menu</a>
+                    <li><a href="menu/addnewmenu"><i class="fa fa-plus-circle"></i> Add New Menu</a>
                     </li>
                   </ul>
                         <div class="clearfix"></div>
                       </div>
                       <div class="x_content">
-                       
+                      <?php if(isset($menus)) {?>
                         <table id="menu" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                           <thead>
                             <tr>
                               <th>Title</th>
                               <th>Image</th>
                               <th>Price</th>
-                              <th>Ingredients</th>
                               <th>Category</th>
                               <th>Kirchen</th>
                               <th>Type</th>
@@ -50,78 +49,51 @@
                             </tr>
                           </thead>
                           <tbody>
+                          <?php foreach ($menus as $menu) { ?>    
                             <tr>
-                              <td>Hare masale ka bhuna paneer<img src="images/menu/spicy_food.png" class="spicy-food"></td>
-                              <td><img src="images/sad.png" class="img-responsive menu-img"></td>
-                              <td>63</td>
-                              <td>Architect</td>                             
-                              <td>Edinburgh</td>
-                              <td>Architect</td>
-                              <td><img src="images/menu/floating_veg_icon.png" class="veg-non-veg center-block"></td>
+                          <form action="menu/editmenu" method="post">
+                              
+                              <?php if($menu->isSpicy){ ?>
+                              <td><?= $menu->menuTitle ?><?= $this->Html->image("menu/spicy_food.png", ['class' => 'spicy-food']) ?>
+                                  
+                              <input style="display:none" type="text" name="ttl" value="<?= $menu->menuTitle ?>"></td>
+                              <?php }else { ?>
+                              <td><?= $menu->menuTitle ?>
+                              <input style="display:none" type="text" name="ttl" value="<?= $menu->menuTitle ?>"></td>
+                              <?php } ?>
+                              
+                              <td><?= $this->Html->image("sad.png",['class' => 'img-responsive menu-img']) ?>
+                              <input  style="display:none" type="text" name="img" value="<?= $menu->image ?>"></td>
+                              <td><input class="roleId" style="display:none" type="text" name="prc" value="<?= $menu->price ?>">
+                                                <?= $menu->price ?>
+                                   <input style="display:none" type="text" name="tags" value="<?= $menu->tags ?>">
+                                                <input style="display:none" type="text" name="avl" value="<?= $menu->availabilityStatus ?>">
+                                               <input style="display:none" type="text" name="act" value="<?= $menu->active ?>">
+                                               <input class="roleId" style="display:none" type="text" name="spy" value="<?= $menu->isSpicy ?>">
+                                               <input style="display:none" type="text" name="mid" value="<?= $menu->menuId ?>">
+                              </td>
+                                               
+                              <td> <input class="roleId" style="display:none" type="text" name="ctgy" value="<?= $menu->categoryId ?>">
+                                                <?php if($menu->categoryId){ $key = $menu->categoryId; echo $categories->$key;} ?></td>
+                              <td> <input class="roleId" style="display:none" type="text" name="rm" value="<?= $menu->roomId ?>">
+                                                <?php if($menu->roomId and $room){ $key = $menu->roomId; echo $room->$key;} ?></td>
+                              
                               <td>
-                                     <button type="button" class="btn btn-success btn-circle btn-lg" data-toggle="tooltip" data-placement="left" title="Edit Menu"><i class="fa fa-pencil-square-o fa-size"></i>
-                            </button>
-                                  <button type="button" class="btn btn-warning btn-circle btn-lg" data-toggle="tooltip" data-placement="right" title="Edit Recipe"><i class="fa fa-cutlery fa-size"></i>
-                            </button>
-                            <!--      
-                                  <a class="btn-edit">
-                                            <i class="fa fa-pencil-square-o fa-edit"></i> Edit
-                                        </a> 
-                                    <a class="btn-edit">
-                                            <i class="fa fa-trash fa-edit"></i>  Delete
-                                        </a>
-                                -->
-                                </td>
-                             
-                            </tr>
-                            <tr>
-                              <td>Stuffed fried cheese mushroon</td>
-                              <td><img src="images/sad.png" class="img-responsive menu-img"></td>
-                              <td>63</td>
-                              <td>Architect</td>                             
-                              <td>Edinburgh</td>
-                              <td>Architect</td>
-                              <td><img src="images/menu/floating_non_veg_icon.png" class="veg-non-veg center-block"></td>
+                              <input class="roleId" style="display:none" type="text" name="fbtp" value="<?= $menu->fbTypeId ?>">
+                                                <?php if($menu->fbTypeId and $fbType){ $key = $menu->fbTypeId; echo  $this->Html->image('menu/'.$fbType->$key.'.png', ['class' => "veg-non-veg center-block"]);} ?></td>
                               <td>
-                                    <button type="button" class="btn btn-success btn-circle btn-lg" data-toggle="tooltip" data-placement="left" title="Edit Menu"><i class="fa fa-pencil-square-o fa-size"></i>
-                            </button>
-                                  <button type="button" class="btn btn-warning btn-circle btn-lg" data-toggle="tooltip" data-placement="right" title="Edit Recipe"><i class="fa fa-cutlery fa-size"></i>
-                            </button>
-                            <!--      
-                                  <a class="btn-edit">
-                                            <i class="fa fa-pencil-square-o fa-edit"></i> Edit
-                                        </a> 
-                                    <a class="btn-edit">
-                                            <i class="fa fa-trash fa-edit"></i>  Delete
-                                        </a>
-                                -->
-                                </td>
+                                  <button type="submit" name="edit" class="btn btn-success btn-circle btn-lg" data-toggle="tooltip" data-placement="left" title="Edit Menu"><i class="fa fa-pencil-square-o fa-size"></i>
+                                    </button>
+                                  <button type="submit" name="edit-recipe" class="btn btn-warning btn-circle btn-lg" data-toggle="tooltip" data-placement="right" title="Edit Recipe"><i class="fa fa-cutlery fa-size"></i>
+                                    </button>
+                             </td>
+                          </form>
                             </tr>
-                            <tr>
-                              <td>Jalapeno and cheese peppers<img src="images/menu/spicy_food.png" class="spicy-food"></td>
-                              <td><img src="images/sad.png" class="img-responsive menu-img"></td>
-                              <td>63</td>
-                              <td>Architect</td>                              
-                              <td>Edinburgh</td>
-                              <td>Architect</td>
-                              <td><img src="images/menu/floating_veg_icon.png" class="veg-non-veg center-block"></td>
-                            <td>
-                                       <button type="button" class="btn btn-success btn-circle btn-lg" data-toggle="tooltip" data-placement="left" title="Edit Menu"><i class="fa fa-pencil-square-o fa-size"></i>
-                            </button>
-                                  <button type="button" class="btn btn-warning btn-circle btn-lg" data-toggle="tooltip" data-placement="right" title="Edit Recipe"><i class="fa fa-cutlery fa-size"></i>
-                            </button>
-                            <!--      
-                                  <a class="btn-edit">
-                                            <i class="fa fa-pencil-square-o fa-edit"></i> Edit
-                                        </a> 
-                                    <a class="btn-edit">
-                                            <i class="fa fa-trash fa-edit"></i>  Delete
-                                        </a>
-                                -->
-                                </td>
-                            </tr>
+                          <?php } ?>
+                           
                           </tbody>
                         </table>
+                      <?php } ?>
 
                       </div>
                     </div>

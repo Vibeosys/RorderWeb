@@ -40,11 +40,8 @@ $sec = $this->fetch('sec');
     <?= $this->Html->css('design/custom.css') ?>
     <?= $this->Html->css('design/font-awesome.css') ?>
     <?= $this->Html->css('design/admin.style.css') ?>
-     
-  <link href="../css/design/animate.min.css" rel="stylesheet">
-
-  
-
+    <?= $this->Html->css('design/icheck/flat/green.css') ?>
+    <?= $this->Html->css('design/select/select2.min.css') ?>
 </head>
 
 
@@ -245,10 +242,7 @@ $sec = $this->fetch('sec');
             <div class="nav toggle">
               <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                 <h2 class="page-heading"><?= $this->fetch('heading')?></h2>
-                
             </div>
-               
-
             <ul class="nav navbar-nav navbar-right">
                 <li>
                  <?php if($this->fetch('breadcrum')){
@@ -263,7 +257,6 @@ $sec = $this->fetch('sec');
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
                   <li><a href="">  Profile</a>
                   </li>
-                  
                   <li><a href=""><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>
                 </ul>
@@ -302,7 +295,9 @@ $sec = $this->fetch('sec');
         <?= $this->Html->script('design/datatables/dataTables.bootstrap.js') ?> 
         <?= $this->Html->script('design/datatables/dataTables.responsive.min.js') ?> 
         <?= $this->Html->script('design/datatables/responsive.bootstrap.min.js') ?> 
-         
+        <?= $this->Html->script('design/nicescroll/jquery.nicescroll.min.js') ?> 
+         <?= $this->Html->script('design/icheck/icheck.min.js') ?> 
+         <?= $this->Html->script('design/select/select2.full.js') ?> 
     <?php if($this->fetch('script')){
                          echo $this->fetch('script');
                       }else{
