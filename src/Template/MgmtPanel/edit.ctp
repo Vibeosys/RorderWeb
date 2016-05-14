@@ -1,4 +1,5 @@
 <?php
+
     use Cake\Cache\Cache;
     use Cake\Core\Configure;
     use Cake\Datasource\ConnectionManager;
@@ -7,87 +8,75 @@
     use App\Controller;
 
     $this->layout = false;
-     $this->layout = 'rorder_layout';
-     $this->assign('title', ' Edit Restaurant');
-     //$this->start('content');
+    $this->layout = 'rorder_layout';
+    $this->assign('title', 'Edit Restaurant');
+    $this->assign('heading', 'Edit Restaurant Deatils');
+    //$this->assign('script','var loading=\'<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>\';$(".table-list").html(loading),$.ajax({url:"/gettables",type:"POST",contentType:!1,cache:!1,processData:!1,success:function(e,t,a){if(e){var s="";$.each(e,function(e,t){s=t.isOccupied?s+\'<div class="print-table-button col-xs-2" onclick="perform(\'+t.tableId+\')" style="border-bottom: 8px solid rgba(247, 0, 0, 0.48);">\'+t.tableNo+" </div>":s+\'<div class="print-table-button col-xs-2" onclick="perform(\'+t.tableId+\')" style="border-bottom: 8px solid rgba(0, 128, 0, 0.55);">\'+t.tableNo+" </div>",$(".table-list").html(s)})}else{var s=\'<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>\';$(".table-list").html(s)}},error:function(e,t,a){var s=\'<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>\';$(".table-list").html(s)}});');
 ?>
-            <section class="content-header">
-                <h1>
-                    Edit Restaurant 
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
-                    <li class="active"> Edit Restaurant</li>
-                </ol>
-            </section>
-            <section class="content">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="box">                           
-                            <section class="content content-div show-add-section">
-                                <div class="row">
-                                    <!--Destination Form -->
-                                    <div class="with-border box-header">
-                                      
-                                    </div><!-- /.box-header -->
-                                    <!-- form start -->
-                                    <form class="form-horizontal" method="post" action="edit" enctype="multipart/form-data">
-                                        <div class="box-body">
-     <?php if(isset($data)){
-     foreach ($data as $rest){    
-         ?>                             <div class="restaurant-edit-img col-sm-1">
-                                            <a class="restaurant-logo" href="" rel="theater" id="u_jsonp_6_5">
-                                            <?= $this->Html->image($rest->logoUrl, ['class' => 'resturant-logo-img','id' => 'logo','alt' => 'Retsurant Logo'])?>
-                                            </a>
-                                            
-                                            <div class="restaurant-logo-overline">
-                                                <a id="logo-selector">Change logo</a>
-                                                <input type="file" name="file-upload" class="file-control" >
-                                                
-                                            </div>
-                                        <div class="spinner">
-                                            <?= $this->Html->image('loading1.gif', ['class' => 'resturant-upload-loading','id' => 'loading','alt' => 'loading'])?>
-                                        </div>
-                                        </div>
-                                            <div class="restaurant-edit-field col-sm-11">    
-                                            <input style="display:none" type="text" name="restaurantId" value="<?=$rest->restaurantId?>">
-                                            <div class="form-group">
-                                                <label for="Title" class="col-sm-2 control-label">Restaurant Title</label>
-                                                <div class="col-sm-8">
-                                                    <input name="title" value="<?=$rest->title?>" type="text" class="form-control" id="Title" placeholder="Title" required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="address" class="col-sm-2 control-label">Address</label>
-                                                <div class="col-sm-8">
-                                                    <textarea name="address" class="form-control" placeholder="Address" required><?=$rest->address?></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="area" class="col-sm-2 control-label">Area</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" value="<?=$rest->area?>" name="area" class="form-control" placeholder="Area" required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="city" class="col-sm-2 control-label">City</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" value="<?=$rest->city?>" name="city" class="form-control" placeholder="City" required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="country" class="col-sm-2 control-label">Country</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" value="<?=$rest->country?>" name="country" class="form-control" placeholder="Country" required>
-                                                </div>
-                                            </div>
-                                             <div class="form-group">
-                                                <label for="phone" class="col-sm-2 control-label">Phone</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" value="<?=$rest->phone?>" name="phone" class="form-control" placeholder="Phone" required>
-                                                </div>
-                                            </div>
-                                            <?php if($rites){?>
+<?php $this->start('breadcrum');?>
+     <ol class="breadcrumb">
+                            <li><a href="../" class="red">Dashboard</a></li>
+                            <li><a href="../reports" class="red">Restaurent 1</a></li>
+                           <li class="active">Edit</li>
+                    </ol>
+<?php $this->end('breadcrum'); ?>           
+        
+        <div class="">
+          <div class="clearfix"></div>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_content">
+                  <br />
+                  <?php if(isset($suc_msg)){ ?>
+                                    <p style="text-align:center;color:<?= $color ?>"> <?= $suc_msg ?> </p>
+                                <?php } ?>
+                   <?php if(isset($data)){
+                            foreach ($data as $rest){    
+                    ?>   
+                  <form id="demo-form2" method="post" action="edit?XDEBUG_SESSION_START=netbeans-xdebug" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+                      
+                    <div class="form-group">
+                        
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Restaurant Title 
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input style="display:none" type="text" name="restaurantId" value="<?=$rest->restaurantId?>">
+                        <input type="text" id="title" value="<?=$rest->title?>" name="title" required="required" class="form-control col-md-7 col-xs-12"> 
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Address
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="address" value="<?=$rest->address?>" name="address" required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="area" class="control-label col-md-3 col-sm-3 col-xs-12">Area</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="area" value="<?=$rest->area?>" class="form-control col-md-7 col-xs-12" type="text" name="area">
+                      </div>
+                    </div>                  
+                      <div class="form-group">
+                      <label for="city" class="control-label col-md-3 col-sm-3 col-xs-12">City</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="city" value="<?=$rest->city?>" class="form-control col-md-7 col-xs-12" type="text" name="city">
+                      </div>
+                    </div>   
+                      <div class="form-group">
+                      <label for="country" class="control-label col-md-3 col-sm-3 col-xs-12">Country</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="country" value="<?=$rest->country?>" class="form-control col-md-7 col-xs-12" type="text" name="country">
+                      </div>
+                    </div>                  
+                      <div class="form-group">
+                      <label for="phone" class="control-label col-md-3 col-sm-3 col-xs-12">Phone</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="phone" value="<?=$rest->phone?>" class="form-control col-md-7 col-xs-12" type="text" name="phone">
+                      </div>
+                    </div>                  
+                      <?php if($rites){?>
                                              <div class="form-group">
                                                 <div class="col-sm-offset-2 col-sm-10">
                                                     <div class="checkbox">
@@ -100,30 +89,51 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <?php } ?>
-                                        <div class="box-footer col-xs-12" style="margin-left:0px">
-                                            <div class="row">
-                                                <div class="col-xs-4"></div>
-                                                    <div class="col-xs-6">
-                                                        <button name="save" type="submit" class="dark-orange add-save-btn" style="margin-bottom:10px">Submit</button>
-                                                        <input type="button" value="cancel" class="light-orange button add-save-btn"  onclick="window.history.back();">
-                                                    </div>
-                                                <div class="col-xs-2"></div>
-                                            </div>
-                                        </div><!-- /.box-footer -->
-                                        </div>    
-                                        <?php }}?>
-                                             <?php if(isset($message)){?>
-                                            <div id="error-div" style="margin-left: 20%;color: <?= $color ?>" ><?=$message?></div>
-                                        <?php }?>
-                                        </div><!-- /.box-body -->
-                                      
-                                    </form>
-                                    <!-- /.box -->
-                                    <!-- Destination form elements disabled -->
+                                            <?php } ?>  
+                                     
+                      
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="<?= $rest->logoUrl ?>" alt="rest-logo" /></div>
+                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                <div>
+                                    <span class="btn btn-file btn-primary"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change Image</span><input name="file-upload" type="file" /></span>
+                                <?php if(isset($message)){ ?>
+                                    <i style="color:<?= $color ?>"> <?= $message ?> </i>
+                                <?php } ?>
                                 </div>
-                            </section>
-                        </div><!-- /.box -->                       
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </section><!-- /.content -->
+                            </div>
+                      </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button type="submit" name="save" class="btn btn-success">Submit</button>
+                          <button type="button" class="btn btn-primary" onclick="window.history.back();">Cancel</button>
+                      </div>
+                    </div>
+
+                  </form>
+                   <?php }}?>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+<?php $this->start('script');?>
+<?= $this->Html->script("design/bootstrap-fileupload.js") ?>
+<script>
+   $(document).ready(function() {
+          
+          });
+         
+        </script>
+
+
+
+<?php $this->end('script'); ?>

@@ -38,6 +38,7 @@ $sec = $this->fetch('sec');
      <!-- new css  -->
  <?= $this->Html->css('design/animate.min.css') ?>
     <?= $this->Html->css('design/custom.css') ?>
+    <?= $this->Html->css('design/bootstrap-fileupload.min.css') ?>
     <?= $this->Html->css('design/font-awesome.css') ?>
     <?= $this->Html->css('design/admin.style.css') ?>
     <?= $this->Html->css('design/icheck/flat/green.css') ?>

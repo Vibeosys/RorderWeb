@@ -26,10 +26,16 @@
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
-                   <div class="x_title">
-                        <h2> For Single Menu Category</h2>
-                        <div class="clearfix"></div>
-                      </div>
+                 <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <h2>Single Menu Category </h2></a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                  
                 <div class="x_content">
                   <br />
                   <form id="form-single" method="post" action="addnewmenucategory" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
@@ -62,13 +68,19 @@
 
                   </form>
                 </div>
-                  <div class="center-block">
-                    <h1 class="text-center">OR</h1>
-                  </div>
-                   <div class="x_title">
-                        <h2>For Bulk Menu Categories</h2>
-                        <div class="clearfix"></div>
-                      </div>
+                        </div>
+                        </div>
+                    </div>
+                     
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><h2>Bulk Menu Category</h2></a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                  
                   
                   <div class="x_content">
                   <br />
@@ -94,7 +106,11 @@
                     </div>
                       </form>
                   </div>
-                
+                </div>
+                        </div>
+                      </div>
+                     </div>
+                      
               </div>
             </div>
           </div>

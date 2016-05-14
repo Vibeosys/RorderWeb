@@ -16,31 +16,7 @@ $(document).ready(function(){
      $('show-edit-section').css('display','block');
  });
  //dynamically upload restaurant logo image using ajax
- $('.file-control').on('change', function(){
-     $('.spinner').show();
-     var data = new FormData($('input[name="file-upload"]'));     
-      jQuery.each($('input[name="file-upload"]')[0].files, function(i, file) {
-    data.append(i, file);
-});
-     $.ajax({
-        url: "/upload", 
-        type:"POST",
-        data: data,
-        contentType: false,
-        cache: false,
-        processData:false, 
-        success: function(result, jqXHR, textStatus){
-            $('.spinner').hide();
-            if(result){
-            $("#logo").attr('src',result);
-           }else{
-            alert('Error..!image Not Upload');
-            }
-        },
-        error : function(jqXHR, textStatus, errorThrown) {
-                alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
-        }});
- });
+ 
    $(window).resize(function(){
     var ww = $(window).width();
     var cw = $('.content-wrapper').width();

@@ -87,36 +87,41 @@ class MgmtPanelController extends ApiController{
     }
     
     public function edit() {
-        if($this->request->is('post') and isset($this->request->data['save'])){
-            $data = $this->request->data;
-            if(!$data['file-upload']['error']){
-                
-            $fileName = $data['file-upload']['name'];
-            Log::debug('edit restaurant request contain image :- '.$fileName);
-            if(!$this->isImage($fileName)){
-                $this->set([
-                    MESSAGE => INCORRECT_FILE_MESSAGE.'"png, jpg, jpeg"',
-                    COLOR => ERROR_COLOR]);
-                return;
-            }
-            $uploadedFile = $data['file-upload']['tmp_name'];
-            $imgDir = new Folder(IMAGE_UPLOAD, true);
-            $fileName = $this->getGUID().$fileName;
-            $destination = $imgDir->path.$fileName;
-            $uploadResult = move_uploaded_file($uploadedFile, $destination);
-            }  else {
-            $uploadResult = TRUE;    
-            $fileName = null;
-            }
+        $data = $this->request->data;
+        if($this->request->is('post') and isset($data['save'])){
+           $filename = $data['file-upload']['name'];
+           $file = $data['file-upload']['tmp_name'];
+           $error = $data['file-upload']['error'];
+           $ext = $this->getExtension($filename);
             $activ = null;
             if(isset($data['active'])){
                 $activ = $data['active'];
             }
-            if($uploadResult){
+           if($error){
+               $valid_file = TRUE;
+               $logoUrl = null;
+           }elseif (!in_array($ext, $this->img_valid_ext)) {
+              $valid_file = FALSE;  
+               $this->set([
+                    MESSAGE => 'Please choose valide image file.',
+                    COLOR => ERROR_COLOR]);
+           }elseif (in_array($ext, $this->img_valid_ext)) {
+              
+               $imgDir = new Folder(IMAGE_UPLOAD, true);
+            $filename = $this->getGUID().$filename;
+            $destination = $imgDir->path.$filename;
+               if(move_uploaded_file($file, $destination)){
+                    $valid_file = TRUE;
+                    $logoUrl = $destination;
+               }  else {
+                   $valid_file = FALSE;
+               }
+           }
+            if($valid_file){
                 $restaurantDto = new DownloadDTO\RestaurantShowDto(
                         $data['restaurantId'], 
                         $data['title'], 
-                        $fileName, 
+                        $logoUrl, 
                         $data['address'], 
                         $activ, 
                         $data['area'], 
@@ -125,15 +130,17 @@ class MgmtPanelController extends ApiController{
                         $data['phone']);
                 $restaurantController = new RestaurantController();
                 $restaurantUpdateResult = $restaurantController->updateRestaurantInfo($restaurantDto);
-                $session = $this->request->session();
                 if($restaurantUpdateResult){
-                    parent::writeCookie('rem', DTO\ErrorDto::prepareMessage(122));
+                    $this->set([
+                    'suc_msg' => DTO\ErrorDto::prepareMessage(122),
+                    COLOR => SUCCESS_COLOR]);
                 }  else {
-                    parent::writeCookie('rem', DTO\ErrorDto::prepareMessage(123));
+                     $this->set([
+                    'suc_msg' => DTO\ErrorDto::prepareMessage(123),
+                    COLOR => ERROR_COLOR]);
                 }
-                $this->redirect('/');
             }
-        }elseif ($this->request->is('post') and isset($this->request->data['cancel'])) {
+        }elseif ($this->request->is('post') and isset($data['cancel'])) {
            // $this->redirect('/');
         }
         $restaurantId = parent::readCookie('cri');
