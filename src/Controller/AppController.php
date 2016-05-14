@@ -25,9 +25,10 @@ use Cake\Event\Event;
  *
  * @link http://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
-class AppController extends Controller
-{
-   public $components = array('Cookie');
+class AppController extends Controller{
+    
+    public $img_valid_ext = ['jpg','png','jpeg','bmp','gif'];
+    public $components = array('Cookie');
    
    public $colors = [
        '#ff0066','#9900cc','#86b300','#009999'

@@ -66,9 +66,6 @@
                                                 <input style="display:none" type="text" name="avl" value="<?= $menu->availabilityStatus ?>">
                                                <input style="display:none" type="text" name="act" value="<?= $menu->active ?>">
                                             </td>
-                                                       
-                                              
-                                           
                                              <td class="lat-width">
                                                 <input class="roleId" style="display:none" type="text" name="spy" value="<?= $menu->isSpicy ?>">
                                                 <?php if($menu->isSpicy){ echo 'Yes';}else{ echo 'No';} ?>

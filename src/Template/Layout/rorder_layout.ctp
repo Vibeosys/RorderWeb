@@ -143,7 +143,7 @@ $sec = $this->fetch('sec');
                     </li>
                    <!-- <li><a href="../kitchen/recipe">Recipe</a>
                     </li> -->
-                    <li><a href="../../menucategory/addnewmenucategory" >Menu Category</a>
+                    <li><a href="../../menucategory" >Menu Category</a>
                     </li>
                     <!--<li><a href="../kitchen/recipecategory">Recipe Category</a>
                     </li> -->

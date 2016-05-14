@@ -15,6 +15,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('menu/editrecipe', ['controller' => 'Menu', 'action' => 'editRecipe']);
     $routes->connect('menu/editrecipe/addnewitem', ['controller' => 'Menu', 'action' => 'addNewItem']);
     $routes->connect('menucategory/addnewmenucategory', ['controller' => 'MenuCategory', 'action' => 'addNewMenuCategory']);
+    $routes->connect('menucategory', ['controller' => 'MenuCategory', 'action' => 'menuCategoryList']);
     $routes->connect('tablecategory/addnewtablecategory', ['controller' => 'TableCategory', 'action' => 'addNewTableCategory']);
     $routes->connect('rtables/addnewtables', ['controller' => 'RTables', 'action' => 'addNewTables']);
     $routes->connect('rtables', ['controller' => 'RTables', 'action' => 'tableList']);
