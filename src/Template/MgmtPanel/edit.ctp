@@ -34,7 +34,7 @@
                    <?php if(isset($data)){
                             foreach ($data as $rest){    
                     ?>   
-                  <form id="demo-form2" method="post" action="edit?XDEBUG_SESSION_START=netbeans-xdebug" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+                  <form id="demo-form2" method="post" action="edit" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
                       
                     <div class="form-group">
                         

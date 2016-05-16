@@ -112,7 +112,7 @@ class MgmtPanelController extends ApiController{
             $destination = $imgDir->path.$filename;
                if(move_uploaded_file($file, $destination)){
                     $valid_file = TRUE;
-                    $logoUrl = $destination;
+                    $logoUrl = '/img/'.$filename;
                }  else {
                    $valid_file = FALSE;
                }
