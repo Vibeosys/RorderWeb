@@ -73,6 +73,11 @@ class UserController extends ApiController {
         if($this->request->is('post') and isset($this->request->data['save'])){
             $userData = $this->request->data;
             $userId = $this->getTbaleObj()->getUserId() + 1;
+            $user_permission = $userData['permi'];
+            Log::debug('permission from form'.$user_permission);
+            $data = explode(',', $user_permission);
+            $saparator = '|';
+             $userPermission = implode($saparator, $data);
             $userUploadDto  = new DownloadDTO\UserDownloadDto(
                     $userId,
                     $userData['userName'], 
@@ -80,7 +85,7 @@ class UserController extends ApiController {
                     ACTIVE,
                     $userData['userRole'], 
                     $restaurantId,
-                    $this->createUserPermision($userData));
+                    $userPermission);
             $insertResult = $this->getTbaleObj()->insert($userUploadDto);
             if ($insertResult) {
                 $newUser = $this->getTbaleObj()->getNewUser($userId);
@@ -89,7 +94,7 @@ class UserController extends ApiController {
                         json_encode($newUser), 
                         INSERT_OPERATION, 
                         $restaurantId);
-                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(130),COLOR => SUCCESS_COLOR,'permissions' => $permission,'roles' => $userRoles]);
+                  $this->redirect('manage/users');
             } else {
                 $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(132),COLOR => ERROR_COLOR,'permissions' => $permission,'roles' => $userRoles]);
             }
@@ -152,6 +157,11 @@ class UserController extends ApiController {
             }
             $this->set(['userInfo' => $stdUser, 'roles' => $userRoles,'permissions' => $permission]);
         }elseif ($this->request->is('post') and isset($requestData['save'])) {
+            $user_permission = $requestData['permi'];
+            Log::debug('permission from form'.$user_permission);
+            $data = explode(',', $user_permission);
+            $saparator = '|';
+             $userPermission = implode($saparator, $data);
              $userUploadDto  = new DownloadDTO\UserDownloadDto(
                     $requestData['uid'],
                     $requestData['userName'], 
@@ -159,7 +169,8 @@ class UserController extends ApiController {
                     ACTIVE,
                     $requestData['userRole'], 
                     $restaurantId,
-                    $this->createUserPermision($requestData));
+                    $userPermission);
+            Log::debug('User Permission :-'.$userPermission);
             $insertResult = $this->getTbaleObj()->insert($userUploadDto);
             if ($insertResult) {
                 $newUser = $this->getTbaleObj()->getNewUser($userUploadDto->userId);
@@ -168,7 +179,7 @@ class UserController extends ApiController {
                         json_encode($newUser), 
                         UPDATE_OPERATION, 
                         $restaurantId);
-                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(131),COLOR => SUCCESS_COLOR,'permissions' => $permission, 'roles' => $userRoles]);
+                $this->redirect('manage/users');
             } else {
                 $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(133),COLOR => ERROR_COLOR,'permissions' => $permission, 'roles' => $userRoles]);
             }

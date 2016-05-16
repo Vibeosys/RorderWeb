@@ -7,89 +7,103 @@
     use App\Controller;
 
      $this->layout = 'rorder_layout';
-     $this->assign('title', 'Add New User');
+     $this->assign('title', 'Edit User');
      //$this->start('content');
 ?>
-      
-<section class="content-header">
-                <h1>
-                    Users
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>  
-                    <li><a href="../users">Restaurant Users</a></li>
-                    <li class="active">Add New User</li>
-                </ol>
-            </section>
-            <!-- Main content -->
-            <section class="content">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="box">                           
-                            <section class="content content-div show-add-section">
-                                <div class="row">
-                                    <!--Destination Form -->
-                                    <div class="with-border box-header">
-                                        <h3 class="box-title">Add New User</h3>
-                                    </div><!-- /.box-header -->
-                                    <!-- form start -->
-                                    <form class="form-horizontal" method="post" action="addnewuser">
-                                        <div class="box-body">
-                                            <div class="form-group">
-                                                <label for="Title" class="col-sm-2 control-label">User Name</label>
-                                                <div class="col-sm-8">
-                                                    <input name="userName" type="text" class="form-control" id="Title" placeholder="User Name" required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="latitude" class="col-sm-2 control-label">Password</label>
-                                                <div class="col-sm-8">
-                                                    <input name="password" type="password" class="form-control" placeholder="Password" required>
-                                                </div>
-                                            </div>
-                                          <?php if(isset($permissions)){ ?>
-                                             <div class="form-group">
-                                                <label for="permissions" class="col-sm-2 control-label">Set Permissions</label>
-                                                <div class="col-sm-8">
-                                            <?php  foreach ($permissions as $permission){    ?>
-                                                    <input name="<?= $permission->permissionKey?>" type="checkbox" value="<?= $permission->permissionId?>"> <?= $permission->permissionKey?>&nbsp;&nbsp;&nbsp;
-                                            <?php } ?>    
-                                                </div>
-                                            </div>
-                                          <?php } ?>
-                                            <div class="form-group">
-                                                <label for="longitude" class="col-sm-2 control-label">Select Role</label>
-                                                <div class="col-sm-8">
-                                                    <select name="userRole" class="form-control-select" required>
-                                                        <option value="null">Select Role</option>
-                                                    <?php  if(isset($roles)){
-                                                        foreach ($roles as $role){
-                                                        echo '<option value="'.$role->roleId.'">'.$role->roleTitle.'</option>';
-                                                    }}?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                             <?php if(isset($message)){?>
-                                            <div id="error-div" style="margin-left: 20%;color: <?= $color ?>" ><?=$message?></div>
-                                        <?php }?>
-                                        </div><!-- /.box-body -->
-                                        <div class="box-footer col-xs-12" style="margin-left:0px">
-                                            <div class="row">
-                                                <div class="col-xs-4"></div>
-                                                    <div class="col-xs-6">
-                                                        <button name="save" value="true" type="submit" style="margin-bottom:10px" class="dark-orange add-save-btn">Submit</button>
-                                                        <input type="button" value="cancel" class="light-orange button add-save-btn"  onclick="window.history.back();">
-                                                    </div>
-                                                <div class="col-xs-2"></div>
-                                            </div>
-                                        </div><!-- /.box-footer -->
-                                    </form>
-                                    <!-- /.box -->
-                                    <!-- Destination form elements disabled -->
-                                </div>
-                            </section>
-                        </div><!-- /.box -->                       
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </section><!-- /.content -->
-             <?php $this->end();?>
+<?php $this->start('breadcrum');?>
+     <ol class="breadcrumb">
+        <li><a href="../" class="red">Dashboard</a></li>
+        <li><a href="../reports" class="red">Restaurent 1</a></li>
+        <li class="active">Add New User </li>
+    </ol>
+<?php $this->end('breadcrum'); ?>       
+<div class="">
+          <div class="clearfix"></div>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_content">
+                  <br />
+                  <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="addnewuser" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                         <input style="display:none" name="permi" type="text" id="permi_text" value="">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="user-name">User Name
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="user-name" name="userName" required="required" value="" placeholder="User Name" class="form-control col-md-7 col-xs-12">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Password
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="password" id="password" name="password" value="" placeholder="Password" required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Role</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select name="userRole" class="select2_role form-control" tabindex="-1">
+                         <?php  if(isset($roles)){
+                            foreach ($roles as $role){
+                            echo '<option value="'.$role->roleId.'">'.$role->roleTitle.'</option>';
+                            }
+                            }
+                            ?>
+                        </select>
+                      </div>
+                    </div>
+                       <?php if(isset($permissions)){ ?>
+                      <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Permission</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select name="permission" class="select2_permission form-control" multiple="multiple" id="per">
+                        <?php  foreach ($permissions as $permission){ ?>
+                            <option name="1" value="<?= $permission->permissionId?>"><?= $permission->permissionKey?></option> 
+                        <?php } ?>
+                        <?php } ?>    
+                        </select>
+                         
+                      </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button id="sub" name="save" value="true" type="submit" class="btn btn-success">Submit</button>
+                           <button type="button" class="btn btn-primary" onclick="window.history.back();">Cancel</button>
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+<?php $this->start('script'); ?>
+<script>
+  $(document).ready(function() {
+      $(".select2_role").select2({
+        placeholder: "Select  Role",
+        allowClear: true
+      });
+        $(".select2_permission").select2({
+        maximumSelectionLength: 15,
+        placeholder: "Select Permission",
+        allowClear: true
+      });
+      $('#per').change(function(){
+      var array_value = $('#per').val();
+      var permission ='';
+      $.each(array_value,function(key, value){
+          permission += value +',';
+      });
+      var per_string = permission.substring(0,permission.length - 1);
+      $('input[name=permi]').val(per_string);
+      });
+    });
+</script>
+<?php $this->end('script'); ?>
