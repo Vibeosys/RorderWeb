@@ -74,6 +74,22 @@ class RTablesTable extends Table{
         }
     }
     
+     public function tableNoValidator($tableNo,$restaurantId) {
+          $conditions = [
+              'TableNo =' => $tableNo,
+              'RestaurantId' => $restaurantId
+              ];
+        try{
+            $results = $this->connect()->find()->where($conditions);
+            if($results->count()){
+            return 1;
+            }
+            return 0;
+        } catch (Exception $ex) {
+            return 0;
+        }
+    }
+    
     public function insert($allTables) {
         $insertCounter = 0;
         foreach ($allTables as $table){

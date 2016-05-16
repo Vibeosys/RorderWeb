@@ -20,6 +20,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('rtables/addnewtables', ['controller' => 'RTables', 'action' => 'addNewTables']);
     $routes->connect('rtables', ['controller' => 'RTables', 'action' => 'tableList']);
     $routes->connect('rtables/edittable', ['controller' => 'RTables', 'action' => 'editTable']);
+    $routes->connect('tablenumbervalidator', ['controller' => 'RTables', 'action' => 'tableNoValidation']);
     $routes->connect('manage/users', ['controller' => 'User', 'action' => 'usersList']);
     $routes->connect('getwebuser', ['controller' => 'User', 'action' => 'getWebUser']);
     $routes->connect('getpaymentoptions', ['controller' => 'PaymentModeMaster', 'action' => 'getPaymentOptions']);

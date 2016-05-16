@@ -78,8 +78,15 @@ class RTablesController extends ApiController {
          if(!$this->isLogin()){
             $this->redirect('login');
         }
-          if ($this->request->is('post') and isset($this->request->data['add-table'])) {
-            $data = $this->request->data();
+        $tableCategoryController = new TableCategoryController();
+        $tCategory = $tableCategoryController->getStdTableCategory();
+        $this->set([
+            'category' => $tCategory
+        ]);
+        $restaurantId = parent::readCookie('cri');
+        $data = $this->request->data();
+          if ($this->request->is('post') and isset($data['add_bulk'])) {
+            
             $file = $data['file-upload']['tmp_name'];
             $extenstion = $this->getExtension($data['file-upload']['name']);
             if (empty($file)) {
@@ -110,6 +117,19 @@ class RTablesController extends ApiController {
                     $this->set([MESSAGE => DB_FILE_ERROR, 'color' => 'red']);
                 }
             }
+        }elseif ($this->request->is('post') and isset($data['add_single'])) {
+              $allTables[0] = new UploadDTO\RTablesInsertDto(
+                                $data['tno'], 
+                                $data['category'], 
+                                $data['cpty'], 
+                                $data['topd'], 
+                                $restaurantId);
+              $result = $this->getTableObj()->insert($allTables);
+             if ($result) {
+                    $this->redirect('rtables');
+                } else {
+                    $this->set([MESSAGE => DB_FILE_ERROR, 'color' => 'red']);
+                }
         }
     }
     
@@ -143,7 +163,7 @@ class RTablesController extends ApiController {
             return Null;
         }
         
-        $paginatedRecord = $this->paginate($rResult,['limit' => $limit,'page' => $page]);
+        $paginatedRecord = $rResult;//$this->paginate(,['limit' => $limit,'page' => $page]);
         
         $allRTables = null;
         $i = 0;
@@ -180,11 +200,12 @@ class RTablesController extends ApiController {
             'category' => $category
         ]);
         }elseif ($this->request->is('post') and isset($data['save'])) {
+            Log::debug('table status:'.$data['iopd']);
           $updateRequest = new UploadDTO\RTablesInsertDto(
                   $data['tno'], 
                   $data['category'], 
                   $data['cpty'], 
-                  $this->getValue('iopd', $data), 
+                  $data['iopd'], 
                   $restaurantId, 
                   $data['tid']);
           $updateResult = $this->getTableObj()->update($updateRequest);
@@ -194,7 +215,7 @@ class RTablesController extends ApiController {
                         json_encode($tableUpdate), 
                         UPDATE_OPERATION, 
                         $restaurantId);
-                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(135),COLOR => SUCCESS_COLOR]);
+                $this->redirect('rtables');
             } else {
                 $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(137),COLOR => ERROR_COLOR]);
             }
@@ -206,6 +227,14 @@ class RTablesController extends ApiController {
         $this->set([
             'option' => $data[1]
         ]);
+    }
+    
+    public function tableNoValidation() {
+        $this->autoRender = FALSE;
+        $data = $this->request->data;
+        $restaurantId = parent::readCookie('cri');
+        $response = $this->getTableObj()->tableNoValidator($data['tableNo'], $restaurantId);
+        $this->response->body($response);
     }
     
 }
