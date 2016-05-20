@@ -90,7 +90,7 @@ class RecipeItemMasterTable extends Table{
         ];
         $response = FALSE;
         $counter = 0;
-        $conditions = array('RestaurantId =' => $restaurantId);
+        $conditions = array('RestaurantId =' => $restaurantId,'QtyInHand <' => 'RorderLevel');
         $allRecipItems =  $this->connect()->find('all',array('fields' => $fields, 'condition' => $conditions))
                     ->join($joins);
         if($allRecipItems->count()){

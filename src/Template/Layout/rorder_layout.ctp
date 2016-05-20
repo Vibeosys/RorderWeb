@@ -58,7 +58,7 @@ $sec = $this->fetch('sec');
         <div class="left_col scroll-view">
 
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"> <?= $this->Html->image('quickserve-small-logo.png', ['style' => ' width: 55px;'])?> <span>QuickeServe</span></a>
+            <a href="../../reports" class="site_title"> <?= $this->Html->image('quickserve-small-logo.png', ['style' => ' width: 55px;'])?> <span>QuickeServe</span></a>
           </div>
           <div class="clearfix"></div>
 
@@ -71,7 +71,7 @@ $sec = $this->fetch('sec');
               <h3>&nbsp;</h3>
            
               <ul class="nav side-menu">
-                <li class="active"><a href="#"><i class="fa fa-home"></i> Dashboard </a>
+                <li class="active"><a href="../../reports"><i class="fa fa-home"></i> Dashboard </a>
                 </li>
                 <li><a><i class="fa fa-edit"></i> Order <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
                  <ul class="nav child_menu" style="display: none">
@@ -299,6 +299,7 @@ $sec = $this->fetch('sec');
         <?= $this->Html->script('design/nicescroll/jquery.nicescroll.min.js') ?> 
          <?= $this->Html->script('design/icheck/icheck.min.js') ?> 
          <?= $this->Html->script('design/select/select2.full.js') ?> 
+         <?= $this->Html->script('design/canvasjs.min.js') ?> 
     <?php if($this->fetch('script')){
                          echo $this->fetch('script');
                       }else{

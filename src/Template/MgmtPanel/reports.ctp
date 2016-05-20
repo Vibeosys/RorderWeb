@@ -31,30 +31,7 @@ use Cake\Cache\Cache;
               </div>
             </div>
 
-              
-              
-       <div class="col-md-6 col-sm-6 col-xs-12" id="rhr">
-              <div class="x_panel">
-                <div class="x_title">
-                  <h2>Rush Hour <small>Dailey</small></h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a href="#"><i class="fa fa-download"></i> Download</a>
-                    </li>
-                  </ul>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                     <div id="graph_donut"></div>
-                  
-                </div>
-              </div>
-            </div>
-              
-              
-              
-              
-              
-       <div class="col-md-6 col-sm-6 col-xs-12" id="tr">
+           <div class="col-md-6 col-sm-6 col-xs-12" id="tr">
               <div class="x_panel">
                 <div class="x_title">
                   <h2>Transaction<small>Daily</small></h2>
@@ -70,54 +47,42 @@ use Cake\Cache\Cache;
                   
                 </div>
               </div>
-            </div>
+            </div>     
               
-              
-       <div class="col-md-6 col-sm-6 col-xs-12" id="sar">
+       <div class="col-md-6 col-sm-6 col-xs-12" id="rhr">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Stock Availability <small>current</small></h2>
-                  <ul class="nav navbar-right panel_toolbox">
+                  <h2>Rush Hour <small>Daily</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
                     <li><a href="#"><i class="fa fa-download"></i> Download</a>
                     </li>
                   </ul>
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <div id="error-sa" align="center"> </div>
-                  <canvas id="mybarChart3"></canvas>
+                     <div id="graph_donut" style="height: 316px; width: 100%;"></div>
+                  
                 </div>
               </div>
             </div>
-
+                
+              
+     
               
               
-       <div class="col-md-12 col-sm-12 col-xs-12" id="mrr">
+      
+       <div class="col-md-6 col-sm-6 col-xs-12" id="mrr">
                     <div class="x_panel">
                       <div class="x_title">
-                        <h2>Material Requisition <small>current</small></h2>
+                        <h2> Solid Material Requisition <small>current</small></h2>
                        <ul class="nav navbar-right panel_toolbox">
                     <li><a href="#"><i class="fa fa-download"></i> Download</a>
                     </li>
                   </ul>
                         <div class="clearfix"></div>
                       </div>
-                        <div class="x_content">
-                       <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                          <thead>
-                            <tr>
-                              <th>Material Code</th>
-                              <th>Material</th>
-                              <th>Stock</th>
-                              <th>Reorder Stock</th>
-                              <th>Unit</th>
-                             
-                            </tr>
-                          </thead>
-                          <tbody id="req">
-                          
-                          </tbody>
-                        </table>
+                        <div class="x_content" id="chartContainer" style="height: 316px; width: 100%;">
+                    
 
                       </div>
                     </div>
@@ -125,34 +90,18 @@ use Cake\Cache\Cache;
               
               
                             
-       <div class="col-md-12 col-sm-12 col-xs-12" id="mbrr">
+       <div class="col-md-6 col-sm-6 col-xs-12" id="mbrr">
                     <div class="x_panel">
                       <div class="x_title">
-                        <h2>Material Brand Wise Requisition<small>current</small></h2>
+                        <h2>Liquid Material Requisition<small>current</small></h2>
                        <ul class="nav navbar-right panel_toolbox">
                     <li><a href="#"><i class="fa fa-download"></i> Download</a>
                     </li>
                   </ul>
                         <div class="clearfix"></div>
                       </div>
-                      <div class="x_content">
-                       
-                        <table id="datatable-responsive-second" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                          <thead>
-                            <tr>
-                              <th>Brand Code</th>
-                              <th>Brand</th>
-                              <th>Material</th>
-                              <th>Stock</th>
-                              <th>Reorder Stock</th>
-                              <th>Unit</th>
-                              
-                            </tr>
-                          </thead>
-                          <tbody id="bw-req">
-                           
-                          </tbody>
-                        </table>
+                      <div class="x_content" id="lchartContainer" style="height: 316px; width: 100%;">
+                      
 
                       </div>
                     </div>
@@ -264,52 +213,54 @@ use Cake\Cache\Cache;
                         }});
     
       
-         // Bar chart2
-   
-	  // Bar chart2
-    var ctx = document.getElementById("mybarChart3");
-    var mybarChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-       labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
-          label: 'Stock',
-          backgroundColor: "#3498DB",
-          data: [10, 62, 40, 55, 22, 89, 66]
-        }]
-      },
-
-     options: {
-        
-        scales: {
-          xAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-            
-          }]
-        }
-      }
-    });
+     
     // Doughnut chart
+    //canvas chart requisition report ajax/materialrequisitionreport
     
-    $.ajax({
-                        url: "/customervisitreport?id=" + '<?= $rest ?>',
+  
+  $.ajax({
+                        url: "/ajax/materialrequisitionreport?id=" + ' <?= $rest ?>',
                         type: "POST",
                         contentType: false,
                         cache: false,
                         processData: false,
                         success: function (result, jqXHR, textStatus) {
                             if (result) {
-                             Morris.Donut({
-                                element: 'graph_donut',
-                                data: result,
-                                colors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-                                formatter: function (y) {
-                                    return y 
-                                }
-                            });   
-                                   
+                                  var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title:{
+        text: ""    
+      },
+      axisY2: {
+        title:"Recipe Items"
+      },
+      animationEnabled: true,
+      axisY: {
+        title: "Quanity"
+      },
+      axisX :{
+        labelFontSize: 12
+      },
+      legend: {
+        verticalAlign: "bottom"
+      },
+      data: result,
+      legend: {
+        cursor:"pointer",
+        itemclick : function(e){
+          if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+          }
+          else{
+            e.dataSeries.visible = true;
+          }
+          chart.render();
+        }
+      }
+    });
+
+chart.render();
+                              
                             } else {
                                 
                                      $('#rhr').hide();  
@@ -318,111 +269,140 @@ use Cake\Cache\Cache;
                         error: function (jqXHR, textStatus, errorThrown) {
                                 $('#rhr').hide();  
                         }});
-    </script>
 
-<!-- Table script -->
- <script type="text/javascript">
-     var htmlc = '';
-$.post('/ajax/materialrequisitionreport',{},function(result){
-            if(result){
-                $.each(result,function(key,value){
-                    if(value.qty <= value.rLevel){
-                    htmlc += '<tr style="color: red">';
-                    }else{ 
-                        htmlc += '<tr style="color: green">';
-                    }
-                    htmlc += '<td>' + value.itemId + '</td>'
-                    htmlc += '<td>' + value.itemName + '</td>';
-                    htmlc += '<td>' + value.qty + '</td>';
-                    htmlc += '<td>' + value.rLevel + '</td>';
-                    htmlc +=     '<td>' + value.unit + '</td></tr>';
-                });
-                $('#req').html(htmlc);
-                if(htmlc){
-                     $(document).ready(function() {
-            $('#datatable').dataTable();
-            $('#datatable-keytable').DataTable({
-              keys: true
-            });
-            $('#datatable-responsive').DataTable();
-            $('#datatable-scroller').DataTable({
-              ajax: "js/datatables/json/scroller-demo.json",
-              deferRender: true,
-              scrollY: 380,
-              scrollCollapse: true,
-              scroller: true
-            });
-            var table = $('#datatable-fixed-header').DataTable({
-              fixedHeader: true
-            });
-          });
-                    }
-            }else{
-                var error = '<div class="right_col" role="main">' +
-                                '<section class="fil-not-found">' +
-                                    '<div class="container">' +
-                                        '<div class="row">' +
-                                            '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">' +
-                                            '<img src="../img/sad.png" >' +
-                                            '<h1 class="e-msg">Sorry!  </h1>' +
-                                            '<h3> Information </h3> <h1> not found.</h1>' +
-                                            '</div></div></div></section></div>';
-               $('#req').html(error);      
-           }
-        });
-        </script>
+// liquid
+     var chart = new CanvasJS.Chart("lchartContainer",
+    {
+      title:{
+        text: ""    
+      },
+      axisY2: {
+        title:"Recipe Items"
+      },
+      animationEnabled: true,
+      axisY: {
+        title: "Quanity"
+      },
+      axisX :{
+        labelFontSize: 10
+      },
+      legend: {
+        verticalAlign: "bottom"
+      },
+      data: [
 
-    
-     <script type="text/javascript">
-          var htmlt = '';
-         $.post('/ajax/materialbwrequisitionreport',{},function(result){
-            if(result){
-                $.each(result,function(key,value){
-                    if(value.qty <= value.rLevel){
-                        htmlt += '<tr style="color: red">';
-                    }else{ 
-                        htmlt += '<tr style="color: green">';
-                    }
-                    htmlt += '<td>' + value.brandCode + '</td>';
-                    htmlt += '<td>' + value.brand + '</td>';
-                    htmlt += '<td>' + value.item + '</td>';
-                    htmlt += '<td>' + value.stock + '</td>';
-                    htmlt += '<td>' + value.rstock + '</td>';
-                    htmlt += '<td>' + value.unit + '</td></tr>';
-                });
-                $('#bw-req').html(htmlt);
-                  $(document).ready(function() {
-            $('#datatable').dataTable();
-            $('#datatable-keytable').DataTable({
-              keys: true
-            });
-            $('#datatable-responsive-second').DataTable();
-            $('#datatable-scroller').DataTable({
-              ajax: "js/datatables/json/scroller-demo.json",
-              deferRender: true,
-              scrollY: 380,
-              scrollCollapse: true,
-              scroller: true
-            });
-            var table = $('#datatable-fixed-header').DataTable({
-              fixedHeader: true
-            });
-          });
-         
-            }else{
-                 var error = '<div class="right_col" role="main">' +
-                                '<section class="fil-not-found">' +
-                                    '<div class="container">' +
-                                        '<div class="row">' +
-                                            '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">' +
-                                            '<img src="../img/sad.png" >' +
-                                            '<h1 class="e-msg">Sorry!  </h1>' +
-                                            '<h3> Information </h3> <h1> not found.</h1>' +
-                                            '</div></div></div></section></div>';
-               $('#bw-req').html(error);                     
-           }
-        });
+      {        
+        type: "bar",  
+        isYType: "primary",
+        showInLegend: true, 
+        legendText: "current stock",
+        dataPoints: [      
+        { x: 10, y:112, label: "Paneer" },
+        { x: 20, y:102, label: "Onion"},
+        { x: 30, y:302 , label: "Sugar"},
+        { x: 40, y:423 , label: "Potato"},
+        { x: 50, y:407 , label: "Tomato"},
+        { x: 60, y:359, label: "Salt"},
+        { x: 70, y:308, label:"Chicken"},
+        { x: 80, y:245, label:"Garlic Powder "},
+          { x: 90, y:112, label: "1Paneer" },
+        { x: 100, y:102, label: "1Onion"},
+        { x: 110, y:302 , label: "1Sugar"},
+        { x: 120, y:423 , label: "1Potato"},
+        { x: 130, y:407 , label: "1Tomato"},
+        { x: 140, y:359, label: "1Salt"},
+        { x: 150, y:308, label:"1Chicken"},
+        { x: 160, y:245, label:"1Garlic Powder "},
+          { x: 170, y:112, label: "2Paneer" }
         
-        </script>
-        
+
+
+        ]
+      },
+      {        
+        type: "bar",  
+        isYType: "primary",
+        showInLegend: true,
+        legendText: "reorder level",
+        dataPoints: [      
+        { x: 10, y:112, label: "Paneer" },
+        { x: 20, y:102, label: "Onion"},
+        { x: 30, y:302 , label: "Sugar"},
+        { x: 40, y:423 , label: "Potato"},
+        { x: 50, y:407 , label: "Tomato"},
+        { x: 60, y:359, label: "Salt"},
+        { x: 70, y:308, label:"Chicken"},
+        { x: 80, y:245, label:"Garlic Powder "},
+          { x: 90, y:112, label: "1Paneer" },
+        { x: 100, y:102, label: "1Onion"},
+        { x: 110, y:302 , label: "1Sugar"},
+        { x: 120, y:423 , label: "1Potato"},
+        { x: 130, y:407 , label: "1Tomato"},
+        { x: 140, y:359, label: "1Salt"},
+        { x: 150, y:308, label:"1Chicken"},
+        { x: 160, y:245, label:"1Garlic Powder "},
+          { x: 170, y:112, label: "2Paneer" }
+
+
+        ]
+      }
+
+      ],
+      legend: {
+        cursor:"pointer",
+        itemclick : function(e){
+          if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+          }
+          else{
+            e.dataSeries.visible = true;
+          }
+          chart.render();
+        }
+      }
+    });
+
+chart.render(); 
+
+//customer visit
+    $.ajax({
+                        url: "/customervisitreport?id=" + ' <?= $rest ?>',
+                        type: "POST",
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (result, jqXHR, textStatus) {
+                            if (result) {
+                                var chart = new CanvasJS.Chart("graph_donut",
+                                {
+                                        title:{
+                                                text: ""
+                                        },
+                                        exportFileName: "Pie Chart",
+                                        exportEnabled: true,
+                                        animationEnabled: true,
+                                        legend:{
+                                                verticalAlign: "bottom",
+                                                horizontalAlign: "center"
+                                        },
+                                        data: [
+                                        {       
+                                                type: "pie",
+                                                showInLegend: true,
+                                                toolTipContent: "{legendText}: <strong>{y}%</strong>",
+                                                indexLabel: "{label} {y}%",
+                                                dataPoints: result
+                                }
+                                ]
+                                });
+                                chart.render();
+                            } else {
+                                
+                                     $('#rhr').hide();  
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                                $('#rhr').hide();  
+                        }});
+    </script>        
         <?php $this->end('script'); ?>

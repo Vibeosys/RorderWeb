@@ -59,9 +59,9 @@ class CustomerVisitController extends ApiController{
         }
         $data[] = null; $ind = 0;
         foreach ($intermediate as $key => $value){
-            $data[$ind++] = new DownloadDTO\SalesHistoryDataDto($this->timeSlot[$key], $value);
+            $data[$ind++] = new DownloadDTO\RushHourReportDto($value, $this->timeSlot[$key], $this->timeSlot[$key]);       
+                   
         }
-      
         $chartData = json_encode($data);
         $this->response->body($chartData);
     }

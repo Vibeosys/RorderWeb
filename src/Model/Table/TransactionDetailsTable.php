@@ -73,11 +73,11 @@ class TransactionDetailsTable extends Table{
     }
     
     public function getReport($restaurantId) {
-        $reportData = 0;
+        $reportData = array();
         $counter = 0;
         $day = date('d') -1;
-        $day = '0'.$day;
-        $month = date('m');
+        $day = '23';//0'.$day;
+        $month = '03';date('m');
         $year = date('Y');
         Log::debug('date:- '.$day.$month.$year);
         $joins = [

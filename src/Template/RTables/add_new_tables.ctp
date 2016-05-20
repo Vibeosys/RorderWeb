@@ -37,7 +37,7 @@ use Cake\Cache\Cache;
                         <div id="collapseOne" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <div class="x_content">
-                                    <br />
+                                    <br/>
                                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="addnewtables">
 
                                         <div class="form-group" >
@@ -62,7 +62,7 @@ use Cake\Cache\Cache;
                                                         foreach ($category as $key => $value){
                                                             echo '<option value="'.$key.'">'.$value.'</option>';
                                                         }
-                                                    }?>
+                                                    } ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -75,6 +75,9 @@ use Cake\Cache\Cache;
                                                 <input type="radio" class="flat" name="topd" checked="" id="unoccupied" value="0" />  
                                             </div>
                                         </div>
+                                        <?php if(isset($message)){ ?>
+                                        <p style="text-align:center;color:<?= $color?>"><?= $message?></p>
+                                        <?php } ?>
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
                                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -107,7 +110,7 @@ use Cake\Cache\Cache;
                                             </div>
                                         </div>
                                         <?php if(isset($message)){ ?>
-                                        <p style="text-align: center;color:<?= $color?>"><?= $message ?></  p>
+                                        <p style="text-align: center;color:<?= $color?>"> <?= $message ?> </p>
                                         <?php } ?>
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
@@ -134,8 +137,8 @@ use Cake\Cache\Cache;
             allowClear: true
         });
         var load = '<img width="40" height="40" src="../img/loading1.gif">';
-        var suc = '<a class="btn btn-success btn-circle"><i class="fa fa-check"></i> </a>';
-        var error = '<a class="btn btn-danger btn-circle"><i class="fa fa-times"></i> </a>';
+        var suc = '<a class="btn btn-success btn-circle"><i class="fa fa-check"></i></a>available';
+        var error = '<a class="btn btn-danger btn-circle"><i class="fa fa-times"></i> </a>choose another';
         $('#table-no').change(function(){
             $('#checker').html(load);
             var tno = $(this).val();

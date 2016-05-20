@@ -10,6 +10,7 @@ namespace App\Controller;
 use App\Model\Table;
 use App\DTO\UploadDTO;
 use Cake\Log\Log;
+use App\DTO\DownloadDTO;
 /**
  * Description of RecipeItemMasterController
  *
@@ -126,10 +127,27 @@ class RecipeItemMasterController extends ApiController{
     
     public function getMaterialRequisitionReport() {
         $this->autoRender = FALSE;
-        if($this->request->is('ajax') and $this->isLogin()){
+        if($this->request->is('get') and $this->isLogin()){
             $restaurantId = parent::readCookie('cri');
-            $response = $this->getTableObj()->getRecipeItems($restaurantId);
-            $this->response->body(json_encode($response));
+            $rows = $this->getTableObj()->getRecipeItems($restaurantId);
+            $dataset1 = '[';
+            $dataset2 = '[';
+            $counter = 0;
+            $x = 10;
+            if($rows){
+                foreach ($rows as $row){
+                    $dataset1 .= '{ x: '.$x.', y: '.$row->qty.',  label: "'.$row->itemName.'" },';//new DownloadDTO\MaterialRequisitionReportDto($x, $row->qty, $row->itemName);
+                    $dataset2 .= '{ x: '.$x.', y: '.$row->rLevel.',  label: "'.$row->itemName.'" },';//new DownloadDTO\MaterialRequisitionReportDto($x, $row->rLevel, $row->itemName);
+                     $x = $x + 10;
+                }
+                $dataset1 = substr($dataset1, 0, -1);
+                $dataset2 = substr($dataset2, 0, -1);
+                $dataset1 .= ']';
+                $dataset2 .= ']';
+               $response =  '[{type: "bar",isYType: "primary",showInLegend: true,legendText: "current stock",dataPoints:'. $dataset1.'},
+      {type: "bar",isYType: "primary",showInLegend: true,legendText: "reorder level",dataPoints:'. $dataset2 .'}]';
+            }
+            $this->response->body($response);
         }else{
             $this->response->body(false);
         }
