@@ -74,7 +74,7 @@ $sec = $this->fetch('sec');
                                 <ul class="nav side-menu">
                                     <li class="active"><a href="../../reports"><i class="fa fa-home"></i> Dashboard </a>
                                     </li>
-                                    <li><a><i class="fa fa-edit"></i> Order <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
+                                    <li><a><i class="fa fa-edit"></i> Order <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
                                         <ul class="nav child_menu" style="display: none">
                                             <li class="child-plus"><a data-toggle="collapse" href="#submenu-table"  aria-expanded="false" aria-controls="collapseExample">Table View <i class="fa fa-chevron-down fa-down-arrow"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
 
@@ -139,7 +139,7 @@ $sec = $this->fetch('sec');
                                         </ul>
                                     </li>
 
-                                    <li><a><i class="fa fa-cutlery"></i> Kitchen <span  class="fa fa-chevron-down fa-down-arrow "></span></a>
+                                    <li><a><i class="fa fa-cutlery"></i> Kitchen <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
                                         <ul class="nav child_menu" style="display: none">
                                             <li><a href="../menu">Menu</a>
                                             </li>
@@ -153,7 +153,7 @@ $sec = $this->fetch('sec');
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a><i class="fa fa-table"></i>  Inventory Management <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
+                                    <li><a><i class="fa fa-table"></i>  Inventory Management <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
                                         <ul class="nav child_menu" style="display: none">
                                             <li class="stock-upload child-plus"><a data-toggle="collapse" href="#submenu-upload" aria-expanded="false" aria-controls="collapseExample">Stock Upload<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
                                                 <div class="collapse" id="submenu-upload">
@@ -180,7 +180,7 @@ $sec = $this->fetch('sec');
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a><i class="fa fa-bar-chart-o"></i> Reports <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
+                                    <li><a><i class="fa fa-bar-chart-o"></i> Reports <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
                                         <ul class="nav child_menu" style="display: none">
                                             <li><a href="../../reports/transactionreport">Transaction Report</a>
                                             </li>
@@ -208,7 +208,7 @@ $sec = $this->fetch('sec');
                                            </li> -->
                                         </ul>
                                     </li>
-                                    <li><a><i class="fa fa-bug"></i> Manage Restaurant <span  class="fa fa-chevron-down fa-down-arrow"></span></a>
+                                    <li><a><i class="fa fa-bug"></i> Manage Restaurant <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
                                         <ul class="nav child_menu" style="display: none">
                                             <li><a href="../../manage/edit">Edit Info</a>
                                             </li>
@@ -216,7 +216,7 @@ $sec = $this->fetch('sec');
                                             </li>
                                             <li><a href="../../rtables">Manage Table</a>
                                             </li>
-                                            <li><a href="../../tablecategory/addnewtablecategory">Table Category</a>
+                                            <li><a href="../../tablecategory">Table Category</a>
                                             </li>
                                             <li><a href="../../manage/devices">Devices</a>
                                             </li>

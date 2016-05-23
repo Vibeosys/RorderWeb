@@ -14,58 +14,74 @@
 ?>
  <?php $this->start('breadcrum');?>
 
-<li class="red">Restaurant Table Categories</li>
+<li><a  class="red" href="../../tablecategory">Table Categories</a></li>
     <li class="active">Add New Category</li>
 <?php $this->end('breadcrum'); ?> 
                    
+                <div class="x_content">
+                  <br />
+                  <form id="form-single" method="post" action="addnewtablecategory" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Table Category Title 
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="title" name="title" required="required" class="form-control col-md-7 col-xs-12"> 
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Image 
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input name="image" id="image" class="date-picker form-control col-md-7 col-xs-12" required="required" type="file">
+                          <br> (Please choose image file)
+                           <?php if(isset($single)){ ?>
+                          <span style="text-transform:capitalize; color: <?= $color ?>"> <?= $message ?> </span>
+                          <?php } ?>
+                      </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button type="submit" name="single" class="btn btn-success">Submit</button>
+                          <button type="button" id="cancel" class="btn btn-primary">Cancel</button>
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+                      
+           
+<?php $this->start('script');?>
+<script>
+   $(document).ready(function() {
+            $('#datatable').dataTable();
+            $('#datatable-keytable').DataTable({
+              keys: true
+            });
+            $('#menu').DataTable();
+            $('#datatable-scroller').DataTable({
+              //ajax: "js/datatables/json/scroller-demo.json",
+              deferRender: true,
+              scrollY: 380,
+              scrollCollapse: true,
+              scroller: true
+            });
+            var table = $('#datatable-fixed-header').DataTable({
+              fixedHeader: true
+            });
+            $('#cancel').on('click',function(){
+                window.location.replace('../tablecategory');
                 
-            <section class="content">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="box">                           
-                            <section class="content content-div show-add-section">
-                                <div class="row">
-                                    <!--Destination Form -->
-                                    <div class="with-border box-header">
-                                    </div><!-- /.box-header -->
-                                    <!-- form start -->
-                                    <form class="form-horizontal" method="post" action="addnewtablecategory" enctype="multipart/form-data">
-                                        <div class="box-body">
-                                            <div class="form-group">
-                                                <label for="Title" class="col-sm-2 control-label">Category Title</label>
-                                                <div class="col-sm-8">
-                                                    <input name="categoryTitle" type="text" class="form-control" id="Title" placeholder="Title" required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="latitude" class="col-sm-2 control-label">Category Image</label>
-                                                <div class="col-sm-8">
-                                                    <label for="file-upload" class="custom-file-upload">
-                                                        <i> <?= $this->Html->image('upload.png', ['width' => '25','alt' => 'Upload File'])?></i> Upload your image here
-                                                    </label>
-                                                    <input type="file" name="file-upload" class="form-control" required>
-                                                </div>
-                                            </div>
-                                             <?php if(isset($message)){?>
-                                            <div id="error-div" style="margin-left: 20%;color: <?= $color ?>" ><?=$message?></div>
-                                        <?php }?>
-                                        </div><!-- /.box-body -->
-                                        <div class="box-footer col-xs-12" style="margin-left:0px">
-                                             <div class="row">
-                                                <div class="col-xs-4"></div>
-                                                    <div class="col-xs-6">
-                                                         <button name="save" type="submit" style="margin-bottom:10px" class="dark-orange add-save-btn">Submit</button>
-                                                         <input type="button" value="cancel" class="light-orange button add-save-btn"  onclick="window.history.back();">
-                                                    </div>
-                                                <div class="col-xs-2"></div>
-                                            </div>
-                                        </div><!-- /.box-footer -->
-                                    </form>
-                                    <!-- /.box -->
-                                    <!-- Destination form elements disabled -->
-                                </div>
-                            </section>
-                        </div><!-- /.box -->                       
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </section><!-- /.content -->
+            });
+          });
+         
+        </script>
+  <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+
+</script>
+
+<?php $this->end('script'); ?>

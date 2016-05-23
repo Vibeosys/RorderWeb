@@ -211,43 +211,10 @@ $(document).ready(function(){
    blink(".operation-status", -1, 1000); 
   
     //get recipe items 
-    var itemcheck =   $('.recipe-item-select').length;
-
-    if(itemcheck === 1){
-      $.get('/getrecipeitem',{},function(result){
-          var html = '';
-          itemcheck = false;
-         $.each(result,function(index,obj){
-             html = html + '<option value="'+ obj.itemId + '">'+ obj.itemName + '</option>';
-         });
-         $('.recipe-item-select').append(html);
-      });
-  }
-  //get units
-  var fullcheck =  $('.item-unit-select').length;
-  
-    if(fullcheck === 1){
-      $.get('/getunits',{},function(result){
-          var html = '';
-          fullcheck = false;
-         $.each(result,function(index,obj){
-             html = html + '<option value="'+ obj.unitId + '">'+ obj.unitTitle + '</option>';
-         });
-         $('.item-unit-select').append(html);
-      });
-  }
+   
  
   // edit single recipe menu
-  $('.recipe-edit-row-btn').on('click',function(){
-      var btntext = $(this).text();
-    if( btntext === 'Edit'){
-        $(this).text('SAVE');
-     var btnId = $(this).attr('id');
-     $('.recipe-qty-fix' + btnId).addClass('hidden');
-     $('.recipe-qty-text' + btnId).removeClass('hidden');
-     return false;
-    }
-  });
+ 
   $('#menu_toggle').on('click',function(){
       $('.content-wrapper').toggleClass('margin-less');
       $('.content-wrapper').toggleClass('margin-more');

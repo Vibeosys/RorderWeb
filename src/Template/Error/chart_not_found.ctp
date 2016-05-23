@@ -1,5 +1,16 @@
+<?php
 
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center">
+    use Cake\Cache\Cache;
+    use Cake\Core\Configure;
+    use Cake\Datasource\ConnectionManager;
+    use Cake\Error\Debugger;
+    use Cake\Network\Exception\NotFoundException;
+    use App\Controller;
+
+    $this->layout = false;
+   
+?>
+     <!--           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center">
                     
                        <div class="error-msg1">
                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 border-bottom">
@@ -18,5 +29,7 @@
                                  
                             </div>
                     </div>
-                </div>                    
-   
+                </div>      -->
+<div class="col-lg-12 dnf-style center-block" >
+     <?= $this->Html->image("dnf.png", ['class' => "img-responsive center-block"]) ?>
+</div> 

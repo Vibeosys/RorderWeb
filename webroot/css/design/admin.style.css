@@ -151,6 +151,9 @@ background-color: #BFBFBF;
     .mobile-show{
         display: inline-block!important;
     }
+    .error-top{
+            margin-top: 65px!important;
+    }
     .breadcrumb{
         padding: 20px 0px !important;
     }
@@ -206,3 +209,11 @@ input[type=search]{
     background-color: #2B577D;
     border-color: #2e6da4;
     }
+    
+.dnf-style{
+    position: absolute;
+    width: 100%;
+}
+.dnf-style img{
+    width: 190px;
+} 

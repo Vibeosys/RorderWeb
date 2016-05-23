@@ -32,4 +32,12 @@ class NetworkDeviceController extends ApiController{
         return false;
     }
     
+    public function deviceList() {
+        $info = $this->getTableObj()->getAllDevice();
+        if($info){
+            $this->set([
+            'rows' => $info]);
+        }
+    }
+    
 }

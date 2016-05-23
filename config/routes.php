@@ -16,6 +16,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('menu/editrecipe/addnewitem', ['controller' => 'Menu', 'action' => 'addNewItem']);
     $routes->connect('menucategory/addnewmenucategory', ['controller' => 'MenuCategory', 'action' => 'addNewMenuCategory']);
     $routes->connect('menucategory', ['controller' => 'MenuCategory', 'action' => 'menuCategoryList']);
+    $routes->connect('tablecategory', ['controller' => 'TableCategory', 'action' => 'tableCategoryList']);
     $routes->connect('tablecategory/addnewtablecategory', ['controller' => 'TableCategory', 'action' => 'addNewTableCategory']);
     $routes->connect('rtables/addnewtables', ['controller' => 'RTables', 'action' => 'addNewTables']);
     $routes->connect('rtables', ['controller' => 'RTables', 'action' => 'tableList']);
@@ -41,9 +42,9 @@ Router::scope('/', function ($routes) {
     $routes->connect('getrecipeitem', ['controller' => 'RecipeItemMaster', 'action' => 'getItemInfo']); 
     $routes->connect('getunits', ['controller' => 'UnitMaster', 'action' => 'getUnits']); 
     $routes->connect('/', ['controller' => 'MgmtPanel', 'action' => 'consol']);
-    $routes->connect('upload', ['controller' => 'MgmtPanel', 'action' => 'upload']);
+    //$routes->connect('upload', ['controller' => 'MgmtPanel', 'action' => 'upload']);
     $routes->connect('manage/edit', ['controller' => 'MgmtPanel', 'action' => 'edit']);
-    $routes->connect('managedata', ['controller' => 'MgmtPanel', 'action' => 'manageData']);
+    //$routes->connect('managedata', ['controller' => 'MgmtPanel', 'action' => 'manageData']);
     // table routes
     $routes->connect('tableview/placeorder', ['controller' => 'RTables', 'action' => 'tableView']);
     $routes->connect('tableview/placeorder/place-an-order', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
@@ -120,7 +121,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('reports/favouratemenu', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
     $routes->connect('reports/perstawordssales', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
     $routes->connect('reports/stawordsperformance', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
-    $routes->connect('manage/devices', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('manage/devices', ['controller' => 'NetworkDevice', 'action' => 'deviceList']);
     $routes->connect('manage/configuration', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
     //error url
     $routes->connect('notfound', ['controller' => 'Error', 'action' => 'notFound']);

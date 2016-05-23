@@ -13,6 +13,7 @@ use Cake\Log\Log;
 use Cake\Filesystem\File;
 use App\DTO\DownloadDTO;
 use App\DTO\UploadDTO;
+use Cake\Filesystem\Folder;
 use App\DTO;
 
 /**
@@ -78,15 +79,17 @@ class MenuController extends ApiController {
         if(!$this->isLogin()){
             $this->redirect('login');
         }
-       if ($this->request->is('post') and isset($this->request->data['add-menu'])) {
+         $restaurantId = parent::readCookie('cri');
+          $data = $this->request->data;
+       if ($this->request->is('post') and isset($this->request->data['add-bulk'])) {
             $restaurantId = parent::readCookie('cri');
             $data = $this->request->data();
             $file = $data['file-upload']['tmp_name'];
             $extenstion = $this->getExtension($data['file-upload']['name']);
             if (empty($file)) {
-                $this->set(['message' => SELECT_FILE_MESSAGE,'color' => 'red']);
+                $this->set(['suc_msg' => SELECT_FILE_MESSAGE,'color' => 'red']);
             } elseif ($extenstion != CSV_EXT) {
-                $this->set([MESSAGE => INCORRECT_FILE_MESSAGE, 'color' => 'red']);
+                $this->set(['suc_msg' => INCORRECT_FILE_MESSAGE, 'color' => 'red']);
             } else {
                 if (($handle = fopen($file, "r")) !== FALSE) {
                     $counter = 0;
@@ -114,13 +117,78 @@ class MenuController extends ApiController {
                     fclose($handle);
                     $result = $this->getTableObj()->insert($allMenus);
                     if ($result) {
-                        $this->set(['message' => 'You database has imported successfully. You have inserted ' . $result . ' recoreds','color' => 'green']);
+                        $this->set(['suc_msg' => 'You database has imported successfully. You have inserted ' . $result . ' recoreds','color' => 'green']);
                     } else {
-                        $this->set(['message' => DB_FILE_ERROR,'color' => 'red']);
+                        $this->set(['suc_msg' => DB_FILE_ERROR,'color' => 'red']);
                     }
                 }
             }
+        }elseif ($this->request->is('post') and isset($this->request->data['add-single'])) {
+           $filename = $data['file-upload']['name'];
+           $file = $data['file-upload']['tmp_name'];
+           $error = $data['file-upload']['error'];
+           $ext = $this->getExtension($filename);
+           if($error){
+               $valid_file = TRUE;
+               $logoUrl = null;
+           }elseif (!in_array($ext, $this->img_valid_ext)) {
+              $valid_file = FALSE;  
+               $this->set([
+                    MESSAGE => 'Please choose valide image file.',
+                    COLOR => ERROR_COLOR]);
+           }elseif (in_array($ext, $this->img_valid_ext)) {
+              
+               $imgDir = new Folder(IMAGE_UPLOAD, true);
+            $filename = $this->getGUID().$filename;
+            $destination = $imgDir->path.$filename;
+               if(move_uploaded_file($file, $destination)){
+                    $valid_file = TRUE;
+                    $logoUrl = '/img/'.$filename;
+               }  else {
+                   $valid_file = FALSE;
+               }
+           }
+            if($valid_file){
+                $menuDto = new UploadDTO\MenuInsertDto($data['title'], 
+                        $logoUrl, $data['price'], null, $data['tags'], 
+                        $this->getSelectValue($data, 'AVL'), 
+                        $this->getSelectValue($data, 'ACT'), null, 
+                        $this->getSelectValue($data, 'SPICY'), 
+                        $data['category'], $restaurantId, 
+                        $data['room'], null, $data['fbType']);
+                $allMenus[0] = $menuDto;
+               $result = $this->getTableObj()->insert($allMenus);
+                if($result){
+                    $this->set([
+                    'suc_msg' => "New Menu has been added !",
+                    COLOR => SUCCESS_COLOR]);
+                }  else {
+                     $this->set([
+                    'suc_msg' => "Error ! menu not added.",
+                    COLOR => ERROR_COLOR]);
+                }
+            }
         }
+            $menuCategoryController = new MenuCategoryController();
+            $category = json_decode(json_encode($menuCategoryController->getStdMenuCategory(),true));
+            $roomCategoryController = new RRoomsController();
+            $rooms = json_decode(json_encode($roomCategoryController->getStdRooms($restaurantId),true));
+            $fbTypeController = new FbTypeController();
+            $fbType = json_decode(json_encode($fbTypeController->getStdFbTypes()));
+             $this->set([
+                    'category' => $category,
+                    'room' => $rooms,
+                    'fbType' => $fbType
+                ]);
+        
+        
+    }
+    
+    public function getSelectValue($array,$key) {
+        if(array_key_exists($key, $array)){
+            return 1;
+        }
+        return 0;
     }
     
     public function menuList(){

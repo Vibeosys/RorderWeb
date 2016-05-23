@@ -95,7 +95,7 @@ class MgmtPanelController extends ApiController{
            $ext = $this->getExtension($filename);
             $activ = null;
             if(isset($data['active'])){
-                $activ = $data['active'];
+                $activ = 1;
             }
            if($error){
                $valid_file = TRUE;

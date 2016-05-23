@@ -44,7 +44,7 @@ use Cake\Cache\Cache;
                   </ul>
                   <div class="clearfix"></div>
                 </div>
-                <div class="x_content">
+                  <div class="x_content" style="height: 318px">
                     <div id="error-t" align="center"> </div>
                   <canvas id="transaction_graph"></canvas>
                   
@@ -85,7 +85,7 @@ use Cake\Cache\Cache;
                   </ul>
                         <div class="clearfix"></div>
                       </div>
-                        <div  class="x_content ct-chart" id="chartContainer" >
+                        <div  class="x_content ct-chart" id="chartContainer" style="height: 316px;" >
                     
 
                       </div>
@@ -104,7 +104,7 @@ use Cake\Cache\Cache;
                   </ul>
                         <div class="clearfix"></div>
                       </div>
-                      <div class="x_content ct-chart" id="lchartContainer">
+                      <div class="x_content ct-chart" id="lchartContainer" style="height: 316px;">
                       
 
                       </div>

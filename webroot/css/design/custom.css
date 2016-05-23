@@ -17,6 +17,7 @@ body.nav-sm .container.body .right_col {
   padding: 70px 20px;
   margin-left: 70px;
   z-index: 2;
+  width: 100%;
 }
 
 body.nav-sm .navbar.nav_title {
@@ -68,7 +69,7 @@ body.nav-sm .main_container .top_nav {
 body.nav-sm .nav.side-menu li a {
   text-align: center !important;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 12px;
   padding: 10px 5px;
 }
 body.nav-sm .nav.side-menu li.active-sm {
@@ -76,6 +77,7 @@ body.nav-sm .nav.side-menu li.active-sm {
 }
 body.nav-sm > .nav.side-menu > li.active-sm > a {
   color: #1ABB9C !important;
+  
 }
 body.nav-sm .nav.side-menu li a i.toggle-up {
   display: none !important;
@@ -101,12 +103,11 @@ body.nav-sm ul.nav.child_menu {
         color: #fe5621!important;
 }
 body.nav-sm ul.nav.child_menu li {
-  padding-left: 0;
-        border-bottom-style: solid;
-    border-bottom-width: 1px;
+  padding-left: 0px;
 }
 body.nav-sm ul.nav.child_menu li a {
   text-align: left !important;
+    
 }
 body.nav-sm .profile {
   display: none;
@@ -131,9 +132,10 @@ body.nav-sm .profile {
 
 body.nav-sm ul.nav.sub-child-menu{
     display: none;
-        margin-left: -1.7em;
+        margin-left: 0em;
     margin-top: -0.11em;
     border:2px solid #B7ADAA;
+    padding-left: 20px;
 }
 .profile_pic {
   width: 35%;
@@ -184,8 +186,7 @@ body.nav-sm ul.nav.sub-child-menu{
 #sidebar-menu span.fa {
   float: right;
   text-align: center;
-  margin-top: 5px;
-  font-size: 10px !important;
+  font-size: 11px !important;
   min-width: inherit;
   color: #363f45;
 }
@@ -616,6 +617,16 @@ body.nav-md ul.nav.child_menu li:after {
   position: absolute;
   top: 0;
 }
+body.nav-md ul.nav.child_menu li ul{
+    margin-left: -3em;
+    margin-top: -10px;
+}
+body.nav-md ul.nav.child_menu li ul li a:hover{
+  color: #fe5621 !important;
+}
+body.nav-sm ul.nav.child_menu li ul li a:hover{
+  color: #fe5621 !important;
+}
 .nav.side-menu>li>a, .nav.child_menu>li>a {
   color: #363f45;
   font-weight: 500;
@@ -643,6 +654,21 @@ li.current-page {
   -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
   box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
     border :1px solid black;
+}
+
+.nav.side-menu> li.active > a>.fa-chevron-right{
+        -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+        top: 35%;
+    margin-right: -8px;
+}
+.nav.side-menu li>a>.pull-right {
+   position: absolute;
+    right: 15px;
+    top: 58%;
+    margin-top: -7px;
 }
 li.current-page a {
   color: #1ABB9C !important
@@ -711,12 +737,14 @@ li.current-page a {
 .toggle {
   float: left;
   margin: 0;
-  padding-top: 16px;
+  padding-top: 27px;
   width: 70px;
 }
 .toggle a {
   padding: 15px 15px 0;
   margin: 0;
+  cursor: pointer;
+
 }
 .toggle a i {
   font-size: 26px;
@@ -733,7 +761,6 @@ li.current-page a {
 .panel_toolbox>li {
   float: left;
 }
-
 .panel_toolbox>li>a {
   padding: 10px;
   color: black;
@@ -743,9 +770,7 @@ li.current-page a {
 .panel_toolbox>li>a:hover {
      background: #ffa726;
     color: white;
-   
-} 
-
+}
 .line_30 {
   line-height: 30px;
 }
@@ -1125,7 +1150,7 @@ table.countries_list td {
 }
 .dataTables_paginate a {
   padding: 6px 9px !important;
-  background: #ddd !important;
+/*  background: #ddd !important;*/
   border-color: #ddd !important;
 }
 .paging_full_numbers a.paginate_active {
@@ -1158,6 +1183,55 @@ table.jambo_table tbody tr.selected td {
 }
 .dataTables_paginate a {
   background: #ff0000;
+    
+}
+.pagination>li>a{
+    margin: 0 2px;
+    font-size: 15px;
+    
+}
+.table-width{
+    width: 100%;
+}
+.page-right{
+    float:right;
+}
+@media(max-width:480px){
+    .page-right{
+        float:left;
+    }
+    .dataTables_filter input{
+        margin-left: 1.5em!important;
+    }
+}
+.pagination>li:first-child>a, .pagination>li:first-child>span {
+    margin-left: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    color: blue;
+    transition: .8s all ease;
+}
+.pagination>li:first-child>a:hover, .pagination>li:first-child>span:hover {
+  background-color: #337ab7;
+    color: white;
+}
+.pagination>li:last-child>a:hover, .pagination>li:last-child>span:hover {
+  background-color: #337ab7;
+    color: white;
+}
+.pagination>li:last-child>a, .pagination>li:last-child>span {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    color: blue;
+    transition: .9s all ease;
+}
+.pagination>.disabled>a{
+    background-color: white!important;
+}
+.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover {
+    cursor: not-allowed;
+    background-color: white;
+     color: blue!important;
 }
 .dataTables_wrapper {
   position: relative;
@@ -1185,7 +1259,7 @@ table.jambo_table tbody tr.selected td {
   float: left;
 }
 .dataTables_filter {
-  width: 50%;
+  width: 30%;
   float: right;
   text-align: right;
 }
@@ -1348,7 +1422,7 @@ table.display tr.even.row_selected td {
 table.display tr.odd.row_selected td {
   background-color: #9FAFD1;
 }
-.box {
+div.box {
   height: 100px;
   padding: 10px;
   overflow: auto;
@@ -1586,6 +1660,7 @@ span.right {
   font-size: 40px;
   line-height: 47px;
   font-weight: 600;
+  color:black;
 }
 .tile_stats_count .count small {
   font-size: 20px;
@@ -1713,7 +1788,7 @@ h4.graph_title {
   position: relative;
   display: block;
   margin-bottom: 30px;
-  border: 1px solid #E4E4E4;
+  border:2px solid #C0B8B8;
   -webkit-border-radius: 5px;
   overflow: hidden;
   padding-bottom: 5px;
@@ -1728,7 +1803,7 @@ h4.graph_title {
   -webkit-transition: all 300ms ease-in-out;
   transition: all 300ms ease-in-out;
     height: 10em;
-   /* width: 500px;*/
+    width: 90%;
 }
 .tile-stats:hover .icon i {
   animation-name: tansformAnimation;
@@ -1764,7 +1839,8 @@ h4.graph_title {
 .tile-stats .count {
   font-size: 26px;
   font-weight: bold;
-  line-height: 1.65857143
+  line-height: 1.65857143;
+color:black;
 }
 .tile-stats .count, .tile-stats h3, {
   position: relative;
@@ -1780,6 +1856,7 @@ h4.graph_title {
 .tile-stats p {
   margin-top: 5px;
   font-size: 12px;
+    color:black
 }
 .tile-stats > .dash-box-footer {
   position: relative;
@@ -4209,10 +4286,3 @@ img{
         }
     
     }
-    
-    
-    .msg-text-extra{
-            padding-top: 100px;
-    padding-bottom: 50px;
-    font-size: 20px;
-    }    

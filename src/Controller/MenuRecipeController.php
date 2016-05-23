@@ -54,6 +54,8 @@ class MenuRecipeController extends ApiController{
             if($result){
                 $this->redirect('menu/editrecipe');   
             }
+        }  else {
+            $this->redirect('menu/editrecipe');    
         }
         
         

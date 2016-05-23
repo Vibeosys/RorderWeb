@@ -87,21 +87,21 @@
                
                  <?php if(isset($data)) { $i = 1; foreach ($data as $single){ ?>
                     <?php if($i%2 == 0){ ?>
-                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
                    <?php }else { ?>
                     <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12  col-lg-offset-2">
                      <?php   } ?>
-                      <div class="tile-stats center-block b-<?= $i ?>">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                      <div class="tile-stats center-block ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                               <div class="img-rest"><?= $this->Html->image('quickserve-restaurant-default.png', ['class' => 'img-responsive'])?>
                         </div>
                           </div>
-                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 remove-space">
+                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 remove-space">
 
                         <div id="title<?=$single->restaurantId?>" class="count"><?= $single->title ?></div>
                                     <p class="text-center"><?= $single->city ?>, <?= $single->country ?></p>
                                     <input type="text" name="restId" class="hidden" value="<?= $single->restaurantId ?>">
-                                    <input type="button" name="resta1" id="<?=$single->restaurantId?>" value="More Detail" class=" btn-rest center-block text-center">
+                                    <input type="button" name="resta1" id="<?=$single->restaurantId?>" value="Get Me Inside" class=" btn-rest center-block text-center">
                           </div>
 
                       </div>

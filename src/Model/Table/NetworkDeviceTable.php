@@ -43,4 +43,22 @@ class NetworkDeviceTable extends Table{
         Log::error("User Network Device Info not save in database for userid : ".$networkDeviceDto->imei);
         return false;
     }
+    
+    public function getAllDevice() {
+        $response = array();
+        $counter = 0;
+        $resultSet = $this->connect()->find();
+        if($resultSet->count()){
+            foreach ($resultSet as $newEntry){
+              $deviceDto = new UploadDTO\NetworkDeviceInfoDto($newEntry->IMEI,
+                      $newEntry->Brand, $newEntry->Board, $newEntry->Manufacturer, 
+                      $newEntry->Model, $newEntry->Product, $newEntry->FmVersion, 
+                      $newEntry->IpAddress, $newEntry->City, $newEntry->Region,$newEntry->Country);
+              $response[$counter++] = $deviceDto;
+            }
+            return $response;
+        }else{
+            return FALSE;
+        }
+    }
 }

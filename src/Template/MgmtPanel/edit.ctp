@@ -22,7 +22,7 @@
                 <div class="x_content">    
                   <br />
                   <?php if(isset($suc_msg)){ ?>
-                                    <p style="border: 1px solid green;padding: 5px; margin: 10px 26%;text-align:center;color:<?= $color ?>"> <?= $suc_msg ?> </p>
+                  <p class="error-top" style="border: 1px solid <?= $color ?>;padding: 5px; margin: 10px 26%;text-align:center;color:<?= $color ?>"> <?= $suc_msg ?> </p>
                                 <?php } ?>
                    <?php if(isset($data)){
                             foreach ($data as $rest){    

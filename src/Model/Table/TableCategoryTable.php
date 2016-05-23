@@ -26,7 +26,7 @@ class TableCategoryTable  extends Table{
             Log::debug('Table Categories are not found');
             return false;
         }
-       $allTableCategory[]= null;
+       $allTableCategory= null;
        $i = 0;
        foreach ($tableCategories as $category){
            $tableCategoryDto = new DownloadDTO\TableCategoryDownloadDto($category->TableCategoryId, 
@@ -48,7 +48,8 @@ class TableCategoryTable  extends Table{
             $newTableCategory->CreatedDate = date(VB_DATE_TIME_FORMAT);
             $newTableCategory->UpdatedDate = date(VB_DATE_TIME_FORMAT);
             if($tableObj->save($newTableCategory)){
-                return $newTableCategory->CategoryId;
+                return $newTableCategory->TableCategoryId;
+               
             }
             return $result;
         }

@@ -17,10 +17,10 @@ use App\DTO\DownloadDTO;
  */
 define('TC_INS_QRY', "INSERT INTO table_category (TableCategoryId,CategoryTitle,Image"
         . ") VALUES (@TableCategoryId,\"@CategoryTitle\",\"@Image\");");
+define('CATE_IMG_PATH',TMP.'menu_category_img'.DS);
 class TableCategoryController extends ApiController{
     
    
-    private $restaurantId = 123456;
     private function getTableObj() {
         
         return new Table\TableCategoryTable();
@@ -54,8 +54,12 @@ class TableCategoryController extends ApiController{
          if(!$this->isLogin()){
             $this->redirect('login');
         }
-        if($this->request->is('post') and isset($this->request->data['save'])){
-            $data = $this->request->data;
+        $data = $this->request->data;
+        $restaurantId = parent::readCookie('cri');
+        if($this->request->is('post') and isset($this->request->data['bulk'])){
+            
+            
+            
             $fileName = $data['file-upload']['name'];
             if(!$this->isImage($fileName)){
                 $this->set([MESSAGE => INCORRECT_FILE_MESSAGE.'"png, jpg, jpeg"',COLOR => ERROR_COLOR]);
@@ -73,12 +77,40 @@ class TableCategoryController extends ApiController{
                 $insertResult = $this->getTableObj()->insert($tableCategoryDto);
                 $newTableCategory = $this->getTableObj()->getSingleCategory($insertResult);
                 $syncController = new SyncController();
-                $syncController->tableCategoryEntry(json_encode($newTableCategory), INSERT_OPERATION, $this->restaurantId);
+                $syncController->tableCategoryEntry(json_encode($newTableCategory), INSERT_OPERATION, $restaurantId);
                  if ($insertResult) {
-                        $this->set(['message' => 'Table Category added successfully','color' => 'green']);
+                        $this->set(['message' => 'Table Category added successfully','color' => 'green','bulk' => 1]);
                     } else {
-                        $this->set(['message' => 'ERROR occured...','color' => 'red']);
+                        $this->set(['message' => 'ERROR occured...','color' => 'red','bulk' => 1]);
                     }
+            }
+        }elseif ($this->request->is('post') and isset($this->request->data['single'])) {
+            $file = $data['image']['tmp_name'];
+            $fileName = $data['image']['name'];
+            $dir = new Folder(CATE_IMG_PATH, TRUE);
+            $destination = $dir->path.$fileName;
+            $extenstion = $this->getExtension($fileName);
+            if (empty($file)) {
+                $this->set([MESSAGE => SELECT_FILE_MESSAGE, 'color' => 'red', 'single' => 1]);
+            } elseif (!in_array($extenstion, $this->img_valid_ext)) {
+                Log::debug('File extention :-'.$file);
+                $this->set([MESSAGE => INCORRECT_FILE_MESSAGE, 'color' => 'red','single' => 1]);
+            } else if(move_uploaded_file($file, $destination)) {
+               $tableCategoryDto = new DownloadDTO\TableCategoryDownloadDto(
+                        null, 
+                        $data['title'], 
+                        $destination);
+                $result = $this->getTableObj()->insert($tableCategoryDto);
+                $newTableCategory = $this->getTableObj()->getSingleCategory($result);
+                $syncController = new SyncController();
+                $syncController->tableCategoryEntry(json_encode($newTableCategory), INSERT_OPERATION, $restaurantId);
+                if($result) {
+                    $this->redirect('tablecategory');
+                } else {
+                    $this->set([MESSAGE => 'Error ! please try again.', 'color' => 'red','single' => 1]);
+                }
+            }else{
+                $this->set([MESSAGE => 'Error in image upload ! please try again.', 'color' => 'red','single' => 1]);
             }
         }
     }
@@ -94,6 +126,15 @@ class TableCategoryController extends ApiController{
             return $tcategory;
         }
         return null;
+    }
+    
+    public function tableCategoryList() {
+        $tableCategories = $this->getTableCategories();
+        if(!is_null($tableCategories)){
+            $this->set([
+                'rows' => $tableCategories
+            ]);
+        }
     }
     
     
