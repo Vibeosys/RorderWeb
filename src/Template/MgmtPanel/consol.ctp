@@ -98,10 +98,10 @@
                           </div>
                          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 remove-space">
 
-                        <div class="count"><?= $single->title ?></div>
+                        <div id="title<?=$single->restaurantId?>" class="count"><?= $single->title ?></div>
                                     <p class="text-center"><?= $single->city ?>, <?= $single->country ?></p>
                                     <input type="text" name="restId" class="hidden" value="<?= $single->restaurantId ?>">
-                        <input type="button" name="resta1" value="More Detail" class=" btn-rest center-block text-center">
+                                    <input type="button" name="resta1" id="<?=$single->restaurantId?>" value="More Detail" class=" btn-rest center-block text-center">
                           </div>
 
                       </div>
@@ -119,9 +119,20 @@
     <script>
     $(document).ready(function(){
        $(":button").on('click',function(){
-           var restId = $(":text").val();
-           $.post('/setcookie',{name:'cri',value:restId},function(result){});
-           $(location).attr('href','reports');
+           var restId = $(this).attr('id');
+           var ttl = $("#title"+restId).text();
+           $.post('/setcookie',{name:'cri',value:restId},function(result1){
+               
+                 $.post('/setcookie',{name:'title',value:ttl},function(result2){
+                     if(result1 && result2){
+                     $(location).attr('href','reports');
+                    }else{
+                        alert('Please enable cookie option.');
+                    }
+                 });
+           });
+         
+           
        }); 
     });
     </script>

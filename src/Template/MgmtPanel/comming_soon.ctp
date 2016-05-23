@@ -10,7 +10,7 @@ use Cake\Cache\Cache;
     $this->layout = 'rorder_layout';
     $this->assign('title', 'Page Under Construction');
 ?>
-<div class="right_col" role="main">
+
  <section class="coming-soon">
         <div class="container">
             <div class="row">
@@ -27,4 +27,3 @@ use Cake\Cache\Cache;
             </div>
         </div>
  </section>
-</div>

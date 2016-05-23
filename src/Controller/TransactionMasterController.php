@@ -52,8 +52,13 @@ class TransactionMasterController extends ApiController{
         }
         $transactionDetailsController = new TransactionDetailsController();
         $reportData = $transactionDetailsController->generateReport($restaurantId);
-        $chartData = json_encode($reportData);
-        $this->response->body($chartData);
+        if(count($reportData)){
+            $response = json_encode($reportData);
+        }else{
+            $response = 0;
+        }
+         
+        $this->response->body($response);
     }
     
     public function transactionReport() {

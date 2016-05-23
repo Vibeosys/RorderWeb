@@ -12,12 +12,9 @@ use Cake\Cache\Cache;
     $this->assign('heading', 'Bill Generation Status');
 ?>
 <?php $this->start('breadcrum');?>
-     <ol class="breadcrumb">
-                            <li><a href="../" class="red">Dashboard</a></li>
-                            <li><a href="../reports" class="red">Restaurent 1</a></li>
+  
                               <li class="active">Table List</li>
                               <li style="text-transform: capitalize" class="active">generate bill</li>
-                    </ol>
 <?php $this->end('breadcrum'); ?> 
  <section class="fil-not-found">
         <div class="container">

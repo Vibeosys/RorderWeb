@@ -359,7 +359,9 @@ class MgmtPanelController extends ApiController{
             $name = $data['name'];
             $value = $data['value'];
             Log::debug('name of cookie: '.$name .'and value is :'.$value);
-            parent::writeCookie($name, $value); 
+            parent::writeCookie($name, $value);
+            //parent::readCookie($name);
+            $this->response->body(1);
         }
     }
     public function getCookie() {
@@ -369,7 +371,7 @@ class MgmtPanelController extends ApiController{
         if($this->request->is('post')){
             $name = $data['name'];
             $result = parent::readCookie($name); 
-            Log::debug('cookie value return:'.$result);
+            Log::debug('cookie value of'. $name.'  return:'.$result);
         }
         $this->response->body($result);
         $this->response->type('text/html');

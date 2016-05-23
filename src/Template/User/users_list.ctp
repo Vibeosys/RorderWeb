@@ -12,16 +12,11 @@ use Cake\Cache\Cache;
      $this->assign('heading', 'Restautant Staff');
 ?>
 <?php $this->start('breadcrum');?>
-<ol class="breadcrumb">
-    <li><a href="../" class="red">Dashboard</a></li>
-    <li><a href="../reports" class="red">Restaurent 1</a></li>
-    <li class="active">Staff List</li>
-</ol>
-<?php $this->end('breadcrum'); ?>             
-<div class="row">
 
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
+    <li class="active">Staff List</li>
+<?php $this->end('breadcrum'); ?>             
+<?php $this->start('head_title');?>
+            
             <div class="x_title">
                 <h2>User List</h2>
                 <ul class="nav navbar-right panel_toolbox">
@@ -30,6 +25,7 @@ use Cake\Cache\Cache;
                 </ul>
                 <div class="clearfix"></div>
             </div>
+ <?php $this->end('head_title'); ?>    
             <div class="x_content">
 
                 <table id="menu" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
@@ -82,9 +78,7 @@ use Cake\Cache\Cache;
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
-</div>
+    
 <?php $this->start('script');?>
 <script type="text/javascript">
     $(document).ready(function () {

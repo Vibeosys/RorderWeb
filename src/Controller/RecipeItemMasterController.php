@@ -79,7 +79,7 @@ class RecipeItemMasterController extends ApiController{
               $this->redirect('inventory/stockupload');
         }
         
-       $allRecipeitems = $this->getTableObj()->getRecipeItems($restaurantId);
+       $allRecipeitems = $this->getTableObj()->getStock($restaurantId);
        $this->set([
                 'items' => $allRecipeitems
        ]);
@@ -127,27 +127,14 @@ class RecipeItemMasterController extends ApiController{
     
     public function getMaterialRequisitionReport() {
         $this->autoRender = FALSE;
-        if($this->request->is('get') and $this->isLogin()){
+        if($this->request->is('ajax') and $this->isLogin()){
+            $type = $this->request->query('type');
+            Log::debug('Type of Map: '.$type);
             $restaurantId = parent::readCookie('cri');
-            $rows = $this->getTableObj()->getRecipeItems($restaurantId);
-            $dataset1 = '[';
-            $dataset2 = '[';
-            $counter = 0;
-            $x = 10;
-            if($rows){
-                foreach ($rows as $row){
-                    $dataset1 .= '{ x: '.$x.', y: '.$row->qty.',  label: "'.$row->itemName.'" },';//new DownloadDTO\MaterialRequisitionReportDto($x, $row->qty, $row->itemName);
-                    $dataset2 .= '{ x: '.$x.', y: '.$row->rLevel.',  label: "'.$row->itemName.'" },';//new DownloadDTO\MaterialRequisitionReportDto($x, $row->rLevel, $row->itemName);
-                     $x = $x + 10;
-                }
-                $dataset1 = substr($dataset1, 0, -1);
-                $dataset2 = substr($dataset2, 0, -1);
-                $dataset1 .= ']';
-                $dataset2 .= ']';
-               $response =  '[{type: "bar",isYType: "primary",showInLegend: true,legendText: "current stock",dataPoints:'. $dataset1.'},
-      {type: "bar",isYType: "primary",showInLegend: true,legendText: "reorder level",dataPoints:'. $dataset2 .'}]';
-            }
-            $this->response->body($response);
+            $rows = $this->getTableObj()->getRecipeItems($restaurantId,$type);
+            
+           
+            $this->response->body(json_encode($rows));
         }else{
             $this->response->body(false);
         }

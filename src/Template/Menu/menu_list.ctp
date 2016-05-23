@@ -14,17 +14,11 @@
     //$this->assign('script','var loading=\'<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>\';$(".table-list").html(loading),$.ajax({url:"/gettables",type:"POST",contentType:!1,cache:!1,processData:!1,success:function(e,t,a){if(e){var s="";$.each(e,function(e,t){s=t.isOccupied?s+\'<div class="print-table-button col-xs-2" onclick="perform(\'+t.tableId+\')" style="border-bottom: 8px solid rgba(247, 0, 0, 0.48);">\'+t.tableNo+" </div>":s+\'<div class="print-table-button col-xs-2" onclick="perform(\'+t.tableId+\')" style="border-bottom: 8px solid rgba(0, 128, 0, 0.55);">\'+t.tableNo+" </div>",$(".table-list").html(s)})}else{var s=\'<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>\';$(".table-list").html(s)}},error:function(e,t,a){var s=\'<div class="error-message"><div class="error-img"></div><span class="error-text">Requested data not found</span></div>\';$(".table-list").html(s)}});');
 ?>
 <?php $this->start('breadcrum');?>
-     <ol class="breadcrumb">
-                            <li><a href="../" class="red">Dashboard</a></li>
-                            <li><a href="../reports" class="red">Restaurent 1</a></li>
+
                            <li class="active">Menu</li>
-                    </ol>
 <?php $this->end('breadcrum'); ?>           
         
-          <div class="row">
-              
-                  <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel">
+<?php $this->start('head_title');?>        
                       <div class="x_title">
                         <h2>Menu</h2>
                        <ul class="nav navbar-right panel_toolbox">
@@ -33,6 +27,7 @@
                   </ul>
                         <div class="clearfix"></div>
                       </div>
+ <?php $this->end('head_title'); ?>                             
                       <div class="x_content">
                       <?php if(isset($menus)) {?>
                         <table id="menu" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
@@ -96,16 +91,7 @@
                       <?php } ?>
 
                       </div>
-                    </div>
-                  </div>
-              
-              
-              
-              
-              
-           
-          </div>
-          <div class="clearfix"></div>
+                 
 <?php $this->start('script');?>
 <script>
    $(document).ready(function() {

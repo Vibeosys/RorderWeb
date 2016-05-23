@@ -10,11 +10,8 @@
      $this->assign('title', 'Restaurant Material BrandWise Requisition Report');
 ?>          
 <?php $this->start('breadcrum');?>
-       <ol class="breadcrumb">
-                            <li><a href="../" class="red">Dashboard</a></li>
-                            <li><a href="../reports" class="red">Reports</a></li>
+   
                             <li class="active">Material BrandWise Requisition</li>
-                    </ol>
 <?php $this->end('breadcrum'); ?>          
 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">

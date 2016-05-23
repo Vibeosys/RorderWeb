@@ -103,6 +103,7 @@ table.dataTable thead .sorting_desc_disabled:after {
 table.dataTable thead > tr > th {
 	padding-left: 8px;
 	padding-right: 30px;
+    font-size: 16px;
 }
 
 table.dataTable th:active {
@@ -154,6 +155,7 @@ table.table-bordered tbody th,
 table.table-bordered tbody td {
 	border-left-width: 0;
 	border-bottom-width: 0;
+        font-size: 16px;
 }
 table.table-bordered th:last-child,
 table.table-bordered td:last-child {

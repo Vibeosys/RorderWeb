@@ -19,4 +19,7 @@ class ErrorController extends ApiController{
     public function notFound() {
         
     }
+    public function chartNotFound() {
+        
+    }
 }

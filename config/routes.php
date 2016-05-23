@@ -104,7 +104,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('saveopenstock', ['controller' => 'ItemStockLevel', 'action' => 'saveOpenStock']);
     $routes->connect('saveclosestock', ['controller' => 'ItemStockLevel', 'action' => 'saveCloseStock']);
     $routes->connect('menu/editrecipe/editrecipeitem', ['controller' => 'MenuRecipe', 'action' => 'editRecipeItem']);
-    $routes->connect('reports/stockavailability', ['controller' => 'RecipeItemMaster', 'action' => 'stockAvailability']); 
+   // $routes->connect('reports/stockavailability', ['controller' => 'RecipeItemMaster', 'action' => 'stockAvailability']); 
     $routes->connect('reports/transactionreport', ['controller' => 'TransactionMaster', 'action' => 'transactionReport']); 
     $routes->connect('reports/customerrushhour', ['controller' => 'CustomerVisit', 'action' => 'rushHourReport']); 
     $routes->connect('reports/salesreport', ['controller' => 'SalesHistory', 'action' => 'salesReport']); 
@@ -124,6 +124,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('manage/configuration', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
     //error url
     $routes->connect('notfound', ['controller' => 'Error', 'action' => 'notFound']);
+    $routes->connect('chartnotfound', ['controller' => 'Error', 'action' => 'chartNotFound']);
     $routes->fallbacks('DashedRoute');
 });
 

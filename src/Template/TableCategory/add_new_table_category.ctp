@@ -9,18 +9,16 @@
     $this->layout = false;
      $this->layout = 'rorder_layout';
      $this->assign('title', 'Add New Table Category');
+     $this->assign('heading', 'Add New Table Category');
      //$this->start('content');
 ?>
-            <section class="content-header">
-                <h1>
-                    Restaurant Table Categories
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li><a href="../tablecategory">Restaurant Table Categories</a></li>
-                    <li class="active">Add New Category</li>
-                </ol>
-            </section>
+ <?php $this->start('breadcrum');?>
+
+<li class="red">Restaurant Table Categories</li>
+    <li class="active">Add New Category</li>
+<?php $this->end('breadcrum'); ?> 
+                   
+                
             <section class="content">
                 <div class="row">
                     <div class="col-xs-12">
@@ -29,7 +27,6 @@
                                 <div class="row">
                                     <!--Destination Form -->
                                     <div class="with-border box-header">
-                                        <h3 class="box-title">Add New Category</h3>
                                     </div><!-- /.box-header -->
                                     <!-- form start -->
                                     <form class="form-horizontal" method="post" action="addnewtablecategory" enctype="multipart/form-data">

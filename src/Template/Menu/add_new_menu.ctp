@@ -11,18 +11,14 @@
     $this->layout = false;
     $this->layout = 'rorder_layout';
     $this->assign('title', 'Add New Menu');
+    $this->assign('heading', 'Add New Menu');
      //$this->start('content');
 ?>
-            <section class="content-header">
-                <h1>
-                    Restaurant Menu
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li><a href="../menu">Menu</a></li>
-                    <li class="active">Add New Menu</li>
-                </ol>
-            </section>
+ <?php $this->start('breadcrum');?>
+                            <li class="active">Add New Menu</li>
+<?php $this->end('breadcrum'); ?>    
+                   
+               
             <!-- Main content -->
             <section class="content">
                 <div class="row">

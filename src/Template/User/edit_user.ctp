@@ -8,20 +8,14 @@
 
      $this->layout = 'rorder_layout';
      $this->assign('title', 'Edit User');
+     $this->assign('heading', 'Edit User');
      //$this->start('content');
 ?>
 <?php $this->start('breadcrum');?>
-     <ol class="breadcrumb">
-        <li><a href="../" class="red">Dashboard</a></li>
-        <li><a href="../reports" class="red">Restaurent 1</a></li>
+
         <li class="active">Edit User </li>
-    </ol>
 <?php $this->end('breadcrum'); ?>       
-<div class="">
-          <div class="clearfix"></div>
-          <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="x_panel">
+
                 <div class="x_content">
                   <br />
                   <?php if(isset($userInfo)) { ?>
@@ -89,12 +83,7 @@
                   </form>
                   <?php } ?>
                 </div>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
+              
 <?php $this->start('script'); ?>
 <script>
   $(document).ready(function() {

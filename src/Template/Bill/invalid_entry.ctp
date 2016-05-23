@@ -12,12 +12,10 @@
      $this->assign('heading', 'Invalid Entry');
 ?>
 <?php $this->start('breadcrum');?>
-     <ol class="breadcrumb">
-                            <li><a href="../" class="red">Dashboard</a></li>
-                            <li><a href="../reports" class="red">Restaurent 1</a></li>
-                              <li class="active">Table List</li>
+    
+                              <li class="red">Table List</li>
                               <li style="text-transform: capitalize" class="active">generate bill</li>
-                    </ol>
+              
 <?php $this->end('breadcrum'); ?> 
             <section class="fil-not-found">
         <div class="container">

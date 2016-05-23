@@ -233,7 +233,7 @@ body .container.body .right_col {
 }
 body.nav-md .container.body .right_col {
   padding: 70px 20px 0;
-  margin-left: 230px;
+  margin-left: 224px;
 }
 .nav_title {
   width: 230px;
@@ -246,6 +246,7 @@ body.nav-md .container.body .right_col {
   body.nav-md .container.body .right_col, body.nav-md .container.body .top_nav {
     width: 100%;
     margin: 0;
+    padding-left: 2px;
       
   }
   body.nav-md .container.body .col-md-3.left_col {
@@ -732,14 +733,19 @@ li.current-page a {
 .panel_toolbox>li {
   float: left;
 }
+
 .panel_toolbox>li>a {
-  padding: 5px;
-  color: #C5C7CB;
+  padding: 10px;
+  color: black;
   font-size: 14px;
+    transition: .7s all ease;
 }
 .panel_toolbox>li>a:hover {
-  background: #F5F7FA;
-}
+     background: #ffa726;
+    color: white;
+   
+} 
+
 .line_30 {
   line-height: 30px;
 }

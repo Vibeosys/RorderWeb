@@ -12,41 +12,44 @@
 ?>    
      
 <?php $this->start('breadcrum');?>
-       <ol class="breadcrumb">
-                            <li><a href="../" class="red">Dashboard</a></li>
-                            <li><a href="../reports" class="red">Reports</a></li>
+
                             <li class="active">Material Requisition</li>
-                    </ol>
 <?php $this->end('breadcrum'); ?>
+  <?php $this->start('layout_change');?> 
+ <?php $this->end('layout_change'); ?>
 <div class="row">
               
-                  <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="col-md-6 col-sm-6 col-xs-12" id="mrr">
                     <div class="x_panel">
                       <div class="x_title">
-                        <h2>Material Requisition Report</h2>
+                        <h2> Solid Material Requisition <small>current</small></h2>
                        <ul class="nav navbar-right panel_toolbox">
                     <li><a href="#"><i class="fa fa-download"></i> Download</a>
                     </li>
                   </ul>
                         <div class="clearfix"></div>
                       </div>
-                        <div class="x_content" id="main-div">
-                       
-                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                          <thead>
-                            <tr>
-                              <th>Material Code</th>
-                              <th>Material</th>
-                              <th>Stock</th>
-                              <th>Reorder Stock</th>
-                              <th>Unit</th>
-                             
-                            </tr>
-                          </thead>
-                          <tbody id="req">
-                          
-                          </tbody>
-                        </table>
+                        <div  class="x_content ct-chart" id="chartContainer" >
+                    
+
+                      </div>
+                    </div>
+                  </div>
+              
+              
+                            
+       <div class="col-md-6 col-sm-6 col-xs-12" id="mbrr">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        <h2>Liquid Material Requisition<small>current</small></h2>
+                       <ul class="nav navbar-right panel_toolbox">
+                    <li><a href="#"><i class="fa fa-download"></i> Download</a>
+                    </li>
+                  </ul>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content ct-chart" id="lchartContainer">
+                      
 
                       </div>
                     </div>
@@ -54,45 +57,172 @@
           </div>
  <?php $this->start('script'); ?>  
  <script type="text/javascript">
-     var htmlc = '';
-$.post('/ajax/materialrequisitionreport',{},function(result){
-            if(result){
-                $.each(result,function(key,value){
-                    if(value.qty <= value.rLevel){
-                    htmlc += '<tr style="color: red">';
-                    }else{ 
-                        htmlc += '<tr style="color: green">';
-                    }
-                    htmlc += '<td>' + value.itemId + '</td>'
-                    htmlc += '<td>' + value.itemName + '</td>';
-                    htmlc += '<td>' + value.qty + '</td>';
-                    htmlc += '<td>' + value.rLevel + '</td>';
-                    htmlc +=     '<td>' + value.unit + '</td></tr>';
-                });
-                $('#req').html(htmlc);
-                if(htmlc){
-                     $(document).ready(function() {
-            $('#datatable').dataTable();
-            $('#datatable-keytable').DataTable({
-              keys: true
-            });
-            $('#datatable-responsive').DataTable();
-            $('#datatable-scroller').DataTable({
-              deferRender: true,
-              scrollY: 380,
-              scrollCollapse: true,
-              scroller: true
-            });
-            var table = $('#datatable-fixed-header').DataTable({
-              fixedHeader: true
-            });
-          });
-                    }
-            }else{
-                $.get('/notfound',{},function(result){
-                                    $('#main-div').append(result);
-                });
-           }
-        });
+    $.ajax({
+                        url: "/ajax/materialrequisitionreport?type=1",
+                        type: "POST",
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (result, jqXHR, textStatus) {
+                            
+                            if (result) {
+                                var label = new Array();
+                                var series1 = new Array();
+                                var series2 = new Array();
+                                var items = 1;
+                                $.each(result, function(key, obj){
+                                    label.push(obj.itemName);
+                                    var l = parseInt(obj.rLevel);
+                                    series1.push(l);
+                                    var s = parseInt(obj.qty);
+                                    series2.push(s);
+                                    items++;
+                                });
+                                var num = items*20;
+                                var ht = Math.max(num, 400); 
+                                $('#chartContainer').css('height',ht +'px');
+                                 $('#chartContainer').highcharts({
+                                        chart: {type: 'bar'},
+                                        title: {text: ''},
+                                        subtitle: {text: ''},
+                                       xAxis: {categories: label,
+                                       title: {text: null}},
+                                       yAxis: { min: 0,
+                                       title: {
+                                       text: 'Available Stock (millions)',
+                                       align: 'high'
+                                    },
+                                    labels: {
+                                        overflow: 'justify'
+                                    }
+                                },
+                                tooltip: {
+                                    valueSuffix: ' '
+                                },
+                                plotOptions: {
+                                    bar: {
+                                        dataLabels: {
+                                            enabled: true
+                                        }
+                                    }
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'top',
+                                    x: -40,
+                                    y: 80,
+                                    floating: true,
+                                    borderWidth: 1,
+                                    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                                    shadow: true
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                series: [{
+                                    name: 'Reorder Level',
+                                    data: series1
+                                }, {
+                                    name: 'Stock',
+                                    data: series2
+                                }]
+                            });
+                            } else {
+                                  $.post('/chartnotfound',{},function(result){
+                                    $('#chartContainer').html(result);
+                                });  
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                                  $.post('/chartnotfound',{},function(result){
+                                    $('#chartContainer').html(result);
+                                }); 
+                        }});
+                    
+                    // liquid
+                    $.ajax({
+                        url: "/ajax/materialrequisitionreport?type=2",
+                        type: "POST",
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (result, jqXHR, textStatus) {
+                            
+                            if (result) {
+                                var label = new Array();
+                                var series1 = new Array();
+                                var series2 = new Array();
+                                var items = 1;
+                                $.each(result, function(key, obj){
+                                    label.push(obj.itemName);
+                                    var l = parseInt(obj.rLevel);
+                                    series1.push(l);
+                                    var s = parseInt(obj.qty);
+                                    series2.push(s);
+                                    items++;
+                                });
+                                var num = items*20;
+                                var ht = Math.max(num, 400); 
+                                $('#lchartContainer').css('height',ht +'px');
+                                 $('#lchartContainer').highcharts({
+                                        chart: {type: 'bar'},
+                                        title: {text: ''},
+                                        subtitle: {text: ''},
+                                       xAxis: {categories: label,
+                                       title: {text: null}},
+                                       yAxis: { min: 0,
+                                       title: {
+                                       text: 'Available Stock (millions)',
+                                       align: 'high'
+                                    },
+                                    labels: {
+                                        overflow: 'justify'
+                                    }
+                                },
+                                tooltip: {
+                                    valueSuffix: ' '
+                                },
+                                plotOptions: {
+                                    bar: {
+                                        dataLabels: {
+                                            enabled: true
+                                        }
+                                    }
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'top',
+                                    x: -40,
+                                    y: 80,
+                                    floating: true,
+                                    borderWidth: 1,
+                                    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                                    shadow: true
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                series: [{
+                                    name: 'Reorder Level',
+                                    data: series1
+                                }, {
+                                    name: 'Stock',
+                                    data: series2
+                                }]
+                            });
+                            } else {
+                                $.post('/chartnotfound',{},function(result){
+                                    $('#lchartContainer').html(result);
+                                });
+                                    // $('#rhr').hide();  
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $.post('/chartnotfound',{},function(result){
+                                    $('#lchartContainer').html(result);
+                                });                
+                        }});
         </script>
   <?php $this->end('script'); ?>

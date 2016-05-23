@@ -11,8 +11,11 @@ use Cake\Cache\Cache;
      $this->assign('title', 'Restaurant Reports');
      //$this->start('content');
 ?>
-
-   <div class="row">
+<?php $this->start('b_yes');?>    
+<?php $this->end('b_yes');?>    
+ <?php $this->start('layout_change');?> 
+ <?php $this->end('layout_change'); ?>
+  
               
        <div class="col-md-6 col-sm-6 col-xs-12" id="shr">
               <div class="x_panel">
@@ -65,6 +68,7 @@ use Cake\Cache\Cache;
                 </div>
               </div>
             </div>
+     
                 
               
      
@@ -81,7 +85,7 @@ use Cake\Cache\Cache;
                   </ul>
                         <div class="clearfix"></div>
                       </div>
-                        <div class="x_content" id="chartContainer" style="height: 316px; width: 100%;">
+                        <div  class="x_content ct-chart" id="chartContainer" >
                     
 
                       </div>
@@ -100,13 +104,13 @@ use Cake\Cache\Cache;
                   </ul>
                         <div class="clearfix"></div>
                       </div>
-                      <div class="x_content" id="lchartContainer" style="height: 316px; width: 100%;">
+                      <div class="x_content ct-chart" id="lchartContainer">
                       
 
                       </div>
                     </div>
                   </div>
-          </div>
+        
    <!-- Chart script -->
 <?php $this->start('script');?>    
   <script>
@@ -156,12 +160,15 @@ use Cake\Cache\Cache;
                                 });
                               
                             } else {
-                                
-                                    $('#shr').hide();      
+                                 $.post('/chartnotfound',{},function(result){
+                                    $('#error-sh').html(result);
+                                });     
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                                     $('#shr').hide();   
+                                     $.post('/chartnotfound',{},function(result){
+                                    $('#error-sh').html(result);
+                                }); 
                         }});
    
       
@@ -205,11 +212,15 @@ use Cake\Cache\Cache;
                                       }
                                     });
                             } else {
-                                    $('#tr').hide();      
+                                    $.post('/chartnotfound',{},function(result){
+                                    $('#error-t').html(result);
+                                });       
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                                     $('#tr').hide();  
+                                     $.post('/chartnotfound',{},function(result){
+                                    $('#error-t').html(result);
+                                });  
                         }});
     
       
@@ -218,152 +229,175 @@ use Cake\Cache\Cache;
     //canvas chart requisition report ajax/materialrequisitionreport
     
   
-  $.ajax({
-                        url: "/ajax/materialrequisitionreport?id=" + ' <?= $rest ?>',
+            $.ajax({
+                        url: "/ajax/materialrequisitionreport?type=1",
                         type: "POST",
                         contentType: false,
                         cache: false,
                         processData: false,
                         success: function (result, jqXHR, textStatus) {
+                            
                             if (result) {
-                                  var chart = new CanvasJS.Chart("chartContainer",
-    {
-      title:{
-        text: ""    
-      },
-      axisY2: {
-        title:"Recipe Items"
-      },
-      animationEnabled: true,
-      axisY: {
-        title: "Quanity"
-      },
-      axisX :{
-        labelFontSize: 12
-      },
-      legend: {
-        verticalAlign: "bottom"
-      },
-      data: result,
-      legend: {
-        cursor:"pointer",
-        itemclick : function(e){
-          if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-            e.dataSeries.visible = false;
-          }
-          else{
-            e.dataSeries.visible = true;
-          }
-          chart.render();
-        }
-      }
-    });
-
-chart.render();
-                              
+                                var label = new Array();
+                                var series1 = new Array();
+                                var series2 = new Array();
+                                var items = 1;
+                                $.each(result, function(key, obj){
+                                    label.push(obj.itemName);
+                                    var l = parseInt(obj.rLevel);
+                                    series1.push(l);
+                                    var s = parseInt(obj.qty);
+                                    series2.push(s);
+                                    items++;
+                                });
+                                var num = items*20;
+                                var ht = Math.max(num, 400); 
+                                $('#chartContainer').css('height',ht +'px');
+                                 $('#chartContainer').highcharts({
+                                        chart: {type: 'bar'},
+                                        title: {text: ''},
+                                        subtitle: {text: ''},
+                                       xAxis: {categories: label,
+                                       title: {text: null}},
+                                       yAxis: { min: 0,
+                                       title: {
+                                       text: 'Available Stock (millions)',
+                                       align: 'high'
+                                    },
+                                    labels: {
+                                        overflow: 'justify'
+                                    }
+                                },
+                                tooltip: {
+                                    valueSuffix: ' '
+                                },
+                                plotOptions: {
+                                    bar: {
+                                        dataLabels: {
+                                            enabled: true
+                                        }
+                                    }
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'top',
+                                    x: -40,
+                                    y: 80,
+                                    floating: true,
+                                    borderWidth: 1,
+                                    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                                    shadow: true
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                series: [{
+                                    name: 'Reorder Level',
+                                    data: series1
+                                }, {
+                                    name: 'Stock',
+                                    data: series2
+                                }]
+                            });
                             } else {
-                                
-                                     $('#rhr').hide();  
+                                  $.post('/chartnotfound',{},function(result){
+                                    $('#chartContainer').html(result);
+                                });  
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                                $('#rhr').hide();  
+                                  $.post('/chartnotfound',{},function(result){
+                                    $('#chartContainer').html(result);
+                                }); 
                         }});
-
-// liquid
-     var chart = new CanvasJS.Chart("lchartContainer",
-    {
-      title:{
-        text: ""    
-      },
-      axisY2: {
-        title:"Recipe Items"
-      },
-      animationEnabled: true,
-      axisY: {
-        title: "Quanity"
-      },
-      axisX :{
-        labelFontSize: 10
-      },
-      legend: {
-        verticalAlign: "bottom"
-      },
-      data: [
-
-      {        
-        type: "bar",  
-        isYType: "primary",
-        showInLegend: true, 
-        legendText: "current stock",
-        dataPoints: [      
-        { x: 10, y:112, label: "Paneer" },
-        { x: 20, y:102, label: "Onion"},
-        { x: 30, y:302 , label: "Sugar"},
-        { x: 40, y:423 , label: "Potato"},
-        { x: 50, y:407 , label: "Tomato"},
-        { x: 60, y:359, label: "Salt"},
-        { x: 70, y:308, label:"Chicken"},
-        { x: 80, y:245, label:"Garlic Powder "},
-          { x: 90, y:112, label: "1Paneer" },
-        { x: 100, y:102, label: "1Onion"},
-        { x: 110, y:302 , label: "1Sugar"},
-        { x: 120, y:423 , label: "1Potato"},
-        { x: 130, y:407 , label: "1Tomato"},
-        { x: 140, y:359, label: "1Salt"},
-        { x: 150, y:308, label:"1Chicken"},
-        { x: 160, y:245, label:"1Garlic Powder "},
-          { x: 170, y:112, label: "2Paneer" }
-        
-
-
-        ]
-      },
-      {        
-        type: "bar",  
-        isYType: "primary",
-        showInLegend: true,
-        legendText: "reorder level",
-        dataPoints: [      
-        { x: 10, y:112, label: "Paneer" },
-        { x: 20, y:102, label: "Onion"},
-        { x: 30, y:302 , label: "Sugar"},
-        { x: 40, y:423 , label: "Potato"},
-        { x: 50, y:407 , label: "Tomato"},
-        { x: 60, y:359, label: "Salt"},
-        { x: 70, y:308, label:"Chicken"},
-        { x: 80, y:245, label:"Garlic Powder "},
-          { x: 90, y:112, label: "1Paneer" },
-        { x: 100, y:102, label: "1Onion"},
-        { x: 110, y:302 , label: "1Sugar"},
-        { x: 120, y:423 , label: "1Potato"},
-        { x: 130, y:407 , label: "1Tomato"},
-        { x: 140, y:359, label: "1Salt"},
-        { x: 150, y:308, label:"1Chicken"},
-        { x: 160, y:245, label:"1Garlic Powder "},
-          { x: 170, y:112, label: "2Paneer" }
-
-
-        ]
-      }
-
-      ],
-      legend: {
-        cursor:"pointer",
-        itemclick : function(e){
-          if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-            e.dataSeries.visible = false;
-          }
-          else{
-            e.dataSeries.visible = true;
-          }
-          chart.render();
-        }
-      }
-    });
-
-chart.render(); 
-
+                    
+                    // liquid
+                    $.ajax({
+                        url: "/ajax/materialrequisitionreport?type=2",
+                        type: "POST",
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (result, jqXHR, textStatus) {
+                            
+                            if (result) {
+                                var label = new Array();
+                                var series1 = new Array();
+                                var series2 = new Array();
+                                var items = 1;
+                                $.each(result, function(key, obj){
+                                    label.push(obj.itemName);
+                                    var l = parseInt(obj.rLevel);
+                                    series1.push(l);
+                                    var s = parseInt(obj.qty);
+                                    series2.push(s);
+                                    items++;
+                                });
+                                var num = items*20;
+                                var ht = Math.max(num, 400); 
+                                $('#lchartContainer').css('height',ht +'px');
+                                 $('#lchartContainer').highcharts({
+                                        chart: {type: 'bar'},
+                                        title: {text: ''},
+                                        subtitle: {text: ''},
+                                       xAxis: {categories: label,
+                                       title: {text: null}},
+                                       yAxis: { min: 0,
+                                       title: {
+                                       text: 'Available Stock (millions)',
+                                       align: 'high'
+                                    },
+                                    labels: {
+                                        overflow: 'justify'
+                                    }
+                                },
+                                tooltip: {
+                                    valueSuffix: ' '
+                                },
+                                plotOptions: {
+                                    bar: {
+                                        dataLabels: {
+                                            enabled: true
+                                        }
+                                    }
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'top',
+                                    x: -40,
+                                    y: 80,
+                                    floating: true,
+                                    borderWidth: 1,
+                                    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                                    shadow: true
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                series: [{
+                                    name: 'Reorder Level',
+                                    data: series1
+                                }, {
+                                    name: 'Stock',
+                                    data: series2
+                                }]
+                            });
+                            } else {
+                                $.post('/chartnotfound',{},function(result){
+                                    $('#lchartContainer').html(result);
+                                });
+                                    // $('#rhr').hide();  
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $.post('/chartnotfound',{},function(result){
+                                    $('#lchartContainer').html(result);
+                                });                
+                        }});
+                    
+                    
 //customer visit
     $.ajax({
                         url: "/customervisitreport?id=" + ' <?= $rest ?>',
@@ -397,12 +431,18 @@ chart.render();
                                 });
                                 chart.render();
                             } else {
-                                
-                                     $('#rhr').hide();  
+                                $.post('/chartnotfound',{},function(result){
+                                    $('#graph_donut').html(result);
+                                });
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                                $('#rhr').hide();  
+                                 $.post('/chartnotfound',{},function(result){
+                                    $('#graph_donut').html(result);
+                                }); 
                         }});
+                        
+                                      
     </script>        
         <?php $this->end('script'); ?>
+

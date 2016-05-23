@@ -62,8 +62,7 @@ class RecipeItemMasterTable extends Table{
             return FALSE;
         }
     }
-    
-    public function getRecipeItems($restaurantId) {
+     public function getStock($restaurantId) {
         $joins = [
                     'a' => [
                             'table' => 'unit_master', 
@@ -102,6 +101,59 @@ class RecipeItemMasterTable extends Table{
                         $recipeItems->SLevel, 
                         $recipeItems->RLevel, 
                         $recipeItems->Qty, 
+                        $recipeItems->ItemId, 
+                        $recipeItems->Unit);
+            }
+        }
+        return $response;
+    }
+    
+    public function getRecipeItems($restaurantId, $type) {
+     /*   $joins = [
+                    'a' => [
+                            'table' => 'unit_master', 
+                            'type' => 'INNER', 
+                            'conditions' => 'a.UnitId = recipe_item_master.UnitId '
+                        ],
+                    'b' => [
+                        'table' => 'item_category',
+                        'type' => 'INNER',
+                        'conditions' => 'b.ItemCategoryId = recipe_item_master.ItemCategoryId'
+                    ]
+            
+                 ];
+        
+        $fields = [
+            'ItemId' => 'recipe_item_master.ItemId',
+            'ItemName' => 'recipe_item_master.ItemName',
+            'Category' => 'b.ItemCategoryTitle',
+            'UnitId' => 'recipe_item_master.UnitId',
+            'SLevel' => 'recipe_item_master.SafetyLevel',
+            'RLevel' => 'recipe_item_master.RorderLevel',
+            'Qty' => 'recipe_item_master.QtyInHand',
+            'Unit' => 'a.UnitTitle',
+        ];*/
+        
+        $response = FALSE;
+        $counter = 0;
+        if($type == 1){
+        $unitId = [1,2,5];
+        }else{
+            $unitId = [3,4];
+        }
+        
+        $conditions = array('RestaurantId =' => $restaurantId,'RorderLevel >' => 'QtyInHand', 'UnitId IN' => $unitId);
+        $allRecipItems =  $this->connect()->find()->where($conditions);
+                    //->join($joins);
+        if($allRecipItems->count()){
+            foreach ($allRecipItems as $recipeItems){
+                $response[$counter++] = new UploadDTO\RecipeItemMaterInsertDto(
+                        $recipeItems->ItemName, 
+                        $recipeItems->Category,
+                        $recipeItems->UnitId, 
+                        $recipeItems->SLevel, 
+                        $recipeItems->RorderLevel, 
+                        $recipeItems->QtyInHand, 
                         $recipeItems->ItemId, 
                         $recipeItems->Unit);
             }

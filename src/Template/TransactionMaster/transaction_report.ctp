@@ -10,12 +10,11 @@
      $this->assign('title', 'Restaurant Transaction Report');
 ?>          
 <?php $this->start('breadcrum');?>
-      <ol class="breadcrumb">
-                            <li><a href="../" class="red">Dashboard</a></li>
-                            <li><a href="../reports" class="red">Reports</a></li>
+
                             <li class="active">Monthly Transaction Report</li>
-                    </ol>
-<?php $this->end('breadcrum'); ?>       
+<?php $this->end('breadcrum'); ?> 
+                              <?php $this->start('layout_change');?> 
+ <?php $this->end('layout_change'); ?>
 <div class="row">
               
                 <div class="col-md-12 col-sm-12 col-xs-12">
