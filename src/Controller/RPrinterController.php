@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 use App\Model\Table;
+use App\DTO\DownloadDTO;
 /**
  * Description of RPrinterController
  *
@@ -42,4 +43,44 @@ class RPrinterController extends ApiController{
         return $preparedStatements;
     }
     
+    public function printerList() {
+        $restaurantId = parent::readCookie('cri');
+        $result = $this->getTableObj()->getPrinters($restaurantId);
+        if(!is_null($result)){
+            $this->set([
+                'rows' => $result
+            ]);
+        }
+        
+    }
+    
+    public function addNewPrinter() {
+        
+        $data = $this->request->data;
+        $restaurantId = parent::readCookie('cri');
+        if($this->request->is('post') and isset($data['save'])){
+            $active = 1;
+            $newPrinter = new DownloadDTO\RPrinterDownloadDto(null, 
+                    $data['ip'], 
+                    $data['name'], 
+                    $data['model'], 
+                    $data['company'], 
+                    $data['mac'], 
+                    $active);
+            $result = $this->getTableObj()->addPrinter($newPrinter, $restaurantId);
+            if($result){
+                $this->set([
+                    'suc_msg' => 'SUCCESS ! Pinter Has Added. ',
+                'color' => SUCCESS_COLOR
+                ]);    
+            }  else {
+                $this->set([
+                    'suc_msg' => 'ERROR ! Unable to perform operation. ',
+                'color' => ERROR_COLOR
+                ]);    
+                
+            }
+        }
+        
+    }
 }

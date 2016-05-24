@@ -1422,7 +1422,7 @@ table.display tr.even.row_selected td {
 table.display tr.odd.row_selected td {
   background-color: #9FAFD1;
 }
-div.box {
+.box {
   height: 100px;
   padding: 10px;
   overflow: auto;

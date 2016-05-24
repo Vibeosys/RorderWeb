@@ -77,11 +77,4 @@
           });
          
         </script>
-  <script>
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
-});
-
-</script>
-
 <?php $this->end('script'); ?>

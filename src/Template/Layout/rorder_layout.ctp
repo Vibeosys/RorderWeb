@@ -44,6 +44,9 @@ $sec = $this->fetch('sec');
     <?= $this->Html->css('design/icheck/flat/green.css') ?>
     <?= $this->Html->css('design/select/select2.min.css') ?>
     <?= $this->Html->css('design/chartist.min.css') ?>
+    <?= $this->Html->css('design/datatables/jquery.dataTables.min.css') ?>
+    <?= $this->Html->css('design/datatables/buttons.bootstrap.min.css') ?>
+    <?= $this->Html->css('design/datatables/responsive.bootstrap.min.css') ?>
     </head>
 
 
@@ -153,15 +156,15 @@ $sec = $this->fetch('sec');
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a><i class="fa fa-table"></i>  Inventory Management <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
+                                    <li><a><i class="fa fa-table"></i> Inventory Management <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
                                         <ul class="nav child_menu" style="display: none">
                                             <li class="stock-upload child-plus"><a data-toggle="collapse" href="#submenu-upload" aria-expanded="false" aria-controls="collapseExample">Stock Upload<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
                                                 <div class="collapse" id="submenu-upload">
                                                     <ul class="nav child_menu submenu-stock-upload sub-child-menu">
                                                         <li><a href="../../inventory/materialstockupload">Material Stock Upload</a>                      
                                                         </li>
-                                                        <li><a href="../../inventory/materialbrandstockupload">Material Brand Stock Upload</a>
-                                                        </li>
+                                                      <!--  <li><a href="../../inventory/materialbrandstockupload">Material Brand Stock Upload</a>
+                                                        </li> -->
 
                                                     </ul>
                                                 </div>
@@ -171,12 +174,12 @@ $sec = $this->fetch('sec');
                                                     <ul class="nav child_menu sub-child-menu">
                                                         <li><a href="../../inventory/materialstockmodification">Material Stock Modification</a>                      
                                                         </li>
-                                                        <li><a href="../../inventory/materialbrandstockmodification">Material Brand Stock Modification</a>
-                                                        </li>
+                                                     <!--   <li><a href="../../inventory/materialbrandstockmodification">Material Brand Stock Modification</a>
+                                                        </li> -->
                                                     </ul>
                                                 </div>
                                             </li>
-                                            <li><a href="../stocktaking">Stock Taking</a>
+                                            <li><a href="../../stocktaking">Stock Taking</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -184,23 +187,23 @@ $sec = $this->fetch('sec');
                                         <ul class="nav child_menu" style="display: none">
                                             <li><a href="../../reports/transactionreport">Transaction Report</a>
                                             </li>
-                                            <li><a href="../../reports/orderleadtime">Order lead time Report</a>
+                                            <li><a href="../../reports/orderleadtime">Order Lead Time Report</a>
                                             </li>
                                             <li><a href="../../reports/salesreport">Sales Report</a>
                                             </li>
-                                            <li><a href="../../reports/salesforcast">Sales forcast Report</a>
+                                            <li><a href="../../reports/salesforcast">Sales Forecast Report</a>
                                             </li>
-                                            <li><a href="../../reports/leadtineforcast">Lead tine forcast Report</a>
+                                            <li><a href="../../reports/leadtineforcast">Lead Time Forecast Report</a>
                                             </li>
-                                            <li><a href="../../reports/favouratemenu">Favourate menu Report</a>
+                                            <li><a href="../../reports/favouratemenu">Favourite Menu Report</a>
                                             </li>
-                                            <li><a href="../../reports/customerrushhour">Customer Rush hours Report</a>
+                                            <li><a href="../../reports/customerrushhour">Customer Rush Hours Report</a>
                                             </li>
-                                            <li><a href="../../reports/perstawordssales">Per stawords sales Report</a>
+                                            <li><a href="../../reports/perstawordssales">Per Stewards Sales Report</a>
                                             </li>
                                             <!--  <li><a href="../../reports/stockavailability">Stock availability  Report</a>
                                             </li> -->
-                                            <li><a href="../../reports/stawordsperformance">Stawords performance Report</a>
+                                            <li><a href="../../reports/stawordsperformance">Stewards Performance Report</a>
                                             </li>
                                             <li><a href="../../inventory/materialrequisitionreport">Material Requisition  Report</a>
                                             </li>
@@ -220,7 +223,7 @@ $sec = $this->fetch('sec');
                                             </li>
                                             <li><a href="../../manage/devices">Devices</a>
                                             </li>
-                                            <li><a href="../../manage/configuration">Configration</a>
+                                            <li><a href="../../manage/configuration">Configuration</a>
                                             </li>
 
                                         </ul> 
@@ -357,11 +360,16 @@ $sec = $this->fetch('sec');
                         $('.ttl_link').text(result);
                     }
                 });
+              
+                var heading_last=$('table.table-bordered th:last-child').text();
+                if(heading_last == 'Action'){
+                    $('th:last-child').removeClass('sorting');
+                }
 
             });
 
         </script>
-        <!--
+      <!--
        <script>
            
             function setCookie(cname, cvalue, exdays) {
@@ -418,6 +426,6 @@ $sec = $this->fetch('sec');
        setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
        })();
        </script>
-        -->
+   -->
     </body>
 </html>

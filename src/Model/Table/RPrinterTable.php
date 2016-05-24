@@ -48,4 +48,26 @@ class RPrinterTable extends Table{
             return NULL;
         }
     }
+    
+    public function addPrinter(DownloadDTO\RPrinterDownloadDto $entiry,$restaurantId) {
+      try{
+          $obj = $this->connect();
+        $newEntity = $obj->newEntity();
+       
+       $newEntity->IpAddress = $entiry->ipAddress;
+       $newEntity->PrinterName = $entiry->name;
+       $newEntity->ModelName = $entiry->model;
+       $newEntity->Company = $entiry->company;
+       $newEntity->MacAddress = $entiry->macAddress;
+       $newEntity->Active = $entiry->active;
+       $newEntity->RestaurantId = $restaurantId;
+       if($obj->save($newEntity)){
+           Log::debug('new printer insert operation is done.'.$newEntity->PrinterId);
+           return $newEntity->PrinterId;
+       }
+       Log::error('Error in new printer insert operation.');
+      }catch(Exception $e){
+          throw Exception;
+      }
+    }
 }

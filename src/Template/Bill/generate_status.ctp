@@ -59,7 +59,7 @@ use Cake\Cache\Cache;
            $('#bg_st_msg').text(result);
        }); 
        $('#btn_no').on('click',function(){
-           window.location.replace('../../tableview/generatebill');
+           window.history.back();
        });
          $('#btn_yes').on('click',function(){
            window.location.replace('bill-payment');

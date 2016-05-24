@@ -114,7 +114,8 @@ Router::scope('/', function ($routes) {
     
     $routes->connect('kitchen/recipe', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
     $routes->connect('kitchen/recipecategory', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
-    $routes->connect('kitchen/printers', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('kitchen/printers', ['controller' => 'RPrinter', 'action' => 'printerList']);
+    $routes->connect('kitchen/printers/addnewprinter', ['controller' => 'RPrinter', 'action' => 'addNewPrinter']);
     $routes->connect('reports/orderleadtime', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
     $routes->connect('reports/salesforcast', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
     $routes->connect('reports/leadtineforcast', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);

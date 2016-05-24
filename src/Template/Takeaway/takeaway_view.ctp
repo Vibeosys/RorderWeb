@@ -191,6 +191,7 @@
                 var active = '';
                 var close = '';
                 $.each(result, function (idx, obj) {
+                    //alert(obj);
                     if (obj.status) {
                         takeaway = takeaway + '<a class="btn btn-app red" onclick="perform(0,' + obj.tno + ',0,' + obj.disPer + ')"><i class="fa fa-male"></i>#' + obj.tno + '</a>';
                         close = close + '<a class="btn btn-app red" onclick="perform(0,' + obj.tno + ',0,' + obj.disPer + ')"><i class="fa fa-male"></i>#' + obj.tno + '</a>';

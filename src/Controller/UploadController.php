@@ -479,9 +479,13 @@ class UploadController extends ApiController {
                     $userInfo->restaurantId);
             $conditionText = $billController->getBillDetails($payedBillRequest->billNo);
             if(!is_null($conditionText['DeliveryNo'])){
+               $delivery = new DeliveryController();
+                $delivery->closeDelivery($conditionText['DeliveryNo']);
                 
-            }else if($conditionText['TakeawayNo']){
-            
+            }else if(!is_null ($conditionText['TakeawayNo'])){
+               
+                 $takeaway = new TakeawayController();
+               $takeaway->closeTakeway($conditionText['TakeawayNo']);
             }
             if($reportResult){
                 $this->transCommit();

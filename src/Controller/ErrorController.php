@@ -22,4 +22,6 @@ class ErrorController extends ApiController{
     public function chartNotFound() {
         
     }
+    
+   
 }

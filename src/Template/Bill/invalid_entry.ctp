@@ -57,7 +57,7 @@
             $('.error-p1').text(result);
         });
         $.post('/getcookie',{name:'bg_link'},function(result){
-            $('#back_link').attr('href','../../'+result);
+            $('#back_link').attr('href','../'+result);
         });
     });
  </script>   

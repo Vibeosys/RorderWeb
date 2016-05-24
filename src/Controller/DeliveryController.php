@@ -27,6 +27,10 @@ class DeliveryController extends ApiController{
         return $this->getTableObj()->getDelivery($restaurantId);
     }
     
+     public function closeDelivery($takeawayNo) {
+        $this->getTableObj()->status($takeawayNo);
+    }
+    
     public function getCurrentCustomer($deliveryNo, $restaurantId) {
         return $this->getTableObj()->getCustomer($deliveryNo, $restaurantId);
     }

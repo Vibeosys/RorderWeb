@@ -93,7 +93,7 @@ class DeliveryTable extends Table{
         $previousDate = date(VB_DATE_TIME_FORMAT, strtotime('-2 hour', strtotime(date(VB_DATE_TIME_FORMAT))));
          $conditions = [
                             'RestaurantId =' => $restaurantId,
-                            'CreatedDate =' => $previousDate
+                            'CreatedDate >' => $previousDate
                       ];
         $delivery = FALSE;
         $order = 'DeliveryNo';
@@ -130,5 +130,15 @@ class DeliveryTable extends Table{
           $result = $data->CustId;
         }
         return $result;
+    }
+    
+     public function status($takeawayNo) {
+        if($takeawayNo){
+            $conditions = ['DeliveryNo =' => $takeawayNo];
+            $update = $this->connect()->query()->update();
+            $update->set(['Status' => 1]);
+            $update->where($conditions);
+            $update->execute();
+        }
     }
 }

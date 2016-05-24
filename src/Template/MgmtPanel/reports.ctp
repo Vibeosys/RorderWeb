@@ -78,7 +78,7 @@ use Cake\Cache\Cache;
        <div class="col-md-6 col-sm-6 col-xs-12" id="mrr">
                     <div class="x_panel">
                       <div class="x_title">
-                        <h2> Solid Material Requisition <small>current</small></h2>
+                        <h2>Material Requisition In Gm and Kg <small>current</small></h2>
                        <ul class="nav navbar-right panel_toolbox">
                     <li><a href="#"><i class="fa fa-download"></i> Download</a>
                     </li>
@@ -97,7 +97,7 @@ use Cake\Cache\Cache;
        <div class="col-md-6 col-sm-6 col-xs-12" id="mbrr">
                     <div class="x_panel">
                       <div class="x_title">
-                        <h2>Liquid Material Requisition<small>current</small></h2>
+                        <h2>Material Requisition In Ml and Ltr<small>current</small></h2>
                        <ul class="nav navbar-right panel_toolbox">
                     <li><a href="#"><i class="fa fa-download"></i> Download</a>
                     </li>

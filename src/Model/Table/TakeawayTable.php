@@ -27,7 +27,8 @@ class TakeawayTable extends Table{
     public function getTakeaway($restaurantId) {
         $previousDate = date(VB_DATE_TIME_FORMAT, strtotime('-2 hour', strtotime(date(VB_DATE_TIME_FORMAT))));
         $conditions = ['RestaurantId =' => $restaurantId,
-                       'CreatedDate =' => $previousDate];
+                       'CreatedDate >' => $previousDate];
+                   Log::debug('date :'.$previousDate);
         $order = 'TakeawayNo';
         $takeawayCounter = 0;
         $allTakeaway = array();
