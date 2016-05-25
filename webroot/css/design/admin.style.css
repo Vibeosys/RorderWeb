@@ -127,6 +127,73 @@ background-color: #BFBFBF;
     font-size: 12px!important;
     line-height: 1.428571429!important;
 }
+
+@media (max-width:480px){
+.push-top-btn{
+    margin-top: 10px;
+}
+    }
+.btn-grad.btn-success {
+    text-shadow: 0 -1px 0 gba(0, 0, 0, 0.2);
+    background-image: -webkit-linear-gradient(top, #5cb85c, #3d8b3d);
+    background-image: linear-gradient(to bottom, #5cb85c, #3d8b3d);
+    border-color: rgba(0, 0, 0, 0.2);
+    border-bottom-color: rgba(0, 0, 0, 0.4);
+    width:6.5em!important;
+}
+.btn-grad.btn-success:hover,
+.btn-grad.btn-success:focus,
+.btn-grad.btn-success:active,
+.btn-grad.btn-success.active {
+  background-image: none;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-top-color: rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-grad.btn-primary {
+    text-shadow: 0 -1px 0 gba(0, 0, 0, 0.2);
+    background-image: -webkit-linear-gradient(top, #428bca, #2a6496);
+    background-image: linear-gradient(to bottom, #428bca, #2a6496);
+    border-color: rgba(0, 0, 0, 0.2);
+    border-bottom-color: rgba(0, 0, 0, 0.4);
+    width:6.5em!important;
+}
+.btn-grad.btn-primary:hover,
+.btn-grad.btn-primary:focus,
+.btn-grad.btn-primary:active,
+.btn-grad.btn-primary.active {
+  background-image: none;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-top-color: rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-rect {
+    border-radius: 0 !important;
+}
+.btn-line.btn-danger {
+    color: #d9534f;
+    background-color: #fff;
+    border-color: #d43f3a;
+    width:6.5em!important;
+    padding: 10px!important;
+}
+.btn-line.btn-success {
+    color: #5cb85c!important;
+    background-color: #fff!important;
+    border-color: #4cae4c!important;
+    width:6.5em!important;
+}
+.btn-line.btn-danger:hover {
+    color: #fff;
+    background-color: #d9534f;
+}
+.btn-line.btn-success:hover {
+    color: #fff!important;
+    background-color: #5cb85c!important;
+    
+}
 .fa-size{
     font-size: 1.5em;
 }
@@ -153,9 +220,6 @@ background-color: #BFBFBF;
     .mobile-show{
         display: inline-block!important;
     }
-    .error-top{
-            margin-top: 65px!important;
-    }
     .breadcrumb{
         padding: 20px 0px !important;
     }
@@ -181,7 +245,7 @@ background-color: #BFBFBF;
 
 input[type=search]{
     border-radius: 20px;
-    background: url(../images/search-white.png) no-repeat 11px 7px rgba(247, 247, 247, 0.31);
+    background: url(../../img/search-white.png) no-repeat 11px 7px rgba(247, 247, 247, 0.31);
     padding-left: 32px;
 }
 .x_content .btn-success{
@@ -215,6 +279,10 @@ input[type=search]{
 .dnf-style img{
     width: 190px;
 }
+.fa-date{
+  padding: 10px;
+}
+
 .submenu{
 	list-style: none;
     margin-left: -2em;

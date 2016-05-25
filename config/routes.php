@@ -30,15 +30,17 @@ Router::scope('/', function ($routes) {
     $routes->connect('getlatestbill', ['controller' => 'Bill', 'action' => 'getLatestBill']);
     $routes->connect('manage/user/addnewuser', ['controller' => 'User', 'action' => 'addNewUser']);
     $routes->connect('manage/user/edituser', ['controller' => 'User', 'action' => 'editUser']);
-    $routes->connect('recipeitems/addnewrecipeitems', ['controller' => 'RecipeItemMaster', 'action' => 'addNewRecipeItem']);
+    
+    $routes->connect('inventory/stockupload', ['controller' => 'RecipeItemMaster', 'action' => 'addNewRecipeItem']);
     $routes->connect('stocktaking', ['controller' => 'RecipeItemMaster', 'action' => 'inventory']); 
     $routes->connect('inventory/materialstockupload', ['controller' => 'RecipeItemMaster', 'action' => 'materialStockUpload']); 
-    $routes->connect('inventory/materialbrandstockupload', ['controller' => 'RecipeItemMaster', 'action' => 'materialBrandStockUpload']);
+    //$routes->connect('inventory/materialbrandstockupload', ['controller' => 'RecipeItemMaster', 'action' => 'materialBrandStockUpload']);
     $routes->connect('inventory/materialstockmodification', ['controller' => 'RecipeItemMaster', 'action' => 'materialStockModification']); 
-    $routes->connect('inventory/materialbrandstockmodification', ['controller' => 'RecipeItemMaster', 'action' => 'materialBrandStockModification']);
+    //$routes->connect('inventory/materialbrandstockmodification', ['controller' => 'RecipeItemMaster', 'action' => 'materialBrandStockModification']);
     $routes->connect('inventory/stockinventoryreport', ['controller' => 'RecipeItemMaster', 'action' => 'stockInventoryReport']);
     $routes->connect('inventory/materialrequisitionreport', ['controller' => 'RecipeItemMaster', 'action' => 'materialRequisitionReport']);
-    $routes->connect('inventory/materialbrandwiserequisitionreport', ['controller' => 'RecipeItemMaster', 'action' => 'materialBrandwiseRequisitionReport']);
+    //$routes->connect('inventory/materialbrandwiserequisitionreport', ['controller' => 'RecipeItemMaster', 'action' => 'materialBrandwiseRequisitionReport']);
+    
     $routes->connect('getrecipeitem', ['controller' => 'RecipeItemMaster', 'action' => 'getItemInfo']); 
     $routes->connect('getunits', ['controller' => 'UnitMaster', 'action' => 'getUnits']); 
     $routes->connect('/', ['controller' => 'MgmtPanel', 'action' => 'consol']);
@@ -93,6 +95,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('sendmail', ['controller' => 'MgmtPanel', 'action' => 'sendMail']);
     $routes->connect('setcookie', ['controller' => 'MgmtPanel', 'action' => 'setCookie']);
     $routes->connect('getcookie', ['controller' => 'MgmtPanel', 'action' => 'getCookie']);
+    $routes->connect('deletecookie', ['controller' => 'MgmtPanel', 'action' => 'removeCookie']);
     $routes->connect('reports', ['controller' => 'MgmtPanel', 'action' => 'reports']);
     $routes->connect('reportsnew', ['controller' => 'MgmtPanel', 'action' => 'reportsNew']);
     $routes->connect('orderprintpreview', ['controller' => 'OrderDetails', 'action' => 'orderPrintPreview']);

@@ -8,59 +8,39 @@
 
     $this->layout = false;
      $this->layout = 'rorder_layout';
-     $this->assign('title', 'Restaurant Material Stock Upload');
-     //$this->start('content');
-?>           <section class="content-header">
-            <h1>
-                  Restaurant Material Stock Modification
-            </h1>
-            <ol class="breadcrumb">
-                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">Material Stock Upload</li>
-                </ol>
-            </section>
-            <section class="content">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="box">                           
-                            <section class="content content-div show-add-section">
-                                <div class="back-btn" style="margin-top: 10px"> 
-                                   <a href="../inventory/stockinventoryreport" > << Back </a>
-                                </div>
-                              
-                                <section class="stock-section" id="msu" style="margin-top:50px">
-                                    <div class="form-horizontal">
-                                        <form method="post" action="stockupload/material" enctype="multipart/form-data">
-                                        <div class="box-body">
-                                            <div class="form-group">
-                                                <label for="Title" class="col-sm-2 control-label">File</label>
-                                                <div class="col-sm-8">
-                                                    <label for="file-upload" class="custom-file-upload">
-                                                        <i> <?= $this->Html->image('upload.png', ['width' => '25','alt' => 'Upload File'])?></i> Upload Your .csv file here
-                                                    </label>
-                                                    <?= $this->Form->file('file-upload',array('multiple','class'=>'form-control'))?>
-                                                </div>
-                                            </div>
-                                              <?php if(isset($message)){?>
-                                            <div  style="margin-left: 20%;color: green" ><?=$message?></div>
-                                        <?php }?>
-                                        </div><!-- /.box-body -->
-                                        <div class="box-footer col-xs-12" style="margin-left:0px">
-                                              <div class="row">
-                                                <div class="col-xs-4"></div>
-                                                    <div class="col-xs-6">
-                                                         <button name="add-m" type="submit" value="1" style="margin-bottom:10px" class="dark-orange add-save-btn">SUBMIT</button>
-                                                         <input type="button" value="cancel" class="light-orange button add-save-btn"  onclick="window.history.back();">
-                                                    </div>
-                                                <div class="col-xs-2"></div>
-                                            </div>
-                                        </div><!-- /.box-footer -->
-                                        </form>
-                                    </div>
-                                    
-                                </section>
-                            </section>
-                        </div><!-- /.box -->                       
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </section><!-- /.content -->
+     $this->assign('title', 'Material Stock Upload');
+     $this->assign('heading', 'Material Stock Upload');
+?>          
+ <div class="x_content">
+      <?php if(isset($suc_msg)){ ?>
+<p class="error-top" style="border: 1px solid <?= $color ?>;padding: 5px; margin: 10px 26%;text-align:center;color:<?= $color ?>"> <?= $suc_msg ?> </p>
+                                <?php } ?>
+                                      <br />
+                                      <form method="post" action="materialstockupload" enctype="multipart/form-data" id="form-bulk" data-parsley-validate class="form-horizontal form-label-left">
+                                           <div class="form-group">
+                                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Upload CSV. File Here 
+                                          </label>
+                                          <div class="col-md-6 col-sm-6 col-xs-12">
+                                              <input id="image-bulk" name="file-upload" class="form-control col-md-7 col-xs-12" required="required" type="file">
+                                          </div>
+                                        </div>
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                            <button name="upload" type="submit" value="1" class="btn btn-success">Submit</button>
+                                            <button type="button" id="cancel" class="btn btn-primary">Cancel</button>
+                                          </div>
+                                        </div>
+                                          </form>
+                            </div>
+<?php $this->start('script');?>
+<script>
+   $(document).ready(function() {
+    
+            $('#cancel').on('click',function(){
+                window.location.replace('../../stocktaking');
+            });
+    });
+         
+</script>
+<?php $this->end('script'); ?>

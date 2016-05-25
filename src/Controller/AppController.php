@@ -77,7 +77,7 @@ class AppController extends Controller{
     public function deleteCookie($name) {
         
         $this->Cookie->configKey($name, ['domain' => DOMAIN,'expires' => '-1 Day' ,'path' => '/']);
-        $this->Cookie->write($name, '1');
+        $this->Cookie->delete($name);
     }
     
     public function isLogin() {

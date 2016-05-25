@@ -1813,3 +1813,12 @@ background: rgba(30, 30, 30, 0.93);
 }
 
 }
+
+.suc_msg {
+    color:green;
+    border:1px solid green;
+}
+.error_msg{
+    color:red;
+    border:1px solid red;
+}

@@ -26,15 +26,17 @@ class RecipeItemMasterController extends ApiController{
           if(!$this->isLogin()){
             $this->redirect('login');
         }
-       if ($this->request->is('post') and isset($this->request->data['add-item'])) {
-            $restaurantId = parent::readCookie('cri');
-            $data = $this->request->data();
+        $data = $this->request->data;
+        $restaurantId = parent::readCookie('cri');
+       if ($this->request->is('post') and isset($data['add-m'])) {
+            
             $file = $data['file-upload']['tmp_name'];
-            $extenstion = $this->getExtension($data['file-upload']['name']);
-            if (empty($file)) {
-                $this->set(['message' => SELECT_FILE_MESSAGE,'color' => 'red']);
+            $filename = $data['file-upload']['name'];
+            $extenstion = $this->getExtension($filename);
+            if(empty($file)) {
+                $this->set(['suc_msg' => SELECT_FILE_MESSAGE,'color' => 'red']);
             } elseif ($extenstion != CSV_EXT) {
-                $this->set([MESSAGE => INCORRECT_FILE_MESSAGE, 'color' => 'red']);
+                $this->set(['suc_msg' => INCORRECT_FILE_MESSAGE, 'color' => 'red']);
             } else {
                 if (($handle = fopen($file, "r")) !== FALSE) {
                     $counter = 0;
@@ -51,9 +53,9 @@ class RecipeItemMasterController extends ApiController{
                     fclose($handle);
                     $result = $this->getTableObj()->insert($allItems);
                     if ($result) {
-                        $this->set(['message' => 'You database has imported successfully. You have inserted ' . count($result) . ' recoreds','color' => 'green']);
+                        $this->set(['suc_msg' => 'You database has imported successfully. You have inserted ' . count($result) . ' recoreds','color' => 'green']);
                     } else {
-                        $this->set(['message' => DB_FILE_ERROR,'color' => 'red']);
+                        $this->set(['suc_msg' => DB_FILE_ERROR,'color' => 'red']);
                     }
                 }
             }
@@ -67,17 +69,16 @@ class RecipeItemMasterController extends ApiController{
          if(!$this->isLogin()){
             $this->redirect('login');
         }
-        $page = $this->request->param('page');
         $data = $this->request->data;
         $restaurantId = $this->readCookie('cri');
-        if($this->request->is('post') and isset($data['os'])){
-              $this->redirect('inventory');
-        }elseif ($this->request->is('post') and isset($data['cs'])) {
-              $this->redirect('inventory');
-            
-        }elseif ($this->request->is('post') and isset($data['su'])) {
-              $this->redirect('inventory/stockupload');
-        }
+//        if($this->request->is('post') and isset($data['os'])){
+//              $this->redirect('inventory');
+//        }elseif ($this->request->is('post') and isset($data['cs'])) {
+//              $this->redirect('inventory');
+//            
+//        }elseif ($this->request->is('post') and isset($data['su'])) {
+//              $this->redirect('inventory/stockupload');
+//        }
         
        $allRecipeitems = $this->getTableObj()->getStock($restaurantId);
        $this->set([
@@ -144,6 +145,47 @@ class RecipeItemMasterController extends ApiController{
     public function materialStockUpload() {
          if(!$this->isLogin()){
             $this->redirect('login');
+        }
+         $data = $this->request->data;
+        $restaurantId = parent::readCookie('cri');
+        $allow = 5;
+       if ($this->request->is('post') and isset($data['upload'])) {
+            
+            $file = $data['file-upload']['tmp_name'];
+            $filename = $data['file-upload']['name'];
+            $extenstion = $this->getExtension($filename);
+            if(empty($file)) {
+                $this->set(['suc_msg' => SELECT_FILE_MESSAGE,'color' => 'red']);
+            } elseif ($extenstion != CSV_EXT) {
+                $this->set(['suc_msg' => INCORRECT_FILE_MESSAGE, 'color' => 'red']);
+            } else {
+                if (($handle = fopen($file, "r")) !== FALSE) {
+                    $counter = 0;
+                    $allItems= null;
+                    $fileCount = count(fgetcsv($handle));
+                    Log::debug('File COunt:'.$fileCount);
+                    if($fileCount != $allow){
+                         $this->set(['suc_msg' => 'Please verify file data and try again..! ','color' => 'red']);
+                        fclose($handle);
+                        return;
+                    }
+                    while (($filesop = fgetcsv($handle, 1000, ",")) !== false) {
+                        $allItems[$counter++] = new UploadDTO\RecipeItemMaterInsertDto(
+                                $filesop[0], 
+                                $filesop[1], 
+                                $filesop[2], 
+                                $filesop[3], 
+                                $filesop[4]);
+                    }
+                    fclose($handle);
+                    $result = $this->getTableObj()->insert($allItems);
+                    if ($result) {
+                        $this->set(['suc_msg' => 'You database has imported successfully. You have inserted ' . count($result) . ' recoreds','color' => 'green']);
+                    } else {
+                        $this->set(['suc_msg' => DB_FILE_ERROR,'color' => 'red']);
+                    }
+                }
+            }
         }
         
     }

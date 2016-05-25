@@ -2,6 +2,7 @@
 //hide sections
 
 $(document).ready(function(){
+    var default_size_for_page = $('#count').val();
   var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>' 
    //onclick on dine-in tab to retrive table
 //onclick on takeaway tab to retrive takeaway
@@ -17,44 +18,9 @@ $(document).ready(function(){
  });
  //dynamically upload restaurant logo image using ajax
  
-   $(window).resize(function(){
-    var ww = $(window).width();
-    var cw = $('.content-wrapper').width();
-    var nlm = ww-cw;
-    //change css according to window size
-    if(ww > 767){
-        if(ww < 790){
-            $('#mgmt-nav').css('margin-left', 170);
-        }else if(nlm){
-            $('#mgmt-nav').css('margin-left',nlm - 30);
-        }else{
-            $('#mgmt-nav').css('margin-left', 180);
-        }
-     }else{
-        $('#mgmt-nav').css('margin-left',0);
-     }
-     if(ww > 1114){
-        $('.restaurant-Show').addClass('col-xs-3');
-        $('#mgmt-content-wrapper').addClass('col-xs-9'); 
-     }else{
-        $('.restaurant-Show').removeClass('col-xs-3');
-        $('#mgmt-content-wrapper').removeClass('col-xs-9'); 
-     }
-     if(ww < 1227){
-         $('.sales-history').css('padding-left','0');
-         $('.customer-visit').css('padding-left','0');
-     }else{
-         $('.sales-history').css('margin-left','10%');
-         $('.customer-visit').css('margin-left','10%');
-     }
-   });
+  
    // restaurant shadow 
-   $('.mgmt-box-body').mouseover(function(){
-       $(this).css('box-shadow','5px 5px 5px grey');
-   });
-   $('.mgmt-box-body').mouseout(function(){
-       $(this).css('box-shadow','none');
-   });
+  
    //bill printing
   $('.restaurant-logo-overline').mouseover(function(){
       $('#logo-selector').css('opacity','1');
@@ -68,134 +34,15 @@ $(document).ready(function(){
       
   });
   //pagination button validation
-  $('.previous').mouseover(function(){
-     
-      var value = $('#prev-page').val();
-      if(!value){
-          $('.previous').css('cursor','not-allowed');
-          $('.previous > li > a').css('cursor','not-allowed');
-      }else{
-           $('.previous > li > a').css('color','#fff');
-      }
-  });
-   $('.next').mouseover(function(){
+  
    
-      var value = $('#next-page').val();
-      if(!value){
-          $(this).css('cursor','not-allowed');
-          $('.next > li > a').css('cursor','not-allowed');
-      }else{
-          $('.next > li > a').css('color','#fff');
-      }
-  });
-   $('.previous').mouseout(function(){
-      $('.previous > li > a').css('color','orangered');
-  });
-  $('.next').mouseout(function(){
-      $('.next > li > a').css('color','orangered');
-  });
+   
   
   //stock upload menu management
   
-  // change the button text 
+  // change the button text
   
-  $('.open-stock-btn').on('click',function(){
-      var value = $.cookie("stocko");
-      if(value){
-            $('.notice-message').text('Please save before perform any operation');
-            $('.notification').css('display','block');
-             $('.notice').css('display','block');
-      }else{
-       openstockCheck();
-   }
-  });
-  $('.close-stock-btn').on('click',function(){
-      var value = $.cookie("stockc");
-      if(value){
-          $('.notice-message').text('Please save before perform any operation');
-            $('.notification').css('display','block');
-             $('.notice').css('display','block');
-      }else{
-      closestockCheck();
-   }
-  });
-  $('.stock-save').on('click',function(){
-      $(this).text('PLEASE WAIT..');
-      var os = $.cookie("stocko");
-      var cs = $.cookie("stockc");
-      var count = $('#count').val();
-      var saveResult = false;
-      if(os || cs){  
-          if(os){
-             var i = 0;
-             var itemIdList = [];
-             var stockList  = [];
-             var unitList  = [];
-             while(i < count){
-              itemIdList.push($('.ItemId'+i).val());
-              stockList.push($('.qty'+i).val());
-              unitList.push($('.unit'+i).val());
-              i++;
-            }
-            $.post("saveopenstock", {item: itemIdList, stock: stockList, unit: unitList}, function(result){
-                if(result === 1){
-                    $('.stock-save').text('SAVE');
-                    $.cookie("stocko", null, { expires : -1 });
-                    $('.stock').addClass('hidden')    
-                    $('.stock-value').removeClass('hidden');
-                    
-                    $('.status-message').text('Stock was open for ');
-                    $('.success-message').text('Stock opened for current day');
-                    $('.notification').css('display','block');
-                    $('.success').css('display','block');
-                }else{
-                        $('.stock-save').text('SAVE');
-                         $('.notice-message').text('Error in stock operation please try again');
-                         $('.notification').css('display','block');
-                          $('.notice').css('display','block');
-                }
-               
-            });
-          }else{
-             var i = 0;
-             var itemIdList = [];
-             var stockList  = [];
-                var unitList  = [];
-             while(i < count){
-              itemIdList.push($('.ItemId'+i).val());
-              stockList.push($('.qty'+i).val());
-              unitList.push($('.unit'+i).val());
-              i++;
-             }
-             $.post("saveclosestock", {item: itemIdList, stock: stockList,unit: unitList}, function(result){
-               
-                 if(result === 1){
-                    $('.stock-save').text('SAVE');
-                    $.cookie("stockc", null, { expires : -1 });
-                    $('.stock').addClass('hidden')    
-                    $('.stock-value').removeClass('hidden');
-                    $('.status-message').text('Stock was close for ');
-                    $('.success-message').text('Stock closed for current day');
-                    $('.notification').css('display','block');
-                    $('.success').css('display','block');
-                }else{
-                        $('.stock-save').text('SAVE');
-                        $('.notice-message').text('Error in stock operation please try again');
-                        $('.notification').css('display','block');
-                        $('.notice').css('display','block');
-                        
-                }
-                
-            });
-         }
-    }else {
-        $(this).text('SAVE');
-        $('.notice-message').text('Please open or close stock before save.');
-        $('.notification').css('display','block');
-         $('.notice').css('display','block');
-    }
-    return false;
-  });
+ 
   
  //notice message hide on click
   $('.notice > a').on('click',function(){
@@ -208,17 +55,12 @@ $(document).ready(function(){
        window.location.reload(); 
   });
   
-   blink(".operation-status", -1, 1000); 
-  
     //get recipe items 
    
  
   // edit single recipe menu
  
-  $('#menu_toggle').on('click',function(){
-      $('.content-wrapper').toggleClass('margin-less');
-      $('.content-wrapper').toggleClass('margin-more');
-  });
+ 
   $('.close').on('click',function(){
       $('#popup').css('display','none');
       $('#myPayment').css('display','none');
@@ -254,35 +96,6 @@ function payBill(billNo, userInfo, table,takeaway, delivery, cust, discount){
      $('.submitbtn').attr('onclick','makepayment(' + billNo +',\''+ userInfo +'\',\''+ table +'\',\''+ takeaway +'\',\''+ delivery +'\',\''+ cust +'\')');
     });
 }
-
-
-//blink effect
-function blink(elem, times, speed) {
-    if (times > 0 || times < 0) {
-        if ($(elem).hasClass("blink")) 
-            $(elem).removeClass("blink");
-        else
-            $(elem).addClass("blink");
-    }
-
-    clearTimeout(function () {
-        blink(elem, times, speed);
-    });
-
-    if (times > 0 || times < 0) {
-        setTimeout(function () {
-            blink(elem, times, speed);
-        }, speed);
-        times -= .5;
-    }
-}
-function printtable(){
-    
-}
-function printtakeaway(){
-    
-}
-
 //table view all operation
 function perform(table,takwaway,delivery,discount,deliveryCharge){
     var current_option = $('#option').val();
@@ -579,23 +392,32 @@ function makepayment(bill, userInfo, table, takeaway, delivery, cust){
 
 
 function tablepopup(id) {
-        $.post('/setcookie',{name:'cti',value:id},function(result){});
-        $.post('/setcookie',{name:'ctn',value:0},function(result){});
-        $.post('/setcookie',{name:'cdn',value:0},function(result){});
-    window.open("../billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
+        $.post('/setcookie',{name:'cti',value:id},function(result){
+            $.post('/setcookie',{name:'ctn',value:0},function(result){
+                $.post('/setcookie',{name:'cdn',value:0},function(result){
+                    window.open("../billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
+                });
+            });
+        });
 }
 
 function takeawaypopup(id) {
-        $.post('/setcookie',{name:'cti',value:0},function(result){});
-        $.post('/setcookie',{name:'ctn',value:id},function(result){});
-        $.post('/setcookie',{name:'cdn',value:0},function(result){});
-    window.open("../billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
+        $.post('/setcookie',{name:'cti',value:0},function(result){
+            $.post('/setcookie',{name:'ctn',value:id},function(result){
+             $.post('/setcookie',{name:'cdn',value:0},function(result){
+                 window.open("../billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
+             });
+            });
+        });
 }
 function deliverypopup(id) {
-        $.post('/setcookie',{name:'cti',value:0},function(result){});
-        $.post('/setcookie',{name:'ctn',value:0},function(result){});
-        $.post('/setcookie',{name:'cdn',value:id},function(result){});
-    window.open("../billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
+        $.post('/setcookie',{name:'cti',value:0},function(result){
+            $.post('/setcookie',{name:'ctn',value:0},function(result){
+                $.post('/setcookie',{name:'cdn',value:id},function(result){
+                    window.open("../billprintpreview", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=300, width=700, height=400");
+                });
+            });
+        });
 }
 
 function kotprint(id,cono,ctno,ctkno,cdno,csb,cot) {
@@ -614,13 +436,6 @@ function kotprint(id,cono,ctno,ctkno,cdno,csb,cot) {
               });
           });
       });
-      
-      
-      
-      
-      
-      
-    
 }
 
 function errorpopup(){
@@ -629,54 +444,4 @@ function errorpopup(){
 }
 
 
-function openstockCheck(){
-      $.ajax({
-                        url: "/stockopencheck",
-                        type: "POST",
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        success: function (result, jqXHR, textStatus) {
-                            if (result) {
-                                $('.notice-message').text('Stock Already Open');
-                                $('.notification').css('display','block');
-                                 $('.notice').css('display','block');
-                            }else{
-                                $.cookie("stocko", true, { expires : 1 });
-                                 $('.stock-value').addClass('hidden')   
-                                 $('.stock').removeClass('hidden');
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            $('.notice-message').text(textStatus);
-                                $('.notification').css('display','block');
-                                 $('.notice').css('display','block');
-                        }});
-}
-
-function closestockCheck(){
-      $.ajax({
-                        url: "/stockclosecheck",
-                        type: "POST",
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        success: function (result, jqXHR, textStatus) {
-                            if (result) {
-                                 $('.notice-message').text('Stock Already Closed');
-                                $('.notification').css('display','block');
-                                 $('.notice').css('display','block');
-                            }else{
-                                 $.cookie("stockc", true, { expires : 1 });
-                                 $('.stock-value').addClass('hidden')   
-                                 $('.stock').removeClass('hidden');
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                             $('.notice-message').text(textStatus);
-                             $('.notification').css('display','block');
-                              $('.notice').css('display','block');
-                            
-                        }});
-}
 

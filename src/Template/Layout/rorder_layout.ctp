@@ -62,7 +62,7 @@ $sec = $this->fetch('sec');
                     <div class="left_col scroll-view">
 
                         <div class="navbar nav_title" style="border: 0;">
-                            <a href="../../" class="site_title"> <?= $this->Html->image('quickserve-small-logo.png', ['style' => ' width: 55px;'])?> <span>QuickeServe</span></a>
+                            <a href="../../" class="site_title"> <?= $this->Html->image('quickserve-logo.png', ['class' => 'site_title'])?></a>
                         </div>
                         <div class="clearfix"></div>
 
@@ -70,166 +70,164 @@ $sec = $this->fetch('sec');
                         <!-- sidebar menu -->
 
                         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                            <ul class="nav side-menu">
+                                <div id="accordion">
+                                    <div class="list-group panel">
+                                        <li class="active"><a class="list-group-item" href="../../reports"><i class="fa fa-home"></i> Dashboard </a>
+                                        </li>
+                                        <li><a href="#demo3" class="list-group-item" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-edit"></i> Order <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
+                                            <ul class="submenu">
 
-                            <div class="menu_section">
-                                <h3>&nbsp;</h3>
+                                                <div class=" panel-collapse collapse " id="demo3">
+                                                    <li><a href="#SubMenu1" class="list-group-item" data-toggle="collapse" data-parent="#SubMenu1">Table View <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                                                        <div class="collapse list-group-submenu" id="SubMenu1">
+                                                            <ul class="submenu">
+                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="../../tableview/placeorder">Place Order</a>                      
+                                                                </li>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="../../tableview/generatebill">Generate Bill</a>
+                                                                </li>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="../../tableview/cancelorder">Cancel Order</a>
+                                                                </li>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="../../tableview/printkot">Print KOT</a>
+                                                                </li>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="../../tableview/printbill">Print Bill</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
 
-                                <ul class="nav side-menu">
-                                    <li class="active"><a href="../../reports"><i class="fa fa-home"></i> Dashboard </a>
-                                    </li>
-                                    <li><a><i class="fa fa-edit"></i> Order <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
-                                        <ul class="nav child_menu" style="display: none">
-                                            <li class="child-plus"><a data-toggle="collapse" href="#submenu-table"  aria-expanded="false" aria-controls="collapseExample">Table View <i class="fa fa-chevron-down fa-down-arrow"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                                                    <li><a href="#SubMenu2" class="list-group-item" data-toggle="collapse" data-parent="#SubMenu1">Takeaway <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                                                        <ul class="submenu">
+                                                            <div class="collapse list-group-submenu" id="SubMenu2">
+                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="../../takeaway/placeorder">Place Order</a>                      
+                                                                </li>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="../../takeaway/generatebill">Generate Bill</a>
+                                                                </li>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="../../takeaway/cancelorder">Cancel Order</a>
+                                                                </li>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="../../takeaway/printkot">Print KOT</a>
+                                                                </li>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="../../takeaway/printbill">Print Bill</a>
+                                                                </li>
+                                                            </div>
+                                                        </ul>
+                                                    </li>
 
-                                                <div class="collapse" id="submenu-table">
-                                                    <ul class="nav child_menu sub-child-menu">
-                                                        <li><a href="../../tableview/placeorder">Place Order</a>                      
-                                                        </li>
-                                                        <li><a href="../../tableview/generatebill">Generate Bill</a>
-                                                        </li>
-                                                        <li><a href="../../tableview/cancelorder">Cancel Order</a>
-                                                        </li>
-                                                        <li><a href="../../tableview/printkot">Print KOT</a>
-                                                        </li>
-                                                        <li><a href="../../tableview/printbill">Print Bill</a>
-                                                        </li>
-                                                    </ul>
+                                                    <li><a href="#SubMenu3" class="list-group-item" data-toggle="collapse" data-parent="#SubMenu1">Home-Delivery <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                                                        <ul class="submenu">
+                                                            <div class="collapse list-group-submenu" id="SubMenu3">
+                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="../../delivery/placeorder">Place Order</a>                      
+                                                                </li>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="../../delivery/generatebill">Generate Bill</a>
+                                                                </li>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="../../delivery/cancelorder">Cancel Order</a>
+                                                                </li>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="../../delivery/printkot">Print KOT</a>
+                                                                </li>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="../../delivery/printbill">Print Bill</a>
+                                                                </li>
+                                                            </div>
+                                                        </ul>
+                                                    </li>
+                                                </div>  
+                                            </ul>
+                                        </li>
+
+                                        <li> <a href="#demo4" class="list-group-item list-group-item" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-cutlery"></i>Kitchen <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
+                                            <ul class="submenu">
+                                                <div class=" panel-collapse collapse " id="demo4">
+                                                    <li><a class="list-group-item" href="../menu">Menu</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../menucategory" >Menu Category</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../kitchen/printers">Kitchen/Printers</a>
+                                                    </li>
                                                 </div>
-                                            </li>
+                                            </ul>
+                                        </li>
+                                        <li> <a href="#inventory" class="list-group-item" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-table"></i> Inventory Management  <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
+                                            <ul class="submenu">
 
-                                            <li class="child-plus"><a data-toggle="collapse" href="#submenu-table2"  aria-expanded="false" aria-controls="collapseExample">Takeaway<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                                                <div class="panel-collapse collapse" id="inventory">
+                                                    <li><a href="#upload" class="list-group-item" data-toggle="collapse" data-parent="#upload">Stock Upload <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                                                        <ul class="submenu">
+                                                            <div class="collapse list-group-submenu" id="upload">
+                                                                <li><a class="list-group-item" data-parent="#upload" href="../../inventory/materialstockupload">Material Stock Upload</a>                      
+                                                                </li>
+                                                                <!--  <li><a href="../../inventory/materialbrandstockupload">Material Brand Stock Upload</a>
+                                                                  </li> -->
+                                                            </div>
+                                                        </ul>
 
+                                                    </li>
+                                                    <li><a href="#modify" class="list-group-item" data-toggle="collapse" data-parent="#upload">Stock Modification <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                                                        <ul class="submenu">
+                                                            <div class="collapse list-group-submenu" id="modify">
+                                                                <li><a class="list-group-item" data-parent="#modify" href="../../inventory/materialstockmodification">Material Stock Modification</a>                      
+                                                                </li>
+                                                                <!--   <li><a href="../../inventory/materialbrandstockmodification">Material Brand Stock Modification</a>
+                                                                   </li> -->
+                                                            </div>    </ul>
 
-                                                <div class="collapse" id="submenu-table2">
-                                                    <ul class="nav child_menu sub-child-menu">
-                                                        <li><a href="../../takeaway/placeorder">Place Order</a>                      
-                                                        </li>
-                                                        <li><a href="../../takeaway/generatebill">Generate Bill</a>
-                                                        </li>
-                                                        <li><a href="../../takeaway/cancelorder">Cancel Order</a>
-                                                        </li>
-                                                        <li><a href="../../takeaway/printkot">Print KOT</a>
-                                                        </li>
-                                                        <li><a href="../../takeaway/printbill">Print Bill</a>
-                                                        </li>
-                                                    </ul>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../stocktaking">Stock Taking</a>
+                                                    </li>
                                                 </div>
+                                            </ul>
+                                        </li>
 
-
-
-
-                                            </li>
-                                            <li class="child-plus"><a data-toggle="collapse" href="#submenu-table3" aria-expanded="false" aria-controls="collapseExample">Home-Delivery<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
-
-                                                <div class="collapse" id="submenu-table3">
-                                                    <ul class="nav child_menu sub-child-menu">
-                                                        <li><a href="../../delivery/placeorder">Place Order</a>                      
-                                                        </li>
-                                                        <li><a href="../../delivery/generatebill">Generate Bill</a>
-                                                        </li>
-                                                        <li><a href="../../delivery/cancelorder">Cancel Order</a>
-                                                        </li>
-                                                        <li><a href="../../delivery/printkot">Print KOT</a>
-                                                        </li>
-                                                        <li><a href="../../delivery/printbill">Print Bill</a>
-                                                        </li>
-                                                    </ul>
+                                        <li><a href="#report" class="list-group-item list-group-item" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-bar-chart-o"></i>Reports<span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
+                                            <ul class="submenu">   
+                                                <div class="panel-collapse collapse" id="report">
+                                                    <li><a class="list-group-item" href="../../reports/transactionreport">Transaction Report</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../reports/orderleadtime">Order Lead Time Report</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../reports/salesreport">Sales Report</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../reports/salesforcast">Sales Forecast Report</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../reports/leadtineforcast">Lead Time Forecast Report</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../reports/favouratemenu">Favourite Menu Report</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../reports/customerrushhour">Customer Rush Hours Report</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../reports/perstawordssales">Per Stewards Sales Report</a>
+                                                    </li>
+                                                    <!--  <li><a href="../../reports/stockavailability">Stock availability  Report</a>
+                                                    </li> -->
+                                                    <li><a class="list-group-item" href="../../reports/stawordsperformance">Stewards Performance Report</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../inventory/materialrequisitionreport">Material Requisition  Report</a>
+                                                    </li>
+                                                    <!-- <li><a href="../../inventory/materialbrandwiserequisitionreport">Brandwise material Requisition Report</a>
+                                                   </li> -->
                                                 </div>
-
-
-                                            </li>
-
-                                        </ul>
-                                    </li>
-
-                                    <li><a><i class="fa fa-cutlery"></i> Kitchen <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
-                                        <ul class="nav child_menu" style="display: none">
-                                            <li><a href="../menu">Menu</a>
-                                            </li>
-                                            <!-- <li><a href="../kitchen/recipe">Recipe</a>
-                                             </li> -->
-                                            <li><a href="../../menucategory" >Menu Category</a>
-                                            </li>
-                                            <!--<li><a href="../kitchen/recipecategory">Recipe Category</a>
-                                            </li> -->
-                                            <li><a href="../../kitchen/printers">Kitchen/Printers</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a><i class="fa fa-table"></i> Inventory Management <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
-                                        <ul class="nav child_menu" style="display: none">
-                                            <li class="stock-upload child-plus"><a data-toggle="collapse" href="#submenu-upload" aria-expanded="false" aria-controls="collapseExample">Stock Upload<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
-                                                <div class="collapse" id="submenu-upload">
-                                                    <ul class="nav child_menu submenu-stock-upload sub-child-menu">
-                                                        <li><a href="../../inventory/materialstockupload">Material Stock Upload</a>                      
-                                                        </li>
-                                                      <!--  <li><a href="../../inventory/materialbrandstockupload">Material Brand Stock Upload</a>
-                                                        </li> -->
-
-                                                    </ul>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#manage" class="list-group-item list-group-item" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-bug"></i>Manage Restaurant <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
+                                            <ul class="submenu">    
+                                                <div class=" panel-collapse collapse" id="manage">
+                                                    <li><a class="list-group-item" href="../../manage/edit">Edit Info</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../manage/users">Users</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../rtables">Manage Table</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../tablecategory">Table Category</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../manage/devices">Devices</a>
+                                                    </li>
+                                                    <li><a class="list-group-item" href="../../manage/configuration">Configuration</a>
+                                                    </li>
                                                 </div>
-                                            </li>
-                                            <li class="child-plus"><a  data-toggle="collapse" href="#submenu-modify" aria-expanded="false" aria-controls="collapseExample">Stock Modification<i class="fa fa-chevron-down fa-down-arrow"></i><i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
-                                                <div class="collapse" id="submenu-modify">
-                                                    <ul class="nav child_menu sub-child-menu">
-                                                        <li><a href="../../inventory/materialstockmodification">Material Stock Modification</a>                      
-                                                        </li>
-                                                     <!--   <li><a href="../../inventory/materialbrandstockmodification">Material Brand Stock Modification</a>
-                                                        </li> -->
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <li><a href="../../stocktaking">Stock Taking</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a><i class="fa fa-bar-chart-o"></i> Reports <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
-                                        <ul class="nav child_menu" style="display: none">
-                                            <li><a href="../../reports/transactionreport">Transaction Report</a>
-                                            </li>
-                                            <li><a href="../../reports/orderleadtime">Order Lead Time Report</a>
-                                            </li>
-                                            <li><a href="../../reports/salesreport">Sales Report</a>
-                                            </li>
-                                            <li><a href="../../reports/salesforcast">Sales Forecast Report</a>
-                                            </li>
-                                            <li><a href="../../reports/leadtineforcast">Lead Time Forecast Report</a>
-                                            </li>
-                                            <li><a href="../../reports/favouratemenu">Favourite Menu Report</a>
-                                            </li>
-                                            <li><a href="../../reports/customerrushhour">Customer Rush Hours Report</a>
-                                            </li>
-                                            <li><a href="../../reports/perstawordssales">Per Stewards Sales Report</a>
-                                            </li>
-                                            <!--  <li><a href="../../reports/stockavailability">Stock availability  Report</a>
-                                            </li> -->
-                                            <li><a href="../../reports/stawordsperformance">Stewards Performance Report</a>
-                                            </li>
-                                            <li><a href="../../inventory/materialrequisitionreport">Material Requisition  Report</a>
-                                            </li>
-                                            <!-- <li><a href="../../inventory/materialbrandwiserequisitionreport">Brandwise material Requisition Report</a>
-                                           </li> -->
-                                        </ul>
-                                    </li>
-                                    <li><a><i class="fa fa-bug"></i> Manage Restaurant <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
-                                        <ul class="nav child_menu" style="display: none">
-                                            <li><a href="../../manage/edit">Edit Info</a>
-                                            </li>
-                                            <li><a href="../../manage/users">Users</a>
-                                            </li>
-                                            <li><a href="../../rtables">Manage Table</a>
-                                            </li>
-                                            <li><a href="../../tablecategory">Table Category</a>
-                                            </li>
-                                            <li><a href="../../manage/devices">Devices</a>
-                                            </li>
-                                            <li><a href="../../manage/configuration">Configuration</a>
-                                            </li>
+                                            </ul> 
+                                        </li>
+                                    </div>
+                                </div>
+                            </ul>
 
-                                        </ul> 
-                                    </li>
-                                </ul>
-                            </div>
 
                         </div> <!-- /sidebar menu -->
 
@@ -360,72 +358,72 @@ $sec = $this->fetch('sec');
                         $('.ttl_link').text(result);
                     }
                 });
-              
-                var heading_last=$('table.table-bordered th:last-child').text();
-                if(heading_last == 'Action'){
+
+                var heading_last = $('table.table-bordered th:last-child').text();
+                if (heading_last == 'Action') {
                     $('th:last-child').removeClass('sorting');
                 }
 
             });
 
         </script>
-      <!--
-       <script>
-           
-            function setCookie(cname, cvalue, exdays) {
-           var d = new Date();
-           d.setTime(d.getTime() + (exdays*24*60*60*1000));
-           var expires = "expires="+d.toUTCString();
-           document.cookie = cname + "=" + cvalue + "; " + expires +';domain='+<?php //echo DOMAIN?>;
-           }
-           function getCookie(cname) {
-           var name = cname + "=";
-           var ca = document.cookie.split(';');
-           for(var i=0; i<ca.length; i++) {
-               var c = ca[i];
-               while (c.charAt(0)===' ') c = c.substring(1);
-               if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
-           }
-           return "";
-           }
-           var TempId = getCookie("Vb_Id");
-           
-           if(!TempId){
-           var random = function(){
-               return Math.floor(Math.random() * 3);
-           };
-            var prefix = ['abc','def','ghi'];
-            var middle = ['123','456','768'];
-            var suffix = ['rst','uvw','xyz'];
-            
-            var randomUserId = function(){
-                return prefix[random()] + '-' + middle[random()] + '-' + suffix[random()];
-            };
-            var TempId = randomUserId();
-            setCookie("Vb_Id", TempId);
-           }
+
+         <script>
+          
+              function setCookie(cname, cvalue, exdays) {
+             var d = new Date();
+             d.setTime(d.getTime() + (exdays*24*60*60*1000));
+             var expires = "expires="+d.toUTCString();
+             document.cookie = cname + "=" + cvalue + "; " + expires +';domain='+<?php //echo DOMAIN?>;
+             }
+             function getCookie(cname) {
+             var name = cname + "=";
+             var ca = document.cookie.split(';');
+             for(var i=0; i<ca.length; i++) {
+                 var c = ca[i];
+                 while (c.charAt(0)===' ') c = c.substring(1);
+                 if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
+             }
+             return "";
+             }
+             var TempId = getCookie("Vb_Id");
+             
+             if(!TempId){
+             var random = function(){
+                 return Math.floor(Math.random() * 3);
+             };
+              var prefix = ['abc','def','ghi'];
+              var middle = ['123','456','768'];
+              var suffix = ['rst','uvw','xyz'];
+              
+              var randomUserId = function(){
+                  return prefix[random()] + '-' + middle[random()] + '-' + suffix[random()];
+              };
+              var TempId = randomUserId();
+              setCookie("Vb_Id", TempId);
+             }
+         
+           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+           })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+         
+           ga('create', 'UA-76200600-1', 'auto');
+           var randomId = TempId;
+           ga('set', 'userId', randomId);
+           ga('require', 'displayfeatures');
+           ga('send', 'pageview');
+         
+         
+         </script> 
+         <script type="text/javascript" id="inspectletjs">
+         window.__insp = window.__insp || [];
+         __insp.push(['wid', 865249698]);
+         (function() {
+         function ldinsp(){if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
+         setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
+         })();
+         </script>
        
-         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-       
-         ga('create', 'UA-76200600-1', 'auto');
-         var randomId = TempId;
-         ga('set', 'userId', randomId);
-         ga('require', 'displayfeatures');
-         ga('send', 'pageview');
-       
-       
-       </script> 
-       <script type="text/javascript" id="inspectletjs">
-       window.__insp = window.__insp || [];
-       __insp.push(['wid', 865249698]);
-       (function() {
-       function ldinsp(){if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
-       setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
-       })();
-       </script>
-   -->
     </body>
 </html>

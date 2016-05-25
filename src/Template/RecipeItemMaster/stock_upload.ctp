@@ -8,11 +8,8 @@
 
     $this->layout = false;
      $this->layout = 'rorder_inventory_layout';
-     $this->assign('title', 'Restaurant Stock Upload');
-     $this->assign('breadcrum', ' <ol class="breadcrumb">
-                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">Stock Upload</li>
-                </ol>');
+     $this->assign('title', 'Stock Upload');
+     $this->assign('Heading', 'Stock Upload');
      //$this->start('content');
 ?>
             <section class="content">

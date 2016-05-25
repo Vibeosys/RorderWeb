@@ -367,11 +367,30 @@ class MgmtPanelController extends ApiController{
     public function getCookie() {
         $this->autoRender = FALSE;
         $data = $this->request->data;
-        $result = NULL;
+        $result = 0;
         if($this->request->is('post')){
             $name = $data['name'];
             $result = parent::readCookie($name); 
             Log::debug('cookie value of'. $name.'  return:'.$result);
+             if(is_null($result)){
+            $result = 0;
+        }
+        }
+       
+        $this->response->body($result);
+        $this->response->type('text/html');
+    }
+    
+     public function removeCookie() {
+        $this->autoRender = FALSE;
+        $data = $this->request->data;
+        if($this->request->is('post')){
+            $name = $data['name'];
+            $result = parent::deleteCookie($name); 
+            Log::debug('cookie value of'. $name.'deleted');
+        }
+        if(is_null($result)){
+            $result = 0;
         }
         $this->response->body($result);
         $this->response->type('text/html');
