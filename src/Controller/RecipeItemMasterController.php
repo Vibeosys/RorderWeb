@@ -200,6 +200,11 @@ class RecipeItemMasterController extends ApiController{
          if(!$this->isLogin()){
             $this->redirect('login');
         }
+        $restaurantId = $this->readCookie('cri');
+        $allRecipeitems = $this->getTableObj()->getStock($restaurantId);
+       $this->set([
+                'items' => $allRecipeitems
+       ]);
         
     }
     
