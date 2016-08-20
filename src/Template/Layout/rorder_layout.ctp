@@ -270,7 +270,7 @@ $sec = $this->fetch('sec');
                                         <span class=" fa fa-angle-down"></span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-                                        <li><a href="../../edit">  Profile</a>
+                                        <li><a href="../../manage/edit">  Profile</a>
                                         </li>
                                         <li><a href="../../logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                                         </li>
@@ -367,7 +367,7 @@ $sec = $this->fetch('sec');
             });
 
         </script>
-
+<!--
          <script>
           
               function setCookie(cname, cvalue, exdays) {
@@ -424,6 +424,6 @@ $sec = $this->fetch('sec');
          setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
          })();
          </script>
-       
+       -->
     </body>
 </html>

@@ -1,8 +1,13 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+use Cake\Cache\Cache;
+    use Cake\Core\Configure;
+    use Cake\Datasource\ConnectionManager;
+    use Cake\Error\Debugger;
+    use Cake\Network\Exception\NotFoundException;
+    use App\Controller;
 
+    $this->layout = false;
+    $this->layout = 'rorder_layout';
+    $this->assign('title', 'Place an Order');
+?>
