@@ -432,13 +432,16 @@ a.main-list:focus .fa-chevron-right{
     background: white;
     border-color: limegreen;
     border-radius: 25px;
-    width: 22px;
-        height: 22px;
+    width: 18px;
+        height: 18px;
     padding: 0px 0px 0px 0px;
 }
 .btn-item i{
-    color:limegreen;
-    margin: 0px -4px;
+    color: limegreen;
+    margin: 0px -3px;
+    font-size: 11px;
+    position: relative;
+    top: -2px;
 
 }
 .no-tem{
@@ -463,12 +466,27 @@ a.main-list:focus .fa-chevron-right{
     font-size: 19px;
     font-weight: 600;
 }
+.price:before{
+    font-family: 'FontAwesome';
+    content: '\f156';
+    
+}
+.total-price:before{
+    font-family: 'FontAwesome';
+    content: '\f156';
+    position: relative;
+    left:-5px;
+    
+}
+.filterinput{
+    height: 35px;
+}
 .quantity{
-    font-size: 15px;
+    font-size: 11px;
 }
 
 .price{
-    font-size: 20px
+    font-size: 16px
 }
 .total-price{
     font-size: 28px;
@@ -500,7 +518,7 @@ a.main-list:focus .fa-chevron-right{
     background-color: #f5861f;
 }
 .search{
-    background: url(../../img/search-white.png) no-repeat 8px 15px rgba(247, 247, 247, 0.31);
+    background: url(../../img/search-white.png) no-repeat 8px 10px rgba(247, 247, 247, 0.31);
     padding-left: 32px;
 }
 .search:focus{

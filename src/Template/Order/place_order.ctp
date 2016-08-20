@@ -114,7 +114,7 @@ use Cake\Cache\Cache;
                                       Veg Thali
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -131,7 +131,7 @@ use Cake\Cache\Cache;
                                       papad
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -148,7 +148,7 @@ use Cake\Cache\Cache;
                                       apple
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -165,7 +165,7 @@ use Cake\Cache\Cache;
                                      mango
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -196,7 +196,7 @@ use Cake\Cache\Cache;
                                       Veg Thali
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -213,7 +213,7 @@ use Cake\Cache\Cache;
                                       Rice
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -230,7 +230,7 @@ use Cake\Cache\Cache;
                                       Dal
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -247,7 +247,7 @@ use Cake\Cache\Cache;
                                       Veg 
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -278,7 +278,7 @@ use Cake\Cache\Cache;
                                       Green Apple
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -296,7 +296,7 @@ use Cake\Cache\Cache;
                                       Veg Thali
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -313,7 +313,7 @@ use Cake\Cache\Cache;
                                       Veg Thali
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -330,7 +330,7 @@ use Cake\Cache\Cache;
                                       Veg Thali
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -361,7 +361,7 @@ use Cake\Cache\Cache;
                                       Veg Thali
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -378,7 +378,7 @@ use Cake\Cache\Cache;
                                       Veg Thali
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -395,7 +395,7 @@ use Cake\Cache\Cache;
                                       Veg Thali
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -412,7 +412,7 @@ use Cake\Cache\Cache;
                                       Spicy
                                     </span>
                                     <div class="price item-price ">
-                                      Rs.155.00
+                                      155.00
                                       <button type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
@@ -475,11 +475,11 @@ use Cake\Cache\Cache;
                                   </button>
                                 </div>
                               </div>
-                              <div class="quantity">x Rs.155.00
+                              <div class="quantity">x 155.00
                               </div>
                             </div>
                             <div class="price item-price ">
-                              Rs.155.00
+                              155.00
                             </div>
                             <div class="clear">
                             </div>
@@ -513,11 +513,11 @@ use Cake\Cache\Cache;
                                   </button>
                                 </div>
                               </div>
-                              <div class="quantity">x Rs.155.00
+                              <div class="quantity">x 155.00
                               </div>
                             </div>
                             <div class="price item-price ">
-                              Rs.155.00
+                              155.00
                             </div>
                             <div class="clear">
                             </div>
@@ -551,11 +551,11 @@ use Cake\Cache\Cache;
                                   </button>
                                 </div>
                               </div>
-                              <div class="quantity">x Rs.155.00
+                              <div class="quantity">x 155.00
                               </div>
                             </div>
                             <div class="price item-price ">
-                              Rs.155.00
+                              155.00
                             </div>
                             <div class="clear">
                             </div>
@@ -589,11 +589,11 @@ use Cake\Cache\Cache;
                                   </button>
                                 </div>
                               </div>
-                              <div class="quantity">x Rs.155.00
+                              <div class="quantity">x 155.00
                               </div>
                             </div>
                             <div class="price item-price ">
-                              Rs.155.00
+                              155.00
                             </div>
                             <div class="clear">
                             </div>
@@ -627,11 +627,11 @@ use Cake\Cache\Cache;
                                   </button>
                                 </div>
                               </div>
-                              <div class="quantity">x Rs.155.00
+                              <div class="quantity">x 155.00
                               </div>
                             </div>
                             <div class="price item-price ">
-                              Rs.155.00
+                              155.00
                             </div>
                             <div class="clear">
                             </div>
@@ -665,11 +665,11 @@ use Cake\Cache\Cache;
                                   </button>
                                 </div>
                               </div>
-                              <div class="quantity">x Rs.155.00
+                              <div class="quantity">x 155.00
                               </div>
                             </div>
                             <div class="price item-price ">
-                              Rs.155.00
+                              155.00
                             </div>
                             <div class="clear">
                             </div>
@@ -703,11 +703,11 @@ use Cake\Cache\Cache;
                                   </button>
                                 </div>
                               </div>
-                              <div class="quantity">x Rs.155.00
+                              <div class="quantity">x 155.00
                               </div>
                             </div>
                             <div class="price item-price ">
-                              Rs.155.00
+                              155.00
                             </div>
                             <div class="clear">
                             </div>
@@ -718,7 +718,7 @@ use Cake\Cache\Cache;
                             <div class="total">
                               <span class="name">Subtotal
                               </span>
-                              <span class="total-price">Rs.675.00
+                              <span class="total-price">675.00
                               </span>
                             </div>
                           </li>
@@ -743,7 +743,7 @@ use Cake\Cache\Cache;
             </div>
             <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6 pop-padding">
                 <div class="total-price-footer text-center">
-                  Total :  Rs.675.00
+                  Total :  675.00
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pop-padding">
@@ -797,11 +797,11 @@ use Cake\Cache\Cache;
                                   </button>
                                 </div>
                               </div>
-                              <div class="quantity">x Rs.155.00
+                              <div class="quantity">x 155.00
                               </div>
                             </div>
                             <div class="price item-price ">
-                              Rs.155.00
+                              155.00
                             </div>
                             <div class="clear">
                             </div>
@@ -835,11 +835,11 @@ use Cake\Cache\Cache;
                                   </button>
                                 </div>
                               </div>
-                              <div class="quantity">x Rs.155.00
+                              <div class="quantity">x 155.00
                               </div>
                             </div>
                             <div class="price item-price ">
-                              Rs.155.00
+                              155.00
                             </div>
                             <div class="clear">
                             </div>
@@ -873,11 +873,11 @@ use Cake\Cache\Cache;
                                   </button>
                                 </div>
                               </div>
-                              <div class="quantity">x Rs.155.00
+                              <div class="quantity">x 155.00
                               </div>
                             </div>
                             <div class="price item-price ">
-                              Rs.155.00
+                              155.00
                             </div>
                             <div class="clear">
                             </div>
@@ -911,11 +911,11 @@ use Cake\Cache\Cache;
                                   </button>
                                 </div>
                               </div>
-                              <div class="quantity">x Rs.155.00
+                              <div class="quantity">x 155.00
                               </div>
                             </div>
                             <div class="price item-price ">
-                              Rs.155.00
+                              155.00
                             </div>
                             <div class="clear">
                             </div>
@@ -949,11 +949,11 @@ use Cake\Cache\Cache;
                                   </button>
                                 </div>
                               </div>
-                              <div class="quantity">x Rs.155.00
+                              <div class="quantity">x 155.00
                               </div>
                             </div>
                             <div class="price item-price ">
-                              Rs.155.00
+                              155.00
                             </div>
                             <div class="clear">
                             </div>
@@ -987,11 +987,11 @@ use Cake\Cache\Cache;
                                   </button>
                                 </div>
                               </div>
-                              <div class="quantity">x Rs.155.00
+                              <div class="quantity">x 155.00
                               </div>
                             </div>
                             <div class="price item-price ">
-                              Rs.155.00
+                              155.00
                             </div>
                             <div class="clear">
                             </div>
@@ -1002,7 +1002,7 @@ use Cake\Cache\Cache;
                             <div class="total">
                               <span class="name">Subtotal
                               </span>
-                              <span class="total-price">Rs.675.00
+                              <span class="total-price">675.00
                               </span>
                             </div>
                           </li>
@@ -1044,7 +1044,7 @@ $(document).ready(function(){
 });
 
 $(".btn-price").click(function(){
-    $(".order-items").append(" <li><div class='details'><div class='veg-tag'><img src='images/menu/veg_icon.jpg' class='veg'></div><span class='dish-name'>Veg Thali</span><button type='button' class='btn btn-item-close btn-dis' ><i class='fa fa-times-circle' aria-hidden='true'></i> </button></div><div class='count'><div class='number'><div class='dec'><button type='button' class='btn btn-item'><i class='fa fa-minus' aria-hidden='true'></i> </button></div><input type='text' value='1' class='no-tem'  disabled><div class='inc'><button type='button' class='btn btn-item'><i class='fa fa-plus' aria-hidden='true'></i></button></div></div><div class='quantity'>x Rs.155.00</div></div><div class='price item-price'>Rs.155.00</div><div class='clear'></div></li>");
+    $(".order-items").append(" <li><div class='details'><div class='veg-tag'><img src='images/menu/veg_icon.jpg' class='veg'></div><span class='dish-name'>Veg Thali</span><button type='button' class='btn btn-item-close btn-dis' ><i class='fa fa-times-circle' aria-hidden='true'></i> </button></div><div class='count'><div class='number'><div class='dec'><button type='button' class='btn btn-item'><i class='fa fa-minus' aria-hidden='true'></i> </button></div><input type='text' value='1' class='no-tem'  disabled><div class='inc'><button type='button' class='btn btn-item'><i class='fa fa-plus' aria-hidden='true'></i></button></div></div><div class='quantity'>x 155.00</div></div><div class='price item-price'>155.00</div><div class='clear'></div></li>");
     
    
 });
