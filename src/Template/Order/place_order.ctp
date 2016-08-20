@@ -12,7 +12,7 @@ use Cake\Cache\Cache;
     $this->assign('title', 'Place an Order');
 ?>
 
- <div class="right_col" role="main">
+
           <div class="">
             <div class="clearfix">
             </div>
@@ -108,7 +108,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                       Veg Thali
@@ -125,7 +125,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                       papad
@@ -142,7 +142,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                       apple
@@ -159,7 +159,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                    <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                      mango
@@ -190,7 +190,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                       <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                       Veg Thali
@@ -207,7 +207,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                       Rice
@@ -224,7 +224,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                     <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                       Dal
@@ -241,7 +241,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                     <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                       Veg 
@@ -272,7 +272,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                     <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                       Green Apple
@@ -289,7 +289,8 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                    <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
+                                     
                                     </div>
                                     <span class="dish-name">
                                       Veg Thali
@@ -306,7 +307,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                       Veg Thali
@@ -323,7 +324,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                       <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                       Veg Thali
@@ -354,7 +355,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                       Veg Thali
@@ -371,7 +372,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                       Veg Thali
@@ -388,7 +389,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                       Veg Thali
@@ -405,7 +406,7 @@ use Cake\Cache\Cache;
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
-                                      <img src="img/menu/veg_icon.jpg" class="veg">
+                                     <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     </div>
                                     <span class="dish-name">
                                       Spicy
@@ -448,7 +449,7 @@ use Cake\Cache\Cache;
                           <li>
                             <div class="details">
                               <div class="veg-tag">
-                                <img src="img/menu/veg_icon.jpg" class="veg">
+                               <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                               </div>
                               <span class="dish-name">
                                 Veg Thali
@@ -486,7 +487,7 @@ use Cake\Cache\Cache;
                           <li>
                             <div class="details">
                               <div class="veg-tag">
-                                <img src="img/menu/non_veg_icon.jpg" class="veg">
+                               <?= $this->Html->image('menu/non_veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                               </div>
                               <span class="dish-name">
                                 Butter Chicken
@@ -524,7 +525,7 @@ use Cake\Cache\Cache;
                           <li>
                             <div class="details">
                               <div class="veg-tag">
-                                <img src="img/menu/veg_icon.jpg" class="veg">
+                                <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                               </div>
                               <span class="dish-name">
                                 Veg Thali
@@ -562,7 +563,7 @@ use Cake\Cache\Cache;
                           <li>
                             <div class="details">
                               <div class="veg-tag">
-                                <img src="img/menu/veg_icon.jpg" class="veg">
+                                <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                               </div>
                               <span class="dish-name">
                                 Veg Thali
@@ -600,7 +601,7 @@ use Cake\Cache\Cache;
                           <li>
                             <div class="details">
                               <div class="veg-tag">
-                                <img src="img/menu/veg_icon.jpg" class="veg">
+                                <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                               </div>
                               <span class="dish-name">
                                 Veg Thali
@@ -638,7 +639,7 @@ use Cake\Cache\Cache;
                           <li>
                             <div class="details">
                               <div class="veg-tag">
-                                <img src="img/menu/veg_icon.jpg" class="veg">
+                                 <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                               </div>
                               <span class="dish-name">
                                 Veg Thali
@@ -676,7 +677,7 @@ use Cake\Cache\Cache;
                           <li>
                             <div class="details">
                               <div class="veg-tag">
-                                <img src="img/menu/veg_icon.jpg" class="veg">
+                               <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                               </div>
                               <span class="dish-name">
                                 Veg Thali
@@ -732,4 +733,352 @@ use Cake\Cache\Cache;
             </div>
           </div>
           <!-- /page content -->
-        </div>
+    <footer class="footer">
+      <div class="container-fluid pop-padding">
+          <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="total-item">
+                        <i class="fa fa-wpforms"></i> <span>4</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6 pop-padding">
+                <div class="total-price-footer text-center">
+                  Total :  Rs.675.00
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pop-padding">
+            <button type="button" class="checkout" data-toggle="modal" data-target="#myModal">Checkout</button>  
+            </div>
+          </div>
+        
+      </div>
+    </footer>
+
+<div id="myModal" class="modal animated zoomin">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Your Order</h4>
+
+            </div>
+           
+            <div class="modal-body">
+               <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                       <div class="order-inner">
+                        <ul class="order-items modal-height scrollbar" id="style-1">
+                          <li>
+                            <div class="details">
+                              <div class="veg-tag">
+                                <img src="images/menu/veg_icon.jpg" class="veg">
+                              </div>
+                              <span class="dish-name">
+                                Veg Thali
+                              </span>
+                            <button type="button" class="btn btn-item-close">
+                                    <i class="fa fa-times-circle" aria-hidden="true">
+                                    </i> 
+                                  </button>
+                            </div>
+                            <div class="count">
+                              <div class="number">
+                                <div class="dec">
+                                  <button type="button" class="btn btn-item">
+                                    <i class="fa fa-minus" aria-hidden="true">
+                                    </i> 
+                                  </button>
+                                </div>
+                                <input type="text" value="1" class="no-tem"  disabled>
+                                <div class="inc">
+                                  <button type="button" class="btn btn-item">
+                                    <i class="fa fa-plus" aria-hidden="true">
+                                    </i>
+                                  </button>
+                                </div>
+                              </div>
+                              <div class="quantity">x Rs.155.00
+                              </div>
+                            </div>
+                            <div class="price item-price ">
+                              Rs.155.00
+                            </div>
+                            <div class="clear">
+                            </div>
+                          </li>
+                          <li>
+                            <div class="details">
+                              <div class="veg-tag">
+                                <img src="images/menu/non_veg_icon.jpg" class="veg">
+                              </div>
+                              <span class="dish-name">
+                                Butter Chicken
+                              </span>
+                                    <button type="button" class="btn btn-item-close">
+                                    <i class="fa fa-times-circle" aria-hidden="true">
+                                    </i> 
+                                  </button>
+                            </div>
+                            <div class="count">
+                              <div class="number">
+                                <div class="dec">
+                                  <button type="button" class="btn btn-item">
+                                    <i class="fa fa-minus" aria-hidden="true">
+                                    </i> 
+                                  </button>
+                                </div>
+                                <input type="text" value="1" class="no-tem"  disabled>
+                                <div class="inc">
+                                  <button type="button" class="btn btn-item">
+                                    <i class="fa fa-plus" aria-hidden="true">
+                                    </i>
+                                  </button>
+                                </div>
+                              </div>
+                              <div class="quantity">x Rs.155.00
+                              </div>
+                            </div>
+                            <div class="price item-price ">
+                              Rs.155.00
+                            </div>
+                            <div class="clear">
+                            </div>
+                          </li>
+                          <li>
+                            <div class="details">
+                              <div class="veg-tag">
+                                <img src="images/menu/veg_icon.jpg" class="veg">
+                              </div>
+                              <span class="dish-name">
+                                Veg Thali
+                              </span>
+                                    <button type="button" class="btn btn-item-close">
+                                    <i class="fa fa-times-circle" aria-hidden="true">
+                                    </i> 
+                                  </button>
+                            </div>
+                            <div class="count">
+                              <div class="number">
+                                <div class="dec">
+                                  <button type="button" class="btn btn-item">
+                                    <i class="fa fa-minus" aria-hidden="true">
+                                    </i> 
+                                  </button>
+                                </div>
+                                <input type="text" value="1" class="no-tem"  disabled>
+                                <div class="inc">
+                                  <button type="button" class="btn btn-item">
+                                    <i class="fa fa-plus" aria-hidden="true">
+                                    </i>
+                                  </button>
+                                </div>
+                              </div>
+                              <div class="quantity">x Rs.155.00
+                              </div>
+                            </div>
+                            <div class="price item-price ">
+                              Rs.155.00
+                            </div>
+                            <div class="clear">
+                            </div>
+                          </li>
+                              <li>
+                            <div class="details">
+                              <div class="veg-tag">
+                                <img src="images/menu/non_veg_icon.jpg" class="veg">
+                              </div>
+                              <span class="dish-name">
+                                Butter Chicken
+                              </span>
+                                    <button type="button" class="btn btn-item-close">
+                                    <i class="fa fa-times-circle" aria-hidden="true">
+                                    </i> 
+                                  </button>
+                            </div>
+                            <div class="count">
+                              <div class="number">
+                                <div class="dec">
+                                  <button type="button" class="btn btn-item">
+                                    <i class="fa fa-minus" aria-hidden="true">
+                                    </i> 
+                                  </button>
+                                </div>
+                                <input type="text" value="1" class="no-tem"  disabled>
+                                <div class="inc">
+                                  <button type="button" class="btn btn-item">
+                                    <i class="fa fa-plus" aria-hidden="true">
+                                    </i>
+                                  </button>
+                                </div>
+                              </div>
+                              <div class="quantity">x Rs.155.00
+                              </div>
+                            </div>
+                            <div class="price item-price ">
+                              Rs.155.00
+                            </div>
+                            <div class="clear">
+                            </div>
+                          </li>
+                            <li>
+                            <div class="details">
+                              <div class="veg-tag">
+                                <img src="images/menu/veg_icon.jpg" class="veg">
+                              </div>
+                              <span class="dish-name">
+                                Veg Thali
+                              </span>
+                                    <button type="button" class="btn btn-item-close">
+                                    <i class="fa fa-times-circle" aria-hidden="true">
+                                    </i> 
+                                  </button>
+                            </div>
+                            <div class="count">
+                              <div class="number">
+                                <div class="dec">
+                                  <button type="button" class="btn btn-item">
+                                    <i class="fa fa-minus" aria-hidden="true">
+                                    </i> 
+                                  </button>
+                                </div>
+                                <input type="text" value="1" class="no-tem"  disabled>
+                                <div class="inc">
+                                  <button type="button" class="btn btn-item">
+                                    <i class="fa fa-plus" aria-hidden="true">
+                                    </i>
+                                  </button>
+                                </div>
+                              </div>
+                              <div class="quantity">x Rs.155.00
+                              </div>
+                            </div>
+                            <div class="price item-price ">
+                              Rs.155.00
+                            </div>
+                            <div class="clear">
+                            </div>
+                          </li>
+                              <li>
+                            <div class="details">
+                              <div class="veg-tag">
+                                <img src="images/menu/non_veg_icon.jpg" class="veg">
+                              </div>
+                              <span class="dish-name">
+                                Butter Chicken
+                              </span>
+                                    <button type="button" class="btn btn-item-close">
+                                    <i class="fa fa-times-circle" aria-hidden="true">
+                                    </i> 
+                                  </button>
+                            </div>
+                            <div class="count">
+                              <div class="number">
+                                <div class="dec">
+                                  <button type="button" class="btn btn-item">
+                                    <i class="fa fa-minus" aria-hidden="true">
+                                    </i> 
+                                  </button>
+                                </div>
+                                <input type="text" value="1" class="no-tem"  disabled>
+                                <div class="inc">
+                                  <button type="button" class="btn btn-item">
+                                    <i class="fa fa-plus" aria-hidden="true">
+                                    </i>
+                                  </button>
+                                </div>
+                              </div>
+                              <div class="quantity">x Rs.155.00
+                              </div>
+                            </div>
+                            <div class="price item-price ">
+                              Rs.155.00
+                            </div>
+                            <div class="clear">
+                            </div>
+                          </li>
+                        </ul>
+                        <ul class="totals clear">
+                          <li class="subtotal2 clear">
+                            <div class="total">
+                              <span class="name">Subtotal
+                              </span>
+                              <span class="total-price">Rs.675.00
+                              </span>
+                            </div>
+                          </li>
+                        </ul>
+                      </div> 
+                        <button type="button" class="checkout">Place Order
+                      </button>
+                    </div>
+                 <div class="modal-footer">
+                 </div>
+                </div>
+               </div>
+            </div>
+         </div>
+        </div> 
+<?= $this->start('script') ?>
+ <script>
+  
+$(document).ready(function(){
+    $("#filter").keyup(function(){
+ 
+        // Retrieve the input field text and reset the count to zero
+        var filter = $(this).val();
+ 
+        // Loop through the comment list
+        $("#contents li").each(function(){
+ 
+            // If the list item does not contain the text phrase fade it out
+            if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                $(this).fadeOut();
+ 
+            // Show the list item if the phrase matches
+            } else {
+                $(this).show();
+            }
+        });
+ 
+    });
+});
+
+$(".btn-price").click(function(){
+    $(".order-items").append(" <li><div class='details'><div class='veg-tag'><img src='images/menu/veg_icon.jpg' class='veg'></div><span class='dish-name'>Veg Thali</span><button type='button' class='btn btn-item-close btn-dis' ><i class='fa fa-times-circle' aria-hidden='true'></i> </button></div><div class='count'><div class='number'><div class='dec'><button type='button' class='btn btn-item'><i class='fa fa-minus' aria-hidden='true'></i> </button></div><input type='text' value='1' class='no-tem'  disabled><div class='inc'><button type='button' class='btn btn-item'><i class='fa fa-plus' aria-hidden='true'></i></button></div></div><div class='quantity'>x Rs.155.00</div></div><div class='price item-price'>Rs.155.00</div><div class='clear'></div></li>");
+    
+   
+});
+ $(".order-items").load;
+$(".btn-item-close").click(function() {
+  $(this).parent().parent().remove();
+});
+         
+/*
+$(document).ready(function(){       
+   var scroll_start = 0;
+   var startchange = $('#soups');
+   var offset = startchange.offset();
+   alert(scroll_start);
+    if (startchange.length){
+        
+   $(".category-item").scroll(function() { 
+      
+      scroll_start = $(this).scrollTop();
+       //alert(scroll_start);
+      if(scroll_start > 280) {
+         $('a').each(function () {
+            $(this).removeClass('active-menu');
+        $(".soups-cat").addClass('active-menu');
+        })
+      
+       } else {
+          $(".soups-cat").removeClass('active-menu');
+         
+       }
+   });
+    }
+});*/
+  
+
+</script>
+<?= $this->end('script') ?>

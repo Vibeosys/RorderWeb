@@ -500,7 +500,7 @@ a.main-list:focus .fa-chevron-right{
     background-color: #f5861f;
 }
 .search{
-    background: url(../images/search-white.png) no-repeat 8px 9px rgba(247, 247, 247, 0.31);
+    background: url(../../img/search-white.png) no-repeat 8px 15px rgba(247, 247, 247, 0.31);
     padding-left: 32px;
 }
 .search:focus{
