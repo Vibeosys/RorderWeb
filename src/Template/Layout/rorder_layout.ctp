@@ -333,6 +333,7 @@ $sec = $this->fetch('sec');
          <?= $this->Html->script('design/canvasjs.min.js') ?> 
          <?= $this->Html->script('design/highcharts.js') ?> 
          <?= $this->Html->script('design/exporting.js') ?> 
+         <?= $this->Html->script('design/scroll-menu.js') ?> 
     <?php if($this->fetch('script')){
                          echo $this->fetch('script');
                       }else{
