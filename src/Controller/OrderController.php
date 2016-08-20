@@ -131,5 +131,9 @@ class OrderController extends ApiController {
          $this->response->body(json_encode([MESSAGE => DTO\ErrorDto::prepareMessage(126)]));
         }
     }
+    
+    public function placeOrder() {
+        
+    }
 
 }

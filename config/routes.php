@@ -49,7 +49,7 @@ Router::scope('/', function ($routes) {
     //$routes->connect('managedata', ['controller' => 'MgmtPanel', 'action' => 'manageData']);
     // table routes
     $routes->connect('tableview/placeorder', ['controller' => 'RTables', 'action' => 'tableView']);
-    $routes->connect('tableview/placeorder/place-an-order', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('tableview/placeorder/place-an-order', ['controller' => 'Order', 'action' => 'placeOrder']);
     $routes->connect('tableview/generatebill', ['controller' => 'RTables', 'action' => 'tableView']);
     $routes->connect('tableview/generatebill/generate-status', ['controller' => 'Bill', 'action' => 'generateStatus']);
     $routes->connect('tableview/generatebill/bill-payment', ['controller' => 'Bill', 'action' => 'billPayment']);
@@ -61,7 +61,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('tableview/printbill', ['controller' => 'RTables', 'action' => 'tableView']);
    //takeaway routes
     $routes->connect('takeaway/placeorder', ['controller' => 'Takeaway', 'action' => 'takeawayView']);
-    $routes->connect('takeaway/placeorder/place-an-order', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('takeaway/placeorder/place-an-order', ['controller' => 'Order', 'action' => 'placeOrder']);
     $routes->connect('takeaway/generatebill', ['controller' => 'Takeaway', 'action' => 'takeawayView']);
     $routes->connect('takeaway/generatebill/generate-status', ['controller' => 'Bill', 'action' => 'generateStatus']);
     $routes->connect('takeaway/generatebill/bill-payment', ['controller' => 'Bill', 'action' => 'billPayment']);
@@ -72,7 +72,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('takeaway/printbill', ['controller' => 'Takeaway', 'action' => 'takeawayView']);
     // delivery routes
     $routes->connect('delivery/placeorder', ['controller' => 'Delivery', 'action' => 'deliveryView']);
-    $routes->connect('delivery/placeorder/place-an-order', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('delivery/placeorder/place-an-order', ['controller' => 'Order', 'action' => 'placeOrder']);
     $routes->connect('delivery/generatebill', ['controller' => 'Delivery', 'action' => 'deliveryView']);
     $routes->connect('delivery/generatebill/generate-status', ['controller' => 'Bill', 'action' => 'generateStatus']);
     $routes->connect('delivery/generatebill/bill-payment', ['controller' => 'Bill', 'action' => 'billPayment']);
