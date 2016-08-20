@@ -62,7 +62,7 @@ $sec = $this->fetch('sec');
                     <div class="left_col scroll-view">
 
                         <div class="navbar nav_title" style="border: 0;">
-                            <a href="../../" class="site_title"> <?= $this->Html->image('quickserve-logo.png', ['class' => 'site_title'])?></a>
+                            <a href="../../" class="site_title"> <?= $this->Html->image('quickserve-logo.png')?></a>
                         </div>
                         <div class="clearfix"></div>
 
@@ -70,18 +70,16 @@ $sec = $this->fetch('sec');
                         <!-- sidebar menu -->
 
                         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                            <ul class="nav side-menu">
-                                <div id="accordion">
-                                    <div class="list-group panel">
-                                        <li class="active"><a class="list-group-item" href="../../reports"><i class="fa fa-home"></i> Dashboard </a>
+                            <ul class="nav side-menu list-group" id="accordion">
+                               
+                                        <li class="panel"><a class="list-group-item" href="../../reports"><i class="fa fa-home"></i> Dashboard </a>
                                         </li>
-                                        <li><a href="#demo3" class="list-group-item" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-edit"></i> Order <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
-                                            <ul class="submenu">
-
-                                                <div class=" panel-collapse collapse " id="demo3">
-                                                    <li><a href="#SubMenu1" class="list-group-item" data-toggle="collapse" data-parent="#SubMenu1">Table View <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
-                                                        <div class="collapse list-group-submenu" id="SubMenu1">
-                                                            <ul class="submenu">
+                                
+                                        <li class="panel"><a href="#demo3" class="main-list" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-edit"></i> Order <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
+                                            <ul class="submenu collapse " id="demo3">
+                                                    <li class="panel"><a href="#SubMenu1"class="sub-list" data-toggle="collapse" data-parent="#demo3">Table View <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                                                      
+                                                             <ul class="submenu collapse" id="SubMenu1">
                                                                 <li><a class="list-group-item" data-parent="#SubMenu1" href="../../tableview/placeorder">Place Order</a>                      
                                                                 </li>
                                                                 <li><a class="list-group-item" data-parent="#SubMenu1" href="../../tableview/generatebill">Generate Bill</a>
@@ -93,12 +91,11 @@ $sec = $this->fetch('sec');
                                                                 <li><a class="list-group-item" data-parent="#SubMenu1" href="../../tableview/printbill">Print Bill</a>
                                                                 </li>
                                                             </ul>
-                                                        </div>
+                                                      
                                                     </li>
 
-                                                    <li><a href="#SubMenu2" class="list-group-item" data-toggle="collapse" data-parent="#SubMenu1">Takeaway <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
-                                                        <ul class="submenu">
-                                                            <div class="collapse list-group-submenu" id="SubMenu2">
+                                                    <li  class="panel"><a href="#SubMenu2" class="sub-list" data-toggle="collapse" data-parent="#demo3">Takeaway <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                                                        <ul class="submenu collapse" id="SubMenu2">
                                                                 <li><a class="list-group-item" data-parent="#SubMenu2" href="../../takeaway/placeorder">Place Order</a>                      
                                                                 </li>
                                                                 <li><a class="list-group-item" data-parent="#SubMenu2" href="../../takeaway/generatebill">Generate Bill</a>
@@ -109,13 +106,12 @@ $sec = $this->fetch('sec');
                                                                 </li>
                                                                 <li><a class="list-group-item" data-parent="#SubMenu2" href="../../takeaway/printbill">Print Bill</a>
                                                                 </li>
-                                                            </div>
+                                                           
                                                         </ul>
                                                     </li>
 
-                                                    <li><a href="#SubMenu3" class="list-group-item" data-toggle="collapse" data-parent="#SubMenu1">Home-Delivery <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
-                                                        <ul class="submenu">
-                                                            <div class="collapse list-group-submenu" id="SubMenu3">
+                                                    <li class="panel"><a href="#SubMenu3" class="sub-list" data-toggle="collapse" data-parent="#demo3">Home-Delivery <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                                                        <ul class="submenu collapse" id="SubMenu3">
                                                                 <li><a class="list-group-item" data-parent="#SubMenu3" href="../../delivery/placeorder">Place Order</a>                      
                                                                 </li>
                                                                 <li><a class="list-group-item" data-parent="#SubMenu3" href="../../delivery/generatebill">Generate Bill</a>
@@ -126,59 +122,53 @@ $sec = $this->fetch('sec');
                                                                 </li>
                                                                 <li><a class="list-group-item" data-parent="#SubMenu3" href="../../delivery/printbill">Print Bill</a>
                                                                 </li>
-                                                            </div>
+                                                            
                                                         </ul>
                                                     </li>
-                                                </div>  
+                                              
                                             </ul>
                                         </li>
 
-                                        <li> <a href="#demo4" class="list-group-item list-group-item" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-cutlery"></i>Kitchen <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
-                                            <ul class="submenu">
-                                                <div class=" panel-collapse collapse " id="demo4">
+                                        <li class="panel"> <a href="#demo4" class="main-list" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-cutlery"></i>Kitchen <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
+                                          <ul class="submenu collapse " id="demo4">
                                                     <li><a class="list-group-item" href="../menu">Menu</a>
                                                     </li>
                                                     <li><a class="list-group-item" href="../../menucategory" >Menu Category</a>
                                                     </li>
                                                     <li><a class="list-group-item" href="../../kitchen/printers">Kitchen/Printers</a>
                                                     </li>
-                                                </div>
+                                               
                                             </ul>
                                         </li>
-                                        <li> <a href="#inventory" class="list-group-item" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-table"></i> Inventory Management  <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
-                                            <ul class="submenu">
-
-                                                <div class="panel-collapse collapse" id="inventory">
-                                                    <li><a href="#upload" class="list-group-item" data-toggle="collapse" data-parent="#upload">Stock Upload <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
-                                                        <ul class="submenu">
-                                                            <div class="collapse list-group-submenu" id="upload">
+                                        <li class="panel"> <a href="#inventory" class="main-list"  data-toggle="collapse" data-parent="#accordion"><i class="fa fa-table"></i> Inventory Management  <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
+                                           <ul class="submenu collapse" id="inventory">
+                                                    <li class="panel"><a href="#upload" class="sub-list" data-toggle="collapse" data-parent="#inventory">Stock Upload <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
+                                                        <ul class="submenu collapse" id="upload">
                                                                 <li><a class="list-group-item" data-parent="#upload" href="../../inventory/materialstockupload">Material Stock Upload</a>                      
                                                                 </li>
                                                                 <!--  <li><a href="../../inventory/materialbrandstockupload">Material Brand Stock Upload</a>
                                                                   </li> -->
-                                                            </div>
+                                                            
                                                         </ul>
 
                                                     </li>
-                                                    <li><a href="#modify" class="list-group-item" data-toggle="collapse" data-parent="#upload">Stock Modification <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
-                                                        <ul class="submenu">
-                                                            <div class="collapse list-group-submenu" id="modify">
+                                                    <li class="panel"><a href="#modify" data-toggle="collapse"  class="sub-list" data-parent="#inventory">Stock Modification <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
+                                                        <ul class="submenu collapse" id="modify">
                                                                 <li><a class="list-group-item" data-parent="#modify" href="../../inventory/materialstockmodification">Material Stock Modification</a>                      
                                                                 </li>
                                                                 <!--   <li><a href="../../inventory/materialbrandstockmodification">Material Brand Stock Modification</a>
                                                                    </li> -->
-                                                            </div>    </ul>
+                                                                </ul>
 
                                                     </li>
                                                     <li><a class="list-group-item" href="../../stocktaking">Stock Taking</a>
                                                     </li>
-                                                </div>
+                                               
                                             </ul>
                                         </li>
 
-                                        <li><a href="#report" class="list-group-item list-group-item" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-bar-chart-o"></i>Reports<span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
-                                            <ul class="submenu">   
-                                                <div class="panel-collapse collapse" id="report">
+                                        <li class="panel"><a href="#report" class="main-list" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-bar-chart-o"></i>Reports<span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
+                                             <ul class="submenu collapse" id="report">  
                                                     <li><a class="list-group-item" href="../../reports/transactionreport">Transaction Report</a>
                                                     </li>
                                                     <li><a class="list-group-item" href="../../reports/orderleadtime">Order Lead Time Report</a>
@@ -203,12 +193,11 @@ $sec = $this->fetch('sec');
                                                     </li>
                                                     <!-- <li><a href="../../inventory/materialbrandwiserequisitionreport">Brandwise material Requisition Report</a>
                                                    </li> -->
-                                                </div>
+                                               
                                             </ul>
                                         </li>
-                                        <li><a href="#manage" class="list-group-item list-group-item" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-bug"></i>Manage Restaurant <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
-                                            <ul class="submenu">    
-                                                <div class=" panel-collapse collapse" id="manage">
+                                        <li class="panel"><a href="#manage" class="main-list" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-bug"></i>Manage Restaurant <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
+                                           <ul class="submenu collapse" id="manage">   
                                                     <li><a class="list-group-item" href="../../manage/edit">Edit Info</a>
                                                     </li>
                                                     <li><a class="list-group-item" href="../../manage/users">Users</a>
@@ -221,11 +210,11 @@ $sec = $this->fetch('sec');
                                                     </li>
                                                     <li><a class="list-group-item" href="../../manage/configuration">Configuration</a>
                                                     </li>
-                                                </div>
+                                                
                                             </ul> 
                                         </li>
-                                    </div>
-                                </div>
+                             
+
                             </ul>
 
 
@@ -238,10 +227,12 @@ $sec = $this->fetch('sec');
 
 
                 <!-- top navigation -->
-                <div class="top_nav">
+                <div class="top_nav navbar-fixed-top">
 
                     <div class="nav_menu">
                         <nav class="" role="navigation">
+                            <?= $this->Html->image('quickserve-logo.png', ['class' => 'sm-logo', 'style' => 'float:left;padding:10px;display:none;'])?>
+                            
                             <div class="nav toggle">
                                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                                 <h2 class="page-heading"><?= $this->fetch('heading')?></h2>
@@ -367,7 +358,7 @@ $sec = $this->fetch('sec');
             });
 
         </script>
-<!--
+
          <script>
           
               function setCookie(cname, cvalue, exdays) {
@@ -424,6 +415,6 @@ $sec = $this->fetch('sec');
          setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
          })();
          </script>
-       -->
+       
     </body>
 </html>
