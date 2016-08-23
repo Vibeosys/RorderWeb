@@ -143,7 +143,7 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
                             <div class="total">
                               <span class="name">Subtotal
                               </span>
-                              <span class="total-price">675.00
+                              <span class="total-price"><span class="grand_total">00</span>
                               </span>
                             </div>
                           </li>
@@ -163,12 +163,12 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
           <div class="row">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                 <div class="total-item">
-                        <i class="fa fa-wpforms"></i> <span>4</span>
+                    <i class="fa fa-wpforms"></i> <span class="total_itm_span"></span>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6 pop-padding">
                 <div class="total-price-footer text-center">
-                  Total :  675.00
+                    Total :  <span class="grand_total">00</span>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pop-padding">
@@ -208,27 +208,41 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
         </div> 
 <?= $this->start('script') ?>
  <script>
+var total_itm = 0;
   function increase(id){
-       var no = $("#no_item_"+id).text();
+      
+       $('.total_itm_span').text(++total_itm);
+       var no = $(".no_item_"+id).text();
+       no = no.substring(0,no.length/2);
     no++;
-    var up = $('#up_'+id).val();
-    $("#no_item_"+id).text(no);
-    $("#item_price_"+id).text(up*no);
+    var up = $('.up_'+id).val();
+    $(".no_item_"+id).text(no);
+    $(".item_price_"+id).text(up*no);
+    var gt = $('.grand_total').text();
+    gt = gt.substring(0,gt.length/2);
+    $('.grand_total').text(parseInt(gt) + parseInt(up));
   }
   function decrease(id){
-       var no = $("#no_item_"+id).text();
+       var no = $(".no_item_"+id).text();
+       no = no.substring(0,no.length/2);
     no--;
+     var up = $('.up_'+id).val();
+     var gt = $('.grand_total').text();
+    gt = gt.substring(0,gt.length/2);
+    $('.grand_total').text(parseInt(gt) - parseInt(up));
+     $('.total_itm_span').text(--total_itm);
     if(no == 0){
-        remove_oitem(id);
+        remove_oitem(id);return;
     }
-    var up = $('#up_'+id).val();
-    $("#no_item_"+id).text(no);
-    $("#item_price_"+id).text(up*no);
+   
+    $(".no_item_"+id).text(no);
+    $(".item_price_"+id).text(up*no);
+     
   }
   function remove_oitem(id){
-    $('#oitm_'+id).remove();  
+    $('.oitm_'+id).remove();  
   }
-$(document).ready(function(){
+ $(document).ready(function(){
     $("#filter").keyup(function(){
  
         // Retrieve the input field text and reset the count to zero
@@ -252,16 +266,20 @@ $(document).ready(function(){
 
 $(".btn-price").click(function(){
     var id = $(this).attr('myid');
+    if($('.up_'+id).val()){increase(id); return;};
     var title = $('#title_'+id).text();
     var price = $('#price_'+id).text();
     var type = $('#type_'+id).val();
     var img = "";
-    alert($('#up_'+id).val());
+    
     if(type == 1){
         img = '/img/menu/veg_icon.jpg';
     }else if(type == 2){ img = '/img/menu/non_veg_icon.jpg'; }
-    $(".order-items").append(" <li id='oitm_"+id+"'><div class='details'><div class='veg-tag'><img src='"+ img +"' class='veg'></div><span class='dish-name'>"+ title +"</span><button type='button' onclick='remove_oitem("+id+");' class='btn btn-item-close btn-dis' ><i class='fa fa-times-circle' aria-hidden='true'></i> </button></div><div class='count'><div class='number'><div class='dec'><button onclick='decrease("+id+");' type='button' class='btn btn-item btn_dec'><i class='fa fa-minus' aria-hidden='true'></i> </button></div><span class='no-tem' id='no_item_"+id+"'>1</span><div class='inc'><button onclick='increase("+id+");' type='button' class='btn btn-item btn_inc'><i class='fa fa-plus' aria-hidden='true'></i></button></div></div><div  class='quantity'>x "+ price +"</div></div><div id='item_price_"+id+"' class='price item-price'>"+ price.trim() +"</div><input type='hidden' value='"+price.trim()+"' id='up_"+id+"'><div class='clear'></div></li>");
-    
+    $(".order-items").append(" <li class='oitm_"+id+"'><div class='details'><div class='veg-tag'><img src='"+ img +"' class='veg'></div><span class='dish-name'>"+ title +"</span><button type='button' onclick='remove_oitem("+id+");' class='btn btn-item-close btn-dis' ><i class='fa fa-times-circle' aria-hidden='true'></i> </button></div><div class='count'><div class='number'><div class='dec'><button onclick='decrease("+id+");' type='button' class='btn btn-item btn_dec'><i class='fa fa-minus' aria-hidden='true'></i> </button></div><span class='no-tem no_item_"+id+"'>1</span><div class='inc'><button onclick='increase("+id+");' type='button' class='btn btn-item btn_inc'><i class='fa fa-plus' aria-hidden='true'></i></button></div></div><div  class='quantity'>x "+ price +"</div></div><div class='item_price_"+id+" price item-price'>"+ price.trim() +"</div><input type='hidden' value='"+price.trim()+"' class='up_"+id+"'><div class='clear'></div></li>");
+   var gt = $('.grand_total').text();
+    gt = gt.substring(0,gt.length/2);
+    $('.grand_total').text(parseInt(gt) + parseInt(price));
+    $('.total_itm_span').text(++total_itm);
    
 });
 $(".btn_inc").click(function(e){
