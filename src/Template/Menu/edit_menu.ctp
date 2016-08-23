@@ -63,7 +63,7 @@
                            <?php }else {?>   
                           <input name="avl" type="checkbox" class="flat" > Available
                            <?php }?>  
-                          <div style="margin-top:10px">
+                          <div style="margin-top:10px; display: inline; margin-left: 10px;">
                            <?php if($menuInfo->act){ ?>
                           <input name="act" type="checkbox" class="flat" checked> Active
                             <?php }else {?>   

@@ -34,8 +34,24 @@ use Cake\Cache\Cache;
                 <div class="main-menu" id="menu-center">
                   <div class="x_panel category-item">
                     <div class="x_content">
+                   
                       <div class="x_title">
-                          
+                          <div class="select_user">
+                          <select class="select2_user form-control">
+                                 <option>User1</option>
+                                 <option>User2</option>
+                                 <option>User3</option>
+                                 <option>User4</option>
+                                 <option>User5</option>
+                                 <option>User6</option>
+                                 <option>User7</option>
+                                 <option>User8</option>
+                                 <option>User9</option>
+                                 <option>User10</option>
+                                 <option>User11</option>
+                                 <option>User12</option>
+                        </select>
+                          </div>
                         <input type="text" class="form-control search filterinput" placeholder="Search by dishes.." id="filter">
                           
                         <div class="clearfix">
@@ -1078,6 +1094,14 @@ $(document).ready(function(){
    });
     }
 });*/
+   
+    $(document).ready(function() {
+      $(".select2_user").select2({
+        placeholder: "Select a user",
+        allowClear: true
+      });
+      
+    });
   
 
 </script>

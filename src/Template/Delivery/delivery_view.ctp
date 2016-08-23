@@ -31,6 +31,8 @@ use Cake\Cache\Cache;
                     </li>
                     <li><a href="#free" data-toggle="tab">Close</a>
                     </li>
+                    <li><a href="#new" data-toggle="tab">New Add</a>
+                    </li>
                 </ul>
                 <div class="tab-content ">       
                     <div class="tab-pane active" id="all">
@@ -53,8 +55,68 @@ use Cake\Cache\Cache;
                     <div class="tab-pane" id="free">
                         <div class="x_panel">
                             <div class="x_content" id="close-delivery">
+                                 <form id="takeaway" data-parsley-validate class="form-horizontal form-label-left" method="post" action="">
 
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="takeawayname" name="takeawayname" required="required" class="form-control col-md-7 col-xs-12" value="" placeholder="Name">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <textarea id="address" name="address" required="required" class="form-control col-md-7 col-xs-12" value="" placeholder="Address"></textarea>
+                      </div>
+                    </div>
+                  <div class="form-group">
+                      <label for="ingredients" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="phone" class="form-control col-md-7 col-xs-12" type="text" name="phone" value="" placeholder="Phone no">
+                      </div>
+                    </div>
+                      
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                         <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select name="category" class="select2_source form-control">
+                                    <option disabled selected>Source</option>
+                                    <option>option 1 </option>
+                                    <option>option 2 </option>
+                                    <option>option 3 </option>
+                                    <option>option 4 </option>
+                                    <option>option 5 </option>
+                                    <option>option 6 </option>
+                        </select>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">Discount
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="discount" name="discount" required="required" class="form-control col-md-7 col-xs-12" value="8%" disabled>
+                      </div>
+                    </div>
+                   <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="delivercharge" name="delivercharge" required="required" class="form-control col-md-7 col-xs-12" value="" placeholder="Delivery Charge">
+                      </div>
+                    </div>
+                   
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                        <button name="save" value="true" type="submit" class="btn btn-success">Submit</button>
+                           <button type="button" value="cancel" class="btn btn-primary" onclick="window.history.back();">Cancel</button>
+                      </div>
+                    </div>
 
+                  </form>           
+                                    
                             </div>
                         </div>
                     </div>
@@ -217,7 +279,12 @@ use Cake\Cache\Cache;
             $('#active-delivery').html(printhtml);
             $('#close-delivery').html(printhtml);
         }});
-
+$(document).ready(function() {
+      $(".select2_source").select2({
+        placeholder: "Select a Source",
+        allowClear: true
+      });
+});
 </script>
 
 <?php $this->end('script'); ?>
