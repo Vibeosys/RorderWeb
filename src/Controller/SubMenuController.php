@@ -44,4 +44,12 @@ class SubMenuController extends ApiController{
         return $this->getTableObj()->getOrderSubMenu($subMenuList);
     }
     
+    public function getMenu() {
+        $this->autoRender = false;
+        $data = $this->request->data;
+        \Cake\Log\Log::debug($data);
+        $result = $this->getTableObj()->getSub($data['menuId'], $this->readCookie('cri'));
+        $this->response->body(json_encode($result));
+    }
+    
 }

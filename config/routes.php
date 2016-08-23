@@ -130,6 +130,8 @@ Router::scope('/', function ($routes) {
     //error url
     $routes->connect('notfound', ['controller' => 'Error', 'action' => 'notFound']);
     $routes->connect('chartnotfound', ['controller' => 'Error', 'action' => 'chartNotFound']);
+    //place order
+    $routes->connect('getsubmenu', ['controller' => 'SubMenu', 'action' => 'getMenu']);
     $routes->fallbacks('DashedRoute');
 });
 

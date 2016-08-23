@@ -680,3 +680,8 @@ a.main-list:focus .fa-chevron-right{
 .site_title img{
     padding-top: 9px;
 }
+.menu_loader{
+        margin-left: 20px;
+    width: 25px;
+    display: none;
+}

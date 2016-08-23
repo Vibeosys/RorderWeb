@@ -58,6 +58,41 @@ class SubMenuTable extends Table{
         }
     }
     
+    public function getSub($menuId, $restaurantId) {
+        $joins = [
+            'a' => [
+                'table' => 'menu',
+                'type' => 'INNER', 
+                'conditions' => 'a.MenuId = sub_menu.MenuId and a.RestaurantId ='.$restaurantId.' and sub_menu.MenuId = '.$menuId
+            ]
+        ];
+        
+        $fields = [
+            'SubMenuId' => 'sub_menu.SubMenuId',
+            'MenuId'    => 'sub_menu.MenuId',
+            'SubMenuTitle'    => 'sub_menu.SubMenuTitle',
+            'Price'    => 'sub_menu.Price',
+        ];
+        
+        $allSubMenu = $this->connect()->find('all',array('field' => $fields))->join($joins);
+        $count = $allSubMenu->count();
+        Log::debug('Number of sub menu are :- '.$count);
+        $SubMenu = null;
+        if($count){
+            $subMenuCounter = 0;
+            foreach ($allSubMenu as $menu){
+                $SubMenu[$subMenuCounter++] = new DownloadDTO\SubMenuDownloadDto(
+                    $menu->SubMenuId, 
+                    $menu->MenuId, 
+                    $menu->SubMenuTitle, 
+                    $menu->Price);
+            }
+            return $SubMenu;
+        }else{
+            return false;
+        }
+    }
+    
     public function getOrderSubMenu($subMenu) {
          $joins = [
             'a' => [

@@ -85,7 +85,7 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
                        <?php if(isset($menus)){ $i = 0; foreach ($menus as $menu){ if($cate->categoryId == $menu->categoryId){ ?> 
                                   
                                 <li> 
-                                  <div class="details">
+                                    <div class="details <?php if($menu->fbTypeId == 3){ echo 'submenu_items';} ?>">
                                     <div class="veg-tag">
                                     <?php if($menu->fbTypeId == 1){ ?>    
                                       <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
@@ -98,88 +98,33 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
                                     </div>
                                       <span id="title_<?= $menu->menuId ?>" class="dish-name">
                                      <?= $menu->menuTitle ?>
-                                    </span>
-                                      <div id="price_<?= $menu->menuId ?>" class="price item-price ">
+                                    </span><?php if($menu->fbTypeId == 3){ 
+                                       echo $this->Html->image('loading1.gif',['class'=>'menu_loader', 'id' => 'm_load_'.$menu->menuId]);
+                                        
+                                    } ?>
+                                       <?php if($menu->fbTypeId == 3){ ?>  
+                                        <div onclick="explore(<?= $menu->menuId ?>);" id="price_<?= $menu->menuId ?>" class="item-price ">
+                                     
+                                             <span class="submenu_text"> Click for submenu</span>
+                                      </div>
+                                      <?php } else {?>  
+                                        <div id="price_<?= $menu->menuId ?>" class="price item-price ">
                                     <?= $menu->price ?>
                                       <button myid="<?= $menu->menuId ?>" type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
                                       </button>
-                                    </div>
+                                     
+                                    </div> <?php } ?>
                                   </div>
+                                  <?php if($menu->fbTypeId == 3){ ?>
+                                    <div class="sub_content_<?= $menu->menuId ?>">
+                                        <ul></ul>
+                                    </div>   
+                                  <?php } ?>
                                 </li>
                        <?php $i++;} } if(!$i)echo 'Unavailable';} ?> 
-                                  
-                                  <li>
-                                      
-                                  <div class="details submenu_items">
-                                    <div class="veg-tag">
-                                <img src="/img/beverages.png" class="veg" alt="...">                                                                           
-                                    </div>
-                                      <span id="title_351" class="dish-name">
-                                     Four Seasons Chenin Blanc                                    </span>
-                                      <img src="../img/loding1.gif">
-                                      <div class="item-price ">
-                                       <span class="submenu_text"> Click for submenu</span>
-                                    <!--  <i class="fa fa-caret-down" aria-hidden="true"></i>-->
-                                     
-                                    </div>
-                                  </div>
-                                      <div class="sub_content">
-                                        <ul>
-                                            
-                                        <li> 
-                                            <div class="details">
-                                                <div class="veg-tag">
-
-                                                    <img src="/img/menu/veg_icon.jpg" class="veg" alt="...">                                                                            <input type="hidden" id="type_8" value="1">    
-                                                </div>
-                                                <span id="title_8" class="dish-name">
-                                                    Mushroom cappuccino                                    </span>
-                                                <div id="price_8" class="price item-price ">
-                                                    140                                      <button myid="8" type="button" class="btn btn-item     btn-price">
-                                                    <i class="fa fa-plus" aria-hidden="true">
-                                                    </i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </li>
-                                            <li> 
-                                              <div class="details">
-                                                <div class="veg-tag">
-
-                                                  <img src="/img/menu/veg_icon.jpg" class="veg" alt="...">                                                                            <input type="hidden" id="type_8" value="1">    
-                                                </div>
-                                                  <span id="title_8" class="dish-name">
-                                                 Mushroom cappuccino                                    </span>
-                                                  <div id="price_8" class="price item-price ">
-                                                140                                      <button myid="8" type="button" class="btn btn-item btn-price">
-                                                    <i class="fa fa-plus" aria-hidden="true">
-                                                    </i>
-                                                  </button>
-                                                </div>
-                                              </div>
-                                            </li>
-                                           <li> 
-                                              <div class="details">
-                                                <div class="veg-tag">
-
-                                                  <img src="/img/menu/veg_icon.jpg" class="veg" alt="...">                                                                            <input type="hidden" id="type_8" value="1">    
-                                                </div>
-                                                  <span id="title_8" class="dish-name">
-                                                 Mushroom cappuccino                                    </span>
-                                                  <div id="price_8" class="price item-price ">
-                                                140                                      <button myid="8" type="button" class="btn btn-item btn-price">
-                                                    <i class="fa fa-plus" aria-hidden="true">
-                                                    </i>
-                                                  </button>
-                                                </div>
-                                              </div>
-                                            </li>
-                                           
-                                        </ul>
-                                    </div>    
-                                </li>
+                                 
                               </ul>
                             </div>
                           </section>
@@ -312,6 +257,20 @@ var total_itm = 0;
   }
   function remove_oitem(id){
     $('.oitm_'+id).remove();  
+  }
+  function explore(id){
+      $('.m_load_'+id).css('display','block');
+      $.post('/getsubmenu',{menuId:id},function(result){
+        var submenu = '';  
+        $.each(result,function(key,menu){
+              submenu += '<li><div class="details"><div class="veg-tag">'+
+                        '<img src="/img/menu/veg_icon.jpg" class="veg" alt="..."><input type="hidden" id="type" value="1"></div>'+                        '<span id="title_8" class="dish-name">Mushroom cappuccino</span>'.
+                        '<div id="price_8" class="price item-price ">140<button myid="8" type="button" class="btn btn-item btn-price">'+
+                        '<i class="fa fa-plus" aria-hidden="true"></i></button></div></div></li>';
+          });
+          var class = '.sub_content_'+id+' ul';
+       $(class).html(submenu);  
+      });
   }
  $(document).ready(function(){
     $("#filter").keyup(function(){

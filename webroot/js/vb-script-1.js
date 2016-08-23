@@ -107,7 +107,7 @@ function perform(table,takwaway,delivery,discount,deliveryCharge){
          var table = table;
     if(current_option === 'placeorder'){
           if(table){
-                  window.location.replace('../../tableview/placeorder/place-an-order');
+                  window.location.replace('placeorder/place-an-order');
           }else if(takeaway){
                  window.location.replace('../../takeaway/placeorder/place-an-order');
           }else{
