@@ -51,10 +51,16 @@ use Cake\Cache\Cache;
                             </div>
                         </div>
                     </div>
-
-                    <div class="tab-pane" id="free">
+                      <div class="tab-pane" id="free">
                         <div class="x_panel">
                             <div class="x_content" id="close-delivery">
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="new">
+                        <div class="x_panel">
+                            <div class="x_content" id="new-delivery">
                                  <form id="takeaway" data-parsley-validate class="form-horizontal form-label-left" method="post" action="">
 
                     <div class="form-group">
@@ -93,7 +99,7 @@ use Cake\Cache\Cache;
                         </div>
                     </div>
                         <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">Discount
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="discount" name="discount" required="required" class="form-control col-md-7 col-xs-12" value="8%" disabled>
@@ -267,14 +273,14 @@ use Cake\Cache\Cache;
                 $('#active-delivery').html(active);
                 $('#close-delivery').html(close);
             } else {
-                var printhtml = $('#takeaway-view-error').html();
+                var printhtml = $('#delivery-view-error').html();
                 $('#all-delivery').html(printhtml);
                 $('#active-delivery').html(printhtml);
                 $('#close-delivery').html(printhtml);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            var printhtml = $('#takeaway-view-error').html();
+            var printhtml = $('#delivery-view-error').html();
             $('#all-delivery').html(printhtml);
             $('#active-delivery').html(printhtml);
             $('#close-delivery').html(printhtml);

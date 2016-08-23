@@ -11,7 +11,13 @@ use Cake\Cache\Cache;
     $this->layout = 'rorder_layout';
     $this->assign('title', 'Place an Order');
 ?>
-
+<?php $this->start('breadcrum');?>
+<li class="red"><a class="red" href="../../<?= $option ?>/placeorder"><?php if($option=="tableview"){echo 'Table List';}
+elseif($option=="takeawayview"){echo 'Takeaway List';}
+elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
+<li class="active">Place Order</li>
+                   
+<?php $this->end('breadcrum'); ?>
 
           <div class="">
             <div class="clearfix">
@@ -38,18 +44,9 @@ use Cake\Cache\Cache;
                       <div class="x_title">
                           <div class="select_user">
                           <select class="select2_user form-control">
-                                 <option>User1</option>
-                                 <option>User2</option>
-                                 <option>User3</option>
-                                 <option>User4</option>
-                                 <option>User5</option>
-                                 <option>User6</option>
-                                 <option>User7</option>
-                                 <option>User8</option>
-                                 <option>User9</option>
-                                 <option>User10</option>
-                                 <option>User11</option>
-                                 <option>User12</option>
+                          <?php if(isset($users)){ foreach ($users as $user){ ?>   
+                                 <option><?= $user->userName ?></option>
+                          <?php }}?>       
                         </select>
                           </div>
                         <input type="text" class="form-control search filterinput" placeholder="Search by dishes.." id="filter">
@@ -58,388 +55,65 @@ use Cake\Cache\Cache;
                         </div>
                       </div>
                       <ul class="nav menu-list">
+                      <?php if(isset($categories)){ $i = 0; foreach ($categories as $cate){ ?>    
                         <li >
-                          <a class="active-menu" href="#all" class="page-scroll all-cate">All
+                            <a <?php if(!$i){ echo 'class="active-menu"'; } ?>  href="#<?= $cate->categoryTitle ?>" class="page-scroll all-cate"><?= $cate->categoryTitle ?>
                           </a>
                         </li>
-                        <li>
-                          <a href="#soups" class="page-scroll soups-cat" >Soups
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#starter" class="page-scroll">Starters
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#chinese" class="page-scroll">Chinese
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#panjabi" class="page-scroll">Panjabi
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#dal" class="page-scroll">Dal
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#rice">Rice
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#thalis">Thalis
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#desserts">Desserts
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#mocktails" >Mocktails
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#beverages">Beverages
-                          </a>
-                        </li>
+                      <?php $i++; }} ?>
+                       
                       </ul>
                     </div>  
                   </div>
                 </div>
                 <div class="x_panel category-item sub-cat scrollbar" id="style-1">
-                  <div class="x_content" id=" menu-item">
+                  <div class="x_content" id="menu-item">
                     <div class="sub-item-list">
                       <div class="x_panel">
                         <div class="x_content">
                           <!-- Stat All Category -->
                         <ul id="contents" class="inner-list">
+                        <?php if(isset($categories)){ $i = 0; foreach ($categories as $cate){ ?>         
                             <li>
-                          <section id="all">
+                          <section id="<?= $cate->categoryTitle ?>">
                             <div class="item-title">
-                              <span>All
+                              <span><?= $cate->categoryTitle ?>
                               </span>
                             </div>
                             <div class="item-view">
                               <ul>
+                       <?php if(isset($menus)){ $i = 0; foreach ($menus as $menu){ if($cate->categoryId == $menu->categoryId){ ?> 
+                                  
                                 <li> 
                                   <div class="details">
                                     <div class="veg-tag">
+                                    <?php if($menu->fbTypeId == 1){ ?>    
                                       <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
+                                    <?php }elseif($menu->fbTypeId == 2){ ?> 
+                                         <?= $this->Html->image('menu/non_veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
+                                    <?php }elseif($menu->fbTypeId == 3){ ?>
+                                         <?= $this->Html->image('beverages.png', ['class' => 'veg','alt' => '...'])?>
+                                    <?php } ?>
+                                        <input type="hidden" id="type_<?= $menu->menuId ?>" value="<?= $menu->fbTypeId ?>">    
                                     </div>
-                                    <span class="dish-name">
-                                      Veg Thali
+                                      <span id="title_<?= $menu->menuId ?>" class="dish-name">
+                                     <?= $menu->menuTitle ?>
                                     </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
+                                      <div id="price_<?= $menu->menuId ?>" class="price item-price ">
+                                    <?= $menu->price ?>
+                                      <button myid="<?= $menu->menuId ?>" type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
                                       </button>
                                     </div>
                                   </div>
                                 </li>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                    </div>
-                                    <span class="dish-name">
-                                      papad
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                    </div>
-                                    <span class="dish-name">
-                                      apple
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                    <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                    </div>
-                                    <span class="dish-name">
-                                     mango
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
+                       <?php $i++;} } if(!$i)echo 'Unavailable';} ?> 
                               </ul>
                             </div>
                           </section>
                             </li>
-                          <!-- End All Category-->
-                          <!-- Stat Soups Category -->
-                            <li>
-                          <section id="soups">
-                            <div class="item-title">
-                              <span>Soups
-                              </span>
-                            </div>
-                            <div class="item-view">
-                              <ul>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                       <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                    </div>
-                                    <span class="dish-name">
-                                      Veg Thali
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                    </div>
-                                    <span class="dish-name">
-                                      Rice
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                     <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                    </div>
-                                    <span class="dish-name">
-                                      Dal
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                     <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                    </div>
-                                    <span class="dish-name">
-                                      Veg 
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                          </section>
-                            </li>
-                          <!-- End Soups Category -->
-                          <!-- Stat starter Category -->
-                            <li>
-                          <section id="starter">
-                            <div class="item-title">
-                              <span>starter
-                              </span>
-                            </div>
-                            <div class="item-view">
-                              <ul>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                     <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                    </div>
-                                    <span class="dish-name">
-                                      Green Apple
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                    <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                     
-                                    </div>
-                                    <span class="dish-name">
-                                      Veg Thali
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                    </div>
-                                    <span class="dish-name">
-                                      Veg Thali
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                       <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                    </div>
-                                    <span class="dish-name">
-                                      Veg Thali
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                          </section>
-                            </li>
-                          <!-- End starter Category -->
-                          <!-- Stat chinese Category -->
-                            <li>
-                          <section id="chinese">
-                            <div class="item-title">
-                              <span>chinese
-                              </span>
-                            </div>
-                            <div class="item-view">
-                              <ul>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                    </div>
-                                    <span class="dish-name">
-                                      Veg Thali
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                    </div>
-                                    <span class="dish-name">
-                                      Veg Thali
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                      <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                    </div>
-                                    <span class="dish-name">
-                                      Veg Thali
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li> 
-                                  <div class="details">
-                                    <div class="veg-tag">
-                                     <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                                    </div>
-                                    <span class="dish-name">
-                                      Spicy
-                                    </span>
-                                    <div class="price item-price ">
-                                      155.00
-                                      <button type="button" class="btn btn-item btn-price">
-                                        <i class="fa fa-plus" aria-hidden="true">
-                                        </i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                          </section>
-                            </li>
+                         <?php $i++; }} ?>
                             </ul>
                           <!-- End chinese Category -->
                         </div>
@@ -462,272 +136,7 @@ use Cake\Cache\Cache;
                     <div class="x_content">
                       <div class="order-inner">
                         <ul class="order-items scrollbar" id="style-1">
-                          <li>
-                            <div class="details">
-                              <div class="veg-tag">
-                               <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                              </div>
-                              <span class="dish-name">
-                                Veg Thali
-                              </span>
-                                 <button type="button" class="btn btn-item-close btn-dis" >
-                                    <i class="fa fa-times-circle" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                            </div>
-                            <div class="count">
-                              <div class="number">
-                                <div class="dec">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-minus" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                                </div>
-                                <input type="text" value="1" class="no-tem"  disabled>
-                                <div class="inc">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-plus" aria-hidden="true">
-                                    </i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="quantity">x 155.00
-                              </div>
-                            </div>
-                            <div class="price item-price ">
-                              155.00
-                            </div>
-                            <div class="clear">
-                            </div>
-                          </li>
-                          <li>
-                            <div class="details">
-                              <div class="veg-tag">
-                               <?= $this->Html->image('menu/non_veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                              </div>
-                              <span class="dish-name">
-                                Butter Chicken
-                              </span>
-                                 <button type="button" class="btn btn-item-close btn-dis" >
-                                    <i class="fa fa-times-circle" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                            </div>
-                            <div class="count">
-                              <div class="number">
-                                <div class="dec">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-minus" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                                </div>
-                                <input type="text" value="1" class="no-tem"  disabled>
-                                <div class="inc">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-plus" aria-hidden="true">
-                                    </i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="quantity">x 155.00
-                              </div>
-                            </div>
-                            <div class="price item-price ">
-                              155.00
-                            </div>
-                            <div class="clear">
-                            </div>
-                          </li>
-                          <li>
-                            <div class="details">
-                              <div class="veg-tag">
-                                <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                              </div>
-                              <span class="dish-name">
-                                Veg Thali
-                              </span>
-                                 <button type="button" class="btn btn-item-close btn-dis" >
-                                    <i class="fa fa-times-circle" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                            </div>
-                            <div class="count">
-                              <div class="number">
-                                <div class="dec">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-minus" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                                </div>
-                                <input type="text" value="1" class="no-tem"  disabled>
-                                <div class="inc">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-plus" aria-hidden="true">
-                                    </i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="quantity">x 155.00
-                              </div>
-                            </div>
-                            <div class="price item-price ">
-                              155.00
-                            </div>
-                            <div class="clear">
-                            </div>
-                          </li>
-                          <li>
-                            <div class="details">
-                              <div class="veg-tag">
-                                <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                              </div>
-                              <span class="dish-name">
-                                Veg Thali
-                              </span>
-                                 <button type="button" class="btn btn-item-close btn-dis" >
-                                    <i class="fa fa-times-circle" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                            </div>
-                            <div class="count">
-                              <div class="number">
-                                <div class="dec">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-minus" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                                </div>
-                                <input type="text" value="1" class="no-tem"  disabled>
-                                <div class="inc">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-plus" aria-hidden="true">
-                                    </i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="quantity">x 155.00
-                              </div>
-                            </div>
-                            <div class="price item-price ">
-                              155.00
-                            </div>
-                            <div class="clear">
-                            </div>
-                          </li>
-                          <li>
-                            <div class="details">
-                              <div class="veg-tag">
-                                <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                              </div>
-                              <span class="dish-name">
-                                Veg Thali
-                              </span>
-                                 <button type="button" class="btn btn-item-close btn-dis" >
-                                    <i class="fa fa-times-circle" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                            </div>
-                            <div class="count">
-                              <div class="number">
-                                <div class="dec">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-minus" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                                </div>
-                                <input type="text" value="1" class="no-tem"  disabled>
-                                <div class="inc">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-plus" aria-hidden="true">
-                                    </i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="quantity">x 155.00
-                              </div>
-                            </div>
-                            <div class="price item-price ">
-                              155.00
-                            </div>
-                            <div class="clear">
-                            </div>
-                          </li>
-                          <li>
-                            <div class="details">
-                              <div class="veg-tag">
-                                 <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                              </div>
-                              <span class="dish-name">
-                                Veg Thali
-                              </span>
-                                 <button type="button" class="btn btn-item-close btn-dis" >
-                                    <i class="fa fa-times-circle" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                            </div>
-                            <div class="count">
-                              <div class="number">
-                                <div class="dec">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-minus" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                                </div>
-                                <input type="text" value="1" class="no-tem"  disabled>
-                                <div class="inc">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-plus" aria-hidden="true">
-                                    </i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="quantity">x 155.00
-                              </div>
-                            </div>
-                            <div class="price item-price ">
-                              155.00
-                            </div>
-                            <div class="clear">
-                            </div>
-                          </li>
-                          <li>
-                            <div class="details">
-                              <div class="veg-tag">
-                               <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
-                              </div>
-                              <span class="dish-name">
-                                Veg Thali
-                              </span>
-                                 <button type="button" class="btn btn-item-close btn-dis" >
-                                    <i class="fa fa-times-circle" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                            </div>
-                            <div class="count">
-                              <div class="number">
-                                <div class="dec">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-minus" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                                </div>
-                                <input type="text" value="1" class="no-tem"  disabled>
-                                <div class="inc">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-plus" aria-hidden="true">
-                                    </i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="quantity">x 155.00
-                              </div>
-                            </div>
-                            <div class="price item-price ">
-                              155.00
-                            </div>
-                            <div class="clear">
-                            </div>
-                          </li>
+                         
                         </ul>
                         <ul class="totals clear">
                           <li class="subtotal2 clear">
@@ -784,244 +193,7 @@ use Cake\Cache\Cache;
                     <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                        <div class="order-inner">
                         <ul class="order-items modal-height scrollbar" id="style-1">
-                          <li>
-                            <div class="details">
-                              <div class="veg-tag">
-                                <img src="images/menu/veg_icon.jpg" class="veg">
-                              </div>
-                              <span class="dish-name">
-                                Veg Thali
-                              </span>
-                            <button type="button" class="btn btn-item-close">
-                                    <i class="fa fa-times-circle" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                            </div>
-                            <div class="count">
-                              <div class="number">
-                                <div class="dec">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-minus" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                                </div>
-                                <input type="text" value="1" class="no-tem"  disabled>
-                                <div class="inc">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-plus" aria-hidden="true">
-                                    </i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="quantity">x 155.00
-                              </div>
-                            </div>
-                            <div class="price item-price ">
-                              155.00
-                            </div>
-                            <div class="clear">
-                            </div>
-                          </li>
-                          <li>
-                            <div class="details">
-                              <div class="veg-tag">
-                                <img src="images/menu/non_veg_icon.jpg" class="veg">
-                              </div>
-                              <span class="dish-name">
-                                Butter Chicken
-                              </span>
-                                    <button type="button" class="btn btn-item-close">
-                                    <i class="fa fa-times-circle" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                            </div>
-                            <div class="count">
-                              <div class="number">
-                                <div class="dec">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-minus" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                                </div>
-                                <input type="text" value="1" class="no-tem"  disabled>
-                                <div class="inc">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-plus" aria-hidden="true">
-                                    </i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="quantity">x 155.00
-                              </div>
-                            </div>
-                            <div class="price item-price ">
-                              155.00
-                            </div>
-                            <div class="clear">
-                            </div>
-                          </li>
-                          <li>
-                            <div class="details">
-                              <div class="veg-tag">
-                                <img src="images/menu/veg_icon.jpg" class="veg">
-                              </div>
-                              <span class="dish-name">
-                                Veg Thali
-                              </span>
-                                    <button type="button" class="btn btn-item-close">
-                                    <i class="fa fa-times-circle" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                            </div>
-                            <div class="count">
-                              <div class="number">
-                                <div class="dec">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-minus" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                                </div>
-                                <input type="text" value="1" class="no-tem"  disabled>
-                                <div class="inc">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-plus" aria-hidden="true">
-                                    </i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="quantity">x 155.00
-                              </div>
-                            </div>
-                            <div class="price item-price ">
-                              155.00
-                            </div>
-                            <div class="clear">
-                            </div>
-                          </li>
-                              <li>
-                            <div class="details">
-                              <div class="veg-tag">
-                                <img src="images/menu/non_veg_icon.jpg" class="veg">
-                              </div>
-                              <span class="dish-name">
-                                Butter Chicken
-                              </span>
-                                    <button type="button" class="btn btn-item-close">
-                                    <i class="fa fa-times-circle" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                            </div>
-                            <div class="count">
-                              <div class="number">
-                                <div class="dec">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-minus" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                                </div>
-                                <input type="text" value="1" class="no-tem"  disabled>
-                                <div class="inc">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-plus" aria-hidden="true">
-                                    </i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="quantity">x 155.00
-                              </div>
-                            </div>
-                            <div class="price item-price ">
-                              155.00
-                            </div>
-                            <div class="clear">
-                            </div>
-                          </li>
-                            <li>
-                            <div class="details">
-                              <div class="veg-tag">
-                                <img src="images/menu/veg_icon.jpg" class="veg">
-                              </div>
-                              <span class="dish-name">
-                                Veg Thali
-                              </span>
-                                    <button type="button" class="btn btn-item-close">
-                                    <i class="fa fa-times-circle" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                            </div>
-                            <div class="count">
-                              <div class="number">
-                                <div class="dec">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-minus" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                                </div>
-                                <input type="text" value="1" class="no-tem"  disabled>
-                                <div class="inc">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-plus" aria-hidden="true">
-                                    </i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="quantity">x 155.00
-                              </div>
-                            </div>
-                            <div class="price item-price ">
-                              155.00
-                            </div>
-                            <div class="clear">
-                            </div>
-                          </li>
-                              <li>
-                            <div class="details">
-                              <div class="veg-tag">
-                                <img src="images/menu/non_veg_icon.jpg" class="veg">
-                              </div>
-                              <span class="dish-name">
-                                Butter Chicken
-                              </span>
-                                    <button type="button" class="btn btn-item-close">
-                                    <i class="fa fa-times-circle" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                            </div>
-                            <div class="count">
-                              <div class="number">
-                                <div class="dec">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-minus" aria-hidden="true">
-                                    </i> 
-                                  </button>
-                                </div>
-                                <input type="text" value="1" class="no-tem"  disabled>
-                                <div class="inc">
-                                  <button type="button" class="btn btn-item">
-                                    <i class="fa fa-plus" aria-hidden="true">
-                                    </i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="quantity">x 155.00
-                              </div>
-                            </div>
-                            <div class="price item-price ">
-                              155.00
-                            </div>
-                            <div class="clear">
-                            </div>
-                          </li>
-                        </ul>
-                        <ul class="totals clear">
-                          <li class="subtotal2 clear">
-                            <div class="total">
-                              <span class="name">Subtotal
-                              </span>
-                              <span class="total-price">675.00
-                              </span>
-                            </div>
-                          </li>
+                          
                         </ul>
                       </div> 
                         <button type="button" class="checkout">Place Order
@@ -1036,7 +208,26 @@ use Cake\Cache\Cache;
         </div> 
 <?= $this->start('script') ?>
  <script>
-  
+  function increase(id){
+       var no = $("#no_item_"+id).text();
+    no++;
+    var up = $('#up_'+id).val();
+    $("#no_item_"+id).text(no);
+    $("#item_price_"+id).text(up*no);
+  }
+  function decrease(id){
+       var no = $("#no_item_"+id).text();
+    no--;
+    if(no == 0){
+        remove_oitem(id);
+    }
+    var up = $('#up_'+id).val();
+    $("#no_item_"+id).text(no);
+    $("#item_price_"+id).text(up*no);
+  }
+  function remove_oitem(id){
+    $('#oitm_'+id).remove();  
+  }
 $(document).ready(function(){
     $("#filter").keyup(function(){
  
@@ -1060,10 +251,32 @@ $(document).ready(function(){
 });
 
 $(".btn-price").click(function(){
-    $(".order-items").append(" <li><div class='details'><div class='veg-tag'><img src='images/menu/veg_icon.jpg' class='veg'></div><span class='dish-name'>Veg Thali</span><button type='button' class='btn btn-item-close btn-dis' ><i class='fa fa-times-circle' aria-hidden='true'></i> </button></div><div class='count'><div class='number'><div class='dec'><button type='button' class='btn btn-item'><i class='fa fa-minus' aria-hidden='true'></i> </button></div><input type='text' value='1' class='no-tem'  disabled><div class='inc'><button type='button' class='btn btn-item'><i class='fa fa-plus' aria-hidden='true'></i></button></div></div><div class='quantity'>x 155.00</div></div><div class='price item-price'>155.00</div><div class='clear'></div></li>");
+    var id = $(this).attr('myid');
+    var title = $('#title_'+id).text();
+    var price = $('#price_'+id).text();
+    var type = $('#type_'+id).val();
+    var img = "";
+    alert($('#up_'+id).val());
+    if(type == 1){
+        img = '/img/menu/veg_icon.jpg';
+    }else if(type == 2){ img = '/img/menu/non_veg_icon.jpg'; }
+    $(".order-items").append(" <li id='oitm_"+id+"'><div class='details'><div class='veg-tag'><img src='"+ img +"' class='veg'></div><span class='dish-name'>"+ title +"</span><button type='button' onclick='remove_oitem("+id+");' class='btn btn-item-close btn-dis' ><i class='fa fa-times-circle' aria-hidden='true'></i> </button></div><div class='count'><div class='number'><div class='dec'><button onclick='decrease("+id+");' type='button' class='btn btn-item btn_dec'><i class='fa fa-minus' aria-hidden='true'></i> </button></div><span class='no-tem' id='no_item_"+id+"'>1</span><div class='inc'><button onclick='increase("+id+");' type='button' class='btn btn-item btn_inc'><i class='fa fa-plus' aria-hidden='true'></i></button></div></div><div  class='quantity'>x "+ price +"</div></div><div id='item_price_"+id+"' class='price item-price'>"+ price.trim() +"</div><input type='hidden' value='"+price.trim()+"' id='up_"+id+"'><div class='clear'></div></li>");
     
    
 });
+$(".btn_inc").click(function(e){
+    var id = $(this).attr('itmid');
+    var no = $("#no_item_"+id).text();
+    no++;
+    var up = $('#up_'+id).val();
+    $("#no_item_"+id).text(no);
+    $("#item_price_"+id).text(up*no);
+   
+});
+$(".btn_dec").on('click',function(e){
+    alert('decrease');
+});
+
  $(".order-items").load;
 $(".btn-item-close").click(function() {
   $(this).parent().parent().remove();

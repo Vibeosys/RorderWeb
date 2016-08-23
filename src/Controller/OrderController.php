@@ -133,7 +133,20 @@ class OrderController extends ApiController {
     }
     
     public function placeOrder() {
-        
+         if(!$this->isLogin()){
+            $this->redirect('login');
+        }
+        $data = explode('/', $this->request->url);
+        Log::debug($data);
+        $userController = new UserController();
+        $restaurantId = $this->readCookie('cri');
+        $users = $userController->getUsers($restaurantId);
+        $menuCategoryController = new MenuCategoryController();
+        $categories = $menuCategoryController->getMenuCategories();
+        $menuController = new MenuController();
+        $menus = $menuController->getMenus($restaurantId);
+        $set = ['users' => $users,'menus' => $menus,'categories' => $categories,'option' => $data[0]];
+        $this->set($set);
     }
 
 }

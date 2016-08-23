@@ -7,7 +7,6 @@ use Cake\Cache\Cache;
     use Cake\Network\Exception\NotFoundException;
     use App\Controller;
 
-    $this->layout = false;
     $this->layout = 'rorder_layout';
     $this->assign('title', 'Table View');
     $this->assign('heading', 'Dine In Table List');
