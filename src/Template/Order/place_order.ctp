@@ -109,6 +109,77 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
                                   </div>
                                 </li>
                        <?php $i++;} } if(!$i)echo 'Unavailable';} ?> 
+                                  
+                                  <li>
+                                      
+                                  <div class="details submenu_items">
+                                    <div class="veg-tag">
+                                <img src="/img/beverages.png" class="veg" alt="...">                                                                           
+                                    </div>
+                                      <span id="title_351" class="dish-name">
+                                     Four Seasons Chenin Blanc                                    </span>
+                                      <img src="../img/loding1.gif">
+                                      <div class="item-price ">
+                                       <span class="submenu_text"> Click for submenu</span>
+                                    <!--  <i class="fa fa-caret-down" aria-hidden="true"></i>-->
+                                     
+                                    </div>
+                                  </div>
+                                      <div class="sub_content">
+                                        <ul>
+                                            
+                                        <li> 
+                                            <div class="details">
+                                                <div class="veg-tag">
+
+                                                    <img src="/img/menu/veg_icon.jpg" class="veg" alt="...">                                                                            <input type="hidden" id="type_8" value="1">    
+                                                </div>
+                                                <span id="title_8" class="dish-name">
+                                                    Mushroom cappuccino                                    </span>
+                                                <div id="price_8" class="price item-price ">
+                                                    140                                      <button myid="8" type="button" class="btn btn-item     btn-price">
+                                                    <i class="fa fa-plus" aria-hidden="true">
+                                                    </i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                            <li> 
+                                              <div class="details">
+                                                <div class="veg-tag">
+
+                                                  <img src="/img/menu/veg_icon.jpg" class="veg" alt="...">                                                                            <input type="hidden" id="type_8" value="1">    
+                                                </div>
+                                                  <span id="title_8" class="dish-name">
+                                                 Mushroom cappuccino                                    </span>
+                                                  <div id="price_8" class="price item-price ">
+                                                140                                      <button myid="8" type="button" class="btn btn-item btn-price">
+                                                    <i class="fa fa-plus" aria-hidden="true">
+                                                    </i>
+                                                  </button>
+                                                </div>
+                                              </div>
+                                            </li>
+                                           <li> 
+                                              <div class="details">
+                                                <div class="veg-tag">
+
+                                                  <img src="/img/menu/veg_icon.jpg" class="veg" alt="...">                                                                            <input type="hidden" id="type_8" value="1">    
+                                                </div>
+                                                  <span id="title_8" class="dish-name">
+                                                 Mushroom cappuccino                                    </span>
+                                                  <div id="price_8" class="price item-price ">
+                                                140                                      <button myid="8" type="button" class="btn btn-item btn-price">
+                                                    <i class="fa fa-plus" aria-hidden="true">
+                                                    </i>
+                                                  </button>
+                                                </div>
+                                              </div>
+                                            </li>
+                                           
+                                        </ul>
+                                    </div>    
+                                </li>
                               </ul>
                             </div>
                           </section>
@@ -333,7 +404,20 @@ $(document).ready(function(){
       });
       
     });
-  
+     
+  $(".submenu_items").click(function () {
+
+    $header = $(this);
+    
+    $content = $header.next();
+    //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+    $content.slideToggle(500, function () {
+        //execute this after slideToggle is done
+        //change text of header based on visibility of content div
+       
+    });
+
+});
 
 </script>
 <?= $this->end('script') ?>

@@ -428,7 +428,7 @@ a.main-list:focus .fa-chevron-right{
     overflow-y: auto;*/
         height: 100%;
     overflow-y: auto;
-    max-height: 490px;
+    max-height: 370px;
 }
 .details{
     padding-bottom: 7px;
@@ -476,12 +476,21 @@ a.main-list:focus .fa-chevron-right{
     content: '\f156';
     
 }
+.submenu_items{
+    cursor: pointer;
+}
+.sub_content{
+    display: none;
+}
 .total-price:before{
     font-family: 'FontAwesome';
     content: '\f156';
     position: relative;
     left:-5px;
     
+}
+.submenu_text{
+    font-size: 12px;
 }
 .filterinput{
     height: 35px;
