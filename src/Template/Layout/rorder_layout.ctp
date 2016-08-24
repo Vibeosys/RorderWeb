@@ -311,7 +311,13 @@ $sec = $this->fetch('sec');
                        <?php }?>
                     </div>
                 </div>
-                <!-- old js  -->
+       <?php if($this->fetch('placeorder_popup')){
+                         echo $this->fetch('placeorder_popup');
+                      }else{
+                         
+                      }
+           ?>          
+                <!-- old js   -->
                 <!-- scripts-->
          <?= $this->Html->script('design/jquery.min.js') ?> 
         <?= $this->Html->script('design/bootstrap.min.js') ?> 
@@ -361,7 +367,7 @@ $sec = $this->fetch('sec');
             });
 
         </script>
-
+<!--
          <script>
           
               function setCookie(cname, cvalue, exdays) {
@@ -418,6 +424,6 @@ $sec = $this->fetch('sec');
          setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
          })();
          </script>
-       
+       -->
     </body>
 </html>

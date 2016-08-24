@@ -145,7 +145,21 @@ class OrderController extends ApiController {
         $categories = $menuCategoryController->getMenuCategories();
         $menuController = new MenuController();
         $menus = $menuController->getMenus($restaurantId);
-        $set = ['users' => $users,'menus' => $menus,'categories' => $categories,'option' => $data[0]];
+        $tableId = $this->readCookie('cti');
+        $takeawayNo = $this->readCookie('ctn');
+        $deliveryNo = $this->readCookie('cdn');
+        $rtableController = new RTablesController();
+        $set = ['users' => $users,
+            'menus' => $menus,
+            'categories' => $categories,
+            'option' => $data[0],
+            'tableId' => $tableId,
+            'takeawayNo' => $takeawayNo,
+            'deliveryNo' => $deliveryNo];
+          if($tableId){
+            $set['isOccupied'] = $rtableController->isOccupied ($tableId);
+            $set['tableNo'] = $rtableController->getBillTableNo($tableId);
+          }
         $this->set($set);
     }
 

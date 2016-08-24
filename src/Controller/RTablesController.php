@@ -237,4 +237,8 @@ class RTablesController extends ApiController {
         $this->response->body($response);
     }
     
+    public function isOccupied($tableId) {
+        return $this->getTableObj()->tableOccupancyCheck($tableId, 1);
+    }
+    
 }

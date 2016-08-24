@@ -106,6 +106,9 @@ function perform(table,takwaway,delivery,discount,deliveryCharge){
          var takeaway = takwaway;
          var table = table;
     if(current_option === 'placeorder'){
+        $.post('/setcookie',{name:'cti',value:table},function(result){
+        $.post('/setcookie',{name:'ctn',value:takeaway},function(result){
+        $.post('/setcookie',{name:'cdn',value:delivery},function(result){
           if(table){
                   window.location.replace('placeorder/place-an-order');
           }else if(takeaway){
@@ -113,6 +116,7 @@ function perform(table,takwaway,delivery,discount,deliveryCharge){
           }else{
                 window.location.replace('../../delivery/placeorder/place-an-order');
           }
+      }); }); });  
        
     }else if(current_option === 'generatebill'){
         var s_link = '';

@@ -184,17 +184,7 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
 
 
 
-        <div class='popup'>
-            <div class='popup-inner'>
-            <!--<img src='images/close.png' alt='quit' class='x' id='x' />-->
-            <h3>Table No : 202</h3>
-                <hr>
-                <input id="customer" class="form-control col-md-12 col-xs-12" type="text" name="customer" value="" placeholder="Customer Name">
-                <div class="center-block text-center btn-popup"> 
-                    <button name="reserve" value="true" type="submit" class="btn btn-success">Reserve</button>
-                    <button type="button" value="cancel" class="btn btn-primary close-btn">Cancel</button></div>
-            </div>
-        </div>
+      
        
           <!-- /page content -->
     <footer class="footer">
@@ -243,8 +233,36 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
             </div>
          </div>
         </div> 
+<?= $this->start('placeorder_popup') ?>
+        <div class='popup'>
+            <div class='popup-inner'>
+            <!--<img src='images/close.png' alt='quit' class='x' id='x' />-->
+                <h3>Table No :<?php if(isset($tableNo)) echo $tableNo; elseif($takeawayNo) echo $takeawayNo; elseif($takeawayNo) echo $takeawayNo; ?></h3>
+                <input type="hidden" id="cur_table" value="<?= $tableId ?>">
+                <input type="hidden" id="cur_takeaway" value="<?= $takeawayNo ?>">
+                <input type="hidden" id="cur_delivery" value="<?= $deliveryNo ?>">
+                <hr>
+                <input id="customer" class="form-control col-md-12 col-xs-12" type="text" name="customer" value="" placeholder="Customer Name">
+                <div class="center-block text-center btn-popup"> 
+                    <button name="reserve" value="true" id="reserve_table" type="submit" class="btn btn-success">Reserve</button>
+                    <button type="button" value="cancel" class="btn btn-primary close-btn">Cancel</button></div>
+            </div>
+        </div>    
+<?= $this->end('placeorder_popup') ?>
 <?= $this->start('script') ?>
  <script>
+var isOccupied = <?= $isOccupied ?>;    
+var cur_table = <?= $tableId ?>;    
+var cur_takeaway = <?= $takeawayNo ?>;    
+var cur_delivery = <?= $deliveryNo ?>;
+var cur_time = <?= date('d-m-Y');?>;
+var cur_cust_id = '';
+var order_type = 1;
+if(cur_takeaway != 0){
+    order_type = 2;
+}else if(cur_delivery != 0){
+     order_type = 3;
+}
 var total_itm = 0;
 var webmacid = 'WEB:MAC:ADDRESS';
 var minOrder = new Array();
@@ -357,6 +375,9 @@ var menuObj = {'menuId':0,'orderQty':0,'subMenuId':0};
     });
     return uuid;
 };
+function getCustId(){
+    cur_cust_id = generateUUID();
+}
  $(document).ready(function(){
     $("#filter").keyup(function(){
  
@@ -430,7 +451,7 @@ $(document).ready(function() {
                    minOrder.push(newm);
         } 
         var str = JSON.stringify(minOrder);
-        var operationData = {'custId':''+generateUUID()+'','orderDetails':minOrder,'orderId':''+generateUUID()+'','deliveryNo':'0','takeawayNo':'0','tableId':'4','orderType':'1'};          
+        var operationData = {'custId':cur_cust_id,'orderDetails':minOrder,'orderId':''+generateUUID()+'','deliveryNo':cur_delivery,'takeawayNo':cur_takeaway,'tableId':cur_table,'orderType':order_type};          
         var operation = {'operation':'placeOrder','operationData':JSON.stringify(operationData)}; 
         //var data = JSON.stringify(data);
         var data = [operation];
@@ -449,6 +470,7 @@ $(document).ready(function() {
         processData:false, 
         success: function(result, jqXHR, textStatus){
           if(result.errorCode == 0){
+              alert('Order has been placed.');
               window.location.replace('../../tableview/printkot');
           }else{
              alert('Error:'+result.message); 
@@ -458,6 +480,45 @@ $(document).ready(function() {
                 alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
         }});
        // alert(request);
+    });
+    
+    // to reserve table
+    $('#reserve_table').on('click',function(){
+      
+         $.post('/getwebuser',{},function(result){
+            var user = {'userId':result.userId,'macId':webmacid,'password':result.password,'restaurantId':result.restaurantId};
+              var cust_name = $('.customer').val();
+              getCustId();
+            var operationData = {'custId':cur_cust_id,'custName':cust_name};
+            var operationData1 = {'isOccupied':'1','tableId':cur_table};
+            var operationData2 = {'arrivalTime':cur_time,'custId':cur_cust_id,'isWaiting':'0','occupancy':'0','tableId':cur_table,'userId':result.userId};
+            var operation = {'operation':'addCustomer','operationData':JSON.stringify(operationData)};
+            var operation1 = {'operation':'tableOccupy','operationData':JSON.stringify(operationData1)};
+            var operation2 = {'operation':'addWaitingCustomer','operationData':JSON.stringify(operationData2)};
+            var data = [operation,operation1,operation2];
+             var request = {'user':user,'data':data};
+             request = JSON.stringify(request);
+            // alert(request);
+             $.ajax({
+        url: "../../api/v1/upload", 
+        type:"POST",
+        data:request,
+        contentType: 'application/json',
+        cache: false,
+        processData:false, 
+        success: function(result, jqXHR, textStatus){
+          if(result.errorCode == 0){
+             alert('Success:'+result.message); 
+             $('.popup').hide();
+             $('#overlayquick').remove();
+          }else{
+             alert('Error:'+result.message); 
+            }
+         },
+        error : function(jqXHR, textStatus, errorThrown) {
+                alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+        }});
+         });  
     });
     
       $(".select2_user").select2({
@@ -482,5 +543,6 @@ $(document).ready(function() {
 });
 
 </script>
-   <?= $this->Html->script('design/popup.js') ?> 
+
+   <?php if(isset($isOccupied))if(!$isOccupied) echo $this->Html->script('design/popup.js'); ?> 
 <?= $this->end('script') ?>

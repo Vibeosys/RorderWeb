@@ -29,7 +29,7 @@ top: 10%;
 .popup-inner{
 width: 360px;
 min-height: 230px;
-margin: 100px 200px;
+    margin: 100px auto;
 background: #f3f3f3;
 position: relative;
 z-index: 103;

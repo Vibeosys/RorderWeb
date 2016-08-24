@@ -6,8 +6,7 @@ $('.popup').show();
         
      
 $('.close-btn').click(function(){
-$('.popup').hide();
-overlay.appendTo(document.body).remove();
+  window.location.replace('../placeorder');  
 return false;
 });
 
