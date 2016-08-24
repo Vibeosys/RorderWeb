@@ -110,7 +110,7 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
                                       <?php } else {?>  
                                         <div id="price_<?= $menu->menuId ?>" class="price item-price ">
                                     <?= $menu->price ?>
-                                      <button myid="<?= $menu->menuId ?>" type="button" class="btn btn-item btn-price">
+                                      <button mysubid="0" myid="<?= $menu->menuId ?>" type="button" class="btn btn-item btn-price">
                                         <i class="fa fa-plus" aria-hidden="true">
                                         </i>
                                       </button>
@@ -228,7 +228,7 @@ var total_itm = 0;
   function increase(id){
       
        $('.total_itm_span').text(++total_itm);
-       var no = $(".no_item_"+id).text();
+       var no = $(".no_item_"+id).text();//alert(no);alert(id);
        no = no.substring(0,no.length/2);
     no++;
     var up = $('.up_'+id).val();
@@ -256,21 +256,68 @@ var total_itm = 0;
      
   }
   function remove_oitem(id){
+      var titmp = $('.item_price_'+id).text();
+      titmp = titmp.substring(0,titmp.length/2);;
+       var gt = $('.grand_total').text();
+    gt = gt.substring(0,gt.length/2);
+    $('.grand_total').text(gt-titmp);
     $('.oitm_'+id).remove();  
   }
+  
   function explore(id){
+      var clas = '.sub_content_'+id+' ul';
+      if($(clas).children().length){ return false;}
       $('.m_load_'+id).css('display','block');
       $.post('/getsubmenu',{menuId:id},function(result){
         var submenu = '';  
+        
         $.each(result,function(key,menu){
-              submenu += '<li><div class="details"><div class="veg-tag">'+
-                        '<img src="/img/menu/veg_icon.jpg" class="veg" alt="..."><input type="hidden" id="type" value="1"></div>'+                        '<span id="title_8" class="dish-name">Mushroom cappuccino</span>'.
-                        '<div id="price_8" class="price item-price ">140<button myid="8" type="button" class="btn btn-item btn-price">'+
+           var type = $('#type_'+menu.menuId).val(); 
+            var img = "";//alert(type);
+            if(type == 1){
+                img = '/img/menu/veg_icon.jpg';
+            }else if(type == 2){ 
+                img = '/img/menu/non_veg_icon.jpg'; 
+            }else if(type == 3){
+                 img = '/img/beverages.png'; 
+            }
+             submenu += '<li><div class="details"><div class="veg-tag">'+
+                        '<img src="'+img+'" class="veg" alt="..."><input type="hidden" id="type" value="'+type+'"></div>'+                        
+                        '<span id="title_sub_'+menu.subMenuId+'" class="dish-name">'+menu.subMenuTitle+'</span>'+
+                        '<div id="price_sub_'+menu.subMenuId+'" class="price item-price ">'+menu.price+'<button myid="'+menu.menuId+'" mysubid="'+menu.subMenuId+'" type="button" id="sub_'+menu.menuId+'" onclick="addsubmenu(\'sub_'+menu.menuId+'\');" class="btn btn-item has_sub btn-price">'+
                         '<i class="fa fa-plus" aria-hidden="true"></i></button></div></div></li>';
           });
-          var class = '.sub_content_'+id+' ul';
-       $(class).html(submenu);  
+          
+          //alert(clas);
+          //alert(submenu);
+       $(clas).html(submenu);  
       });
+  }
+  
+  function addsubmenu(idat){
+  //alert(idat);
+     var id = $('#'+idat).attr('myid');
+      var subid = $('#'+idat).attr('mysubid');//alert(subid);
+      var ch = '.up_'+id+'-'.subid;//alert(ch);
+      if($('.up_'+id+'-'+subid).val()){increase(id+'-'+subid); return;};
+    
+    var title = $('#title_'+id).text();
+    var price = $('#price_'+id).text();
+    var type = $('#type_'+id).val();
+    var img = '/img/beverages.png';
+ 
+      if(subid){
+        var price = $('#price_sub_'+subid).text();
+        var subtitle = $('#title_sub_'+subid).text();
+        title = title+''+subtitle;id = id+'-'+subid;
+        $(".order-items").append(" <li class='oitm_"+id+"'><div class='details'><div class='veg-tag'><img src='"+ img +"' class='veg'></div><span class='dish-name'>"+ title +"</span><button type='button' onclick='remove_oitem(\""+id+"\");' class='btn btn-item-close btn-dis' ><i class='fa fa-times-circle' aria-hidden='true'></i> </button></div><div class='count'><div class='number'><div class='dec'><button onclick='decrease(\""+id+"\");' type='button' class='btn btn-item btn_dec'><i class='fa fa-minus' aria-hidden='true'></i> </button></div><span class='no-tem no_item_"+id+"'>1</span><div class='inc'><button onclick='increase(\""+id+"\");' type='button' class='btn btn-item btn_inc'><i class='fa fa-plus' aria-hidden='true'></i></button></div></div><div  class='quantity'>x "+ price +"</div></div><div class='item_price_"+id+" price item-price'>"+ price.trim() +"</div><input type='hidden' value='"+price.trim()+"' class='up_"+id+"'><div class='clear'></div></li>");
+   var gt = $('.grand_total').text();
+    gt = gt.substring(0,gt.length/2);
+    $('.grand_total').text(parseInt(gt) + parseInt(price));
+    $('.total_itm_span').text(++total_itm);
+      }else{
+          return false;
+      }
   }
  $(document).ready(function(){
     $("#filter").keyup(function(){
@@ -295,16 +342,26 @@ var total_itm = 0;
 });
 
 $(".btn-price").click(function(){
+    //alert('click');
     var id = $(this).attr('myid');
     if($('.up_'+id).val()){increase(id); return;};
     var title = $('#title_'+id).text();
     var price = $('#price_'+id).text();
     var type = $('#type_'+id).val();
     var img = "";
-    
+    var subid = 0;
     if(type == 1){
         img = '/img/menu/veg_icon.jpg';
-    }else if(type == 2){ img = '/img/menu/non_veg_icon.jpg'; }
+    }else if(type == 2){ 
+        img = '/img/menu/non_veg_icon.jpg';
+    }else if(type == 3){
+         subid = $(this).attr('mysubid');
+      if(subid){
+        var price = $('#price_sub_'+subid).text();
+        var subtitle = $('#title_sub_'+subid).text();
+        title = title+''+subtitle;id = id+'-'+subid;
+      }
+    }
     $(".order-items").append(" <li class='oitm_"+id+"'><div class='details'><div class='veg-tag'><img src='"+ img +"' class='veg'></div><span class='dish-name'>"+ title +"</span><button type='button' onclick='remove_oitem("+id+");' class='btn btn-item-close btn-dis' ><i class='fa fa-times-circle' aria-hidden='true'></i> </button></div><div class='count'><div class='number'><div class='dec'><button onclick='decrease("+id+");' type='button' class='btn btn-item btn_dec'><i class='fa fa-minus' aria-hidden='true'></i> </button></div><span class='no-tem no_item_"+id+"'>1</span><div class='inc'><button onclick='increase("+id+");' type='button' class='btn btn-item btn_inc'><i class='fa fa-plus' aria-hidden='true'></i></button></div></div><div  class='quantity'>x "+ price +"</div></div><div class='item_price_"+id+" price item-price'>"+ price.trim() +"</div><input type='hidden' value='"+price.trim()+"' class='up_"+id+"'><div class='clear'></div></li>");
    var gt = $('.grand_total').text();
     gt = gt.substring(0,gt.length/2);
@@ -312,6 +369,8 @@ $(".btn-price").click(function(){
     $('.total_itm_span').text(++total_itm);
    
 });
+
+
 $(".btn_inc").click(function(e){
     var id = $(this).attr('itmid');
     var no = $("#no_item_"+id).text();
