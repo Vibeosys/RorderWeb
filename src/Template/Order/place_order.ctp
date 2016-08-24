@@ -165,7 +165,7 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
                           </li>
                         </ul>
                       </div>
-                      <button type="button" class="checkout">Checkout
+                      <button type="button" class="checkout">Place Order
                       </button>
                     </div>
                   </div>
@@ -284,7 +284,7 @@ var total_itm = 0;
              submenu += '<li><div class="details"><div class="veg-tag">'+
                         '<img src="'+img+'" class="veg" alt="..."><input type="hidden" id="type" value="'+type+'"></div>'+                        
                         '<span id="title_sub_'+menu.subMenuId+'" class="dish-name">'+menu.subMenuTitle+'</span>'+
-                        '<div id="price_sub_'+menu.subMenuId+'" class="price item-price ">'+menu.price+'<button myid="'+menu.menuId+'" mysubid="'+menu.subMenuId+'" type="button" id="sub_'+menu.menuId+'" onclick="addsubmenu(\'sub_'+menu.menuId+'\');" class="btn btn-item has_sub btn-price">'+
+                        '<div id="price_sub_'+menu.subMenuId+'" class="price item-price ">'+menu.price+'<button myid="'+menu.menuId+'" mysubid="'+menu.subMenuId+'" type="button" id="sub_'+menu.menuId+'-'+menu.subMenuId+'" onclick="addsubmenu(\'sub_'+menu.menuId+'-'+menu.subMenuId+'\');" class="btn btn-item has_sub btn-price">'+
                         '<i class="fa fa-plus" aria-hidden="true"></i></button></div></div></li>';
           });
           
