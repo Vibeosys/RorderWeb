@@ -47,6 +47,7 @@ $sec = $this->fetch('sec');
     <?= $this->Html->css('design/datatables/jquery.dataTables.min.css') ?>
     <?= $this->Html->css('design/datatables/buttons.bootstrap.min.css') ?>
     <?= $this->Html->css('design/datatables/responsive.bootstrap.min.css') ?>
+    <?= $this->Html->css('design/popup.css') ?>
     </head>
 
 
@@ -77,7 +78,7 @@ $sec = $this->fetch('sec');
                                 
                                         <li class="panel"><a href="#demo3" class="main-list" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-edit"></i> Order <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
                                             <ul class="submenu collapse " id="demo3">
-                                                    <li class="panel"><a href="#SubMenu1"class="sub-list" data-toggle="collapse" data-parent="#demo3">Table View <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                                                    <li class="panel"><a href="#SubMenu1"class="sub-list" data-toggle="collapse" data-parent="#demo3">Table View <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
                                                       
                                                              <ul class="submenu collapse" id="SubMenu1">
                                                                 <li><a class="list-group-item" data-parent="#SubMenu1" href="../../tableview/placeorder">Place Order</a>                      
@@ -94,7 +95,7 @@ $sec = $this->fetch('sec');
                                                       
                                                     </li>
 
-                                                    <li  class="panel"><a href="#SubMenu2" class="sub-list" data-toggle="collapse" data-parent="#demo3">Takeaway <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                                                    <li  class="panel"><a href="#SubMenu2" class="sub-list" data-toggle="collapse" data-parent="#demo3">Takeaway <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
                                                         <ul class="submenu collapse" id="SubMenu2">
                                                                 <li><a class="list-group-item" data-parent="#SubMenu2" href="../../takeaway/placeorder">Place Order</a>                      
                                                                 </li>
@@ -110,7 +111,7 @@ $sec = $this->fetch('sec');
                                                         </ul>
                                                     </li>
 
-                                                    <li class="panel"><a href="#SubMenu3" class="sub-list" data-toggle="collapse" data-parent="#demo3">Home-Delivery <i class="fa fa-chevron-right fa-down-arrow  pull-right"></i> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
+                                                    <li class="panel"><a href="#SubMenu3" class="sub-list" data-toggle="collapse" data-parent="#demo3">Home-Delivery <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
                                                         <ul class="submenu collapse" id="SubMenu3">
                                                                 <li><a class="list-group-item" data-parent="#SubMenu3" href="../../delivery/placeorder">Place Order</a>                      
                                                                 </li>
@@ -334,6 +335,7 @@ $sec = $this->fetch('sec');
          <?= $this->Html->script('design/highcharts.js') ?> 
          <?= $this->Html->script('design/exporting.js') ?> 
          <?= $this->Html->script('design/scroll-menu.js') ?> 
+      
     <?php if($this->fetch('script')){
                          echo $this->fetch('script');
                       }else{

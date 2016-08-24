@@ -147,7 +147,7 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
                   </div>
                 </div>
               </div>
-             
+         
               <!-- OrderList-->
               <div class="col-md-4 col-sm-4 col-xs-12 place-order">
                 <div class="order-list">
@@ -180,6 +180,22 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
               </div>
             </div>
           </div>
+
+
+
+
+        <div class='popup'>
+            <div class='popup-inner'>
+            <!--<img src='images/close.png' alt='quit' class='x' id='x' />-->
+            <h3>Table No : 202</h3>
+                <hr>
+                <input id="customer" class="form-control col-md-12 col-xs-12" type="text" name="customer" value="" placeholder="Customer Name">
+                <div class="center-block text-center btn-popup"> 
+                    <button name="reserve" value="true" type="submit" class="btn btn-success">Reserve</button>
+                    <button type="button" value="cancel" class="btn btn-primary close-btn">Cancel</button></div>
+            </div>
+        </div>
+       
           <!-- /page content -->
     <footer class="footer">
       <div class="container-fluid pop-padding">
@@ -466,4 +482,5 @@ $(document).ready(function() {
 });
 
 </script>
+   <?= $this->Html->script('design/popup.js') ?> 
 <?= $this->end('script') ?>
