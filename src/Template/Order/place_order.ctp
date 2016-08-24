@@ -242,14 +242,15 @@ var total_itm = 0;
        var no = $(".no_item_"+id).text();
        no = no.substring(0,no.length/2);
     no--;
+     if(no == 0){
+        remove_oitem(id);return;
+    }
      var up = $('.up_'+id).val();
      var gt = $('.grand_total').text();
     gt = gt.substring(0,gt.length/2);
     $('.grand_total').text(parseInt(gt) - parseInt(up));
      $('.total_itm_span').text(--total_itm);
-    if(no == 0){
-        remove_oitem(id);return;
-    }
+   
    
     $(".no_item_"+id).text(no);
     $(".item_price_"+id).text(up*no);
