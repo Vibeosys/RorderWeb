@@ -43,12 +43,18 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
                    
                       <div class="x_title">
                           <div class="select_user">
-                          <select class="select2_user form-control">
-                          <?php if(isset($users)){ foreach ($users as $user){ ?>   
-                                 <option><?= $user->userName ?></option>
-                          <?php }}?>       
+                              <select id="select_user" class="select2_user form-control">
+                          <?php if(isset($users)){ foreach ($users as $user){ if($user->roleId == 1){ ?>   
+                              <option value="<?= $user->userId ?>"><?= $user->userName ?>                           
+                              </option>
+                          <?php } }}?>       
                         </select>
+                                <?php if(isset($users)){ foreach ($users as $user){ if($user->roleId == 1){ ?>
+                               <input type="hidden" id="urest_<?= $user->userId ?>" value="<?= $user->restaurantId ?>">
+                              <input type="hidden" id="upass_<?= $user->userId ?>" value="<?= $user->password ?>">
+                               <?php } }}?>  
                           </div>
+                          
                         <input type="text" class="form-control search filterinput" placeholder="Search by dishes.." id="filter">
                           
                         <div class="clearfix">
@@ -87,18 +93,21 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
                                 <li> 
                                     <div class="details <?php if($menu->fbTypeId == 3){ echo 'submenu_items';} ?>">
                                     <div class="veg-tag">
-                                    <?php if($menu->fbTypeId == 1){ ?>    
+                                     <?= $this->Html->image('defualt_menu.png', ['class' => 'veg','alt' => '...'])?>     
+                                  
+                                        <input type="hidden" id="type_<?= $menu->menuId ?>" value="<?= $menu->fbTypeId ?>">    
+                                    </div>
+                                      <span id="title_<?= $menu->menuId ?>" class="dish-name">
+                                     <?= $menu->menuTitle ?>
+                                    </span>
+                                       <?php if($menu->fbTypeId == 1){ ?>    
                                       <?= $this->Html->image('menu/veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     <?php }elseif($menu->fbTypeId == 2){ ?> 
                                          <?= $this->Html->image('menu/non_veg_icon.jpg', ['class' => 'veg','alt' => '...'])?>
                                     <?php }elseif($menu->fbTypeId == 3){ ?>
                                          <?= $this->Html->image('beverages.png', ['class' => 'veg','alt' => '...'])?>
-                                    <?php } ?>
-                                        <input type="hidden" id="type_<?= $menu->menuId ?>" value="<?= $menu->fbTypeId ?>">    
-                                    </div>
-                                      <span id="title_<?= $menu->menuId ?>" class="dish-name">
-                                     <?= $menu->menuTitle ?>
-                                    </span><?php if($menu->fbTypeId == 3){ 
+                                    <?php } ?>   
+                                        <?php if($menu->fbTypeId == 3){ 
                                        echo $this->Html->image('loading1.gif',['class'=>'menu_loader', 'id' => 'm_load_'.$menu->menuId]);
                                         
                                     } ?>
@@ -151,9 +160,7 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
                     </div>
                     <div class="x_content">
                       <div class="order-inner">
-                        <ul class="order-items scrollbar" id="style-1">
-                         
-                        </ul>
+                        <ul class="order-items scrollbar" id="style-1"></ul>
                         <ul class="totals clear">
                           <li class="subtotal2 clear">
                             <div class="total">
@@ -165,7 +172,7 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
                           </li>
                         </ul>
                       </div>
-                      <button type="button" class="checkout">Place Order
+                      <button type="button" class="checkout place_my_order">Place Order
                       </button>
                     </div>
                   </div>
@@ -208,11 +215,9 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
                <div class="row">
                     <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                        <div class="order-inner">
-                        <ul class="order-items modal-height scrollbar" id="style-1">
-                          
-                        </ul>
+                        <ul class="order-items modal-height scrollbar" id="style-1"></ul>
                       </div> 
-                        <button type="button" class="checkout">Place Order
+                        <button type="button" class="checkout place_my_order">Place Order
                       </button>
                     </div>
                  <div class="modal-footer">
@@ -225,6 +230,9 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
 <?= $this->start('script') ?>
  <script>
 var total_itm = 0;
+var webmacid = 'WEB:MAC:ADDRESS';
+var minOrder = new Array();
+var menuObj = {'menuId':0,'orderQty':0,'subMenuId':0};
   function increase(id){
       
        $('.total_itm_span').text(++total_itm);
@@ -271,7 +279,9 @@ var total_itm = 0;
       $('.m_load_'+id).css('display','block');
       $.post('/getsubmenu',{menuId:id},function(result){
         var submenu = '';  
-        
+        if(!result){
+            submenu = '<li> MENU NOT AVAILABLE </li>';
+        }else{
         $.each(result,function(key,menu){
            var type = $('#type_'+menu.menuId).val(); 
             var img = "";//alert(type);
@@ -281,6 +291,8 @@ var total_itm = 0;
                 img = '/img/menu/non_veg_icon.jpg'; 
             }else if(type == 3){
                  img = '/img/beverages.png'; 
+            }else{
+                 img = '/img/defualt_menu.png'; 
             }
              submenu += '<li><div class="details"><div class="veg-tag">'+
                         '<img src="'+img+'" class="veg" alt="..."><input type="hidden" id="type" value="'+type+'"></div>'+                        
@@ -288,9 +300,9 @@ var total_itm = 0;
                         '<div id="price_sub_'+menu.subMenuId+'" class="price item-price ">'+menu.price+'<button myid="'+menu.menuId+'" mysubid="'+menu.subMenuId+'" type="button" id="sub_'+menu.menuId+'-'+menu.subMenuId+'" onclick="addsubmenu(\'sub_'+menu.menuId+'-'+menu.subMenuId+'\');" class="btn btn-item has_sub btn-price">'+
                         '<i class="fa fa-plus" aria-hidden="true"></i></button></div></div></li>';
           });
-          
+          } 
           //alert(clas);
-          //alert(submenu);
+         // alert(submenu);
        $(clas).html(submenu);  
       });
   }
@@ -306,12 +318,12 @@ var total_itm = 0;
     var price = $('#price_'+id).text();
     var type = $('#type_'+id).val();
     var img = '/img/beverages.png';
- 
+       var core = id;
       if(subid){
         var price = $('#price_sub_'+subid).text();
         var subtitle = $('#title_sub_'+subid).text();
         title = title+''+subtitle;id = id+'-'+subid;
-        $(".order-items").append(" <li class='oitm_"+id+"'><div class='details'><div class='veg-tag'><img src='"+ img +"' class='veg'></div><span class='dish-name'>"+ title +"</span><button type='button' onclick='remove_oitem(\""+id+"\");' class='btn btn-item-close btn-dis' ><i class='fa fa-times-circle' aria-hidden='true'></i> </button></div><div class='count'><div class='number'><div class='dec'><button onclick='decrease(\""+id+"\");' type='button' class='btn btn-item btn_dec'><i class='fa fa-minus' aria-hidden='true'></i> </button></div><span class='no-tem no_item_"+id+"'>1</span><div class='inc'><button onclick='increase(\""+id+"\");' type='button' class='btn btn-item btn_inc'><i class='fa fa-plus' aria-hidden='true'></i></button></div></div><div  class='quantity'>x "+ price +"</div></div><div class='item_price_"+id+" price item-price'>"+ price.trim() +"</div><input type='hidden' value='"+price.trim()+"' class='up_"+id+"'><div class='clear'></div></li>");
+        $(".order-items").append(" <li mid="+core+" sid="+subid+" class='oitm_"+id+"'><div class='details'><div class='veg-tag'><img src='"+ img +"' class='veg'></div><span class='dish-name'>"+ title +"</span><button type='button' onclick='remove_oitem(\""+id+"\");' class='btn btn-item-close btn-dis' ><i class='fa fa-times-circle' aria-hidden='true'></i> </button></div><div class='count'><div class='number'><div class='dec'><button onclick='decrease(\""+id+"\");' type='button' class='btn btn-item btn_dec'><i class='fa fa-minus' aria-hidden='true'></i> </button></div><span class='no-tem no_item_"+id+"'>1</span><div class='inc'><button onclick='increase(\""+id+"\");' type='button' class='btn btn-item btn_inc'><i class='fa fa-plus' aria-hidden='true'></i></button></div></div><div  class='quantity'>x "+ price +"</div></div><div class='item_price_"+id+" price item-price'>"+ price.trim() +"</div><input type='hidden' value='"+price.trim()+"' class='up_"+id+"'><div class='clear'></div></li>");
    var gt = $('.grand_total').text();
     gt = gt.substring(0,gt.length/2);
     $('.grand_total').text(parseInt(gt) + parseInt(price));
@@ -320,6 +332,15 @@ var total_itm = 0;
           return false;
       }
   }
+  function generateUUID() {
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+};
  $(document).ready(function(){
     $("#filter").keyup(function(){
  
@@ -362,67 +383,73 @@ $(".btn-price").click(function(){
         var subtitle = $('#title_sub_'+subid).text();
         title = title+''+subtitle;id = id+'-'+subid;
       }
-    }
-    $(".order-items").append(" <li class='oitm_"+id+"'><div class='details'><div class='veg-tag'><img src='"+ img +"' class='veg'></div><span class='dish-name'>"+ title +"</span><button type='button' onclick='remove_oitem("+id+");' class='btn btn-item-close btn-dis' ><i class='fa fa-times-circle' aria-hidden='true'></i> </button></div><div class='count'><div class='number'><div class='dec'><button onclick='decrease("+id+");' type='button' class='btn btn-item btn_dec'><i class='fa fa-minus' aria-hidden='true'></i> </button></div><span class='no-tem no_item_"+id+"'>1</span><div class='inc'><button onclick='increase("+id+");' type='button' class='btn btn-item btn_inc'><i class='fa fa-plus' aria-hidden='true'></i></button></div></div><div  class='quantity'>x "+ price +"</div></div><div class='item_price_"+id+" price item-price'>"+ price.trim() +"</div><input type='hidden' value='"+price.trim()+"' class='up_"+id+"'><div class='clear'></div></li>");
+    }else{
+                 img = '/img/defualt_menu.png'; 
+            }
+    $(".order-items").append(" <li mid='"+id+"' sid='0' class='oitm_"+id+"'><div class='details'><div class='veg-tag'><img src='"+ img +"' class='veg'></div><span class='dish-name'>"+ title +"</span><button type='button' onclick='remove_oitem("+id+");' class='btn btn-item-close btn-dis' ><i class='fa fa-times-circle' aria-hidden='true'></i> </button></div><div class='count'><div class='number'><div class='dec'><button onclick='decrease("+id+");' type='button' class='btn btn-item btn_dec'><i class='fa fa-minus' aria-hidden='true'></i> </button></div><span class='no-tem no_item_"+id+"'>1</span><div class='inc'><button onclick='increase("+id+");' type='button' class='btn btn-item btn_inc'><i class='fa fa-plus' aria-hidden='true'></i></button></div></div><div  class='quantity'>x "+ price +"</div></div><div class='item_price_"+id+" price item-price'>"+ price.trim() +"</div><input type='hidden' value='"+price.trim()+"' class='up_"+id+"'><div class='clear'></div></li>");
    var gt = $('.grand_total').text();
     gt = gt.substring(0,gt.length/2);
     $('.grand_total').text(parseInt(gt) + parseInt(price));
     $('.total_itm_span').text(++total_itm);
    
 });
-
-
-$(".btn_inc").click(function(e){
-    var id = $(this).attr('itmid');
-    var no = $("#no_item_"+id).text();
-    no++;
-    var up = $('#up_'+id).val();
-    $("#no_item_"+id).text(no);
-    $("#item_price_"+id).text(up*no);
-   
-});
-$(".btn_dec").on('click',function(e){
-    alert('decrease');
-});
-
- $(".order-items").load;
-$(".btn-item-close").click(function() {
-  $(this).parent().parent().remove();
-});
-         
-/*
-$(document).ready(function(){       
-   var scroll_start = 0;
-   var startchange = $('#soups');
-   var offset = startchange.offset();
-   alert(scroll_start);
-    if (startchange.length){
-        
-   $(".category-item").scroll(function() { 
-      
-      scroll_start = $(this).scrollTop();
-       //alert(scroll_start);
-      if(scroll_start > 280) {
-         $('a').each(function () {
-            $(this).removeClass('active-menu');
-        $(".soups-cat").addClass('active-menu');
-        })
-      
-       } else {
-          $(".soups-cat").removeClass('active-menu');
-         
-       }
-   });
-    }
-});*/
-   
-    $(document).ready(function() {
+$(".order-items").load;
+$(document).ready(function() {
+    $('.place_my_order').on('click',function(){
+        if(!$(".order-items").children().length){alert('Please select item to proceed.'); return false;}
+        var nochild = $(".order-items li").size()/2;
+        for(var i=0;i < nochild;i++){
+                var n = parseInt(i) + 1;
+                  var mid = $(".order-items li:nth-child("+n+")").attr('mid');
+                  var sid = $(".order-items li:nth-child("+n+")").attr('sid');
+                  var noid = '';
+                  if(sid == 0){
+                    noid = '.no_item_'+mid;
+                  }else{
+                      noid = '.no_item_'+mid+'-'+sid;
+                  }    
+                  var noitem = $(noid).text();
+                   noitem = noitem.substring(0,noitem.length/2);
+                  var newm =  {'menuId':mid,'orderQty':noitem,'subMenuId':sid};
+                   minOrder.push(newm);
+        } 
+        var str = JSON.stringify(minOrder);
+        var operationData = {'custId':''+generateUUID()+'','orderDetails':minOrder,'orderId':''+generateUUID()+'','deliveryNo':'0','takeawayNo':'0','tableId':'4','orderType':'1'};          
+        var operation = {'operation':'placeOrder','operationData':JSON.stringify(operationData)}; 
+        //var data = JSON.stringify(data);
+        var data = [operation];
+        var uid = $('#select_user').val();
+        var upass = $('#upass_'+uid).val();
+        var urest = $('#urest_'+uid).val();
+        var user = {'userId':uid,'macId':webmacid,'password':upass,'restaurantId':urest};
+        var request = {'user':user,'data':data};
+        request = JSON.stringify(request);
+        $.ajax({
+        url: "../../api/v1/upload", 
+        type:"POST",
+        data:request,
+        contentType: 'application/json',
+        cache: false,
+        processData:false, 
+        success: function(result, jqXHR, textStatus){
+          if(result.errorCode == 0){
+              window.location.replace('../../tableview/printkot');
+          }else{
+             alert('Error:'+result.message); 
+            }
+         },
+        error : function(jqXHR, textStatus, errorThrown) {
+                alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+        }});
+       // alert(request);
+    });
+    
       $(".select2_user").select2({
         placeholder: "Select a user",
         allowClear: true
       });
       
-    });
+});
      
   $(".submenu_items").click(function () {
 
