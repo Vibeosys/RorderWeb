@@ -503,7 +503,8 @@ function kotprint(id,cono,ctno,ctkno,cdno,csb,cot) {
 }
 function cancelOrder(id,cono,ctno,ctkno,cdno,csb,cot){
   $('#parent_'+cono).remove();
-  alert('Order has been canceled.');
+  //alert('Order has been canceled.');
+  create_note('Order has been canceled.','green','info');
 }
 function errorpopup(){
     alert('Invalid option');

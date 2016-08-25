@@ -102,7 +102,16 @@ use Cake\Cache\Cache;
     </div> 
     </div>
 <input type="text" style="display: none" class="hidden" id="option" value="<?= $option ?>">
+<?php $this->start('placeorder_popup');?>
+<div  id="notify" class="ui-pnotify stack_top_right" style="display: none;width: 100%">
+    <ul>
+        
+    </ul>
+    
+</div> 
+<?php $this->end('placeorder_popup');?>
 <?php $this->start('script');?>
+<?= $this->Html->script('design/notify.js') ?>
 <script>  
 var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>' 
       $('#all-table').html(loading);

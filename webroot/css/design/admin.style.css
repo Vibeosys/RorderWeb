@@ -685,3 +685,58 @@ a.main-list:focus .fa-chevron-right{
     width: 25px;
     display: none;
 }
+
+
+.ui-pnotify {
+        width: 290px;
+    opacity: 0.75;
+    display: block;
+    overflow: visible;
+    right: 8px;
+    float: right;
+    position: fixed;
+    top: 96px;
+    z-index: 10000;
+}
+.ui-pnotify .alert {
+ border-radius: 20px;
+}
+.alert-warning {
+    background-color: #ff7444;
+}
+.ui-pnotify-container {
+    background-position: 0 0;
+    padding: .8em;
+    height: 100%;
+    margin: 0;
+    color: white;
+}
+.ui-pnotify-closer, .ui-pnotify-sticker {
+    float: right;
+    margin-left: .2em;
+    margin-top: .7em;
+}
+.ui-pnotify-icon, .ui-pnotify-icon span {
+    font-size: 30px;
+    min-height: 40px;
+    line-height: 40px;
+    padding-right: 3px;
+}
+
+.ui-pnotify-icon, .ui-pnotify-icon span {
+    display: block;
+    float: left;
+    margin-right: .2em;
+}
+.ui-pnotify-title {
+    display: block;
+    margin-bottom: .4em;
+    margin-top: 0;
+}
+.ui-pnotify ul li{
+    display: block;
+    
+}
+.ui-pnotify ul{
+    list-style: none;
+}
