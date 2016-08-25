@@ -55,7 +55,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('tableview/generatebill/bill-payment', ['controller' => 'Bill', 'action' => 'billPayment']);
     $routes->connect('tableview/generatebill/invalid-entry', ['controller' => 'Bill', 'action' => 'invalidEntry']);
     $routes->connect('tableview/cancelorder', ['controller' => 'RTables', 'action' => 'tableView']);
-    $routes->connect('tableview/cancelorder/cancel-an-order', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('tableview/cancelorder/cancel-an-order', ['controller' => 'Order', 'action' => 'cancelOrder']);
     $routes->connect('tableview/printkot', ['controller' => 'RTables', 'action' => 'tableView']);
     $routes->connect('tableview/managetable', ['controller' => 'RTables', 'action' => 'tableView']);
     $routes->connect('tableview/printbill', ['controller' => 'RTables', 'action' => 'tableView']);
@@ -67,7 +67,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('takeaway/generatebill/bill-payment', ['controller' => 'Bill', 'action' => 'billPayment']);
     $routes->connect('takeaway/generatebill/invalid-entry', ['controller' => 'Bill', 'action' => 'invalidEntry']);
     $routes->connect('takeaway/cancelorder', ['controller' => 'Takeaway', 'action' => 'takeawayView']);
-    $routes->connect('takeaway/cancelorder/cancel-an-order', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('takeaway/cancelorder/cancel-an-order', ['controller' => 'Order', 'action' => 'cancelOrder']);
     $routes->connect('takeaway/printkot', ['controller' => 'Takeaway', 'action' => 'takeawayView']);
     $routes->connect('takeaway/printbill', ['controller' => 'Takeaway', 'action' => 'takeawayView']);
     // delivery routes
@@ -78,7 +78,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('delivery/generatebill/bill-payment', ['controller' => 'Bill', 'action' => 'billPayment']);
     $routes->connect('delivery/generatebill/invalid-entry', ['controller' => 'Bill', 'action' => 'invalidEntry']);
     $routes->connect('delivery/cancelorder', ['controller' => 'Delivery', 'action' => 'deliveryView']);
-    $routes->connect('delivery/cancelorder/cancel-an-order', ['controller' => 'MgmtPanel', 'action' => 'commingSoon']);
+    $routes->connect('delivery/cancelorder/cancel-an-order', ['controller' => 'Order', 'action' => 'cancelOrder']);
     $routes->connect('delivery/printkot', ['controller' => 'Delivery', 'action' => 'deliveryView']);
     $routes->connect('delivery/printbill', ['controller' => 'Delivery', 'action' => 'deliveryView']);
     $routes->connect('billprintpreview', ['controller' => 'MgmtPanel', 'action' => 'printPreview']);

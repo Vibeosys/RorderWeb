@@ -89,8 +89,8 @@ class OrderController extends ApiController {
         return $this->getTableObj()->IsOrderPresent($custId, $restaurantId, $orderStatus);
     }
     
-    public function getLatestOrders($tableId, $takeawayNo,$deliveryNo, $restaurantId) {
-        return $this->getTableObj()->getTableOrders($tableId, $takeawayNo,$deliveryNo, $restaurantId);
+    public function getLatestOrders($tableId, $takeawayNo,$deliveryNo, $restaurantId, $all) {
+        return $this->getTableObj()->getTableOrders($tableId, $takeawayNo,$deliveryNo, $restaurantId, $all);
     }
     
     public function displayOrders() {
@@ -103,10 +103,14 @@ class OrderController extends ApiController {
             $tableId = $request['table'];
             $takeawayNo = $request['takeaway'];
             $deliveryNo = $request['delivery'];
+            $all = false;
+            if(isset($request['cancel'])){
+                $all = TRUE;
+            }
             Log::debug('Now order list shows for table :-'.$tableId);
             Log::debug('Now order list shows for takeaway :-'.$takeawayNo);
             Log::debug('Now order list shows for delivery :-'.$deliveryNo);
-            $latestOrders = $this->getLatestOrders($tableId,$takeawayNo,$deliveryNo, $restId);
+            $latestOrders = $this->getLatestOrders($tableId,$takeawayNo,$deliveryNo, $restId, $all);
             if(is_null($latestOrders)){
                  $this->response->body(json_encode([MESSAGE => DTO\ErrorDto::prepareMessage(126)]));
                 return;
@@ -161,6 +165,10 @@ class OrderController extends ApiController {
             $set['tableNo'] = $rtableController->getBillTableNo($tableId);
           }
         $this->set($set);
+    }
+    
+    public function cancelOrder() {
+        
     }
 
 }

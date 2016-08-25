@@ -194,13 +194,73 @@ function perform(table,takwaway,delivery,discount,deliveryCharge){
         });  
         });   
     }else if(current_option === 'cancelorder'){
-         if(table){
-                  window.location.replace('../../tableview/cancelorder/cancel-an-order');
-          }else if(takeaway){
-                 window.location.replace('../../takeaway/cancelorder/cancel-an-order');
-          }else{
-                window.location.replace('../../delivery/cancelorder/cancel-an-order');
-          }
+        $.post('/setcookie',{name:'cti',value:table},function(result){
+        $.post('/setcookie',{name:'ctn',value:takeaway},function(result){
+        $.post('/setcookie',{name:'cdn',value:delivery},function(result){
+        if(table || takeaway || delivery){
+            
+      var  data = 'table='+table+'&takeaway=' +takeaway +'&delivery='+ delivery+'&cancel=1';
+              $.ajax({
+        url: "/tableview/tableorders?" + data, 
+        type:"POST",
+        contentType: 'application/json',
+        cache: false,
+        processData:false, 
+        success: function(result, jqXHR, textStatus){
+            var result_html = '';
+            var table_no = ''; 
+            var print_string = '';
+            var next_function = '';
+            var number = null;
+            if(result){
+                 $('#table_data_popup').css('display','block');
+                if(result.message){
+                result_html = result.message;     
+                }else{
+                    if(table){
+                      print_string = 'Table No';
+                    }else if(takeaway){
+                      print_string = 'Takeaway No'; 
+                    }else{
+                      print_string = 'Delivery';  
+                    }
+            $.each(result,function(key, obj){
+               // $('#table_data_popup').css('display','block');
+               
+               next_function = "cancelOrder('"+ obj.orderId +"',"+ obj.orderNo +","+ obj.tableId +","+ obj.takeawayNo +","+ obj.deliveryNo +",'"+ obj.user +"','"+ obj.orderTime +"')";
+               if(obj.tableId){ number = obj.tableId;}else if(obj.takeawayNo){ number = obj.takeawayNo;}else{number = obj.deliveryNo;}
+                result_html += '<div id="parent_'+ obj.orderNo + '" class="col-lg-6 col-sm-6 col-md-6 col-xs-12">' +
+                        '<div class="order">'+
+                                    '<div class="order-no">'+
+                                       '<span class="text-1">Order No:'+ obj.orderNo + '</span> <br>'+
+                                        '<span class="text-2">'+ print_string +' : '+ number + '</span>'+
+                                    '</div>'+
+                                    '<div class="order-detail ">'+
+                                        '<span class="text-1">Served By: '+ obj.user + '</span><br>' +
+                                        '<spna class="text-2">Time: '+ obj.orderTime + '</spna>'+
+                                    '</div>'+
+                                    '<div class="print">'+
+                                        '<a class="btn-print" onclick="' + next_function +'">'+
+                                            '<i class="fa fa-ban fa-icon"></i> Cancel'+
+                                        '</a>'+ 
+                                    '</div> </div> </div>';
+            });
+                }
+            $('#popup_list').html(result_html);
+            $('#table_heading').html(number);
+           }else{
+            alert('please contact on info@vibeosys.com');
+            }
+        },
+        error : function(jqXHR, textStatus, errorThrown) {
+                alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+        }});
+        }else{
+            alert('please contact on info@vibeosys.com');
+        }
+        });
+        });
+        });
     }else if(current_option === 'printkot'){
         $.post('/setcookie',{name:'cti',value:table},function(result){
         $.post('/setcookie',{name:'ctn',value:takeaway},function(result){
@@ -441,7 +501,10 @@ function kotprint(id,cono,ctno,ctkno,cdno,csb,cot) {
           });
       });
 }
-
+function cancelOrder(id,cono,ctno,ctkno,cdno,csb,cot){
+  $('#parent_'+cono).remove();
+  alert('Order has been canceled.');
+}
 function errorpopup(){
     alert('Invalid option');
     return false;

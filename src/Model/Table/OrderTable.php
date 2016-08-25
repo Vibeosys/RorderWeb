@@ -162,10 +162,15 @@ class OrderTable extends Table {
         }
     }
     
-    public function getTableOrders($tableId, $takeawayNo,$deliveryNo, $restaurantId) {
+    public function getTableOrders($tableId, $takeawayNo,$deliveryNo, $restaurantId, $all) {
           $allOrders = NULL;
-           $condition = ['RestaurantId =' => $restaurantId,
-                    'OrderStatus =' => FULFILLED_ORDER_STATUS];
+          
+           $condition = ['RestaurantId =' => $restaurantId];
+           if($all){
+               $condition['OrderStatus !='] = BILLED_ORDER_STATUS;
+           }  else {
+                $condition['OrderStatus ='] = FULFILLED_ORDER_STATUS;
+           }
                 if($tableId){
                     $condition['TableId ='] = $tableId;
                 }  else if($takeawayNo){
