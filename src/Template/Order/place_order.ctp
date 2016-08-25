@@ -252,6 +252,7 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
 <?= $this->start('script') ?>
  <script>
 var isOccupied = <?= $isOccupied ?>;    
+var kot = <?= $kot_permission ?>;    
 var cur_table = <?= $tableId ?>;    
 var cur_takeaway = <?= $takeawayNo ?>;    
 var cur_delivery = <?= $deliveryNo ?>;

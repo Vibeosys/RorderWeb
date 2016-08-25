@@ -153,13 +153,15 @@ class OrderController extends ApiController {
         $takeawayNo = $this->readCookie('ctn');
         $deliveryNo = $this->readCookie('cdn');
         $rtableController = new RTablesController();
+        $rconfigSettingcontroller = new RConfigSettingsController();
         $set = ['users' => $users,
             'menus' => $menus,
             'categories' => $categories,
             'option' => $data[0],
             'tableId' => $tableId,
             'takeawayNo' => $takeawayNo,
-            'deliveryNo' => $deliveryNo];
+            'deliveryNo' => $deliveryNo,
+            'kot_permission' => $rconfigSettingcontroller->allow($restaurantId, KOT_CONFIG_KEY)];
           if($tableId){
             $set['isOccupied'] = $rtableController->isOccupied ($tableId);
             $set['tableNo'] = $rtableController->getBillTableNo($tableId);

@@ -195,6 +195,7 @@
                 
             });
          }
+         document.location.reload();
     }else {
         $(this).text('SAVE');
         $('.error-top').text('Please open or close stock before save.');
@@ -223,7 +224,7 @@
             });
             
             });
-            function openstockCheck(check){
+    function openstockCheck(check){
       $.ajax({
                         url: "/stockopencheck",
                         type: "POST",
