@@ -59,14 +59,14 @@ use Cake\Cache\Cache;
                       <div class="col-md-6 col-sm-6 col-xs-12">
                       <?php if($tableInfo->iopd) { ?>
                         Occupied: 
-                        <input type="radio" class="flat" name="iopd" id="occupied" value="<?= $tableInfo->iopd?>" checked="" required /> 
+                        <input type="radio" class="flat" name="iopd" id="occupied" value="1" checked="" required /> 
                         Unoccupied: 
-                            <input type="radio" class="flat" name="iopd" id="unoccupied" value="<?= $tableInfo->iopd?>" />  
+                            <input type="radio" class="flat" name="iopd" id="unoccupied" value="0" />  
                       <?php } else{?>    
                               Occupied: 
-                            <input type="radio" class="flat" name="iopd" id="occupied" value="<?= $tableInfo->iopd?>" required /> 
+                            <input type="radio" class="flat" name="iopd" id="occupied" value="1" required /> 
                         Unoccupied: 
-                            <input type="radio" class="flat" name="iopd" id="unoccupied" checked=""  value="<?= $tableInfo->iopd?>" />  
+                            <input type="radio" class="flat" name="iopd" id="unoccupied" checked=""  value="0" />  
                              <?php } ?>
                       </div>
                     </div>
