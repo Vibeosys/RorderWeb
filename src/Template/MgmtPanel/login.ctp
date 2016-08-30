@@ -155,19 +155,31 @@ use Cake\Cache\Cache;
                     <li>Feedback mechanism to improve quality.</li>
                     <li> Cloud storage eases data backup and anytime availability of data.</li>
                     <li>Inventory management made easy with a single click.</li>
-                    <li>Billing, customer rush statistical reports in PDF and Excel format at one go.</li>
+                    <li>Billing, customer rush statistical reports in PDF and Excel format.</li>
                 </ul>
             </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin-top">
-                    <h4 class="text-right google-text">Now available on</h4>
+                <div class="col-lg-12 col-md-2 col-sm-12 col-xs-12">
+                    <hr>
+            </div>
+            <div class="row" id="quickserve-video">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <iframe id="player" type="text/html" width="100%" height="290"  src="https://www.youtube.com/embed/CyjeqC9CjYQ"
+  frameborder="0" style="margin-left:15px;"></iframe>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin-top">
-                   <a itemprop="installUrl" itemscope itemtype="http://schema.org/installUrl" href="https://play.google.com/store/apps/details?id=com.vibeosys.rorderapp&amp;hl=en" target="_blank" >
-                   <?= $this->Html->image('google-play-badge.png', ['class' => 'img-responsive','style'=> 'width: 186px;','alt' => 'google-play'])?>      
+                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+             
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top">
+                    <h4 class="text-center google-text">Now available on</h4>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top">
+                    <a itemprop="installUrl" itemscope itemtype="http://schema.org/installUrl" href="https://play.google.com/store/apps/details?id=com.vibeosys.rorderapp&amp;hl=en" target="_blank">
+                  
+                    <?= $this->Html->image('google-play-badge.png', ['class' => 'img-responsive google-play center-block','alt' => 'google-play'])?>      
                     </a>
                 </div>
             </div>
+            </div>
+           
         </div>
     </div>
 </section>
@@ -223,7 +235,7 @@ use Cake\Cache\Cache;
                     <div class="crl-process">
                         <span class="crl-text">2</span>
                     </div>
-                    <?= $this->Html->image('arrow_right.png', ['class' => 'img-responsive arrow','alt' => 'process-arrow'])?>      
+                    <?= $this->Html->image('arrow_right.png', ['class' => 'img-responsive arrow arrow2','alt' => 'process-arrow'])?>      
                     <div class="prs-text">
                         <span>Chef  Confirm</span>
                     </div>
