@@ -501,15 +501,58 @@ function kotprint(id,cono,ctno,ctkno,cdno,csb,cot) {
           });
       });
 }
+
 function cancelOrder(id,cono,ctno,ctkno,cdno,csb,cot){
-  $('#parent_'+cono).remove();
+    $('#please_wait').css('display','block');
+       $.post('/setcookie',{name:'coi',value:id},function(result){
+          $.post('/setcookie',{name:'cono',value:cono},function(result){
+              $.post('/setcookie',{name:'ctno',value:ctno},function(result){
+                  $.post('/setcookie',{name:'ctkno',value:ctkno},function(result){
+                      $.post('/setcookie',{name:'cdno',value:cdno},function(result){
+                          $.post('/setcookie',{name:'csb',value:csb},function(result){
+                              $.post('/setcookie',{name:'cot',value:cot},function(result){
+                                 
+                                // document.location.replace('cancelorder/cancel-an-order');
+                                $('#c_on').text(cono);
+                                $('#c_tn').text(ctno);
+                                $('#c_sb').text(csb);
+                                $('#c_d').text(cot);
+                                $('#c_conform').attr('onclick','cancelmyorder("'+id+'",'+cono+');');
+                                $('#cancel_order_popup').css('display','block');
+                                $('#please_wait').css('display','none');
+                              });
+                          });
+                      });
+                  });
+              });
+          });
+      });
+  //$('#parent_'+cono).remove();
   //alert('Order has been canceled.');
-  create_note('Order has been canceled.','green','info');
+  //create_note('Order has been canceled.','green','info');
 }
 function errorpopup(){
     alert('Invalid option');
     return false;
 }
+function cancelmyorder(id, cono){
+    $.post('/setcookie',{name:'cancel_order_id',value:id},function(result){
+        $('#c_c_div').html(loading);
+        $('#c_c_div').append('<p>Please Wait..</p>');
+      $.post('/cancel-an-order',{},function(result){
+          result = $.parseJSON(result);
+         if(result.errorCode == 0){
+             var html = '<p style="color:green">Order has been canceled</p><br><a style="cursor:pointer" onclick="back_me();">Back</a>';
+             $('#parent_'+cono).remove();
+         }else{
+            var  html = '<p style="color:red">'+result.message+'.</p><br><a style="cursor:pointer" onclick="back_me();">Back</a>';
+         }
+         $('#c_c_div').html(html);
+      });  
+        
+    });
+}
+
 
 
 

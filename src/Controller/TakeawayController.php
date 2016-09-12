@@ -55,9 +55,14 @@ class TakeawayController extends ApiController{
     }
     
     public function takeawayView() {
-          $data = explode('/', $this->request->url);
-        $this->set([
-            'option' => $data[1]
-        ]);
+        $data = explode('/', $this->request->url);
+        Log::debug($data);  
+        $set = ['option' => $data[1]];
+        if(in_array('placeorder', $data)){
+            $takeawaySourceController = new TakeawaySourceController();
+            $set['source']= $takeawaySourceController->getTakeawaySource(); 
+            $set['addNew'] = true; 
+        }
+        $this->set($set);
     }
 }

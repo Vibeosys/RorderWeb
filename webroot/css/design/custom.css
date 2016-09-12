@@ -844,6 +844,7 @@ a.btn-success, a.btn-primary, a.btn-warning, a.btn-danger {
   overflow: hidden;
 }
 .top_tiles {
+    margin-top: 20px;
   margin-bottom: 0;
 }
 .top_tiles .tile span {}
@@ -4206,6 +4207,7 @@ img{
 }
 .print{
     text-align: center;
+        margin-top: 25px;
 }
 .fa-icon{
     font-size: 20px; 

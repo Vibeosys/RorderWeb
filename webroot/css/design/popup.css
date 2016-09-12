@@ -79,3 +79,41 @@ width: 300px;
 min-height: 230px;
 }
 }
+
+#m_foot{
+    text-align: center
+}
+#m_foot img{
+        width: 9%;
+        vertical-align: central;
+}
+#c_c_div img{
+        width: 9%;
+        vertical-align: central;
+}
+#c_c_div a{
+        color: white;
+    padding: 3px 20px;
+    border: 1px solid grey;
+    background: grey;
+}
+#please_wait{
+    display: none;
+}
+.close-up{
+    margin-top: -2px;
+        -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+        
+}

@@ -251,13 +251,15 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
 <?= $this->end('placeorder_popup') ?>
 <?= $this->start('script') ?>
  <script>
-var isOccupied = <?= $isOccupied ?>;    
+ <?php if(isset($isOccupied)) {?>
+var isOccupied = <?= $isOccupied ?>;
+ <?php } ?>
 var kot = <?= $kot_permission ?>;    
 var cur_table = <?= $tableId ?>;    
 var cur_takeaway = <?= $takeawayNo ?>;    
 var cur_delivery = <?= $deliveryNo ?>;
 var cur_time = <?= date('d-m-Y');?>;
-var cur_cust_id = '';
+var cur_cust_id = '<?= $custId ?>';  
 var order_type = 1;
 if(cur_takeaway != 0){
     order_type = 2;
@@ -436,6 +438,7 @@ $(document).ready(function() {
     $('.place_my_order').on('click',function(){
         if(!$(".order-items").children().length){alert('Please select item to proceed.'); return false;}
         var nochild = $(".order-items li").size()/2;
+        minOrder = [];
         for(var i=0;i < nochild;i++){
                 var n = parseInt(i) + 1;
                   var mid = $(".order-items li:nth-child("+n+")").attr('mid');
@@ -480,7 +483,7 @@ $(document).ready(function() {
         error : function(jqXHR, textStatus, errorThrown) {
                 alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
         }});
-       // alert(request);
+        //alert(request);
     });
     
     // to reserve table

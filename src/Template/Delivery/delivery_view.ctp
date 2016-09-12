@@ -31,8 +31,10 @@ use Cake\Cache\Cache;
                     </li>
                     <li><a href="#free" data-toggle="tab">Close</a>
                     </li>
+                     <?php if(isset($addNew)){ ?>
                     <li><a href="#new" data-toggle="tab">New Add</a>
                     </li>
+                     <?php } ?>     
                 </ul>
                 <div class="tab-content ">       
                     <div class="tab-pane active" id="all">
@@ -58,6 +60,7 @@ use Cake\Cache\Cache;
                             </div>
                         </div>
                     </div>
+                     <?php if(isset($addNew)){ ?>
                     <div class="tab-pane" id="new">
                         <div class="x_panel">
                             <div class="x_content" id="new-delivery">
@@ -67,27 +70,27 @@ use Cake\Cache\Cache;
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="takeawayname" name="takeawayname" required="required" class="form-control col-md-7 col-xs-12" value="" placeholder="Name">
+                          <input type="text" id="dname" name="takeawayname" required="required" class="form-control col-md-7 col-xs-12" value="" placeholder="Name">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <textarea id="address" name="address" required="required" class="form-control col-md-7 col-xs-12" value="" placeholder="Address"></textarea>
+                          <textarea id="daddress" name="address" required="required" class="form-control col-md-7 col-xs-12" placeholder="Address"></textarea>
                       </div>
                     </div>
                   <div class="form-group">
                       <label for="ingredients" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="phone" class="form-control col-md-7 col-xs-12" type="text" name="phone" value="" placeholder="Phone no">
+                          <input id="dphone" class="form-control col-md-7 col-xs-12" type="text" name="phone" value="" placeholder="Phone no">
                       </div>
                     </div>
                       
                     <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                          <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select name="category" class="select2_source form-control">
+                             <select id="dsource" name="category" class="select2_source form-control">
                                     <option disabled selected>Source</option>
                                     <option>option 1 </option>
                                     <option>option 2 </option>
@@ -126,6 +129,7 @@ use Cake\Cache\Cache;
                             </div>
                         </div>
                     </div>
+                     <?php } ?>     
                 </div>
             </div>
         </div>
@@ -195,7 +199,7 @@ use Cake\Cache\Cache;
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  col-lg-offset-2 col-md-offset-3">
                     <p class="error-msg2">Here are some suggestions:</p>
                     <ul class="error-list1">
-                        <li> <a href="../tableview/printbill">Back</a> </li>
+                        <!--<li> <a href="../deliveryView/printbill">Back</a> </li>-->
                         <li> <a href="../reports">Home</a></li>
                     </ul>
                 </div>

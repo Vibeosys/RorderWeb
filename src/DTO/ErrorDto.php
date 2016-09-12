@@ -87,7 +87,8 @@ class ErrorDto {
         138 => 'Oops ! Request with empty customer information',
         139 => 'Oops ! Customer details can not added',
         140 => 'Oops ! Error not added',
-        141 => 'Oops ! Not Found'
+        141 => 'Oops ! Not Found',
+        142 => 'Oops ! You are late. Cant cancel order.'
        ];
     
 }

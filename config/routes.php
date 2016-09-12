@@ -132,6 +132,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('chartnotfound', ['controller' => 'Error', 'action' => 'chartNotFound']);
     //place order
     $routes->connect('getsubmenu', ['controller' => 'SubMenu', 'action' => 'getMenu']);
+    $routes->connect('cancel-an-order', ['controller' => 'Order', 'action' => 'cancelOrder']);
     $routes->fallbacks('DashedRoute');
 });
 

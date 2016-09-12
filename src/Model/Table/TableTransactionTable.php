@@ -171,7 +171,7 @@ class TableTransactionTable extends Table {
         if(!is_null($restaurantId)){
             $conditions['RestaurantId'] = $restaurantId;
         }
-        $result = $this->connect()->find('all', ['conditions' => $conditions, 'contains' => array('CustId')]);
+        $result = $this->connect()->find('all', ['conditions' => $conditions, 'contains' => array('CustId')])->orderDesc('ArrivalTime');
         if($result->count()){
             Log::debug($result->first()->CustId);
             return $result->first()->CustId ;

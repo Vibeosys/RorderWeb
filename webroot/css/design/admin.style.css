@@ -668,7 +668,7 @@ a.main-list:focus .fa-chevron-right{
 .main-menu .x_title{
     padding-top: 13px;
 }
-.sub-item-list .x_panel, {
+.sub-item-list .x_panel {
     border-top:none;
 }
 .sub-cat, .sub-cat .x_panel{

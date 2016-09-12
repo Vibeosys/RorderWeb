@@ -153,6 +153,16 @@ class OrderController extends ApiController {
         $takeawayNo = $this->readCookie('ctn');
         $deliveryNo = $this->readCookie('cdn');
         $rtableController = new RTablesController();
+        if($tableId){
+            $tableTransactionController = new TableTransactionController();
+            $custId = $tableTransactionController->getCurrentCustomer($tableId, $restaurantId);
+        }else if($takeawayNo){
+            $takeawayController = new TakeawayController();
+            $custId = $takeawayController->getTakeawayCustomer($takeawayNo, $restaurantId);
+        }else if($deliveryNo){
+            $deliverycontroller = new DeliveryController();
+            $custId = $deliverycontroller->getCurrentCustomer($deliveryNo, $restaurantId);
+        }
         $rconfigSettingcontroller = new RConfigSettingsController();
         $set = ['users' => $users,
             'menus' => $menus,
@@ -161,6 +171,7 @@ class OrderController extends ApiController {
             'tableId' => $tableId,
             'takeawayNo' => $takeawayNo,
             'deliveryNo' => $deliveryNo,
+            'custId' => $custId,
             'kot_permission' => $rconfigSettingcontroller->allow($restaurantId, KOT_CONFIG_KEY)];
           if($tableId){
             $set['isOccupied'] = $rtableController->isOccupied ($tableId);
@@ -170,7 +181,10 @@ class OrderController extends ApiController {
     }
     
     public function cancelOrder() {
-        
+        $this->autoRender = FALSE;
+        $orderId = parent::readCookie('cancel_order_id');
+        Log::debug('Current cancel orderid :-'.$orderId);
+        $this->response->body(json_encode(DTO\ErrorDto::prepareError(142)));
     }
 
 }

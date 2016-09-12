@@ -107,8 +107,8 @@ class TableTransactionController extends ApiController {
             Log::debug('Sync update save for table_transaction table deletion');
     }
     
-    public function getCurrentCustomer($tableId) {
-        return $this->getTableObj()->getCustomer($tableId);
+    public function getCurrentCustomer($tableId, $restaurantId) {
+        return $this->getTableObj()->getCustomer($tableId, $restaurantId);
     }
     
     public function getCurrentTableCustomer() {

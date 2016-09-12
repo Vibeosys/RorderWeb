@@ -53,8 +53,10 @@ class DeliveryController extends ApiController{
     
      public function deliveryView() {
           $data = explode('/', $this->request->url);
-        $this->set([
-            'option' => $data[1]
-        ]);
+       $set = ['option' => $data[1]];
+        if(in_array('placeorder', $data)){
+            $set['addNew'] = true; 
+        }
+        $this->set($set);
     }
 }

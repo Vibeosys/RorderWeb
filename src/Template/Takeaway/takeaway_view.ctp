@@ -31,8 +31,10 @@
                     </li>
                     <li><a href="#free" data-toggle="tab">Close</a>
                     </li>
+                   <?php if(isset($addNew)){ ?>
                      <li><a href="#new" data-toggle="tab">New Add</a>
                     </li>
+                   <?php } ?>           
                 </ul>
                 <div class="tab-content ">       
                     <div class="tab-pane active" id="all">
@@ -58,6 +60,7 @@
                             </div>
                         </div>
                     </div>
+                  <?php if(isset($addNew)){ ?>   
                      <div class="tab-pane" id="new">
                         <div class="x_panel">
                             <div class="x_content" id="close-takeaway">
@@ -67,42 +70,45 @@
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="takeawayname" name="takeawayname" required="required" class="form-control col-md-7 col-xs-12" value="" placeholder="Name">
+                          <input type="text" id="tname" name="takeawayname" required="required" class="form-control col-md-7 col-xs-12" value="" placeholder="Name">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <textarea id="address" name="address" required="required" class="form-control col-md-7 col-xs-12" value="" placeholder="Address"></textarea>
+                          <textarea id="taddress" name="address" required="required" class="form-control col-md-7 col-xs-12" placeholder="Address"></textarea>
                       </div>
                     </div>
                   <div class="form-group">
                       <label for="ingredients" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="phone" class="form-control col-md-7 col-xs-12" type="text" name="phone" value="" placeholder="Phone no">
+                          <input id="tphone" class="form-control col-md-7 col-xs-12" type="text" name="phone" value="" placeholder="Phone no">
                       </div>
                     </div>
                       
                     <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                          <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select name="category" class="select2_source form-control">
+                             <select id="tsource" name="source" class="select2_source form-control">
                                     <option disabled selected>Source</option>
-                                    <option>option 1 </option>
-                                    <option>option 2 </option>
-                                    <option>option 3 </option>
-                                    <option>option 4 </option>
-                                    <option>option 5 </option>
-                                    <option>option 6 </option>
+                                   <?php if(isset($source)) { foreach ($source as $s){ ?> 
+                                    <option value="<?= $s->sourceId ?>" >
+                                     <?= $s->sourceName ?>
+                                    </option>
+                                   <?php } } ?>
                         </select>
+                           <?php if(isset($source)) { foreach ($source as $s){ ?> 
+                             <input type="hidden" id="s_dis_<?= $s->sourceId ?>" value="<?= $s->discount ?>">
+                              <?php } } ?>
+
                         </div>
                     </div>
                         <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="discount" name="discount" required="required" class="form-control col-md-7 col-xs-12" value="8%" disabled>
+                          <input type="text" id="tdis" name="discount" required="required" class="form-control col-md-7 col-xs-12" value="" disabled>
                       </div>
                     </div>
                 
@@ -110,7 +116,7 @@
                     <div class="ln_solid"></div>
                     <div class="form-group">
                       <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                        <button name="save" value="true" type="submit" class="btn btn-success">Submit</button>
+                          <button id="taddnew" name="save" value="true" type="submit" class="btn btn-success">Submit</button>
                            <button type="button" value="cancel" class="btn btn-primary" onclick="window.history.back();">Cancel</button>
                       </div>
                     </div>
@@ -119,6 +125,7 @@
                             </div>
                         </div>
                     </div>
+                         <?php } ?>    
                 </div>
             </div>
         </div>
@@ -235,9 +242,32 @@
     
     </div> 
     </div>
+    <div id="noticeMain" class="modal animated zoomin">
+     <div class="modal-dialog" style="width: 438px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="hideit('noticeMain');" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="notice_title">Sucess</h4>
+
+            </div>
+           
+            <div class="modal-body" style="height: 202px">
+               <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                        <div class="order-inner" id="notice_msg">
+                        This Takeaway 
+                      </div> 
+                    </div>
+                </div>
+               </div>
+            </div>
+         </div>
+        </div> 
 <input type="text" class="hidden" id="option" value="<?= $option ?>">
  <?php $this->start('script');?>
 <script>
+    var webmacid = 'WEB:MAC:ADDRESS';
+    var curCustId = '';
     var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.gif" alt="Loading..." /></div>'
     $('#all-takeaway').html(loading);
     $('#active-takeaway').html(loading);
@@ -256,8 +286,13 @@
                 $.each(result, function (idx, obj) {
                     //alert(obj);
                     if (obj.status) {
-                        takeaway = takeaway + '<a class="btn btn-app red" onclick="perform(0,' + obj.tno + ',0,' + obj.disPer + ')"><i class="fa fa-male"></i>#' + obj.tno + '</a>';
-                        close = close + '<a class="btn btn-app red" onclick="perform(0,' + obj.tno + ',0,' + obj.disPer + ')"><i class="fa fa-male"></i>#' + obj.tno + '</a>';
+                        if($('#option').val() == 'printbill'){
+                        takeaway = takeaway + '<a class="btn btn-app red" onclick="perform(0,' + obj.tno + ',0,' + obj.disPer + ');"><i class="fa fa-male"></i>#' + obj.tno + '</a>';
+                        close = close + '<a class="btn btn-app red" onclick="perform(0,' + obj.tno + ',0,' + obj.disPer + ');"><i class="fa fa-male"></i>#' + obj.tno + '</a>';
+                    }else{
+                         takeaway = takeaway + '<a class="btn btn-app red" onclick="imclosed();"><i class="fa fa-male"></i>#' + obj.tno + '</a>';
+                         close = close + '<a class="btn btn-app red" onclick="imclosed();;"><i class="fa fa-male"></i>#' + obj.tno + '</a>';
+                        }
                     }else{
                         takeaway = takeaway + '<a class="btn btn-app green" onclick="perform(0,' + obj.tno + ',0,' + obj.disPer + ')"><i class="fa fa-male"></i>#' + obj.tno + '</a>';
                         active = active + '<a class="btn btn-app green" onclick="perform(0,' + obj.tno + ',0,' + obj.disPer + ')"><i class="fa fa-male"></i>#' + obj.tno + '</a>';
@@ -280,10 +315,71 @@
                $('#active-takeaway').html(printhtml);
                $('#close-takeaway').html(printhtml);
         }});
+   function generateUUID() {
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+};
+function addCustomer(){
+    curCustId = generateUUID();
+}
+function hideit(id){
+   $('#'+id).css('display','none');
+    }
+function imclosed(){
+    $('#notice_title').text('OOPS..!ERROR');
+    $('#notice_msg').html('This takeaway has been closed. <br> Operation request denied.');
+    $('#notice_title').css('color','red');
+    $('#notice_msg').css('color','red');
+    $('#noticeMain').css('display','block');
+}
 $(document).ready(function() {
       $(".select2_source").select2({
         placeholder: "Select a Source",
         allowClear: true
+      });
+      $('#tsource').change(function(){
+          $('#tdis').val($('#s_dis_'+ $(this).val()).val());
+      });
+      $('#taddnew').click(function(){
+          var tname = $('#tname').val();
+          var taddr = $('#taddress').val();
+          var tphone = $('#tphone').val();
+          var tsource = $('#tsource').val();
+          var tdis = $('#tdis').val();
+           $.post('/getwebuser',{},function(result){
+            var user = {'userId':result.userId,'macId':webmacid,'password':result.password,'restaurantId':result.restaurantId};
+            addCustomer();
+            var operationData1 = {"custAddress":taddr,"custId":curCustId,"custName":tname,"custPhone":tphone};
+            var operationData2 = {"custId":curCustId,"takeawayId":generateUUID(),"deliveryCharges":0.0,"discount":tdis,"sourceId":tsource};
+            var operation1 = {'operation':'addCustomer','operationData':JSON.stringify(operationData1)};
+            var operation2 = {'operation':'addTakeaway','operationData':JSON.stringify(operationData2)};
+             var data = [operation1,operation2];
+             var request = {'user':user,'data':data};
+             request = JSON.stringify(request);
+               $.ajax({
+        url: "../../api/v1/upload", 
+        type:"POST",
+        data:request,
+        contentType: 'application/json',
+        cache: false,
+        processData:false, 
+        success: function(result, jqXHR, textStatus){
+          if(result.errorCode == 0){
+             alert('Success:'+result.message); 
+             document.location.reload();
+          }else{
+             alert('Error:'+result.message); 
+            }
+         },
+        error : function(jqXHR, textStatus, errorThrown) {
+                alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+        }});
+    });
       });
 });
     
