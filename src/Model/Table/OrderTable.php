@@ -111,7 +111,8 @@ class OrderTable extends Table {
         $allOrders = NULL;
         $condition = ['CustId =' => $custId, 
             'RestaurantId =' => $restaurantId, 
-            'OrderStatus =' => FULFILLED_ORDER_STATUS];
+            'OrderStatus =' => FULFILLED_ORDER_STATUS,
+            'Active =' => ACTIVE];
         $orders = $this->connect()->find()
                 ->where($condition);
         if ($orders->count()) {
@@ -136,7 +137,8 @@ class OrderTable extends Table {
         $condition = [
             'CustId =' => $custId, 
             'RestaurantId =' => $restaurantId, 
-            'OrderStatus =' => $orderStatus];
+            'OrderStatus =' => $orderStatus,
+            'Active =' => ACTIVE];
             $orders = $this->connect()->find()
                 ->where($condition);
             $count = $orders->count();

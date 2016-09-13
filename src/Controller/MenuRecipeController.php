@@ -9,6 +9,7 @@
 namespace App\Controller;
 use App\Model\Table;
 Use Cake\Log\Log;
+use App\DTO\DownloadDTO\RecipeItemRestoreDto;
 /**
  * Description of MenuRecipeController
  *
@@ -26,6 +27,27 @@ class MenuRecipeController extends ApiController{
     
     public function addNewRecipeItem($insertRequest) {
         return $this->getTableObj()->insert($insertRequest);
+    }
+    
+    public function restoreMenuRecipeItemQty($orderId) {
+        $orderDetailsController = new OrderDetailsController();
+        $orderMenu = $orderDetailsController->getOrderMenu($orderId);
+        foreach ($orderMenu as $menu){
+            $recipeItems = $this->getMenuRecipe($menu->id);
+            foreach ($recipeItems as $item){
+               $recipeItemMasterController = new RecipeItemMasterController();
+                $itemUnit = $recipeItemMasterController->getItemUnit($item->itemId);
+                if($itemUnit == $item->unitId){
+                    $restoreDto = new RecipeItemRestoreDto($item->itemId, $menu->qty, $item->qty, 1);
+                    
+                }  else {
+                    $unitMaterController = new UnitMasterController();
+                    $cfactor = $unitMaterController->getCfactor($item->unitId);
+                    $restoreDto = new RecipeItemRestoreDto($item->itemId, $menu->qty, $item->qty, $cfactor);
+                }
+                $recipeItemMasterController->restoreItemQty($restoreDto);
+            }
+        }
     }
     
     public function editRecipeItem() {

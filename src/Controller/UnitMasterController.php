@@ -28,4 +28,10 @@ class UnitMasterController extends ApiController{
             $this->response->body(FALSE);
         }
     }
+    
+    public function getCfactor($unitId) {
+        return $this->getTableObj()->getFactor($unitId);
+    }
+    
+    
 }

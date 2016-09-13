@@ -179,5 +179,29 @@ class RecipeItemMasterTable extends Table{
             return FALSE;
         }
     }
+   
+    public function getUnit($itemId) {
+        $conditions = [
+            'ItemId =' => $itemId
+        ];
+        try{
+            $items = $this->connect()->find()->where($conditions);
+            if($items->count()){
+                foreach ($items as $item)
+                    return $item->UnitId;
+            }
+            return FALSE;
+        } catch (Exception $ex) {
+            return FALSE;
+        }
+    }
     
+    public function restoreQty($itemDetails) {
+       $item = $this->connect()->get($itemDetails->itemId);
+       $item->QtyInHand = round($item->QtyInHand + $itemDetails->menuQty * ($itemDetails->itemQty * $itemDetails->factor), 2);
+       if($this->connect()->save($item)){
+           return TRUE;
+       }
+       return FALSE;
+    }
 }

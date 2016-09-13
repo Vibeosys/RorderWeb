@@ -85,5 +85,9 @@ class OrderDetailsController extends ApiController {
         }
     
     }
+    
+    public function getOrderMenu($orderId) {
+        return $this->getTableObj()->getKotDetails($orderId);
+    }
 
 }

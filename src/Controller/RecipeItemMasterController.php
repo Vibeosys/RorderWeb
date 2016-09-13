@@ -297,4 +297,12 @@ class RecipeItemMasterController extends ApiController{
     * 
     */
     
+   public function getItemUnit($itemId) {
+       return $this->getTableObj()->getUnit($itemId);
+   }
+   
+   public function restoreItemQty($itemDetails) {
+       return $this->getTableObj()->restoreQty($itemDetails); 
+   }
+    
 }

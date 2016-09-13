@@ -41,4 +41,13 @@ class UnitMasterTable extends Table{
             return FALSE;
         }
     }
+    
+    public function getFactor($unitId) {
+        $condition = ['UnitId =' => $unitId];
+        $units = $this->connect()->find()->where($condition);
+        if($units->count())
+        foreach ($units as $unit)
+            return $unit->Cfactor;
+    return 1;
+    }
 }

@@ -190,6 +190,8 @@ class OrderController extends ApiController {
             $this->response->body(json_encode(DTO\ErrorDto::prepareError(144))); 
         }else{
         if($this->getTableObj()->deleteOrder($orderId)){
+            $menuRecipeController = new MenuRecipeController();
+            $menuRecipeController->restoreMenuRecipeItemQty($orderId);
             $this->response->body(json_encode(DTO\ErrorDto::prepareSuccessMessage("Order has been canceled.")));
         }else{
         Log::debug('Current cancel orderid :-'.$orderId);
