@@ -183,8 +183,18 @@ class OrderController extends ApiController {
     public function cancelOrder() {
         $this->autoRender = FALSE;
         $orderId = parent::readCookie('cancel_order_id');
+        $orderStatus = $this->getTableObj()->getOrderStatus($orderId);
+        if(!$orderStatus){
+           $this->response->body(json_encode(DTO\ErrorDto::prepareError(143))); 
+        }elseif($orderStatus == 3){
+            $this->response->body(json_encode(DTO\ErrorDto::prepareError(144))); 
+        }else{
+        if($this->getTableObj()->deleteOrder($orderId)){
+            $this->response->body(json_encode(DTO\ErrorDto::prepareSuccessMessage("Order has been canceled.")));
+        }else{
         Log::debug('Current cancel orderid :-'.$orderId);
         $this->response->body(json_encode(DTO\ErrorDto::prepareError(142)));
+        }}
     }
 
 }

@@ -178,6 +178,7 @@ class OrderTable extends Table {
                 }elseif ($deliveryNo) {
                     $condition['DeliveryNo ='] = $deliveryNo;
                 }
+            $condition['Active ='] = ACTIVE;     
            $orders = $this->connect()->find()
                 ->where($condition)->orderDesc('OrderNo');
         if ($orders->count()) {
@@ -198,6 +199,24 @@ class OrderTable extends Table {
             }
         }
         return $allOrders;
+    }
+    public function deleteOrder($orderId) {
+        
+        $order = $this->connect()->get($orderId);
+        $order->Active = 0;
+        if($this->connect()->save($order)){
+            return TRUE;
+        }
+        return FALSE;
+    }
+    
+     public function getOrderStatus($orderId) {
+        $orders = $this->connect()->find()->where(['OrderId =' => $orderId]);
+        if ($orders->count()) {
+            foreach ($orders as $order)
+                return  $order->OrderStatus;
+        }
+        return FALSE;
     }
 
 }
