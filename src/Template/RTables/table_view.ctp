@@ -213,23 +213,7 @@ var loading = '<div id="loading-image"><img src="../img/quickserve-big-loading.g
 							$('.reserved-table').html(alltables);
 							$('.free-table').html(alltables);
                         }});
-                        $('.close-down').on('click', function(){
-                            $('#table_data_popup').css('display','none');
-                        });
-                          $('.close-up').on('click', function(){
-                            $('#cancel_order_popup').css('display','none');
-                            var button = '<a class="btn-print" id="c_conform">'+
-                                            '<i class="fa fa-cancel fa-icon"></i> Conform</a> ';
-                            $('#c_c_div').html(button);
-                        });
-                         function back_me(){
-                            $('#cancel_order_popup').css('display','none');
-                             var button = '<a class="btn-print" id="c_conform">'+
-                                            '<i class="fa fa-cancel fa-icon"></i> Conform</a> ';
-                            $('#c_c_div').html(button);
-                            //e.preventDefault();
-                            //return false;
-                        }
+                    
 </script>
 
 <?php $this->end('script'); ?>

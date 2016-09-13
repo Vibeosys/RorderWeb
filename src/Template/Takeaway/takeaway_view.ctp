@@ -206,7 +206,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close close-down" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Table No :- <span id="table_heading"> </span></h4>
 
             </div>
@@ -216,14 +216,22 @@
                     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
                         <div class="order">
                                     <div class="order-no">
-                                        <span class="text-1">Bill No: 231</span> <br>
-                                        <span class="text-2">Table No : 101</span>
+                                        <span class="text-1">Order No: <span id="c_on">231</span></span> <br>
+                                        <span class="text-2">Table No : <span id="c_tn">101 </span></span>
                                     </div>
                                     <div class="order-detail ">
-                                        <span class="text-1">Served By: abcdef</span><br>
-                                        <span class="text-2">Date: 3-5-2016</span>
+                                        <span class="text-1">Served By: <span id="c_sb">231</span></span><br>
+                                        <span class="text-2">Date:<span id="c_d">231</span></span>
                                     </div>
                                     <div class="print">
+                                      <div class="order-detail ">
+                                          <select name="reasion">
+                                              <option>Select One</option>
+                                              <option>Change My mind.</option>
+                                              <option>Customer mind changed.</option>
+                                              <option>Menu was not available.</option>
+                                          </select>
+                                           </div>
                                         <a class="btn-print">
                                             <i class="fa fa-print fa-icon"></i> Print Bill
                                         </a> 
@@ -231,7 +239,60 @@
                            
                         </div>                       
                       </div>
-                    <div class="modal-footer">
+                
+               
+            </div>
+                    <div id="m_foot" class="modal-footer">
+                        <div id="please_wait" >  
+                       <img src="../img/quickserve-big-loading.gif" alt="Loading...">
+                       <p>Please Wait</p>
+                        </div>
+                    </div>
+        </div>
+    </div>
+</div>
+    
+    </div> 
+    </div>
+<div id="cancel_order_popup" class="modal animated zoomin" style="z-index: 1100;background: rgba(0, 0, 0, 0.54);">
+    <div class="modal-dialog" style="width: 500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close-up" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Cancel Order<span id="table_heading"> </span></h4>
+
+            </div>
+            <div class="scrollbar" id="style-1">
+            <div class="modal-body">
+                <div class="row" id="popup_list">
+                    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                        <div class="order">
+                                    <div class="order-no">
+                                        <span class="text-1">Order No: <span id="c_on"></span></span> <br>
+                                        <span class="text-2">Table No : <span id="c_tn"> </span></span>
+                                    </div>
+                                    <div class="order-detail ">
+                                        <span class="text-1">Served By: <span id="c_sb"></span></span><br>
+                                        <span class="text-2">Date:<span id="c_d"></span></span>
+                                    </div>
+                                    <div class="print">
+                                        <label>Please select reason to cancel order</label><br>
+                                        <select id="reason" name="reasion" class="form-control">
+                                              <option>Select One</option>
+                                              <option>Change My mind.</option>
+                                              <option>Customer mind changed.</option>
+                                              <option>Menu was not available.</option>
+                                          </select>
+                                    </div>    
+                            <div class="print" id="c_c_div">
+                                        <a class="btn-print" id="c_conform">
+                                            <i class="fa fa-cancel fa-icon"></i> Conform
+                                        </a> 
+                                    </div>
+                           
+                        </div>                
+                      </div>
+                    <div class="modal-footer" >
                         
                     </div>
                
@@ -342,6 +403,7 @@ $(document).ready(function() {
         placeholder: "Select a Source",
         allowClear: true
       });
+     
       $('#tsource').change(function(){
           $('#tdis').val($('#s_dis_'+ $(this).val()).val());
       });
