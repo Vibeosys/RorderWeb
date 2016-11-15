@@ -4167,7 +4167,7 @@ img{
     padding: 0px 13px;
     
     text-align: left;
-    width: 50%;
+    width: 45%;
     display: inline-block;
 }
 .order-detail{
@@ -4176,6 +4176,8 @@ img{
    
     text-align: left;
     display: inline-block;
+        vertical-align: top;
+    line-height: 2.4em;
 }
 .btn-print{
    
@@ -4207,7 +4209,7 @@ img{
 }
 .print{
     text-align: center;
-        margin-top: 25px;
+        margin-top: 5px;
 }
 .fa-icon{
     font-size: 20px; 
@@ -4221,19 +4223,40 @@ img{
     color: #26B99A;
     margin: 0;
         line-height: 2em;
+/*
+    text-overflow: ellipsis;
+        display: -webkit-inline-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+width: 175px;
+*/
+}
+.error-fix-kot{
+      width: 4em;
+    display: inline-block;
+    float: left;
+    margin-right: 1em;
+    position: absolute;
+    top: -5px;
+    left: 1px;
+}
+.kot-error{
+       width: 380px;
+    display: block;
+    margin: 0 auto;
+    height: 195px;
 }
 .text-2 {
     font-size: 18px;
 }
-@media (max-width:445px){
+@media (max-width:480px){
       .order-no{
         width:50%;
     }
-  .text-1{
+  .text-1, .text-2{
         font-size: 14px;
-    }
-    .text-2{
-        font-size: 14px;
+      width: 100%;
     }
     .btn-print{
         min-width: 126px;
@@ -4243,6 +4266,9 @@ img{
     .fa-icon{
         font-size: 15px;
         margin-right: 10px;
+    }
+    .order-detail{
+        line-height:1.5;
     }
 }
 

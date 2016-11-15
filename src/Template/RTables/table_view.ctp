@@ -66,7 +66,7 @@ use Cake\Cache\Cache;
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close close-down" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Table No :- <span id="table_heading"> </span></h4>
+                <h4 class="modal-title" id="table_heading_h4">Table No :- <span id="table_heading"> </span></h4>
 
             </div>
             <div class="scrollbar" id="style-1">

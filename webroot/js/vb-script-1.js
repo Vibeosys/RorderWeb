@@ -215,7 +215,32 @@ function perform(table,takwaway,delivery,discount,deliveryCharge){
             if(result){
                  $('#table_data_popup').css('display','block');
                 if(result.message){
-                result_html = result.message;     
+                // result_html = result.message;     
+                result_html = '<div class="error-msg1 kot-error center-block">' + 
+                           '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 border-bottom">' + 
+                               '<div class="row">' +
+                                    '<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">' +
+                                        '<img src="../img/error-fix.png" class="img-responsive error-fix-kot">' +
+                                   '</div>' +
+                                    '<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">' +
+                                        '<spna class="error-heading">Oops ! </spna>' +
+                                   '</div>' +
+                                  
+                               '</div> ' +
+                            '</div>' +
+                           '<div class="msg-text">' +
+                                   ' <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-3 ">' +                  
+                                           ' <p class="error-p1">Orders not found for this table</p>' +
+                                    '</div>' +
+                                    '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  col-lg-offset-2 col-md-offset-3">' +
+                                          ' <p class="error-msg2">Here are some suggestions:</p>' +
+                                                  '  <ul class="error-list1">' +
+                                                              '  <li> <a href="">Back</a> </li>' +
+                                                               ' <li> <a href="">Home</a></li>' +
+                                                    '</ul>' +
+                                    '</div>' +
+                            '</div>' +
+                    '</div>';     
                 }else{
                     if(table){
                       print_string = 'Table No';
@@ -247,7 +272,15 @@ function perform(table,takwaway,delivery,discount,deliveryCharge){
             });
                 }
             $('#popup_list').html(result_html);
-            $('#table_heading').html(number);
+          
+                if(number == null){
+                    number = '';
+                    $('#table_heading_h4').html(number);
+                }
+                else{
+                    $('#table_heading').html(number);
+                }
+            
            }else{
             alert('please contact on info@vibeosys.com');
             }
@@ -283,7 +316,32 @@ function perform(table,takwaway,delivery,discount,deliveryCharge){
             if(result){
                  $('#table_data_popup').css('display','block');
                 if(result.message){
-                result_html = result.message;     
+               // result_html = result.message;     
+                result_html = '<div class="error-msg1 kot-error center-block">' + 
+                           '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 border-bottom">' + 
+                               '<div class="row">' +
+                                    '<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">' +
+                                        '<img src="../img/error-fix.png" class="img-responsive error-fix-kot">' +
+                                   '</div>' +
+                                    '<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">' +
+                                        '<spna class="error-heading">Oops ! </spna>' +
+                                   '</div>' +
+                                  
+                               '</div> ' +
+                            '</div>' +
+                           '<div class="msg-text">' +
+                                   ' <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-3 ">' +                  
+                                           ' <p class="error-p1">Orders not found for this table</p>' +
+                                    '</div>' +
+                                    '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  col-lg-offset-2 col-md-offset-3">' +
+                                          ' <p class="error-msg2">Here are some suggestions:</p>' +
+                                                  '  <ul class="error-list1">' +
+                                                              '  <li> <a href="">Back</a> </li>' +
+                                                               ' <li> <a href="">Home</a></li>' +
+                                                    '</ul>' +
+                                    '</div>' +
+                            '</div>' +
+                    '</div>';     
                 }else{
                     if(table){
                       print_string = 'Table No';
@@ -315,7 +373,14 @@ function perform(table,takwaway,delivery,discount,deliveryCharge){
             });
                 }
             $('#popup_list').html(result_html);
-            $('#table_heading').html(number);
+                if(number == null){
+                    number = '';
+                    $('#table_heading_h4').html(number);
+                }
+                else{
+                    $('#table_heading').html(number);
+                }
+            
            }else{
             alert('please contact on info@vibeosys.com');
             }
