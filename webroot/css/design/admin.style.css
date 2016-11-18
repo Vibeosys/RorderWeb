@@ -3,14 +3,14 @@
     margin-top: -1em;
     float: left;
     padding-top: 16px;   
-
+    margin-left: 1em;
 }
 
 .remove-space{
     padding-right: 0px;
     padding-left: 0px;
     float: right;
-    text-align: center;
+   text-align: center;
 }
 .btn-rest{
         width: 156px;
@@ -31,7 +31,7 @@
         position: absolute;
     z-index: 1;
     width: 10em;
-    margin-left: -1em;
+    margin-left: -1.2em;
 }
 .restaurant-img{
     border-radius: 5px 0 0 5px;
@@ -40,12 +40,16 @@
 .welcome{
     margin:1em;
 }
+.order-cate{
+        padding: 0;
+    }
+
 @media (max-width:360px){
     .btn-rest{
         width:134px;
     }
     .img-rest img{
-        width:76%;
+        width:100%;
     }
 }
 @media (max-width:350px){
@@ -134,15 +138,33 @@ background-color: #BFBFBF;
 }
 
 @media (max-width:480px){
-.push-top-btn{
+    .push-top-btn{
     margin-top: 10px;
-}
+    }
     .mobile-admin{
         display: none!important;
     }
     .mobile-admin-logout{
         display: block!important;
         padding-bottom: 5.5em;
+    }
+    .dish-name {
+    width: 150px;
+    }
+    .pull-padding{
+        padding: 0;
+    }
+    .img-rest{
+    width: 9em;
+    margin-left: -1.2em;
+    }
+    .tile-stats {
+    height: auto;
+    width: 100%;
+    }
+    .tile-stats .count{
+    margin-left: 20px;
+        font-size: 14px;
     }
     }
 @media (min-width:480px){
@@ -243,7 +265,7 @@ background-color: #BFBFBF;
     }
     .breadcrumb{
         width:100%;
-        padding: 20px 0px 20px 28px !important;
+        padding: 0px 0px 10px 0px !important;
     }
 }
 @media (max-width:768px){
@@ -262,6 +284,7 @@ background-color: #BFBFBF;
     }
     .footer{
         display: block;
+        margin-left: -2em;
     }
     .order-cate{
         width:100%;
@@ -281,6 +304,7 @@ background-color: #BFBFBF;
 @media (min-width:868px){
     .place-order{
         display: block;
+        padding: 0 0 0 15px;
     }
     .footer{
         display: none;
@@ -418,6 +442,10 @@ a.main-list:focus .fa-chevron-right{
         list-style: none;
         padding: 10px;
 }
+.item-view{
+    margin-left: -1em;
+    margin-right: -1em;
+}
 .order-items li, .item-view li{
     padding-bottom: 10px;
     border-bottom: 1px solid #e4e4e4;
@@ -467,7 +495,7 @@ a.main-list:focus .fa-chevron-right{
 .item-price{
     text-align: right;
     float: right;
-    margin-right: .25em;
+/*    margin-right: .25em;*/
     font-size: 19px;
     font-weight: 600;
 }

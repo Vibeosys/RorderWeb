@@ -23,18 +23,7 @@ elseif($option=="deliveryview"){echo 'Delivery List';}?></a></li>
             <div class="clearfix">
             </div>
             <div class="row pop-margin">
-              <ol class="breadcrumb mobile-show">
-                <li>
-                  <a href="#" class="red">Dashboard
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="red">Restaurent 1
-                  </a>
-                </li>
-                <li class="active">Place Order
-                </li>
-              </ol>
+             
               <!-- Menu List -->
               <div class="col-md-8 col-sm-8 col-xs-12 order-cate">
                 <div class="main-menu" id="menu-center">
