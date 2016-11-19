@@ -87,7 +87,7 @@
                
                  <?php if(isset($data)) { $i = 1; foreach ($data as $single){ ?>
                     <?php if($i%2 == 0){ ?>
-                    <div class="animated flipInY col-lg-4 col-md-6 col-sm-6 col-xs-12 pull-padding">
+                 <div class="animated flipInY col-lg-4 col-md-6 col-sm-6 col-xs-12 pull-padding">
                    <?php }else { ?>
                     <div class="animated flipInY col-lg-4 col-md-6 col-sm-6 col-xs-12  col-lg-offset-2 pull-padding">
                      <?php   } ?>
@@ -109,9 +109,8 @@
                   <?php $i++; }} ?>
                   
             </div>
-            
+            </div>
         </div> 
-        </div>
         </div>
     </section>
  <?= $this->Html->script('design/jquery.min.js') ?>  
