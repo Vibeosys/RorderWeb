@@ -107,6 +107,7 @@ table.dataTable thead > tr > th {
 	padding-left: 8px;
 	padding-right: 30px;
     font-size: 16px;
+        vertical-align: top;
 }
 
 table.dataTable th:active {
