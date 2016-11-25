@@ -20,7 +20,6 @@ div.dataTables_filter label {
 }
 
 div.dataTables_filter input {
-	margin-left: -2.5em;
 	display: inline-block;
     transition: .5s all ease;
 }

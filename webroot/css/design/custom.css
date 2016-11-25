@@ -4325,3 +4325,178 @@ width: 175px;
         }
     
     }
+
+
+.card-continer{
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 27.26rem;
+    margin: auto;
+    margin-bottom: 3.25rem;
+    border-radius: 3px;
+    box-shadow: none;
+    transition: all 0.3s ease-out;
+    cursor: pointer;
+    overflow: hidden;
+}
+.card-continer a{
+text-decoration:none;
+outline:none;
+}
+.card-continer:hover{
+     box-shadow: 0 20px 40px 0 rgba(0,0,0,0.22);
+}
+.card-img-continer{
+    position: relative;
+    height: auto;
+    overflow: hidden;
+}
+.card-img-continer img{
+    margin-bottom: 0px!important; 
+    width: 100%!important;
+
+}
+.card-text-continer{
+    padding: 25px 15px 15px;
+    background-color: #f1f0f0;
+}
+.card-text-bg{
+background-color: #F6F6F7;
+}
+.card-text-continer .card-title{
+    font-size: 13px;
+    line-height: 2.25rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 0.3125rem;
+    color: #656565;
+}
+.card-text-continer .card-line{
+font-size: 1.2rem;
+    line-height: 1.75rem;
+    margin-bottom: 0.9375rem;
+    max-height: 53px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    color: #000;
+    opacity: .5;
+    text-align: left;
+}
+
+.card-text-continer .no-link{
+    font-size: 15px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-out;
+    letter-spacing: 1.08px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    color:rgba(0, 0, 0, 0.6);
+    width: 100%;
+    border: none;
+    text-decoration: underline;
+}
+
+.inputfile + label {
+    display: none;
+}
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+ max-width: 80%;
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    /* 10px 20px */
+}
+.inputfile:focus + label,
+.inputfile.has-focus + label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+.inputfile + label * {
+    /* pointer-events: none; */
+    /* in case of FastClick lib use */
+}
+
+.inputfile + label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    /* 4px */
+    margin-right: 0.25em;
+    /* 4px */
+}
+
+.inputfile-6 + label {
+    color: #000;
+}
+
+.inputfile-6 + label {
+    border: 1px solid darkgray;
+    background-color: #f7f7f7;
+    padding: 0;
+}
+
+.inputfile-6:focus + label,
+.inputfile-6.has-focus + label,
+.inputfile-6 + label:hover {
+    border-color: gray;
+}
+
+.inputfile-6 + label span,
+.inputfile-6 + label strong {
+    padding: 0.625rem 1.25rem;
+    /* 10px 20px */
+}
+
+.inputfile-6 + label span {
+    width: 200px;
+    min-height: 2em;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.inputfile-6 + label strong {
+    height: 100%;
+    color: #000;
+    background-color: #d2d2d2;
+    display: inline-block;
+/*        float: right;*/
+}
+
+.inputfile-6:focus + label strong,
+.inputfile-6.has-focus + label strong,
+.inputfile-6 + label:hover strong {
+    background-color: gray;
+    color: #fff;
+}
+
+@media screen and (max-width: 50em) {
+	.inputfile-6 + label strong {
+		display: block;
+	}
+}

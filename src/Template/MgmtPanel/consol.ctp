@@ -32,6 +32,12 @@
   <?= $this->Html->css('design/animate.min.css') ?>
     <?= $this->Html->css('design/custom.css') ?>
     <?= $this->Html->css('design/admin.style.css') ?>
+    <style>
+        .navbar-right{
+            margin-right: 1em!important;
+        }
+    
+    </style>
 </head>
 
 
@@ -91,20 +97,23 @@
                    <?php }else { ?>
                     <div class="animated flipInY col-lg-4 col-md-6 col-sm-6 col-xs-12  col-lg-offset-2 pull-padding">
                      <?php   } ?>
-                      <div class="tile-stats center-block ">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                              <div class="img-rest"><?= $this->Html->image('quickserve-restaurant-default.png', ['class' => 'img-responsive'])?>
+                        
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card-continer">
+                            <div class="card-img-continer">
+                            <?= $this->Html->image('quickserve-restaurant-default.png', ['class' => 'img-responsive'])?>
+                            </div>
+                            
+                            <div class="card-text-continer card-text-bg">
+                            <p class="card-title" id="title<?=$single->restaurantId?>" class="count"><?= $single->title ?></p>
+                            <h4 class="card-line"><?= $single->city ?>, <?= $single->country ?></h4>
+                            <input type="button" name="resta1" id="<?=$single->restaurantId?>" value="Get Me Inside" class=" btn-rest no-link">
+                               
+                            </div>
+                            
                         </div>
-                          </div>
-                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 remove-space">
-
-                        <div id="title<?=$single->restaurantId?>" class="count"><?= $single->title ?></div>
-                                    <p class="text-center"><?= $single->city ?>, <?= $single->country ?></p>
-                                    <input type="text" name="restId" class="hidden" value="<?= $single->restaurantId ?>">
-                                    <input type="button" name="resta1" id="<?=$single->restaurantId?>" value="Get Me Inside" class=" btn-rest center-block text-center">
-                          </div>
-
-                      </div>
+                    </div>
+                      
                     </div>
                   <?php $i++; }} ?>
                   
