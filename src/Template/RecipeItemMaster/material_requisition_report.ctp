@@ -17,7 +17,7 @@
 <?php $this->end('breadcrum'); ?>
   <?php $this->start('layout_change');?> 
  <?php $this->end('layout_change'); ?>
-<div class="row">
+
               
                   <div class="col-md-6 col-sm-6 col-xs-12" id="mrr">
                     <div class="x_panel">
@@ -54,7 +54,7 @@
                       </div>
                     </div>
                   </div>
-          </div>
+          
  <?php $this->start('script'); ?>  
  <script type="text/javascript">
     $.ajax({

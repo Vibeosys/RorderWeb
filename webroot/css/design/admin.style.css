@@ -334,10 +334,11 @@ background-color: #BFBFBF;
 }
 input[type=search]{
     border-radius: 20px;
-    background: url(../../img/search-white.png) no-repeat 9px 9px rgba(247, 247, 247, 0.51);
+    background: url(../../img/search-white.png) no-repeat 9px 6px rgba(247, 247, 247, 0.51);
     padding-left: 44px;
     background-size: 23px;
     font-size: 16px;
+    height: 35px;
 }
 
 

@@ -15,7 +15,7 @@
 <?php $this->end('breadcrum'); ?> 
                               <?php $this->start('layout_change');?> 
  <?php $this->end('layout_change'); ?>
-<div class="row">
+
               
                 <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
@@ -32,7 +32,7 @@
                 </div>
               </div>
               </div>           
-          </div>
+         
    <?php $this->start('script');?>                                    
 <script type="text/javascript">
     
