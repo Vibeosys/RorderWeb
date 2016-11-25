@@ -39,7 +39,7 @@ class MenuController extends ApiController {
         }
         return false;
     }
-    
+
     public function getMenuItemList($restaurantId, $menuItemIdList) {
         $result = $this->getTableObj()->getMenuItemInfoList($menuItemIdList);
         if (is_array($result)) {
@@ -74,130 +74,136 @@ class MenuController extends ApiController {
         }
         return $preparedStatements;
     }
-    
+
     public function addNewMenu() {
-        if(!$this->isLogin()){
+        if (!$this->isLogin()) {
             $this->redirect('login');
         }
-         $restaurantId = parent::readCookie('cri');
-          $data = $this->request->data;
-       if ($this->request->is('post') and isset($this->request->data['add-bulk'])) {
+        $restaurantId = parent::readCookie('cri');
+        $data = $this->request->data;
+        if ($this->request->is('post') and isset($this->request->data['add-bulk'])) {
             $restaurantId = parent::readCookie('cri');
             $data = $this->request->data();
             $file = $data['file-upload']['tmp_name'];
             $extenstion = $this->getExtension($data['file-upload']['name']);
             if (empty($file)) {
-                $this->set(['suc_msg' => SELECT_FILE_MESSAGE,'color' => 'red']);
+                $this->set(['suc_msg' => SELECT_FILE_MESSAGE, 'color' => 'red']);
             } elseif ($extenstion != CSV_EXT) {
                 $this->set(['suc_msg' => INCORRECT_FILE_MESSAGE, 'color' => 'red']);
             } else {
                 if (($handle = fopen($file, "r")) !== FALSE) {
                     $counter = 0;
-                    $allMenus= null;
+                    $allMenus = null;
                     fgetcsv($handle);
                     while (($filesop = fgetcsv($handle, 1000, ",")) !== false) {
-                            $menuDto = new UploadDTO\MenuInsertDto(
-                                    $filesop[0], 
-                                    null, 
-                                    $filesop[1], 
-                                    $filesop[2], 
-                                    null, 
-                                    ACTIVE, 
-                                    ACTIVE, 
-                                    Null, 
-                                    $filesop[3], 
-                                    $filesop[4], 
-                                    $restaurantId,
-                                    $filesop[5],
-                                    null,
-                                    $filesop[6]);
-                           $allMenus[$counter] = $menuDto;
-                           $counter++;
+                        $menuDto = new UploadDTO\MenuInsertDto(
+                                $filesop[0], 
+                                null, 
+                                $filesop[1], 
+                                $filesop[2], 
+                                null, 
+                                ACTIVE, 
+                                ACTIVE, 
+                                Null, 
+                                $filesop[3], 
+                                $filesop[4], 
+                                $restaurantId, 
+                                $filesop[5], 
+                                null, 
+                                $filesop[6]);
+                        $allMenus[$counter] = $menuDto;
+                        $counter++;
                     }
                     fclose($handle);
                     $result = $this->getTableObj()->insert($allMenus);
                     if ($result) {
-                        $this->set(['suc_msg' => 'You database has imported successfully. You have inserted ' . $result . ' recoreds','color' => 'green']);
+                        $this->set(['suc_msg' => 'You database has imported successfully. You have inserted ' . $result . ' recoreds', 'color' => 'green']);
                     } else {
-                        $this->set(['suc_msg' => DB_FILE_ERROR,'color' => 'red']);
+                        $this->set(['suc_msg' => DB_FILE_ERROR, 'color' => 'red']);
                     }
                 }
             }
-        }elseif ($this->request->is('post') and isset($this->request->data['add-single'])) {
-           $filename = $data['file-upload']['name'];
-           $file = $data['file-upload']['tmp_name'];
-           $error = $data['file-upload']['error'];
-           $ext = $this->getExtension($filename);
-           if($error){
-               $valid_file = TRUE;
-               $logoUrl = null;
-           }elseif (!in_array($ext, $this->img_valid_ext)) {
-              $valid_file = FALSE;  
-               $this->set([
-                    MESSAGE => 'Please choose valide image file.',
+        } elseif ($this->request->is('post') and isset($this->request->data['add-single'])) {
+            $filename = $data['file-upload']['name'];
+            $file = $data['file-upload']['tmp_name'];
+            $error = $data['file-upload']['error'];
+            $ext = $this->getExtension($filename);
+            if ($error) {
+                $valid_file = TRUE;
+                $logoUrl = null;
+            } elseif (!in_array($ext, $this->img_valid_ext)) {
+                $valid_file = FALSE;
+                $this->set([
+                    MESSAGE => 'Please choose valid image file.',
                     COLOR => ERROR_COLOR]);
-           }elseif (in_array($ext, $this->img_valid_ext)) {
-              
-               $imgDir = new Folder(IMAGE_UPLOAD, true);
-            $filename = $this->getGUID().$filename;
-            $destination = $imgDir->path.$filename;
-               if(move_uploaded_file($file, $destination)){
+            } elseif (in_array($ext, $this->img_valid_ext)) {
+
+                $imgDir = new Folder(IMAGE_UPLOAD, true);
+                $filename = $this->getGUID() . $filename;
+                $destination = $imgDir->path . $filename;
+                if (move_uploaded_file($file, $destination)) {
                     $valid_file = TRUE;
-                    $logoUrl = '/img/'.$filename;
-               }  else {
-                   $valid_file = FALSE;
-               }
-           }
-            if($valid_file){
-                $menuDto = new UploadDTO\MenuInsertDto($data['title'], 
-                        $logoUrl, $data['price'], null, $data['tags'], 
+                    $logoUrl = '/img/' . $filename;
+                } else {
+                    $valid_file = FALSE;
+                }
+            }
+            if ($valid_file) {
+                $menuDto = new UploadDTO\MenuInsertDto(
+                        $data['title'], 
+                        $logoUrl, 
+                        $data['price'], 
+                        null, 
+                        $data['tags'], 
                         $this->getSelectValue($data, 'AVL'), 
-                        $this->getSelectValue($data, 'ACT'), null, 
+                        $this->getSelectValue($data, 'ACT'), 
+                        null, 
                         $this->getSelectValue($data, 'SPICY'), 
-                        $data['category'], $restaurantId, 
-                        $data['room'], null, $data['fbType']);
+                        $data['category'], 
+                        $restaurantId, 
+                        $data['room'], 
+                        null, 
+                        $data['fbType']);
                 $allMenus[0] = $menuDto;
-               $result = $this->getTableObj()->insert($allMenus);
-                if($result){
+                $result = $this->getTableObj()->insert($allMenus);
+                if ($result) {
                     $this->set([
-                    'suc_msg' => "New Menu has been added !",
-                    COLOR => SUCCESS_COLOR]);
-                }  else {
-                     $this->set([
-                    'suc_msg' => "Error ! menu not added.",
-                    COLOR => ERROR_COLOR]);
+                        'suc_msg' => "New Menu has been added !",
+                        COLOR => SUCCESS_COLOR]);
+                } else {
+                    $this->set([
+                        'suc_msg' => "Error ! menu not added.",
+                        COLOR => ERROR_COLOR]);
                 }
             }
         }
-            $menuCategoryController = new MenuCategoryController();
-            $category = json_decode(json_encode($menuCategoryController->getStdMenuCategory(),true));
-            $roomCategoryController = new RRoomsController();
-            $rooms = json_decode(json_encode($roomCategoryController->getStdRooms($restaurantId),true));
-            $fbTypeController = new FbTypeController();
-            $fbType = json_decode(json_encode($fbTypeController->getStdFbTypes()));
-             $this->set([
-                    'category' => $category,
-                    'room' => $rooms,
-                    'fbType' => $fbType
-                ]);
-        
-        
+        $menuCategoryController = new MenuCategoryController();
+        $category = json_decode(json_encode($menuCategoryController->getStdMenuCategory(), true));
+        $roomCategoryController = new RRoomsController();
+        $rooms = json_decode(json_encode($roomCategoryController->getStdRooms($restaurantId), true));
+        $fbTypeController = new FbTypeController();
+        $fbType = json_decode(json_encode($fbTypeController->getStdFbTypes()));
+        $this->set([
+            'category' => $category,
+            'room' => $rooms,
+            'fbType' => $fbType
+        ]);
     }
-    
-    public function getSelectValue($array,$key) {
-        if(array_key_exists($key, $array)){
+
+    public function getSelectValue($array, $key) {
+        if (array_key_exists($key, $array)) {
             return 1;
         }
         return 0;
     }
-    
-    public function menuList(){
+
+    public function menuList() {
         $restaurantId = parent::readCookie('cri');
-        if(!$this->isLogin()){
+        if (!$this->isLogin()) {
             $this->redirect('login');
         }
         $parameter = $this->request->param('page');
-        $menuList = $this->paginatedMenu($restaurantId,$parameter);
+        $menuList = $this->paginatedMenu($restaurantId, $parameter);
         $menuCategoryController = new MenuCategoryController();
         $category = $menuCategoryController->getStdMenuCategory();
         $roomCategoryController = new RRoomsController();
@@ -205,79 +211,77 @@ class MenuController extends ApiController {
         $fbTypeController = new FbTypeController();
         $fbType = $fbTypeController->getStdFbTypes();
         $this->set([
-                    'menus' => $menuList,
-                    'categories' => $category,
-                    'room' => $rooms,
-                    'fbType' => $fbType
-                ]);
+            'menus' => $menuList,
+            'categories' => $category,
+            'room' => $rooms,
+            'fbType' => $fbType
+        ]);
     }
-    
+
     public function editMenu() {
         $restaurantId = parent::readCookie('cri');
         $data = $this->request->data;
-        if($this->request->is('post') and isset($data['edit'])){
+        if ($this->request->is('post') and isset($data['edit'])) {
             $stdMenu = new \stdClass();
             Log::debug($data);
-            foreach ($data as $k => $v){
+            foreach ($data as $k => $v) {
                 $stdMenu->$k = $v;
             }
             $menuCategoryController = new MenuCategoryController();
-            $category = json_decode(json_encode($menuCategoryController->getStdMenuCategory(),true));
+            $category = json_decode(json_encode($menuCategoryController->getStdMenuCategory(), true));
             $roomCategoryController = new RRoomsController();
-            $rooms = json_decode(json_encode($roomCategoryController->getStdRooms($restaurantId),true));
+            $rooms = json_decode(json_encode($roomCategoryController->getStdRooms($restaurantId), true));
             $fbTypeController = new FbTypeController();
             $fbType = json_decode(json_encode($fbTypeController->getStdFbTypes()));
-             $this->set([
-                    'menuInfo' => $stdMenu,
-                    'category' => $category,
-                    'room' => $rooms,
-                    'fbType' => $fbType
-                ]);
-        }elseif ($this->request->is('post') and isset($data['save'])) {
-           $updateRequest = new UploadDTO\MenuInsertDto(
-                   $data['ttl'], 
-                   $data['img'], 
-                   $data['prc'], 
-                   $data['igt'], 
-                   $data['tags'], 
-                   $this->getValue('avl', $data), 
-                   $this->getValue('act', $data), 
-                   null, 
-                   $this->getValue('spy', $data), 
-                   $data['category'], 
-                   $restaurantId, 
-                   $data['room'], 
-                   $data['mid'],
-                   $data['fbType']);
-           $updateResult = $this->getTableObj()->update($updateRequest);
-          if ($updateResult) {
+            $this->set([
+                'menuInfo' => $stdMenu,
+                'category' => $category,
+                'room' => $rooms,
+                'fbType' => $fbType
+            ]);
+        } elseif ($this->request->is('post') and isset($data['save'])) {
+            $updateRequest = new UploadDTO\MenuInsertDto(
+                    $data['ttl'], 
+                    $data['img'], 
+                    $data['prc'], 
+                    $data['igt'], 
+                    $data['tags'], 
+                    $this->getValue('avl', $data), 
+                    $this->getValue('act', $data), 
+                    null, 
+                    $this->getValue('spy', $data), 
+                    $data['category'], 
+                    $restaurantId, 
+                    $data['room'], 
+                    $data['mid'], 
+                    $data['fbType']);
+            $updateResult = $this->getTableObj()->update($updateRequest);
+            if ($updateResult) {
                 $menuUpdate = $this->getTableObj()->getUpdateMenu($updateRequest->menuId);
                 $this->makeSyncEntry(
-                        json_encode($menuUpdate), 
-                        UPDATE_OPERATION, 
-                        $restaurantId);
+                        json_encode($menuUpdate), UPDATE_OPERATION, $restaurantId);
                 $this->redirect('menu');
             } else {
-                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(136),COLOR => ERROR_COLOR]);
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(136), COLOR => ERROR_COLOR]);
             }
-        }elseif ($this->request->is('post') and isset($data['edit-recipe'])) {
-            parent::writeCookie('current-mid',  $data['mid']);
-           
+        } elseif ($this->request->is('post') and isset($data['edit-recipe'])) {
+            parent::writeCookie('current-mid', $data['mid']);
+
             $this->redirect('menu/editrecipe');
         }
     }
-    
-    public function paginatedMenu($restaurantId,$page = 1) {
+
+    public function paginatedMenu($restaurantId, $page = 1) {
         $menuTable = $this->getTableObj();
-        $count = $menuTable->connect()->find()->count(); 
-        Log::debug('Number of menu available in list is :- '.$count);
-        if(!$count){
+        $count = $menuTable->connect()->find()->count();
+        Log::debug('Number of menu available in list is :- ' . $count);
+        if (!$count) {
             return Null;
         }
         $conditions = array('RestaurantId =' => $restaurantId);
         $limit = PAGE_LIMIT;
         $menus = $menuTable->connect()->find()->where($conditions);
-         $allMenus = null;
+        $allMenus = null;
         $i = 0;
         foreach ($menus as $menu) {
             $menuDto = new DownloadDTO\MenuDownloadDto(
@@ -291,8 +295,8 @@ class MenuController extends ApiController {
                     $menu->Active, 
                     $menu->FoodType, 
                     $menu->IsSpicy, 
-                    $menu->CategoryId,
-                    $menu->RoomId,
+                    $menu->CategoryId, 
+                    $menu->RoomId, 
                     $menu->FbTypeId);
             $allMenus[$i] = $menuDto;
             $i++;
@@ -304,38 +308,34 @@ class MenuController extends ApiController {
         $synController = new SyncController();
         $synController->MenuEntry($update, $operation, $restaurantId);
     }
-    
+
     public function editRecipe() {
         $menuId = parent::readCookie('current-mid');
-         $menuRecipeController = new MenuRecipeController();
-         $data = $this->request->data;
-         $result = TRUE;
-         
-         if($this->request->is('post') and isset($data['save'])){
-             //$this->autoRender = FALSE;
-             $menurecipeDto = new UploadDTO\MenuRecipeInsertDto(
-                     $menuId, 
-                     $data['recipeItem'], 
-                     $data['qty'], 
-                     $data['itemUnit']);
-             $result = $menuRecipeController->addNewRecipeItem($menurecipeDto);
-         }
-            $recipe = $menuRecipeController->getMenuRecipe($menuId);
-            $menuInfo = $this->getMenuItemList(null, array($menuId));
-            $menu = null;
-            foreach ($menuInfo as $menui){
-                if(is_null($menu)){
-                    $menu = $menui;
-                }
+        $menuRecipeController = new MenuRecipeController();
+        $data = $this->request->data;
+        $result = TRUE;
+
+        if ($this->request->is('post') and isset($data['save'])) {
+            //$this->autoRender = FALSE;
+            $menurecipeDto = new UploadDTO\MenuRecipeInsertDto(
+                    $menuId, $data['recipeItem'], $data['qty'], $data['itemUnit']);
+            $result = $menuRecipeController->addNewRecipeItem($menurecipeDto);
+        }
+        $recipe = $menuRecipeController->getMenuRecipe($menuId);
+        $menuInfo = $this->getMenuItemList(null, array($menuId));
+        $menu = null;
+        foreach ($menuInfo as $menui) {
+            if (is_null($menu)) {
+                $menu = $menui;
             }
-            Log::debug($recipe);
-            $this->set([
-                'menurecipe' => $recipe,
-                'menu' => $menu
-            ]);
-         
+        }
+        Log::debug($recipe);
+        $this->set([
+            'menurecipe' => $recipe,
+            'menu' => $menu
+        ]);
     }
-    
+
     public function addNewItem() {
         
     }

@@ -7,38 +7,40 @@
  */
 
 namespace App\Model\Table;
+
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use App\DTO\UploadDTO;
 use App\DTO\DownloadDTO;
 use Cake\Datasource\ConnectionManager;
+
 /**
  * Description of SalesHistoryTable
  *
  * @author niteen
  */
-class SalesHistoryTable extends Table{
-    
+class SalesHistoryTable extends Table {
+
     private function connect() {
         return TableRegistry::get('sales_history');
     }
-    
+
     public function insert(DownloadDTO\SalesHistoryReportDto $salesHistoryReport) {
         $conn = ConnectionManager::get('default');
         $result = false;
         $tableObj = $this->connect();
         $newReport = $tableObj->newEntity();
-        try{
+        try {
             $newReport->RestaurantId = $salesHistoryReport->restaurantId;
             $newReport->Month = $salesHistoryReport->month;
             $newReport->Year = $salesHistoryReport->year;
             $newReport->BillNetAmount = $salesHistoryReport->billNetAmt;
             $newReport->BillTaxAmount = $salesHistoryReport->taxAmt;
             $newReport->BillTotalAmount = $salesHistoryReport->billTotalAmt;
-            if($tableObj->save($newReport)){
-               $conn->commit();
-               return true;
+            if ($tableObj->save($newReport)) {
+                $conn->commit();
+                return true;
             }
             $conn->rollback();
             return $result;
@@ -46,32 +48,33 @@ class SalesHistoryTable extends Table{
             return false;
         }
     }
+
     public function isEntryPresent(DownloadDTO\SalesHistoryReportDto $salesHistoryReport) {
         $conditions = [
-            'RestaurantId =' => $salesHistoryReport->restaurantId, 
-            'Month =' => $salesHistoryReport->month, 
+            'RestaurantId =' => $salesHistoryReport->restaurantId,
+            'Month =' => $salesHistoryReport->month,
             'Year =' => $salesHistoryReport->year];
-        try{
+        try {
             $results = $this->connect()->find()->where($conditions);
             return $results->count();
         } catch (Exception $ex) {
             return false;
         }
     }
-    
+
     public function update(DownloadDTO\SalesHistoryReportDto $salesHistoryReport) {
-         $conn = ConnectionManager::get('default');  
+        $conn = ConnectionManager::get('default');
         $conditions = [
-            'RestaurantId =' => $salesHistoryReport->restaurantId, 
-            'Month =' => $salesHistoryReport->month, 
+            'RestaurantId =' => $salesHistoryReport->restaurantId,
+            'Month =' => $salesHistoryReport->month,
             'Year =' => $salesHistoryReport->year];
-        try{
+        try {
             $tableObj = $this->connect();
             $entity = $tableObj->get($conditions);
             $entity->BillNetAmount = $entity->BillNetAmount + $salesHistoryReport->billNetAmt;
             $entity->BillTaxAmount = $entity->BillTaxAmount + $salesHistoryReport->taxAmt;
             $entity->BillTotalAmount = $entity->BillTotalAmount + $salesHistoryReport->billTotalAmt;
-            if($tableObj->save($entity)){
+            if ($tableObj->save($entity)) {
                 $conn->commit();
                 return true;
             }
@@ -82,25 +85,23 @@ class SalesHistoryTable extends Table{
             return false;
         }
     }
-    
+
     public function getdata($restaurantId) {
         $conditions = ['RestaurantId =' => $restaurantId];
-        $resultSet[] = null;
+        $resultSet = null;
         $dataCounter = 0;
-        try{
-         $rows = $this->connect()->find()->where($conditions);
-         if($rows->count()){
-            foreach ($rows as $row){
-                 $resultSet[$dataCounter++] = new DownloadDTO\SalesReoprtViewDto(
-                     $row->RestaurantId, 
-                     $row->Month, 
-                     $row->Year, 
-                     $row->BillTotalAmount);
+        try {
+            $rows = $this->connect()->find()->where($conditions);
+            if ($rows->count()) {
+                foreach ($rows as $row) {
+                    $resultSet[$dataCounter++] = new DownloadDTO\SalesReoprtViewDto(
+                            $row->RestaurantId, $row->Month, $row->Year, $row->BillTotalAmount);
+                }
             }
-         }
-         return $resultSet;
+            return $resultSet;
         } catch (Exception $ex) {
             return false;
         }
     }
+
 }

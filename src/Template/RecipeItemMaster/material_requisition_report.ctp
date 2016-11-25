@@ -29,7 +29,7 @@
                   </ul>
                         <div class="clearfix"></div>
                       </div>
-                        <div  class="x_content ct-chart" id="chartContainer" >
+                        <div  class="x_content ct-chart" id="chartContainer" style="height: 318px">
                     
 
                       </div>
@@ -48,7 +48,7 @@
                   </ul>
                         <div class="clearfix"></div>
                       </div>
-                      <div class="x_content ct-chart" id="lchartContainer">
+                        <div class="x_content ct-chart" id="lchartContainer" style="height: 318px">
                       
 
                       </div>
