@@ -52,7 +52,7 @@ $sec = $this->fetch('sec');
                         <li></li>
                         <!-- User Account -->
                         <li class="dropdown user user-menu">
-                            <a href="../logout">
+                            <a href="/logout">
                                 <?= $this->Html->image('user.png', ['class' => 'user-image','alt' => 'User Image'])?>
                                 
                                 <span class="hidden-xs">Sign Off</span>
@@ -69,20 +69,20 @@ $sec = $this->fetch('sec');
                     
                     <li class='has-sub'><a href='#'><span>Reports</span></a>
                     <ul>
-                        <li><a  href='../inventory/stockinventoryreport'><span>Stock Inventory</span></a></li>
-                    <li><a  href='../inventory/materialrequisitionreport'><span>Material Requisition</span></a></li>
-                    <li><a  href='../inventory/materialbrandwiserequisitionreport'><span>Material Brandwise Requisition</span></a></li>
+                        <li><a  href='/inventory/stockinventoryreport'><span>Stock Inventory</span></a></li>
+                    <li><a  href='/inventory/materialrequisitionreport'><span>Material Requisition</span></a></li>
+                    <li><a  href='/inventory/materialbrandwiserequisitionreport'><span>Material Brandwise Requisition</span></a></li>
                     </ul>
                  </li>
                     <li class='has-sub'><a href=''><span>Stock Upload</span></a>
                     <ul>
-                    <li><a href='../inventory/materialstockupload'><span>Material Stock Upload</span></a></li>
-                    <li><a href='../inventory/materialbrandstockupload'><span>Material Brand Stock Upload</span></a></li>
-                    <li><a href='../inventory/materialstockmodification'><span>Material Stock Modification</span></a></li>
-                    <li><a href='../inventory/materialbrandstockmodification'><span>Material Brand Stock Modification</span></a></li>
+                    <li><a href='/inventory/materialstockupload'><span>Material Stock Upload</span></a></li>
+                    <li><a href='/inventory/materialbrandstockupload'><span>Material Brand Stock Upload</span></a></li>
+                    <li><a href='/inventory/materialstockmodification'><span>Material Stock Modification</span></a></li>
+                    <li><a href='/inventory/materialbrandstockmodification'><span>Material Brand Stock Modification</span></a></li>
                     </ul>
                     </li>
-                 <li class='active'><a href='../inventory'><span>Stock Taking</span></a></li>
+                 <li class='active'><a href='/inventory'><span>Stock Taking</span></a></li>
                 </ul>
                 </div>
                  <?= $this->fetch('breadcrum')?>

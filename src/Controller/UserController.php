@@ -37,6 +37,14 @@ class UserController extends ApiController {
         return $this->getTbaleObj()->isValid($userId, $restaurantId);
     }
     
+    public function isUserManager($userName, $password){
+        return $this->getTbaleObj()->isValidManagerUser($userName, $password);   
+    }    
+    
+    public function getUserInfo($userId){
+        return $this->getTbaleObj()->getUserDetails($userId);
+    }
+    
     public function validateUserForUpload($userId, $password, $restaurantId) {
         return $this->getTbaleObj()->validateUserCredentials($userId, $password, $restaurantId);
     }
@@ -96,7 +104,10 @@ class UserController extends ApiController {
                         $restaurantId);
                   $this->redirect('manage/users');
             } else {
-                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(132),COLOR => ERROR_COLOR,'permissions' => $permission,'roles' => $userRoles]);
+                $this->set([MESSAGE => DTO\ErrorDto::prepareMessage(132),
+                    COLOR => ERROR_COLOR,
+                    'permissions' => $permission,
+                    'roles' => $userRoles]);
             }
         }  else {
            $this->set(['roles' => $userRoles,'permissions' => $permission]);

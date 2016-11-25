@@ -110,7 +110,7 @@ class OrderController extends ApiController {
             Log::debug('Now order list shows for table :-'.$tableId);
             Log::debug('Now order list shows for takeaway :-'.$takeawayNo);
             Log::debug('Now order list shows for delivery :-'.$deliveryNo);
-            $latestOrders = $this->getLatestOrders($tableId,$takeawayNo,$deliveryNo, $restId, $all);
+            $latestOrders = $this->getTableObj()->getKotOrders($tableId, $takeawayNo, $deliveryNo, $restId);
             if(is_null($latestOrders)){
                  $this->response->body(json_encode([MESSAGE => DTO\ErrorDto::prepareMessage(126)]));
                 return;

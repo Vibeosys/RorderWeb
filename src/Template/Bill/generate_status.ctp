@@ -8,7 +8,7 @@ use Cake\Cache\Cache;
     use App\Controller;
 
     $this->layout = 'rorder_layout';
-    $this->assign('title', 'Page Under Construction');
+    $this->assign('title', 'Bill generation');
     $this->assign('heading', 'Bill Generation Status');
 ?>
 <?php $this->start('breadcrum');?>

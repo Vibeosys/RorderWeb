@@ -53,7 +53,7 @@ class RecipeItemMasterController extends ApiController{
                     fclose($handle);
                     $result = $this->getTableObj()->insert($allItems);
                     if ($result) {
-                        $this->set(['suc_msg' => 'You database has imported successfully. You have inserted ' . count($result) . ' recoreds','color' => 'green']);
+                        $this->set(['suc_msg' => 'You database has imported successfully. You have inserted ' . count($result) . ' records','color' => 'green']);
                     } else {
                         $this->set(['suc_msg' => DB_FILE_ERROR,'color' => 'red']);
                     }
@@ -81,6 +81,7 @@ class RecipeItemMasterController extends ApiController{
 //        }
         
        $allRecipeitems = $this->getTableObj()->getStock($restaurantId);
+       
        $this->set([
                 'items' => $allRecipeitems
        ]);

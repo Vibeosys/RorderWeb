@@ -57,7 +57,7 @@ class BillTable extends Table {
                     $billEntry->billNo);
             return 0;
         } catch (Exception $ex) {
-             $conn->rollback();
+            $conn->rollback();
             return 0;
         }
     }
@@ -78,14 +78,14 @@ class BillTable extends Table {
     }
 
     public function getNewBill($billNo, $restuarantId, $userId) {
-        try{
+        try {
             $billDownloadDto = null;
-            $conditions = ['BillNo =' =>$billNo, 
-                'RestaurantId =' => $restuarantId, 
-                'UserId =' =>$userId];
+            $conditions = ['BillNo =' => $billNo,
+                'RestaurantId =' => $restuarantId,
+                'UserId =' => $userId];
             $newBill = $this->connect()->find()->where($conditions);
-            if($newBill->count()){
-                foreach ($newBill as $bill){
+            if ($newBill->count()) {
+                foreach ($newBill as $bill) {
                     $billDownloadDto = new DownloadDTO\BillDownloadDto(
                             $bill->BillNo, 
                             $bill->BillDate, 
@@ -93,58 +93,57 @@ class BillTable extends Table {
                             $bill->NetAmount, 
                             $bill->TotalTaxAmount, 
                             $bill->TotalPayAmount, 
-                            $bill->UserId,
-                            $bill->CustId,
-                            $bill->TableId,
-                            $bill->IsPayed,
-                            $bill->PayedBy,
-                            $bill->Discount,
+                            $bill->UserId, 
+                            $bill->CustId, 
+                            $bill->TableId, 
+                            $bill->IsPayed, 
+                            $bill->PayedBy, 
+                            $bill->Discount, 
                             $bill->TakeawayNo);
                 }
             }
             return $billDownloadDto;
         } catch (Exception $ex) {
-            echo 'bill table database error'.$ex;
+            echo 'bill table database error' . $ex;
         }
     }
-    
-    public function changePaymentStatus(UploadDTO\BillPaymentUploadDto 
-        $billPaymentRequest, $restaurantId) {
+
+    public function changePaymentStatus(UploadDTO\BillPaymentUploadDto $billPaymentRequest, $restaurantId) {
         $primaryKey = $billPaymentRequest->billNo;
-        try{
+        try {
             $tableObj = $this->connect();
             $oldBill = $tableObj->get($primaryKey);
             $oldBill->TotalPayAmount = $oldBill->TotalPayAmount - $billPaymentRequest->discount;
             $oldBill->IsPayed = $billPaymentRequest->isPayed;
             $oldBill->PayedBy = $billPaymentRequest->payedBy;
             $oldBill->Discount = $billPaymentRequest->discount;
-          if($tableObj->save($oldBill)){
+            if ($tableObj->save($oldBill)) {
                 Log::debug('Bill Payment Status has been changed for BillNo : '
-                        .$billPaymentRequest->billNo);
+                        . $billPaymentRequest->billNo);
                 return $oldBill->TotalPayAmount;
             }
             Log::error('Error occured in changing bill Payment for BillNo : '
-                    .$billPaymentRequest->billNo);
-            return false;    
+                    . $billPaymentRequest->billNo);
+            return false;
         } catch (Exception $ex) {
             return false;
         }
     }
     
-    public function getCustomerBill($tableId, $takeawayNo, $deliveryNo) {
-         $billDownloadDto = null;
-         if($tableId){
-            $conditions['TableId ='] = $tableId;
-         }  else if($takeawayNo) {
-             $conditions['TakeawayNo ='] = $takeawayNo;
-         }  else {
-             $conditions['DeliveryNo ='] = $deliveryNo;
-         }
-              $order = 'BillNo';
-            try{
-            $newBill = $this->connect()->find()->where($conditions)->orderDesc($order);
-            if($newBill->count()){
-                foreach ($newBill as $bill){
+    public function getBillToPrint( $billNo, $restaurantId) {
+        $billDownloadDto = null;
+        $conditions = array ('BillNo'=> $billNo, 
+            'RestaurantId' => $restaurantId);
+        $fields = array ('BillNo', 'BillDate', 'BillTime', 'NetAmount',
+            'TotalTaxAmount', 'TotalPayAmount', 'UserId', 'CustId', 'TableId', 'IsPayed', 
+            'PayedBy', 'Discount', 'TakeawayNo', 'DeliveryNo');
+        try {
+            $bill = $this->connect()->find('all', array(
+                'conditions' => $conditions,
+                'fields' => $fields
+            ))->first();
+            
+            if ($bill) {
                     $billDownloadDto = new DownloadDTO\BillDownloadDto(
                             $bill->BillNo, 
                             $bill->BillDate, 
@@ -152,94 +151,134 @@ class BillTable extends Table {
                             $bill->NetAmount, 
                             $bill->TotalTaxAmount, 
                             $bill->TotalPayAmount, 
-                            $bill->UserId,
-                            $bill->CustId,
-                            $bill->TableId,
-                            $bill->IsPayed,
-                            $bill->PayedBy,
-                            $bill->Discount,
-                            $bill->TakeawayNo,
+                            $bill->UserId, 
+                            $bill->CustId, 
+                            $bill->TableId, 
+                            $bill->IsPayed, 
+                            $bill->PayedBy, 
+                            $bill->Discount, 
+                            $bill->TakeawayNo, 
                             $bill->DeliveryNo);
                     //return $billDownloadDto;
-                }
-                Log::debug('Bill found for tableId :- '.$tableId.' BillNO :- '.$billDownloadDto->billNo);
+                //Log::debug('Bill found for tableId :- ' . $tableId . ' BillNO :- ' . $billDownloadDto->billNo);
             }
             return $billDownloadDto;
         } catch (Exception $ex) {
-            echo 'bill table database error'.$ex;
+            echo 'bill table database error' . $ex;
         }
-    }      
-    public function getTableBill($tableId, $takeawayNo,$deliveryNo, $restaurantId) {
+    }
+
+    public function getCustomerBill($tableId, $takeawayNo, $deliveryNo) {
+        $billDownloadDto = null;
+        if ($tableId) {
+            $conditions['TableId ='] = $tableId;
+        } else if ($takeawayNo) {
+            $conditions['TakeawayNo ='] = $takeawayNo;
+        } else {
+            $conditions['DeliveryNo ='] = $deliveryNo;
+        }
+        $order = 'BillNo';
+        try {
+            $newBill = $this->connect()->find()->where($conditions)->orderDesc($order);
+            if ($newBill->count()) {
+                foreach ($newBill as $bill) {
+                    $billDownloadDto = new DownloadDTO\BillDownloadDto(
+                            $bill->BillNo, 
+                            $bill->BillDate, 
+                            $bill->BillTime, 
+                            $bill->NetAmount, 
+                            $bill->TotalTaxAmount, 
+                            $bill->TotalPayAmount, 
+                            $bill->UserId, 
+                            $bill->CustId, 
+                            $bill->TableId, 
+                            $bill->IsPayed, 
+                            $bill->PayedBy, 
+                            $bill->Discount, 
+                            $bill->TakeawayNo, 
+                            $bill->DeliveryNo);
+                    //return $billDownloadDto;
+                }
+                Log::debug('Bill found for tableId :- ' . $tableId . ' BillNO :- ' . $billDownloadDto->billNo);
+            }
+            return $billDownloadDto;
+        } catch (Exception $ex) {
+            echo 'bill table database error' . $ex;
+        }
+    }
+
+    public function getTableBill($tableId, $takeawayNo, $deliveryNo, $restaurantId) {
         $allTableBills = null;
         $tableBillCounter = 0;
-           $conditions = [ 'RestaurantId =' => $restaurantId];
-            if($tableId){
-                    $conditions['TableId ='] = $tableId;
-                }  else if($takeawayNo) {
-                    $conditions['TakeawayNo ='] = $takeawayNo;
-                }else{
-                    $conditions['DeliveryNo ='] = $deliveryNo;
-                }
-              $order = 'BillNo';
-            try{
+        $conditions = [ 'RestaurantId =' => $restaurantId];
+        if ($tableId) {
+            $conditions['TableId ='] = $tableId;
+        } else if ($takeawayNo) {
+            $conditions['TakeawayNo ='] = $takeawayNo;
+        } else {
+            $conditions['DeliveryNo ='] = $deliveryNo;
+        }
+        $order = 'BillNo';
+        try {
             $newBill = $this->connect()->find()->where($conditions)->orderDesc($order);
-            if($newBill->count()){
-                foreach ($newBill as $bill){
+            if ($newBill->count()) {
+                foreach ($newBill as $bill) {
                     $allTableBills[$tableBillCounter++] = new DownloadDTO\TableBillDownloadDto(
-                            $bill->BillNo, 
-                            $bill->TableId,
-                            $bill->TakeawayNo,
-                            $bill->DeliveryNo,
-                            $bill->UserId,
-                            $bill->CreatedDate);
+                            $bill->BillNo, $bill->TableId, $bill->TakeawayNo, $bill->DeliveryNo, $bill->UserId, $bill->CreatedDate);
                 }
-                Log::debug('Bill found for tableId :- '.$tableId);
+                Log::debug('Bill found for tableId :- ' . $tableId);
             }
             return $allTableBills;
         } catch (Exception $ex) {
-            echo 'bill table database error'.$ex;
+            echo 'bill table database error' . $ex;
         }
     }
-    
+
     public function getDiscount($restaurantId, $billNo, $discount) {
-         $conditions = array(
-            'conditions' => array('bill.RestaurantId =' => $restaurantId,'bill.BillNo =' => $billNo),
+        $conditions = array(
+            'conditions' => array('bill.RestaurantId =' => $restaurantId, 'bill.BillNo =' => $billNo),
             'fields' => array('NetAmount'));
-         $disAmt = 0;
-        $billTableEntry = $this->connect()->find('all', $conditions)->toArray();
+        $disAmt = 0;
+        $billTableEntry = $this->connect()->find('all', $conditions)->first();
         if ($billTableEntry) {
-            $amount = $billTableEntry[0]['NetAmount'];
+            $amount = $billTableEntry->NetAmount;
             if ($amount) {
-               $disAmt = ($discount/100) * $amount;
+                $disAmt = ($discount / 100) * $amount;
             }
         }
         return $disAmt;
     }
-    
-    public function getBillInfo($tableId,$takeaway, $delivery,$restaurantId) {
-        $condition = array('RestaurantId =' => $restaurantId,'IsPayed =' => 0);
-        if($tableId){$condition['TableId ='] = $tableId;}elseif ($takeaway) {
-            $condition['TakeawayNo ='] = $takeaway;}else{$condition['DeliveryNo ='] = $delivery;}
-         $conditions = array(
+
+    public function getBillInfo($tableId, $takeaway, $delivery, $restaurantId) {
+        $condition = array('RestaurantId =' => $restaurantId, 'IsPayed =' => 0);
+        if ($tableId) {
+            $condition['TableId ='] = $tableId;
+        } elseif ($takeaway) {
+            $condition['TakeawayNo ='] = $takeaway;
+        } else {
+            $condition['DeliveryNo ='] = $delivery;
+        }
+        $conditions = array(
             'conditions' => $condition,
             'fields' => array('BillNo', 'CustId'));
-        $billTableEntry = $this->connect()->find('all', $conditions)->first();
+        $billTableEntry = $this->connect()->find('all', $conditions)->toArray();
         $result = null;
-        if($billTableEntry){
-          $result = $billTableEntry;
+        if ($billTableEntry) {
+            $result = $billTableEntry[0];
         }
         return $result;
     }
-    
+
     public function getTakeawayAndDeliveryDetails($billNo) {
         $conditions = array(
             'conditions' => array('bill.BillNo =' => $billNo),
-            'fields' => array('TakeawayNo','DeliveryNo'));
-         $billTableEntry = $this->connect()->find('all', $conditions)->first();
+            'fields' => array('TakeawayNo', 'DeliveryNo'));
+        $billTableEntry = $this->connect()->find('all', $conditions)->first();
         $result = null;
-        if($billTableEntry){
-          $result = $billTableEntry;
+        if ($billTableEntry) {
+            $result = $billTableEntry;
         }
         return $result;
     }
+
 }

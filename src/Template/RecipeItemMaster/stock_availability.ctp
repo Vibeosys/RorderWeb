@@ -12,7 +12,7 @@
 ?>  
 <?php $this->start('breadcrum');?>
 
-                          <li class="active">Stock Availbility Report</li>
+                          <li class="active">Stock Availability Report</li>
 <?php $this->end('breadcrum'); ?>       
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">

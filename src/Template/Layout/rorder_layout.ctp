@@ -81,15 +81,15 @@ $sec = $this->fetch('sec');
                                                     <li class="panel"><a href="#SubMenu1"class="sub-list" data-toggle="collapse" data-parent="#demo3">Table View <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
                                                       
                                                              <ul class="submenu collapse" id="SubMenu1">
-                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="../../tableview/placeorder">Place Order</a>                      
+                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="/tableview/placeorder">Place Order</a>                      
                                                                 </li>
-                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="../../tableview/generatebill">Generate Bill</a>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="/tableview/generatebill">Generate Bill</a>
                                                                 </li>
-                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="../../tableview/cancelorder">Cancel Order</a>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="/tableview/cancelorder">Cancel Order</a>
                                                                 </li>
-                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="../../tableview/printkot">Print KOT</a>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="/tableview/printkot">Print KOT</a>
                                                                 </li>
-                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="../../tableview/printbill">Print Bill</a>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu1" href="/tableview/printbill">Print Bill</a>
                                                                 </li>
                                                             </ul>
                                                       
@@ -97,15 +97,15 @@ $sec = $this->fetch('sec');
 
                                                     <li  class="panel"><a href="#SubMenu2" class="sub-list" data-toggle="collapse" data-parent="#demo3">Takeaway <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
                                                         <ul class="submenu collapse" id="SubMenu2">
-                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="../../takeaway/placeorder">Place Order</a>                      
+                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="/takeaway/placeorder">Place Order</a>                      
                                                                 </li>
-                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="../../takeaway/generatebill">Generate Bill</a>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="/takeaway/generatebill">Generate Bill</a>
                                                                 </li>
-                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="../../takeaway/cancelorder">Cancel Order</a>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="/takeaway/cancelorder">Cancel Order</a>
                                                                 </li>
-                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="../../takeaway/printkot">Print KOT</a>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="/takeaway/printkot">Print KOT</a>
                                                                 </li>
-                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="../../takeaway/printbill">Print Bill</a>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu2" href="/takeaway/printbill">Print Bill</a>
                                                                 </li>
                                                            
                                                         </ul>
@@ -113,15 +113,15 @@ $sec = $this->fetch('sec');
 
                                                     <li class="panel"><a href="#SubMenu3" class="sub-list" data-toggle="collapse" data-parent="#demo3">Home-Delivery <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span> <i class="fa  fa-chevron-right fa-down-arrow1"></i></a>
                                                         <ul class="submenu collapse" id="SubMenu3">
-                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="../../delivery/placeorder">Place Order</a>                      
+                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="/delivery/placeorder">Place Order</a>                      
                                                                 </li>
-                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="../../delivery/generatebill">Generate Bill</a>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="/delivery/generatebill">Generate Bill</a>
                                                                 </li>
-                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="../../delivery/cancelorder">Cancel Order</a>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="/delivery/cancelorder">Cancel Order</a>
                                                                 </li>
-                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="../../delivery/printkot">Print KOT</a>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="/delivery/printkot">Print KOT</a>
                                                                 </li>
-                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="../../delivery/printbill">Print Bill</a>
+                                                                <li><a class="list-group-item" data-parent="#SubMenu3" href="/delivery/printbill">Print Bill</a>
                                                                 </li>
                                                             
                                                         </ul>
@@ -132,11 +132,11 @@ $sec = $this->fetch('sec');
 
                                         <li class="panel"> <a href="#demo4" class="main-list" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-cutlery"></i>Kitchen <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
                                           <ul class="submenu collapse " id="demo4">
-                                                    <li><a class="list-group-item" href="../menu">Menu</a>
+                                                    <li><a class="list-group-item" href="/menu">Menu</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../menucategory" >Menu Category</a>
+                                                    <li><a class="list-group-item" href="/menucategory" >Menu Category</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../kitchen/printers">Kitchen/Printers</a>
+                                                    <li><a class="list-group-item" href="/kitchen/printers">Kitchen/Printers</a>
                                                     </li>
                                                
                                             </ul>
@@ -145,7 +145,7 @@ $sec = $this->fetch('sec');
                                            <ul class="submenu collapse" id="inventory">
                                                     <li class="panel"><a href="#upload" class="sub-list" data-toggle="collapse" data-parent="#inventory">Stock Upload <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
                                                         <ul class="submenu collapse" id="upload">
-                                                                <li><a class="list-group-item" data-parent="#upload" href="../../inventory/materialstockupload">Material Stock Upload</a>                      
+                                                                <li><a class="list-group-item" data-parent="#upload" href="/inventory/materialstockupload">Material Stock Upload</a>                      
                                                                 </li>
                                                                 <!--  <li><a href="../../inventory/materialbrandstockupload">Material Brand Stock Upload</a>
                                                                   </li> -->
@@ -155,14 +155,14 @@ $sec = $this->fetch('sec');
                                                     </li>
                                                     <li class="panel"><a href="#modify" data-toggle="collapse"  class="sub-list" data-parent="#inventory">Stock Modification <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
                                                         <ul class="submenu collapse" id="modify">
-                                                                <li><a class="list-group-item" data-parent="#modify" href="../../inventory/materialstockmodification">Material Stock Modification</a>                      
+                                                                <li><a class="list-group-item" data-parent="#modify" href="/inventory/materialstockmodification">Material Stock Modification</a>                      
                                                                 </li>
                                                                 <!--   <li><a href="../../inventory/materialbrandstockmodification">Material Brand Stock Modification</a>
                                                                    </li> -->
                                                                 </ul>
 
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../stocktaking">Stock Taking</a>
+                                                    <li><a class="list-group-item" href="/stocktaking">Stock Taking</a>
                                                     </li>
                                                
                                             </ul>
@@ -170,27 +170,27 @@ $sec = $this->fetch('sec');
 
                                         <li class="panel"><a href="#report" class="main-list" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-bar-chart-o"></i>Reports<span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
                                              <ul class="submenu collapse" id="report">  
-                                                    <li><a class="list-group-item" href="../../reports/transactionreport">Transaction Report</a>
+                                                    <li><a class="list-group-item" href="/reports/transactionreport">Transaction Report</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../reports/orderleadtime">Order Lead Time Report</a>
+                                                    <li><a class="list-group-item" href="/reports/orderleadtime">Order Lead Time Report</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../reports/salesreport">Sales Report</a>
+                                                    <li><a class="list-group-item" href="/reports/salesreport">Sales Report</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../reports/salesforcast">Sales Forecast Report</a>
+                                                    <li><a class="list-group-item" href="/reports/salesforcast">Sales Forecast Report</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../reports/leadtineforcast">Lead Time Forecast Report</a>
+                                                    <li><a class="list-group-item" href="/reports/leadtineforcast">Lead Time Forecast Report</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../reports/favouratemenu">Favourite Menu Report</a>
+                                                    <li><a class="list-group-item" href="/reports/favouratemenu">Favorite Menu Report</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../reports/customerrushhour">Customer Rush Hours Report</a>
+                                                    <li><a class="list-group-item" href="/reports/customerrushhour">Customer Rush Hours Report</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../reports/perstawordssales">Per Stewards Sales Report</a>
+                                                    <li><a class="list-group-item" href="/reports/perstawordssales">Per Stewards Sales Report</a>
                                                     </li>
                                                     <!--  <li><a href="../../reports/stockavailability">Stock availability  Report</a>
                                                     </li> -->
-                                                    <li><a class="list-group-item" href="../../reports/stawordsperformance">Stewards Performance Report</a>
+                                                    <li><a class="list-group-item" href="/reports/stawordsperformance">Stewards Performance Report</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../inventory/materialrequisitionreport">Material Requisition  Report</a>
+                                                    <li><a class="list-group-item" href="/inventory/materialrequisitionreport">Material Requisition  Report</a>
                                                     </li>
                                                     <!-- <li><a href="../../inventory/materialbrandwiserequisitionreport">Brandwise material Requisition Report</a>
                                                    </li> -->
@@ -199,17 +199,17 @@ $sec = $this->fetch('sec');
                                         </li>
                                         <li class="panel"><a href="#manage" class="main-list" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-bug"></i>Manage Restaurant <span  class="fa fa-chevron-right fa-down-arrow  pull-right"></span></a>
                                            <ul class="submenu collapse" id="manage">   
-                                                    <li><a class="list-group-item" href="../../manage/edit">Edit Info</a>
+                                                    <li><a class="list-group-item" href="/manage/edit">Edit Info</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../manage/users">Users</a>
+                                                    <li><a class="list-group-item" href="/manage/users">Users</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../rtables">Manage Table</a>
+                                                    <li><a class="list-group-item" href="/rtables">Manage Table</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../tablecategory">Table Category</a>
+                                                    <li><a class="list-group-item" href="/tablecategory">Table Category</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../manage/devices">Devices</a>
+                                                    <li><a class="list-group-item" href="/manage/devices">Devices</a>
                                                     </li>
-                                                    <li><a class="list-group-item" href="../../manage/configuration">Configuration</a>
+                                                    <li><a class="list-group-item" href="/manage/configuration">Configuration</a>
                                                     </li>
                                                 
                                             </ul> 
@@ -262,9 +262,9 @@ $sec = $this->fetch('sec');
                                         <span class=" fa fa-angle-down"></span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-                                        <li><a href="../../manage/edit">  Profile</a>
+                                        <li><a href="/manage/edit">  Profile</a>
                                         </li>
-                                        <li><a href="../../logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                                        <li><a href="/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                                         </li>
                                     </ul>
                                 </li>

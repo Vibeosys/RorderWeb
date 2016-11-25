@@ -26,7 +26,7 @@ class UserTable extends Table {
     }
 
     public function getUser($restaurantId) {
-        $conditions = ['RestaurantId =' => $restaurantId,'Active' => ACTIVE];
+        $conditions = ['RestaurantId =' => $restaurantId, 'Active' => ACTIVE];
         $users = $this->connect()->find()->where($conditions);
         $count = $users->count();
         Log::debug('number of user present in database : ' . $count);
@@ -42,12 +42,39 @@ class UserTable extends Table {
                     $user->Password, 
                     $user->Active, 
                     $user->RoleId, 
-                    $user->RestaurantId,
+                    $user->RestaurantId, 
                     $user->Permissions);
             $result[$i] = $userDto;
             $i++;
         }
         return $result;
+    }
+
+    public function isValidManagerUser($userName, $password) {
+        $userId = 0;
+        $conditions = ['UserName' => $userName,
+            'Password' => $password,
+            //'RoleId' => 3,
+            'Active' => ACTIVE];
+        $fields = array('users.UserId');
+        $resultUsers = $this->connect()->find('all', array(
+            'conditions' => $conditions,
+            'fields' => $fields
+        ))->first();
+
+        if ($resultUsers) {
+            return $resultUsers->UserId;
+        }
+        return $userId;
+    }
+
+    public function getUserDetails($userId) {
+        $userDetails = $this->connect()->find('all', array(
+                    'conditions' => array('Active' => ACTIVE, 'UserId' => $userId),
+                    'fields' => array('UserId', 'UserName', 'Password', 'RestaurantId', 'Permissions')
+                ))->first();
+
+        return $userDetails;
     }
 
     public function isValid($id, $restaurantId) {
@@ -59,35 +86,32 @@ class UserTable extends Table {
 
     public function validateUserCredentials($userId, $password, $restaurantId) {
         $resultUser = $this->connect()->get($userId);
-        if($resultUser->Password == $password && $resultUser->RestaurantId == $restaurantId && $resultUser->Active == ACTIVE)
-        {
+        if ($resultUser->Password == $password && $resultUser->RestaurantId == $restaurantId && $resultUser->Active == ACTIVE) {
             return new UploadDTO\UserUploadDto(
-                    $resultUser->UserId,
-                    $resultUser->UserName,
-                    NULL,
-                    NULL,
-                    $resultUser->RoleId,
-                    $resultUser->RestaurantId
-                    );
-        }
-        else {
+                    $resultUser->UserId, 
+                    $resultUser->UserName, 
+                    NULL, NULL, 
+                    $resultUser->RoleId, 
+                    $resultUser->RestaurantId);
+        } else {
             return NULL;
         }
     }
+
     public function insert(DownloadDTO\UserDownloadDto $user) {
-        try{
+        try {
             $tableObj = $this->connect();
             $newUser = $tableObj->newEntity();
-            $newUser->UserId  = $user->userId;
-            $newUser->UserName  = $user->userName;
+            $newUser->UserId = $user->userId;
+            $newUser->UserName = $user->userName;
             $newUser->Password = $user->password;
-            $newUser->Active  = $user->active;
+            $newUser->Active = $user->active;
             $newUser->CreatedDate = date(VB_DATE_TIME_FORMAT);
             $newUser->UpdatedDate = date(VB_DATE_TIME_FORMAT);
             $newUser->RoleId = $user->roleId;
             $newUser->RestaurantId = $user->restaurantId;
             $newUser->Permissions = $user->permissions;
-            if($tableObj->save($newUser)){
+            if ($tableObj->save($newUser)) {
                 return TRUE;
             }
             return false;
@@ -95,7 +119,8 @@ class UserTable extends Table {
             return false;
         }
     }
-     public function getUserId() {
+
+    public function getUserId() {
         $conditions = array(
             'fields' => array('maxUserId' => 'MAX(users.UserId)'));
         $orderTableEntry = $this->connect()->find('all', $conditions)->toArray();
@@ -104,15 +129,15 @@ class UserTable extends Table {
             $maxUserId = $orderTableEntry[0]['maxUserId'];
         }
         Log::debug('max UserId is :- ' . $maxUserId);
-        if(!$maxUserId){
+        if (!$maxUserId) {
             $maxUserId = 100;
         }
         return $maxUserId;
     }
-    
+
     public function getNewUser($userId) {
         $conditions = ['UserId =' => $userId];
-         $users = $this->connect()->find()->where($conditions);
+        $users = $this->connect()->find()->where($conditions);
         $count = $users->count();
         if (!$count) {
             return 0;
@@ -125,14 +150,13 @@ class UserTable extends Table {
                     $user->Active, 
                     $user->RoleId, 
                     $user->RestaurantId);
-
         }
         return $userDto;
     }
-    
+
     public function getUserInfo($restaurantId, $userRole) {
-        $conditions = ['RestaurantId =' => $restaurantId,'RoleId =' => $userRole];
-         $users = $this->connect()->find()->where($conditions);
+        $conditions = ['RestaurantId =' => $restaurantId, 'RoleId =' => $userRole];
+        $users = $this->connect()->find()->where($conditions);
         $count = $users->count();
         if (!$count) {
             return 0;
@@ -145,7 +169,6 @@ class UserTable extends Table {
                     $user->Active, 
                     $user->RoleId, 
                     $user->RestaurantId);
-
         }
         return $userDto;
     }
