@@ -83,7 +83,6 @@ use Cake\Cache\Cache;
                           <?php }} ?>
                         </div>
                     </div>
-                                   
                 </section>
             </div><!-- /.box -->                       
         </div><!-- /.col -->

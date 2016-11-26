@@ -4500,3 +4500,51 @@ font-size: 1.2rem;
 		display: block;
 	}
 }
+
+#success-msg{
+    text-align: left;
+    display: inline-block;
+    margin: 0 auto;
+    position: relative;
+    color: #fff;
+    font-size: 14px;
+    border: 1px solid #0AA06E;
+    border-radius: 5px;
+    top: -9px;
+}
+#error-msg{
+    text-align: left;
+    display: inline-block;
+    margin: 0 auto;
+    position: relative;
+    color: #fff;
+    font-size: 14px;
+    border: 1px solid #AD0E0E;
+    border-radius: 5px;
+    top: -9px;
+}
+
+.error-icon, .success-icon{
+    width: 27px;
+}
+.error_left, .error_right, .success_left, .success_right{
+    display: inline-block;
+}
+.error_left, .success_left{
+    padding: 0px 3px 0px 6px;
+}
+ .error_right, .success_right{
+    padding: 10px;
+    border-radius: 0 4px 4px 0;
+}
+.error_right{
+    background-color: #F15249;
+}
+.success_right{
+
+    background-color: #32BA7C;
+
+}
+.modal-header .close-up{
+    float:right;
+}

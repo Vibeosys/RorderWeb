@@ -51,6 +51,14 @@
           <nav class="" role="navigation">
             <div class="nav logo">
              <?= $this->Html->image('quickserve-logo.png', ['class'=>'img-responsive', 'alt'=>'QuickServe'])?>
+              <div class="error-msg" id="error-msg" style="display:none;">
+                <div class="error_left">
+                <?= $this->Html->image('error-icon.png', ['class' => 'error-icon'])?>
+                </div>
+                <div class="error_right">
+                <span class="error_text"></span>
+                </div>
+            </div>
             </div>
 
             <ul class="nav navbar-nav navbar-right rest-align">
@@ -136,7 +144,12 @@
                      if(result1 && result2){
                      $(location).attr('href','reports');
                     }else{
-                        alert('Please enable cookie option.');
+                                $('#error-msg').css('display', 'inline-block!important;');
+                                $('#error-msg').removeAttr("style");
+                                $('.error_text').empty();
+                                 $('.error_text').append('Please enable cookie option.');
+                                $('#error-msg').fadeOut(10000);
+                                $('#error-msg').removeAttr("style");
                     }
                  });
            });

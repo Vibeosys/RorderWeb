@@ -432,14 +432,29 @@ $(document).ready(function() {
         processData:false, 
         success: function(result, jqXHR, textStatus){
           if(result.errorCode == 0){
-             alert('Success:'+result.message); 
+              $('#success-msg').css('display', 'inline-block!important;');
+              $('#success-msg').removeAttr("style");
+              $('.success_text').empty();
+              $('.success_text').append('Success:'+result.message); 
+              $('#success-msg').fadeOut(10000);
+              $('#success-msg').removeAttr("style");
              document.location.reload();
           }else{
-             alert('Error:'+result.message); 
+             $('#error-msg').css('display', 'inline-block!important;');
+             $('#error-msg').removeAttr("style");
+             $('.error_text').empty();
+             $('.error_text').append('Error:' + result.message);
+             $('#error-msg').fadeOut(10000);
+             $('#error-msg').removeAttr("style");
             }
          },
         error : function(jqXHR, textStatus, errorThrown) {
-                alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                $('#error-msg').css('display', 'inline-block!important;');
+                $('#error-msg').removeAttr("style");
+                $('.error_text').empty();
+                $('.error_text').append('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                $('#error-msg').fadeOut(10000);
+                $('#error-msg').removeAttr("style");
         }});
     });
       });

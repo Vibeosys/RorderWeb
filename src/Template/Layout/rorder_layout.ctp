@@ -232,11 +232,31 @@ $sec = $this->fetch('sec');
 
                     <div class="nav_menu">
                         <nav class="" role="navigation">
+                                    
                             <?= $this->Html->image('quickserve-logo.png', ['class' => 'sm-logo', 'style' => 'float:left;padding:10px;display:none;'])?>
                             
                             <div class="nav toggle">
                                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                                <h2 class="page-heading"><?= $this->fetch('heading')?></h2>
+                                <h2 class="page-heading"><?= $this->fetch('heading')?>
+                                    
+                                     <div class="success-msg" id="success-msg" style="display:none;">
+                                        <div class="success_left">
+                                         <?= $this->Html->image('success-icon.png', ['class' => 'success-icon'])?>
+                                        </div>
+                                        <div class="success_right">
+                                        <span class="success_text"></span>
+                                        </div>
+                                    </div>
+                                    <div class="error-msg" id="error-msg" style="display:none;">
+                                        <div class="error_left">
+                                         <?= $this->Html->image('error-icon.png', ['class' => 'error-icon'])?>
+                                        </div>
+                                        <div class="error_right">
+                                        <span class="error_text"></span>
+                                        </div>
+                                    </div>
+                                </h2>
+                            
                             </div>
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="mobile-hide">
@@ -350,6 +370,8 @@ $sec = $this->fetch('sec');
            ?>
             </div>
         </div>
+
+
         <script type="text/javascript">
             $(document).ready(function () {
                 $.post('/getcookie', {name: 'title'}, function (result) {

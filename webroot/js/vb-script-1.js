@@ -93,7 +93,7 @@ function payBill(billNo, userInfo, table, takeaway, delivery, cust, discount) {
             $('#discount').attr('disabled', 'disabled');
             $('#discount').val(discount);
         }
-        //alert('Pay Bill alert ' + billNo + ' UserInfo '+ userInfo);
+      
         $('.submitbtn').attr('onclick', 'javascript: makepayment(' + billNo + ',\'' + userInfo + '\',\'' + table + '\',\'' + takeaway + '\',\'' + delivery + '\',\'' + cust + '\')');
     });
 }
@@ -148,7 +148,13 @@ function perform(table, takwaway, delivery, discount, deliveryCharge) {
             $.post('/getlatestbill', {table: table, takeaway: takeaway, delivery: delivery}, function (result) {
                 if (result) {
                     if (result.errorCode) {
-                        alert(result.errorCode);
+                        $('#error-msg').css('display', 'inline-block!important;');
+                        $('#error-msg').removeAttr("style");
+                        $('.error_text').empty();
+                        $('.error_text').append(result.errorCode);
+                        $('#error-msg').fadeOut(10000);
+                        $('#error-msg').removeAttr("style");
+                   
                         if (result.errorCode == 104) {
                             window.location.replace('../../login');
                         } else {
@@ -185,7 +191,7 @@ function perform(table, takwaway, delivery, discount, deliveryCharge) {
                         var request = userInfo + ' "data": [{' +
                                 '"operation": "generateBill","operationData": {\"custId\":\"' + cust + '\",\"tableId\":' + table + ',\"takeawayNo\":' + takeaway + ',\"deliveryNo\":' + delivery + '}}]}';
                         $.post('/api/v1/upload', request, function (result1) {
-                            //alert('error received ' + result1.errorCode);
+                           
                             if (result1.errorCode > 0) {
                                 $.post('/setcookie', {name: 'bg_st_msg', value: result1.message}, function (result) {
                                 });
@@ -198,7 +204,7 @@ function perform(table, takwaway, delivery, discount, deliveryCharge) {
                                 }
                                 
                             } else {
-                                //alert('Result from Generate bill ' + result1);
+                                
                                 billNo = result1.data;
                                 $.post('/setcookie', {name: 'bg_billno', value: billNo}, function (result) {
                                 });
@@ -314,16 +320,34 @@ function perform(table, takwaway, delivery, discount, deliveryCharge) {
                                     }
                                     else{
                                         $('#table_heading').html(number);
+                                        $('#table_heading_h4').css('display','none');
                                     }
                                 } else {
-                                    alert('please contact on info@vibeosys.com');
+                                    $('#error-msg').css('display', 'inline-block!important;');
+                                $('#error-msg').removeAttr("style");
+                                $('.error_text').empty();
+                                 $('.error_text').append('please contact on info@vibeosys.com');
+                                $('#error-msg').fadeOut(10000);
+                                $('#error-msg').removeAttr("style");
+                                
                                 }
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
-                                alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                                     $('#error-msg').css('display', 'inline-block!important;');
+                            $('#error-msg').removeAttr("style");
+                            $('.error_text').empty();
+                             $('.error_text').append('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                            $('#error-msg').fadeOut(10000);
+                            $('#error-msg').removeAttr("style");
                             }});
                     } else {
-                        alert('please contact on info@vibeosys.com');
+                                $('#error-msg').css('display', 'inline-block!important;');
+                                $('#error-msg').removeAttr("style");
+                                $('.error_text').empty();
+                                 $('.error_text').append('please contact on info@vibeosys.com');
+                                $('#error-msg').fadeOut(10000);
+                                $('#error-msg').removeAttr("style");
+                                
                     }
                 });
             });
@@ -419,22 +443,46 @@ function perform(table, takwaway, delivery, discount, deliveryCharge) {
                                     }
                                     else{
                                         $('#table_heading').html(number);
+                                        $('#table_heading_h4').css('display','none');
                                     }
                                 } else {
-                                    alert('please contact on info@vibeosys.com');
+                                    $('#error-msg').css('display', 'inline-block!important;');
+                                $('#error-msg').removeAttr("style");
+                                $('.error_text').empty();
+                                 $('.error_text').append('please contact on info@vibeosys.com');
+                                $('#error-msg').fadeOut(10000);
+                                $('#error-msg').removeAttr("style");
+                                
                                 }
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
-                                alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                                 $('#error-msg').css('display', 'inline-block!important;');
+                            $('#error-msg').removeAttr("style");
+                            $('.error_text').empty();
+                             $('.error_text').append('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                            $('#error-msg').fadeOut(10000);
+                            $('#error-msg').removeAttr("style");
                             }});
                     } else {
-                        alert('please contact on info@vibeosys.com');
+                         $('#error-msg').css('display', 'inline-block!important;');
+                                $('#error-msg').removeAttr("style");
+                                $('.error_text').empty();
+                                 $('.error_text').append('please contact on info@vibeosys.com');
+                                $('#error-msg').fadeOut(10000);
+                                $('#error-msg').removeAttr("style");
+                                
                     }
                 });
             });
         });
     } else if (current_option === 'managetable') {
-        alert(current_option + table);
+         $('#error-msg').css('display', 'inline-block!important;');
+                            $('#error-msg').removeAttr("style");
+                            $('.error_text').empty();
+                             $('.error_text').append(current_option + table);
+                            $('#error-msg').fadeOut(10000);
+                            $('#error-msg').removeAttr("style");
+    
     } else if (current_option === 'printbill') {
 
         $.post('/setcookie', {name: 'cti', value: table}, function (result) {
@@ -505,14 +553,31 @@ function perform(table, takwaway, delivery, discount, deliveryCharge) {
                         $('#popup_list').html(result_html);
                         $('#table_heading').html(number);
                     } else {
-                        alert('please contact on info@vibeosys.com');
+                        $('#error-msg').css('display', 'inline-block!important;');
+                                $('#error-msg').removeAttr("style");
+                                $('.error_text').empty();
+                                 $('.error_text').append('please contact on info@vibeosys.com');
+                                $('#error-msg').fadeOut(10000);
+                                $('#error-msg').removeAttr("style");
+                                
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                  $('#error-msg').css('display', 'inline-block!important;');
+                            $('#error-msg').removeAttr("style");
+                            $('.error_text').empty();
+                             $('.error_text').append('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                            $('#error-msg').fadeOut(10000);
+                            $('#error-msg').removeAttr("style");
                 }});
         } else {
-            alert('please contact on info@vibeosys.com');
+             $('#error-msg').css('display', 'inline-block!important;');
+                                $('#error-msg').removeAttr("style");
+                                $('.error_text').empty();
+                                 $('.error_text').append('please contact on info@vibeosys.com');
+                                $('#error-msg').fadeOut(10000);
+                                $('#error-msg').removeAttr("style");
+                                
         }
 
     }
@@ -670,11 +735,15 @@ function cancelOrder(id, cono, ctno, ctkno, cdno, csb, cot) {
         });
     });
     //$('#parent_'+cono).remove();
-    //alert('Order has been canceled.');
     //create_note('Order has been canceled.','green','info');
 }
 function errorpopup() {
-    alert('Invalid option');
+         $('#error-msg').css('display', 'inline-block!important;');
+         $('#error-msg').removeAttr("style");
+         $('.error_text').empty();
+         $('.error_text').append('Error! Invalid option');
+         $('#error-msg').fadeOut(10000);
+         $('#error-msg').removeAttr("style");
     return false;
 }
 function cancelmyorder(id, cono) {

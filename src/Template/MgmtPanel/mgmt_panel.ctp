@@ -37,8 +37,17 @@ $this->layout = false;
                 <a href="mgmtpanel" class="logo">
                     <i class="qs-logo"><?= $this->Html->image('quickserve-logo.PNG', ['class' => 'qs-image','alt' => 'QUICK SERVE'])?></i>
                 </a>
+                
                 <!-- Header Navbar -->
                 <nav id="mgmt-nav"  class="navbar navbar-static-top" role="navigation">
+                     <div class="error-msg" id="error-msg" style="display:none;">
+                        <div class="error_left">
+                        <?= $this->Html->image('error-icon.png', ['class' => 'error-icon'])?>
+                        </div>
+                        <div class="error_right">
+                        <span class="error_text"></span>
+                        </div>
+                    </div>
                     <!-- Sidebar toggle button-->
                     <!--<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                         <span class="sr-only">Toggle navigation</span>
@@ -179,11 +188,23 @@ $this->layout = false;
                                     dataFormat: 'json',
                                     dataSource: result}).render();
                             } else {
-                                alert('Error..!Please contact on info@vibeosys.com');
+                                 $('#error-msg').css('display', 'inline-block!important;');
+                                $('#error-msg').removeAttr("style");
+                                $('.error_text').empty();
+                                 $('.error_text').append('Error..!Please contact on info@vibeosys.com');
+                                $('#error-msg').fadeOut(10000);
+                                $('#error-msg').removeAttr("style");
+                             
+                               
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                            $('#error-msg').css('display', 'inline-block!important;');
+                            $('#error-msg').removeAttr("style");
+                            $('.error_text').empty();
+                             $('.error_text').append('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                            $('#error-msg').fadeOut(10000);
+                            $('#error-msg').removeAttr("style");
                         }});
                     $.ajax({
                         url: "/customervisitreport?id=" + restId,
@@ -201,11 +222,24 @@ $this->layout = false;
                                     dataFormat: 'json',
                                     dataSource: result}).render();
                             } else {
-                                alert('Error..!Please contact on info@vibeosys.com');
+                                $('#error-msg').css('display', 'inline-block!important;');
+                                $('#error-msg').removeAttr("style");
+                                $('.error_text').empty();
+                                 $('.error_text').append('Error..!Please contact on info@vibeosys.com');
+                                $('#error-msg').fadeOut(10000);
+                                $('#error-msg').removeAttr("style");
+                             
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                            $('#error-msg').css('display', 'inline-block!important;');
+                            $('#error-msg').removeAttr("style");
+                            $('.error_text').empty();
+                             $('.error_text').append('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                            $('#error-msg').fadeOut(10000);
+                            $('#error-msg').removeAttr("style");
+                             
+                           
                         }});
 
                 });

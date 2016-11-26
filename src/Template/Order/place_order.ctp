@@ -254,6 +254,8 @@ $this->assign('title', 'Place an Order');
         </div>
     </div>
 </div> 
+
+
 <?= $this->start('placeorder_popup') ?>
 <div class='popup'>
     <div class='popup-inner'>
@@ -296,7 +298,7 @@ elseif ($takeawayNo) echo $takeawayNo; ?></h3>
     function increase(id) {
 
         $('.total_itm_span').text(++total_itm);
-        var no = $(".no_item_" + id).text();//alert(no);alert(id);
+        var no = $(".no_item_" + id).text();
         no = no.substring(0, no.length / 2);
         no++;
         var up = $('.up_' + id).val();
@@ -348,7 +350,7 @@ elseif ($takeawayNo) echo $takeawayNo; ?></h3>
             } else {
                 $.each(result, function (key, menu) {
                     var type = $('#type_' + menu.menuId).val();
-                    var img = "";//alert(type);
+                    var img = "";
                     if (type == 1) {
                         img = '/img/menu/veg_icon.jpg';
                     } else if (type == 2) {
@@ -365,17 +367,14 @@ elseif ($takeawayNo) echo $takeawayNo; ?></h3>
                             '<i class="fa fa-plus" aria-hidden="true"></i></button></div></div></li>';
                 });
             }
-            //alert(clas);
-            // alert(submenu);
             $(clas).html(submenu);
         });
     }
 
     function addsubmenu(idat) {
-        //alert(idat);
         var id = $('#' + idat).attr('myid');
-        var subid = $('#' + idat).attr('mysubid');//alert(subid);
-        var ch = '.up_' + id + '-'.subid;//alert(ch);
+        var subid = $('#' + idat).attr('mysubid');
+        var ch = '.up_' + id + '-'.subid;
         if ($('.up_' + id + '-' + subid).val()) {
             increase(id + '-' + subid);
             return;
@@ -437,7 +436,6 @@ elseif ($takeawayNo) echo $takeawayNo; ?></h3>
     });
 
     $(".btn-price").click(function () {
-        //alert('click');
         var id = $(this).attr('myid');
         if ($('.up_' + id).val()) {
             increase(id);
@@ -475,7 +473,12 @@ elseif ($takeawayNo) echo $takeawayNo; ?></h3>
     $(document).ready(function () {
         $('.place_my_order').on('click', function () {
             if (!$(".order-items").children().length) {
-                alert('Please select item to proceed.');
+                $('#error-msg').css('display', 'inline-block!important;');
+                $('#error-msg').removeAttr("style");
+                $('.error_text').empty();
+                 $('.error_text').append('Please select item to proceed.');
+                $('#error-msg').fadeOut(10000);
+                $('#error-msg').removeAttr("style");
                 return false;
             }
             var nochild = $(".order-items li").size() / 2;
@@ -515,16 +518,30 @@ elseif ($takeawayNo) echo $takeawayNo; ?></h3>
                 processData: false,
                 success: function (result, jqXHR, textStatus) {
                     if (result.errorCode == 0) {
-                        alert('Order has been placed.');
+                            $('#success-msg').css('display', 'inline-block!important;');
+                            $('#success-msg').removeAttr("style");
+                            $('.success_text').empty();
+                             $('.success_text').append('Order has been placed.');
+                            $('#success-msg').fadeOut(10000);
+                            $('#success-msg').removeAttr("style"); 
                         window.location.replace('../../tableview/printkot');
                     } else {
-                        alert('Error:' + result.message);
+                        $('#error-msg').css('display', 'inline-block!important;');
+                        $('#error-msg').removeAttr("style");
+                        $('.error_text').empty();
+                         $('.error_text').append('Error:' + result.message);
+                        $('#error-msg').fadeOut(10000);
+                        $('#error-msg').removeAttr("style");
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                        $('#error-msg').css('display', 'inline-block!important;');
+                        $('#error-msg').removeAttr("style");
+                        $('.error_text').empty();
+                         $('.error_text').append('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                        $('#error-msg').fadeOut(10000);
+                        $('#error-msg').removeAttr("style");
                 }});
-            //alert(request);
         });
 
         // to reserve table
@@ -547,7 +564,6 @@ elseif ($takeawayNo) echo $takeawayNo; ?></h3>
                 var data = [operation, operation1, operation2];
                 var request = {'user': user, 'data': data};
                 request = JSON.stringify(request);
-                // alert(request);
                 $.ajax({
                     url: "../../api/v1/upload",
                     type: "POST",
@@ -557,15 +573,30 @@ elseif ($takeawayNo) echo $takeawayNo; ?></h3>
                     processData: false,
                     success: function (result, jqXHR, textStatus) {
                         if (result.errorCode == 0) {
-                            alert('Success:' + result.message);
+                            $('#success-msg').css('display', 'inline-block!important;');
+                            $('#success-msg').removeAttr("style");
+                            $('.success_text').empty();
+                             $('.success_text').append('Success: ' + result.message);
+                            $('#success-msg').fadeOut(10000);
+                            $('#success-msg').removeAttr("style"); 
                             $('.popup').hide();
                             $('#overlayquick').remove();
                         } else {
-                            alert('Error:' + result.message);
+                        $('#error-msg').css('display', 'inline-block!important;');
+                        $('#error-msg').removeAttr("style");
+                        $('.error_text').empty();
+                         $('.error_text').append('Error:' + result.message);
+                        $('#error-msg').fadeOut(10000);
+                        $('#error-msg').removeAttr("style");
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        alert('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                         $('#error-msg').css('display', 'inline-block!important;');
+                        $('#error-msg').removeAttr("style");
+                        $('.error_text').empty();
+                         $('.error_text').append('An error occurred! ' + textStatus + jqXHR + errorThrown);
+                        $('#error-msg').fadeOut(10000);
+                        $('#error-msg').removeAttr("style");
                     }});
             });
         });
